@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-25T03:44:31.489Z</updated>
+  <updated>2017-01-25T04:41:40.768Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,14 +20,15 @@
     <link href="http://yoursite.com/2017/01/25/advanced_statistics/"/>
     <id>http://yoursite.com/2017/01/25/advanced_statistics/</id>
     <published>2017-01-25T03:38:25.113Z</published>
-    <updated>2017-01-25T03:44:31.489Z</updated>
+    <updated>2017-01-25T04:41:40.768Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Advanced-Statistics"><a href="#Advanced-Statistics" class="headerlink" title="Advanced Statistics"></a>Advanced Statistics</h1><h3 id="Transformations-of-Random-Variables"><a href="#Transformations-of-Random-Variables" class="headerlink" title="Transformations of Random Variables"></a>Transformations of Random Variables</h3><p>Let me set the example;<br><br>You have two independant random variables $X$ with pdf $f<em>{X}(x)$ and $Y$ with pdf $f</em>{Y}(y)$.<br><br>You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.<br><br><br><br>First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.<br><br>Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.<br><br>We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$.<br><br><br><br>Now, we use something called a <code>Jacobian</code>, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.<br><br>So the jacobian is:<br>$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}<br>\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \<br>\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}<br>\end{vmatrix}$$<br>We can then do the following:<br>$$f<em>{Z,W}=f</em>{X,Y}(w,w-Z)|J|$$<br>$$=f<em>{X}(w)f</em>{Y}(w-z) \cdot |J|$$<br>And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:<br>$$f<em>{Z}(z)=\int</em>{-\infty}^{\infty}f<em>{X}(w)f</em>{Y}(w-z)dw$$</p>
+    <content type="html"><![CDATA[<h1 id="Advanced-Statistics"><a href="#Advanced-Statistics" class="headerlink" title="Advanced Statistics"></a>Advanced Statistics</h1><h3 id="Transformations-of-Random-Variables"><a href="#Transformations-of-Random-Variables" class="headerlink" title="Transformations of Random Variables"></a>Transformations of Random Variables</h3><p>Let me set the example;<br>You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.<br>You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.<br><a id="more"></a><br>First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.<br>Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.<br>We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$.</p>
+<p>Now, we use something called a <code>Jacobian</code>, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.<br>So the jacobian is:<br>$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}<br>\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\<br>\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}<br>\end{vmatrix}$$<br>We can then do the following:<br>$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$<br>$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$<br>And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:<br>$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Advanced-Statistics&quot;&gt;&lt;a href=&quot;#Advanced-Statistics&quot; class=&quot;headerlink&quot; title=&quot;Advanced Statistics&quot;&gt;&lt;/a&gt;Advanced Statistics&lt;/h1&gt;&lt;h3 i
+      &lt;h1 id=&quot;Advanced-Statistics&quot;&gt;&lt;a href=&quot;#Advanced-Statistics&quot; class=&quot;headerlink&quot; title=&quot;Advanced Statistics&quot;&gt;&lt;/a&gt;Advanced Statistics&lt;/h1&gt;&lt;h3 id=&quot;Transformations-of-Random-Variables&quot;&gt;&lt;a href=&quot;#Transformations-of-Random-Variables&quot; class=&quot;headerlink&quot; title=&quot;Transformations of Random Variables&quot;&gt;&lt;/a&gt;Transformations of Random Variables&lt;/h3&gt;&lt;p&gt;Let me set the example;&lt;br&gt;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.&lt;br&gt;You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.&lt;br&gt;
     
     </summary>
     
@@ -45,13 +46,13 @@
     <link href="http://yoursite.com/2017/01/24/hello-world/"/>
     <id>http://yoursite.com/2017/01/24/hello-world/</id>
     <published>2017-01-24T10:36:25.943Z</published>
-    <updated>2017-01-24T14:59:05.173Z</updated>
+    <updated>2017-01-25T04:28:02.949Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<a id="more"></a>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
@@ -63,8 +64,6 @@
     
       &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ hexo server&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
