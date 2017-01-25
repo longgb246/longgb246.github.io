@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-24T14:59:05.173Z</updated>
+  <updated>2017-01-25T03:44:31.489Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Advanced Statistics</title>
+    <link href="http://yoursite.com/2017/01/25/advanced_statistics/"/>
+    <id>http://yoursite.com/2017/01/25/advanced_statistics/</id>
+    <published>2017-01-25T03:38:25.113Z</published>
+    <updated>2017-01-25T03:44:31.489Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Advanced-Statistics"><a href="#Advanced-Statistics" class="headerlink" title="Advanced Statistics"></a>Advanced Statistics</h1><h3 id="Transformations-of-Random-Variables"><a href="#Transformations-of-Random-Variables" class="headerlink" title="Transformations of Random Variables"></a>Transformations of Random Variables</h3><p>Let me set the example;<br><br>You have two independant random variables $X$ with pdf $f<em>{X}(x)$ and $Y$ with pdf $f</em>{Y}(y)$.<br><br>You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.<br><br><br><br>First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.<br><br>Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.<br><br>We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$.<br><br><br><br>Now, we use something called a <code>Jacobian</code>, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.<br><br>So the jacobian is:<br>$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}<br>\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \<br>\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}<br>\end{vmatrix}$$<br>We can then do the following:<br>$$f<em>{Z,W}=f</em>{X,Y}(w,w-Z)|J|$$<br>$$=f<em>{X}(w)f</em>{Y}(w-z) \cdot |J|$$<br>And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:<br>$$f<em>{Z}(z)=\int</em>{-\infty}^{\infty}f<em>{X}(w)f</em>{Y}(w-z)dw$$</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Advanced-Statistics&quot;&gt;&lt;a href=&quot;#Advanced-Statistics&quot; class=&quot;headerlink&quot; title=&quot;Advanced Statistics&quot;&gt;&lt;/a&gt;Advanced Statistics&lt;/h1&gt;&lt;h3 i
+    
+    </summary>
+    
+      <category term="统计理论" scheme="http://yoursite.com/categories/%E7%BB%9F%E8%AE%A1%E7%90%86%E8%AE%BA/"/>
+    
+    
+      <category term="start" scheme="http://yoursite.com/tags/start/"/>
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
