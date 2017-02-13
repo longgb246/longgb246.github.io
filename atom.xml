@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-13T02:35:59.774Z</updated>
+  <updated>2017-02-13T02:43:49.224Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,61 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>time 模块 时间格式</title>
+    <link href="http://yoursite.com/2017/02/13/python_pickle/"/>
+    <id>http://yoursite.com/2017/02/13/python_pickle/</id>
+    <published>2017-02-13T02:43:06.945Z</published>
+    <updated>2017-02-13T02:43:49.224Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用pickle模块将数据对象保存到文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import pickle</div><div class="line"> </div><div class="line">data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j],</div><div class="line">         &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;),</div><div class="line">         &apos;c&apos;: None&#125;</div><div class="line"> </div><div class="line">selfref_list = [1, 2, 3]</div><div class="line">selfref_list.append(selfref_list)</div><div class="line"> </div><div class="line">output = open(&apos;data.pkl&apos;, &apos;wb&apos;)</div><div class="line"> </div><div class="line"># Pickle dictionary using protocol 0.</div><div class="line">pickle.dump(data1, output)</div><div class="line"> </div><div class="line"># Pickle the list using the highest protocol available.</div><div class="line">pickle.dump(selfref_list, output, -1)</div><div class="line"> </div><div class="line">output.close()</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>使用pickle模块从文件中重构python对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import pprint, pickle</div><div class="line"> </div><div class="line">pkl_file = open(&apos;data.pkl&apos;, &apos;rb&apos;)</div><div class="line"> </div><div class="line">data1 = pickle.load(pkl_file)</div><div class="line">pprint.pprint(data1)</div><div class="line"> </div><div class="line">data2 = pickle.load(pkl_file)</div><div class="line">pprint.pprint(data2)</div><div class="line"> </div><div class="line">pkl_file.close()</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用pickle模块将数据对象保存到文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import pickle&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;data1 = &amp;#123;&amp;apos;a&amp;apos;: [1, 2.0, 3, 4+6j],&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;         &amp;apos;b&amp;apos;: (&amp;apos;string&amp;apos;, u&amp;apos;Unicode string&amp;apos;),&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;         &amp;apos;c&amp;apos;: None&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;selfref_list = [1, 2, 3]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;selfref_list.append(selfref_list)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;output = open(&amp;apos;data.pkl&amp;apos;, &amp;apos;wb&amp;apos;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;# Pickle dictionary using protocol 0.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;pickle.dump(data1, output)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;# Pickle the list using the highest protocol available.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;pickle.dump(selfref_list, output, -1)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;output.close()&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>time 模块 时间格式</title>
+    <link href="http://yoursite.com/2017/02/13/python_time/"/>
+    <id>http://yoursite.com/2017/02/13/python_time/</id>
+    <published>2017-02-13T02:39:29.118Z</published>
+    <updated>2017-02-13T02:43:00.221Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="1、sleep-seconds"><a href="#1、sleep-seconds" class="headerlink" title="1、sleep(seconds)"></a>1、sleep(seconds)</h4><p>线程推迟指定的时间运行，单位为秒<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">time.sleep(10)</div></pre></td></tr></table></figure></p>
+<h4 id="2、ctime-seconds-gt-string"><a href="#2、ctime-seconds-gt-string" class="headerlink" title="2、ctime(seconds) -&gt; string"></a>2、ctime(seconds) -&gt; string</h4><p>将一个时间戳(默认为当前时间)转换成一个时间字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time.ctime()</div><div class="line">&gt;&gt; &apos;Tue Nov 29 17:51:02 2016&apos;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h4 id="3、localtime-seconds-gt-tm-year-tm-mon-tm-day-tm-hour-tm-min-tm-sec-tm-wday-tm-yday-tm-isdst"><a href="#3、localtime-seconds-gt-tm-year-tm-mon-tm-day-tm-hour-tm-min-tm-sec-tm-wday-tm-yday-tm-isdst" class="headerlink" title="3、localtime([seconds]) -&gt; (tm_year,tm_mon,tm_day,tm_hour,tm_min,tm_sec,tm_wday,tm_yday,tm_isdst)"></a>3、localtime([seconds]) -&gt; (tm_year,tm_mon,tm_day,tm_hour,tm_min,tm_sec,tm_wday,tm_yday,tm_isdst)</h4><p>将一个时间戳转换成一个当前时区的struct_time，如果seconds参数未输入，则以当前时间为转换标准<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time.localtime(time.time())</div><div class="line">&gt;&gt; time.struct_time(tm_year=2016, tm_mon=11, tm_mday=29, tm_hour=17, tm_min=52, tm_sec=14, tm_wday=1, tm_yday=334, tm_isdst=0)</div></pre></td></tr></table></figure></p>
+<h4 id="4、strftime-format-tuple-gt-string"><a href="#4、strftime-format-tuple-gt-string" class="headerlink" title="4、strftime(format[, tuple]) -&gt; string"></a>4、strftime(format[, tuple]) -&gt; string</h4><p>将指定的struct_time(默认为当前时间)，根据指定的格式化字符串输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time.strftime(&apos;%Y-%m-%d_%H-%M-%S&apos;,time.localtime())</div><div class="line">&gt;&gt; &apos;2016-11-29_17-57-51&apos;</div></pre></td></tr></table></figure></p>
+<p>  python中时间日期格式化符号：<br>  %y 两位数的年份表示（00-99）<br>  %Y 四位数的年份表示（000-9999）<br>  %m 月份（01-12）<br>  %d 月内中的一天（0-31）<br>  %H 24小时制小时数（0-23）<br>  %I 12小时制小时数（01-12）<br>  %M 分钟数（00=59）<br>  %S 秒（00-59）<br>  %a 本地简化星期名称<br>  %A 本地完整星期名称<br>  %b 本地简化的月份名称<br>  %B 本地完整的月份名称<br>  %c 本地相应的日期表示和时间表示<br>  %j 年内的一天（001-366）<br>  %p 本地A.M.或P.M.的等价符<br>  %U 一年中的星期数（00-53）星期天为星期的开始<br>  %w 星期（0-6），星期天为星期的开始<br>  %W 一年中的星期数（00-53）星期一为星期的开始<br>  %x 本地相应的日期表示<br>  %X 本地相应的时间表示<br>  %Z 当前时区的名称<br>  %% %号本身 </p>
+<h4 id="5、strptime-string-format-gt-struct-time"><a href="#5、strptime-string-format-gt-struct-time" class="headerlink" title="5、strptime(string, format) -&gt; struct_time"></a>5、strptime(string, format) -&gt; struct_time</h4><p>将时间字符串根据指定的格式化符转换成数组形式的时间</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;1、sleep-seconds&quot;&gt;&lt;a href=&quot;#1、sleep-seconds&quot; class=&quot;headerlink&quot; title=&quot;1、sleep(seconds)&quot;&gt;&lt;/a&gt;1、sleep(seconds)&lt;/h4&gt;&lt;p&gt;线程推迟指定的时间运行，单位为秒&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;time.sleep(10)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;2、ctime-seconds-gt-string&quot;&gt;&lt;a href=&quot;#2、ctime-seconds-gt-string&quot; class=&quot;headerlink&quot; title=&quot;2、ctime(seconds) -&amp;gt; string&quot;&gt;&lt;/a&gt;2、ctime(seconds) -&amp;gt; string&lt;/h4&gt;&lt;p&gt;将一个时间戳(默认为当前时间)转换成一个时间字符串&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;time.ctime()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;&amp;gt; &amp;apos;Tue Nov 29 17:51:02 2016&amp;apos;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>例子</title>
