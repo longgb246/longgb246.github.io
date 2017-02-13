@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-13T02:28:47.586Z</updated>
+  <updated>2017-02-13T02:35:59.774Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,15 +16,74 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>例子</title>
+    <link href="http://yoursite.com/2017/02/13/hive_hadoop_example/"/>
+    <id>http://yoursite.com/2017/02/13/hive_hadoop_example/</id>
+    <published>2017-02-13T02:35:17.686Z</published>
+    <updated>2017-02-13T02:35:59.774Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE dev.tmp_check_sku_20161202</div><div class="line">AS</div><div class="line">SELECT</div><div class="line">    a.item_sku_id,</div><div class="line">    b.sku_id</div><div class="line">FROM</div><div class="line">    (SELECT item_sku_id,dt</div><div class="line">    FROM </div><div class="line">    gdm.gdm_m03_item_sku_da</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    AND sku_valid_flag=1) A</div><div class="line">    FULL OUTER JOIN</div><div class="line">    (SELECT sku_id,dt</div><div class="line">    FROM gdm.gdm_m08_item_stock_day_sum</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    ) B</div><div class="line">    ON  a.item_sku_id=b.sku_id</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-- 统计数据</div><div class="line">SELECT</div><div class="line">    CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END AS item_sku_cnt,</div><div class="line">    CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END AS sku_cnt,</div><div class="line">    count(1)</div><div class="line">FROM</div><div class="line">    dev.tmp_check_sku_20161202</div><div class="line">GROUP BY</div><div class="line">    CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END,</div><div class="line">    CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END</div><div class="line">-- 结果</div><div class="line">1    0    1    707489</div><div class="line">2    1    0    832084258</div><div class="line">3    1    1    81142196</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;CREATE TABLE dev.tmp_check_sku_20161202&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;AS&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;SELECT&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    a.item_sku_id,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    b.sku_id&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;FROM&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    (SELECT item_sku_id,dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FROM &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    gdm.gdm_m03_item_sku_da&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    WHERE dt= &amp;apos;2016-10-08&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    AND sku_valid_flag=1) A&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FULL OUTER JOIN&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    (SELECT sku_id,dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FROM gdm.gdm_m08_item_stock_day_sum&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    WHERE dt= &amp;apos;2016-10-08&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ) B&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ON  a.item_sku_id=b.sku_id&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Hive&amp;Hadoop" scheme="http://yoursite.com/categories/Hive-Hadoop/"/>
+    
+    
+      <category term="Hive" scheme="http://yoursite.com/tags/Hive/"/>
+    
+      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基本命令</title>
+    <link href="http://yoursite.com/2017/02/13/hive_hadoop_base/"/>
+    <id>http://yoursite.com/2017/02/13/hive_hadoop_base/</id>
+    <published>2017-02-13T02:33:13.947Z</published>
+    <updated>2017-02-13T02:34:48.701Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、设置动态分区"><a href="#1、设置动态分区" class="headerlink" title="1、设置动态分区"></a>1、设置动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.dynamic.partition=true;</div><div class="line">set hive.exec.dynamic.partition.mode=nonstrict;</div></pre></td></tr></table></figure>
+<h3 id="2、设置最大动态分区"><a href="#2、设置最大动态分区" class="headerlink" title="2、设置最大动态分区"></a>2、设置最大动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.max.dynamic.partitions=2000;</div><div class="line">set hive.exec.max.dynamic.partitions.pernode=2000;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="3、创建动态分区表"><a href="#3、创建动态分区表" class="headerlink" title="3、创建动态分区表"></a>3、创建动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE IF NOT EXISTS dev.dev_allocation_sale_data</div><div class="line">    (    org_dc_id         string,</div><div class="line">        sale_ord_det_id string,   </div><div class="line">        sale_ord_id string,       </div><div class="line">        parent_sale_ord_id string,</div><div class="line">        item_sku_id                string,        -- skuid</div><div class="line">        sale_qtty                  int,        -- 销售数量</div><div class="line">        sale_ord_tm                string,        -- 销售订单订购时间</div><div class="line">        sale_ord_type             string,        -- 订单配送类型</div><div class="line">        sale_ord_white_flag        string,         -- 是否包括白名单</div><div class="line">        item_third_cate_cd  string,   --sku所属三级分类</div><div class="line">        item_second_cate_cd  string,      --sku所属二级分类</div><div class="line">        shelves_dt  string, --上架日期</div><div class="line">    shelves_tm   string --上架时间</div><div class="line">    )</div><div class="line">    PARTITIONED by (date_s string,dc_id int);</div></pre></td></tr></table></figure>
+<h3 id="4、插入动态分区表"><a href="#4、插入动态分区表" class="headerlink" title="4、插入动态分区表"></a>4、插入动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">insert overwrite table dev.dev_allocation_sale_data partition(date_s,dc_id)</div><div class="line">select</div><div class="line">         a.org_dc_id,</div><div class="line">         case when b.sale_ord_id is not null then &apos;rdc&apos;</div><div class="line">         when c.sale_ord_id is not null then &apos;fdc_rdc&apos;    when d.sale_ord_id is not null    then &apos;fdc&apos; else &apos;other&apos; end,</div><div class="line">         d.white_flag,</div><div class="line">         a.item_third_cate_cd,</div><div class="line">         a.item_second_cate_cd,</div><div class="line">         a.shelves_dt,</div><div class="line">         a.shelves_tm,   </div><div class="line">         a.dt as date_s,</div><div class="line">         a.dc_id</div><div class="line">from</div><div class="line">        dev.tmp_allocation_order_data_mid01 a</div></pre></td></tr></table></figure>
+<h3 id="5、取出hive数据"><a href="#5、取出hive数据" class="headerlink" title="5、取出hive数据"></a>5、取出hive数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">INSERT OVERWRITE  LOCAL  DIRECTORY  &apos;/home/cmo_ipc/Allocation_shell/datasets/sku_datasets&apos; </div><div class="line">select * from dev.dev_allocation_fdc_data;</div></pre></td></tr></table></figure>
+<h3 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h3><p><a href="http://blog.csdn.net/kntao/article/details/38683645" target="_blank" rel="external">http://blog.csdn.net/kntao/article/details/38683645</a></p>
+<p><a href="http://blog.csdn.net/chenyi8888/article/details/8236726" target="_blank" rel="external">http://blog.csdn.net/chenyi8888/article/details/8236726</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、设置动态分区&quot;&gt;&lt;a href=&quot;#1、设置动态分区&quot; class=&quot;headerlink&quot; title=&quot;1、设置动态分区&quot;&gt;&lt;/a&gt;1、设置动态分区&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.dynamic.partition=true;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.dynamic.partition.mode=nonstrict;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;2、设置最大动态分区&quot;&gt;&lt;a href=&quot;#2、设置最大动态分区&quot; class=&quot;headerlink&quot; title=&quot;2、设置最大动态分区&quot;&gt;&lt;/a&gt;2、设置最大动态分区&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions=2000;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions.pernode=2000;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Hive&amp;Hadoop" scheme="http://yoursite.com/categories/Hive-Hadoop/"/>
+    
+    
+      <category term="Hive" scheme="http://yoursite.com/tags/Hive/"/>
+    
+      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
     <title>awk</title>
     <link href="http://yoursite.com/2017/02/13/linux_awk/"/>
     <id>http://yoursite.com/2017/02/13/linux_awk/</id>
     <published>2017-02-13T02:27:58.196Z</published>
-    <updated>2017-02-13T02:28:47.586Z</updated>
+    <updated>2017-02-13T02:31:14.921Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1、简单例子"><a href="#1、简单例子" class="headerlink" title="1、简单例子"></a>1、简单例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk  &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos;        # 这个不需要文件输入就可以</div></pre></td></tr></table></figure>
-<a id="more"></a>
 <p><code>awkscr</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/^$/ &#123;print &quot;This is a blank line&quot;&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>运行脚本文件<code>awkscr</code>对应于<code>test</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk -f awkscr test</div></pre></td></tr></table></figure></p>
 <p>例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo a b c d | awk &apos;&#123;one=1;two=2&#125;&#123;print $(one + two)&#125;&apos;</div></pre></td></tr></table></figure></p>
 <blockquote>
@@ -39,6 +98,7 @@
     <summary type="html">
     
       &lt;h3 id=&quot;1、简单例子&quot;&gt;&lt;a href=&quot;#1、简单例子&quot; class=&quot;headerlink&quot; title=&quot;1、简单例子&quot;&gt;&lt;/a&gt;1、简单例子&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;awkscr&lt;/code&gt;文件：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;/^$/ &amp;#123;print &amp;quot;This is a blank line&amp;quot;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
     
@@ -54,11 +114,11 @@
     <link href="http://yoursite.com/2017/02/13/linux_03_rzsz/"/>
     <id>http://yoursite.com/2017/02/13/linux_03_rzsz/</id>
     <published>2017-02-13T02:26:31.719Z</published>
-    <updated>2017-02-13T02:27:32.036Z</updated>
+    <updated>2017-02-13T02:31:24.537Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h3><h4 id="1、sz用法（下载）："><a href="#1、sz用法（下载）：" class="headerlink" title="1、sz用法（下载）："></a>1、sz用法（下载）：</h4><p>下载一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
 <p>下载多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename1 filename2</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>下载dir目录下的所有文件，不包含dir下的文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz dir/*</div></pre></td></tr></table></figure></p>
 <h4 id="2、rz用法（上传）："><a href="#2、rz用法（上传）：" class="headerlink" title="2、rz用法（上传）："></a>2、rz用法（上传）：</h4><p>输入rz回车后，会出现文件选择对话框，选择需要上传文件，一次可以指定多个文件，上传到服务器的路径为当前执行rz命令的目录。</p>
 ]]></content>
@@ -66,6 +126,7 @@
     <summary type="html">
     
       &lt;h3 id=&quot;Xshell&quot;&gt;&lt;a href=&quot;#Xshell&quot; class=&quot;headerlink&quot; title=&quot;Xshell&quot;&gt;&lt;/a&gt;Xshell&lt;/h3&gt;&lt;h4 id=&quot;1、sz用法（下载）：&quot;&gt;&lt;a href=&quot;#1、sz用法（下载）：&quot; class=&quot;headerlink&quot; title=&quot;1、sz用法（下载）：&quot;&gt;&lt;/a&gt;1、sz用法（下载）：&lt;/h4&gt;&lt;p&gt;下载一个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;下载多个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename1 filename2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
     

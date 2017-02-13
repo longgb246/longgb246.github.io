@@ -3,6 +3,20 @@
   
     
     <entry>
+      <title><![CDATA[例子]]></title>
+      <url>%2F2017%2F02%2F13%2Fhive_hadoop_example%2F</url>
+      <content type="text"><![CDATA[1234567891011121314151617CREATE TABLE dev.tmp_check_sku_20161202ASSELECT a.item_sku_id, b.sku_idFROM (SELECT item_sku_id,dt FROM gdm.gdm_m03_item_sku_da WHERE dt= &apos;2016-10-08&apos; AND sku_valid_flag=1) A FULL OUTER JOIN (SELECT sku_id,dt FROM gdm.gdm_m08_item_stock_day_sum WHERE dt= &apos;2016-10-08&apos; ) B ON a.item_sku_id=b.sku_id 1234567891011121314-- 统计数据SELECT CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END AS item_sku_cnt, CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END AS sku_cnt, count(1)FROM dev.tmp_check_sku_20161202GROUP BY CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END, CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END-- 结果1 0 1 7074892 1 0 8320842583 1 1 81142196]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[基本命令]]></title>
+      <url>%2F2017%2F02%2F13%2Fhive_hadoop_base%2F</url>
+      <content type="text"><![CDATA[1、设置动态分区12set hive.exec.dynamic.partition=true;set hive.exec.dynamic.partition.mode=nonstrict; 2、设置最大动态分区12set hive.exec.max.dynamic.partitions=2000;set hive.exec.max.dynamic.partitions.pernode=2000; 3、创建动态分区表12345678910111213141516CREATE TABLE IF NOT EXISTS dev.dev_allocation_sale_data ( org_dc_id string, sale_ord_det_id string, sale_ord_id string, parent_sale_ord_id string, item_sku_id string, -- skuid sale_qtty int, -- 销售数量 sale_ord_tm string, -- 销售订单订购时间 sale_ord_type string, -- 订单配送类型 sale_ord_white_flag string, -- 是否包括白名单 item_third_cate_cd string, --sku所属三级分类 item_second_cate_cd string, --sku所属二级分类 shelves_dt string, --上架日期 shelves_tm string --上架时间 ) PARTITIONED by (date_s string,dc_id int); 4、插入动态分区表1234567891011121314insert overwrite table dev.dev_allocation_sale_data partition(date_s,dc_id)select a.org_dc_id, case when b.sale_ord_id is not null then &apos;rdc&apos; when c.sale_ord_id is not null then &apos;fdc_rdc&apos; when d.sale_ord_id is not null then &apos;fdc&apos; else &apos;other&apos; end, d.white_flag, a.item_third_cate_cd, a.item_second_cate_cd, a.shelves_dt, a.shelves_tm, a.dt as date_s, a.dc_idfrom dev.tmp_allocation_order_data_mid01 a 5、取出hive数据12INSERT OVERWRITE LOCAL DIRECTORY &apos;/home/cmo_ipc/Allocation_shell/datasets/sku_datasets&apos; select * from dev.dev_allocation_fdc_data; 动态分区http://blog.csdn.net/kntao/article/details/38683645 http://blog.csdn.net/chenyi8888/article/details/8236726]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[awk]]></title>
       <url>%2F2017%2F02%2F13%2Flinux_awk%2F</url>
       <content type="text"><![CDATA[1、简单例子1awk &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos; # 这个不需要文件输入就可以 awkscr文件：1/^$/ &#123;print &quot;This is a blank line&quot;&#125; 运行脚本文件awkscr对应于test文件：1awk -f awkscr test 例子1echo a b c d | awk &apos;&#123;one=1;two=2&#125;&#123;print $(one + two)&#125;&apos; -F “\t” ：表示分隔符为\tFS：表示分隔符 灵活指定分隔符，正则指定1234BEGIN &#123;FS=&quot;,&quot;&#125;&#123;print $1 &quot;,&quot; $6&#125; # 使用，为分隔符FS=&quot;\t&quot; # 指定一个 tab 为分隔符FS=&quot;\t+&quot; # 指定一个以上的 tab 为分隔符【正则】FS=&quot;[&apos;:\t]&quot; # 指定&apos;、:、 tab 中任何一个为分隔符 2、模式匹配123awk &apos;/^$/ &#123;print &quot;This is a blank line&quot;&#125;&apos; testawk &apos;/[0-9]/ &#123;print &quot;This is a blank line&quot;&#125;&apos; testawk &apos;/[A-Za-z]/ &#123;print &quot;This is a blank line&quot;&#125;&apos; test http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html http://awk.readthedocs.io/en/latest/chapter-one.html]]></content>

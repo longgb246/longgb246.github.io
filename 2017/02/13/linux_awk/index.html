@@ -86,16 +86,19 @@
 
 
 
-<meta name="description" content="1、简单例子1awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以">
+<meta name="description" content="1、简单例子1awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以
+awkscr文件：1/^$/ &amp;#123;print &amp;quot;This is a blank line&amp;quot;&amp;#125;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="awk">
 <meta property="og:url" content="http://yoursite.com/2017/02/13/linux_awk/index.html">
 <meta property="og:site_name" content="longgb246的博客">
-<meta property="og:description" content="1、简单例子1awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以">
-<meta property="og:updated_time" content="2017-02-13T02:28:47.586Z">
+<meta property="og:description" content="1、简单例子1awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以
+awkscr文件：1/^$/ &amp;#123;print &amp;quot;This is a blank line&amp;quot;&amp;#125;">
+<meta property="og:updated_time" content="2017-02-13T02:31:14.921Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="awk">
-<meta name="twitter:description" content="1、简单例子1awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以">
+<meta name="twitter:description" content="1、简单例子1awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以
+awkscr文件：1/^$/ &amp;#123;print &amp;quot;This is a blank line&amp;quot;&amp;#125;">
 
 
 
@@ -408,8 +411,8 @@
 
       
         <h3 id="1、简单例子"><a href="#1、简单例子" class="headerlink" title="1、简单例子"></a>1、简单例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk  &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos;        # 这个不需要文件输入就可以</div></pre></td></tr></table></figure>
-<a id="more"></a>
 <p><code>awkscr</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/^$/ &#123;print &quot;This is a blank line&quot;&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>运行脚本文件<code>awkscr</code>对应于<code>test</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk -f awkscr test</div></pre></td></tr></table></figure></p>
 <p>例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo a b c d | awk &apos;&#123;one=1;two=2&#125;&#123;print $(one + two)&#125;&apos;</div></pre></td></tr></table></figure></p>
 <blockquote>
@@ -481,6 +484,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/13/hive_hadoop_base/" rel="prev" title="基本命令">
+                基本命令 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -573,7 +580,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -582,7 +589,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -591,7 +598,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

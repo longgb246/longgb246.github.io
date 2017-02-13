@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux," />
+  <meta name="keywords" content="Hive,Hadoop," />
 
 
 
@@ -86,16 +86,19 @@
 
 
 
-<meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637# uname -a # 查看内核/操作系统/CPU信息# head -n 1 /etc/issue # 查看操作系统版本# cat /proc/cpuinfo # 查看CPU信息# hostname # 查看计算机名# lspci -tv # 列出所有PCI设备# l">
+<meta name="description" content="1、设置动态分区12set hive.exec.dynamic.partition=true;set hive.exec.dynamic.partition.mode=nonstrict;
+2、设置最大动态分区12set hive.exec.max.dynamic.partitions=2000;set hive.exec.max.dynamic.partitions.pernode=2000;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux 查看系统信息命令(比较全)">
-<meta property="og:url" content="http://yoursite.com/2017/02/13/linux_02_com/index.html">
+<meta property="og:title" content="基本命令">
+<meta property="og:url" content="http://yoursite.com/2017/02/13/hive_hadoop_base/index.html">
 <meta property="og:site_name" content="longgb246的博客">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637# uname -a # 查看内核/操作系统/CPU信息# head -n 1 /etc/issue # 查看操作系统版本# cat /proc/cpuinfo # 查看CPU信息# hostname # 查看计算机名# lspci -tv # 列出所有PCI设备# l">
-<meta property="og:updated_time" content="2017-02-13T01:33:13.116Z">
+<meta property="og:description" content="1、设置动态分区12set hive.exec.dynamic.partition=true;set hive.exec.dynamic.partition.mode=nonstrict;
+2、设置最大动态分区12set hive.exec.max.dynamic.partitions=2000;set hive.exec.max.dynamic.partitions.pernode=2000;">
+<meta property="og:updated_time" content="2017-02-13T02:34:48.701Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux 查看系统信息命令(比较全)">
-<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637# uname -a # 查看内核/操作系统/CPU信息# head -n 1 /etc/issue # 查看操作系统版本# cat /proc/cpuinfo # 查看CPU信息# hostname # 查看计算机名# lspci -tv # 列出所有PCI设备# l">
+<meta name="twitter:title" content="基本命令">
+<meta name="twitter:description" content="1、设置动态分区12set hive.exec.dynamic.partition=true;set hive.exec.dynamic.partition.mode=nonstrict;
+2、设置最大动态分区12set hive.exec.max.dynamic.partitions=2000;set hive.exec.max.dynamic.partitions.pernode=2000;">
 
 
 
@@ -123,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/13/linux_02_com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/13/hive_hadoop_base/"/>
 
 
 
 
 
-  <title> linux 查看系统信息命令(比较全) | longgb246的博客 </title>
+  <title> 基本命令 | longgb246的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -295,7 +298,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/13/linux_02_com/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/13/hive_hadoop_base/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="龙广斌">
@@ -319,7 +322,7 @@
             
             
               
-                linux 查看系统信息命令(比较全)
+                基本命令
               
             
           </h1>
@@ -334,7 +337,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-13T09:31:55+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-13T10:33:13+08:00">
                 2017-02-13
               </time>
             
@@ -357,8 +360,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Hive-Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive&Hadoop</span>
                   </a>
                 </span>
 
@@ -375,8 +378,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/13/linux_02_com/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/13/linux_02_com/" itemprop="commentCount"></span>
+                <a href="/2017/02/13/hive_hadoop_base/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/13/hive_hadoop_base/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,7 +410,15 @@
       
 
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"># uname -a # 查看内核/操作系统/CPU信息</div><div class="line"># head -n 1 /etc/issue # 查看操作系统版本</div><div class="line"># cat /proc/cpuinfo # 查看CPU信息</div><div class="line"># hostname # 查看计算机名</div><div class="line"># lspci -tv # 列出所有PCI设备</div><div class="line"># lsusb -tv # 列出所有USB设备</div><div class="line"># lsmod # 列出加载的内核模块</div><div class="line"># env # 查看环境变量资源</div><div class="line"># free -m # 查看内存使用量和交换区使用量</div><div class="line"># df -h # 查看各分区使用情况</div><div class="line"># du -sh &lt;目录名&gt; # 查看指定目录的大小</div><div class="line"># grep MemTotal /proc/meminfo # 查看内存总量</div><div class="line"># grep MemFree /proc/meminfo # 查看空闲内存量</div><div class="line"># uptime # 查看系统运行时间、用户数、负载</div><div class="line"># cat /proc/loadavg # 查看系统负载磁盘和分区</div><div class="line"># mount | column -t # 查看挂接的分区状态</div><div class="line"># fdisk -l # 查看所有分区</div><div class="line"># swapon -s # 查看所有交换分区</div><div class="line"># hdparm -i /dev/hda # 查看磁盘参数(仅适用于IDE设备)</div><div class="line"># dmesg | grep IDE # 查看启动时IDE设备检测状况网络</div><div class="line"># ifconfig # 查看所有网络接口的属性</div><div class="line"># iptables -L # 查看防火墙设置</div><div class="line"># route -n # 查看路由表</div><div class="line"># netstat -lntp # 查看所有监听端口</div><div class="line"># netstat -antp # 查看所有已经建立的连接</div><div class="line"># netstat -s # 查看网络统计信息进程</div><div class="line"># ps -ef # 查看所有进程</div><div class="line"># top # 实时显示进程状态用户</div><div class="line"># w # 查看活动用户</div><div class="line"># id &lt;用户名&gt; # 查看指定用户信息</div><div class="line"># last # 查看用户登录日志</div><div class="line"># cut -d: -f1 /etc/passwd # 查看系统所有用户</div><div class="line"># cut -d: -f1 /etc/group # 查看系统所有组</div><div class="line"># crontab -l # 查看当前用户的计划任务服务</div><div class="line"># chkconfig –list # 列出所有系统服务</div><div class="line"># chkconfig –list | grep on # 列出所有启动的系统服务程序</div><div class="line"># rpm -qa # 查看所有安装的软件包</div></pre></td></tr></table></figure>
+        <h3 id="1、设置动态分区"><a href="#1、设置动态分区" class="headerlink" title="1、设置动态分区"></a>1、设置动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.dynamic.partition=true;</div><div class="line">set hive.exec.dynamic.partition.mode=nonstrict;</div></pre></td></tr></table></figure>
+<h3 id="2、设置最大动态分区"><a href="#2、设置最大动态分区" class="headerlink" title="2、设置最大动态分区"></a>2、设置最大动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.max.dynamic.partitions=2000;</div><div class="line">set hive.exec.max.dynamic.partitions.pernode=2000;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="3、创建动态分区表"><a href="#3、创建动态分区表" class="headerlink" title="3、创建动态分区表"></a>3、创建动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE IF NOT EXISTS dev.dev_allocation_sale_data</div><div class="line">    (    org_dc_id         string,</div><div class="line">        sale_ord_det_id string,   </div><div class="line">        sale_ord_id string,       </div><div class="line">        parent_sale_ord_id string,</div><div class="line">        item_sku_id                string,        -- skuid</div><div class="line">        sale_qtty                  int,        -- 销售数量</div><div class="line">        sale_ord_tm                string,        -- 销售订单订购时间</div><div class="line">        sale_ord_type             string,        -- 订单配送类型</div><div class="line">        sale_ord_white_flag        string,         -- 是否包括白名单</div><div class="line">        item_third_cate_cd  string,   --sku所属三级分类</div><div class="line">        item_second_cate_cd  string,      --sku所属二级分类</div><div class="line">        shelves_dt  string, --上架日期</div><div class="line">    shelves_tm   string --上架时间</div><div class="line">    )</div><div class="line">    PARTITIONED by (date_s string,dc_id int);</div></pre></td></tr></table></figure>
+<h3 id="4、插入动态分区表"><a href="#4、插入动态分区表" class="headerlink" title="4、插入动态分区表"></a>4、插入动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">insert overwrite table dev.dev_allocation_sale_data partition(date_s,dc_id)</div><div class="line">select</div><div class="line">         a.org_dc_id,</div><div class="line">         case when b.sale_ord_id is not null then &apos;rdc&apos;</div><div class="line">         when c.sale_ord_id is not null then &apos;fdc_rdc&apos;    when d.sale_ord_id is not null    then &apos;fdc&apos; else &apos;other&apos; end,</div><div class="line">         d.white_flag,</div><div class="line">         a.item_third_cate_cd,</div><div class="line">         a.item_second_cate_cd,</div><div class="line">         a.shelves_dt,</div><div class="line">         a.shelves_tm,   </div><div class="line">         a.dt as date_s,</div><div class="line">         a.dc_id</div><div class="line">from</div><div class="line">        dev.tmp_allocation_order_data_mid01 a</div></pre></td></tr></table></figure>
+<h3 id="5、取出hive数据"><a href="#5、取出hive数据" class="headerlink" title="5、取出hive数据"></a>5、取出hive数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">INSERT OVERWRITE  LOCAL  DIRECTORY  &apos;/home/cmo_ipc/Allocation_shell/datasets/sku_datasets&apos; </div><div class="line">select * from dev.dev_allocation_fdc_data;</div></pre></td></tr></table></figure>
+<h3 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h3><p><a href="http://blog.csdn.net/kntao/article/details/38683645" target="_blank" rel="external">http://blog.csdn.net/kntao/article/details/38683645</a></p>
+<p><a href="http://blog.csdn.net/chenyi8888/article/details/8236726" target="_blank" rel="external">http://blog.csdn.net/chenyi8888/article/details/8236726</a></p>
+
       
     </div>
 
@@ -451,7 +462,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/Hive/" rel="tag"># Hive</a>
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
           
         </div>
       
@@ -460,8 +473,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/13/linux_01_base/" rel="next" title="一些常用命令">
-                <i class="fa fa-chevron-left"></i> 一些常用命令
+              <a href="/2017/02/13/linux_awk/" rel="next" title="awk">
+                <i class="fa fa-chevron-left"></i> awk
               </a>
             
           </div>
@@ -470,8 +483,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/13/linux_03_rzsz/" rel="prev" title="sz-rz-文件传输">
-                sz-rz-文件传输 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/13/hive_hadoop_example/" rel="prev" title="例子">
+                例子 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -487,10 +500,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/02/13/linux_02_com/"
-     data-title="linux 查看系统信息命令(比较全)"
+        <div class="ds-share flat" data-thread-key="2017/02/13/hive_hadoop_base/"
+     data-title="基本命令"
      data-content=""
-     data-url="http://yoursite.com/2017/02/13/linux_02_com/">
+     data-url="http://yoursite.com/2017/02/13/hive_hadoop_base/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -517,8 +530,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/02/13/linux_02_com/"
-           data-title="linux 查看系统信息命令(比较全)" data-url="http://yoursite.com/2017/02/13/linux_02_com/">
+      <div class="ds-thread" data-thread-key="2017/02/13/hive_hadoop_base/"
+           data-title="基本命令" data-url="http://yoursite.com/2017/02/13/hive_hadoop_base/">
       </div>
     
   </div>
@@ -542,8 +555,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -640,6 +662,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、设置动态分区"><span class="nav-number">1.</span> <span class="nav-text">1、设置动态分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、设置最大动态分区"><span class="nav-number">2.</span> <span class="nav-text">2、设置最大动态分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、创建动态分区表"><span class="nav-number">3.</span> <span class="nav-text">3、创建动态分区表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、插入动态分区表"><span class="nav-number">4.</span> <span class="nav-text">4、插入动态分区表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、取出hive数据"><span class="nav-number">5.</span> <span class="nav-text">5、取出hive数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态分区"><span class="nav-number">6.</span> <span class="nav-text">动态分区</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
