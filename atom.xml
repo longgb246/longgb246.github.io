@@ -121,33 +121,6 @@
   </entry>
   
   <entry>
-    <title>virtualenv 模块 虚拟环境</title>
-    <link href="http://yoursite.com/2017/02/13/python_virtualenv/"/>
-    <id>http://yoursite.com/2017/02/13/python_virtualenv/</id>
-    <published>2017-02-13T02:56:25.571Z</published>
-    <updated>2017-02-13T02:58:04.385Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、安装virtualenv"><a href="#1、安装virtualenv" class="headerlink" title="1、安装virtualenv"></a>1、安装virtualenv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div></pre></td></tr></table></figure>
-<h3 id="2、进入到某个文件夹"><a href="#2、进入到某个文件夹" class="headerlink" title="2、进入到某个文件夹"></a>2、进入到某个文件夹</h3><h6 id="创建纯净python2环境"><a href="#创建纯净python2环境" class="headerlink" title="创建纯净python2环境"></a>创建纯净python2环境</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir workspace</div><div class="line">cd workspace</div><div class="line">virtualenv python2</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>或者使用pycharm，也可以生成虚拟环境，不用的时候，直接删除文件就可以了。<br>进入虚拟环境后，pip安装时独立的，不会影响。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1、安装virtualenv&quot;&gt;&lt;a href=&quot;#1、安装virtualenv&quot; class=&quot;headerlink&quot; title=&quot;1、安装virtualenv&quot;&gt;&lt;/a&gt;1、安装virtualenv&lt;/h3&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;pip install virtualenv&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;2、进入到某个文件夹&quot;&gt;&lt;a href=&quot;#2、进入到某个文件夹&quot; class=&quot;headerlink&quot; title=&quot;2、进入到某个文件夹&quot;&gt;&lt;/a&gt;2、进入到某个文件夹&lt;/h3&gt;&lt;h6 id=&quot;创建纯净python2环境&quot;&gt;&lt;a href=&quot;#创建纯净python2环境&quot; class=&quot;headerlink&quot; title=&quot;创建纯净python2环境&quot;&gt;&lt;/a&gt;创建纯净python2环境&lt;/h6&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mkdir workspace&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;cd workspace&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;virtualenv python2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
     <title>chardet 模块 编码检测</title>
     <link href="http://yoursite.com/2017/02/13/python_chardet/"/>
     <id>http://yoursite.com/2017/02/13/python_chardet/</id>
@@ -165,6 +138,33 @@
     <summary type="html">
     
       &lt;h3 id=&quot;一、基本用法&quot;&gt;&lt;a href=&quot;#一、基本用法&quot; class=&quot;headerlink&quot; title=&quot;一、基本用法&quot;&gt;&lt;/a&gt;一、基本用法&lt;/h3&gt;&lt;h4 id=&quot;使用detect函数&quot;&gt;&lt;a href=&quot;#使用detect函数&quot; class=&quot;headerlink&quot; title=&quot;使用detect函数&quot;&gt;&lt;/a&gt;使用&lt;code&gt;detect&lt;/code&gt;函数&lt;/h4&gt;&lt;p&gt;输入字符串，输出检测的编码和置信度。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import urllib&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;rawdata = urllib.urlopen(&amp;apos;http://yahoo.co.jp/&amp;apos;).read()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import chardet&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;chardet.detect(rawdata)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[out] &amp;#123;&amp;apos;encoding&amp;apos;: &amp;apos;EUC-JP&amp;apos;, &amp;apos;confidence&amp;apos;: 0.99&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>virtualenv 模块 虚拟环境</title>
+    <link href="http://yoursite.com/2017/02/13/python_virtualenv/"/>
+    <id>http://yoursite.com/2017/02/13/python_virtualenv/</id>
+    <published>2017-02-13T02:56:25.571Z</published>
+    <updated>2017-02-13T02:58:04.385Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、安装virtualenv"><a href="#1、安装virtualenv" class="headerlink" title="1、安装virtualenv"></a>1、安装virtualenv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div></pre></td></tr></table></figure>
+<h3 id="2、进入到某个文件夹"><a href="#2、进入到某个文件夹" class="headerlink" title="2、进入到某个文件夹"></a>2、进入到某个文件夹</h3><h6 id="创建纯净python2环境"><a href="#创建纯净python2环境" class="headerlink" title="创建纯净python2环境"></a>创建纯净python2环境</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir workspace</div><div class="line">cd workspace</div><div class="line">virtualenv python2</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>或者使用pycharm，也可以生成虚拟环境，不用的时候，直接删除文件就可以了。<br>进入虚拟环境后，pip安装时独立的，不会影响。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、安装virtualenv&quot;&gt;&lt;a href=&quot;#1、安装virtualenv&quot; class=&quot;headerlink&quot; title=&quot;1、安装virtualenv&quot;&gt;&lt;/a&gt;1、安装virtualenv&lt;/h3&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;pip install virtualenv&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;2、进入到某个文件夹&quot;&gt;&lt;a href=&quot;#2、进入到某个文件夹&quot; class=&quot;headerlink&quot; title=&quot;2、进入到某个文件夹&quot;&gt;&lt;/a&gt;2、进入到某个文件夹&lt;/h3&gt;&lt;h6 id=&quot;创建纯净python2环境&quot;&gt;&lt;a href=&quot;#创建纯净python2环境&quot; class=&quot;headerlink&quot; title=&quot;创建纯净python2环境&quot;&gt;&lt;/a&gt;创建纯净python2环境&lt;/h6&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mkdir workspace&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;cd workspace&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;virtualenv python2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     

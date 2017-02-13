@@ -24,16 +24,16 @@
 
     
     <entry>
-      <title><![CDATA[virtualenv 模块 虚拟环境]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_virtualenv%2F</url>
-      <content type="text"><![CDATA[1、安装virtualenv1pip install virtualenv 2、进入到某个文件夹创建纯净python2环境123mkdir workspacecd workspacevirtualenv python2 或者使用pycharm，也可以生成虚拟环境，不用的时候，直接删除文件就可以了。进入虚拟环境后，pip安装时独立的，不会影响。]]></content>
+      <title><![CDATA[chardet 模块 编码检测]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_chardet%2F</url>
+      <content type="text"><![CDATA[一、基本用法使用detect函数输入字符串，输出检测的编码和置信度。123456import urllibrawdata = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;).read()import chardetchardet.detect(rawdata)[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 二、高级用法处理大量文本，增量式的检测。12345678910111213import urllibfrom chardet.universaldetector import UniversalDetectorusock = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;)detector = UniversalDetector()for line in usock.readlines(): detector.feed(line) if detector.done: breakdetector.close()usock.close()print detector.result[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 使用UniversalDetector()检测器，.feed（）添加检测文本，增量检测的时候，如果达到最小阈值，则.done的值为True。使用.close()关闭，.result为结果。 123456789101112import globfrom chardet.universaldetector import UniversalDetectordetector = UniversalDetector()for filename in glob.glob(&apos;*.xml&apos;): print filename.ljust(60), detector.reset() for line in file(filename, &apos;rb&apos;): detector.feed(line) if detector.done: break detector.close() print detector.result .reset()为UniversalDetector()检测器的重用。]]></content>
     </entry>
 
     
     <entry>
-      <title><![CDATA[chardet 模块 编码检测]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_chardet%2F</url>
-      <content type="text"><![CDATA[一、基本用法使用detect函数输入字符串，输出检测的编码和置信度。123456import urllibrawdata = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;).read()import chardetchardet.detect(rawdata)[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 二、高级用法处理大量文本，增量式的检测。12345678910111213import urllibfrom chardet.universaldetector import UniversalDetectorusock = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;)detector = UniversalDetector()for line in usock.readlines(): detector.feed(line) if detector.done: breakdetector.close()usock.close()print detector.result[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 使用UniversalDetector()检测器，.feed（）添加检测文本，增量检测的时候，如果达到最小阈值，则.done的值为True。使用.close()关闭，.result为结果。 123456789101112import globfrom chardet.universaldetector import UniversalDetectordetector = UniversalDetector()for filename in glob.glob(&apos;*.xml&apos;): print filename.ljust(60), detector.reset() for line in file(filename, &apos;rb&apos;): detector.feed(line) if detector.done: break detector.close() print detector.result .reset()为UniversalDetector()检测器的重用。]]></content>
+      <title><![CDATA[virtualenv 模块 虚拟环境]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_virtualenv%2F</url>
+      <content type="text"><![CDATA[1、安装virtualenv1pip install virtualenv 2、进入到某个文件夹创建纯净python2环境123mkdir workspacecd workspacevirtualenv python2 或者使用pycharm，也可以生成虚拟环境，不用的时候，直接删除文件就可以了。进入虚拟环境后，pip安装时独立的，不会影响。]]></content>
     </entry>
 
     
