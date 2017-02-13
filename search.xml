@@ -3,6 +3,55 @@
   
     
     <entry>
+      <title><![CDATA[matplotlib 使用中文]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_matplotlib_Chinese%2F</url>
+      <content type="text"><![CDATA[一、颜色调整绿色：#6AB27B土色：#a27712浅紫色：#8172B2蓝色：#4C72B0红色：#C44E52 二、使用中文123from pylab import mplmpl.rcParams[&apos;font.sans-serif&apos;] = [&apos;SimHei&apos;] # 使用中文mpl.rcParams[&apos;axes.unicode_minus&apos;] = False # 解决负号问题]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[matplotlib 画图风格]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_matplotlib_style%2F</url>
+      <content type="text"><![CDATA[123import matplotlib.style as mstyleprint mstyle.availableplt.style.use(&apos;seaborn-darkgrid&apos;) 可选风格：seaborn-darkgridseaborn-notebookclassicseaborn-ticksgrayscalebmhseaborn-talkdark_backgroundggplotfivethirtyeightseaborn-colorblindseaborn-deepseaborn-whitegridseaborn-brightseaborn-posterseaborn-mutedseaborn-paperseaborn-whiteseaborn-pastelseaborn-darkseaborn-dark-palette]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[python-dcox 模块 生成Word、docx文件]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_python-dcox%2F</url>
+      <content type="text"><![CDATA[http://python-docx.readthedocs.io/en/latest/index.html生成word的利器！ 一、快速开始12from docx import Documentdocument = Document() 1、段落加一个段落，下面paragraph是前面内容的光标指向，后面再该处插入一句话。12paragraph = document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;)prior_paragraph = paragraph.insert_paragraph_before(&apos;Lorem ipsum&apos;) 后面加一句话12paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)paragraph.add_run(&apos;dolor sit amet.&apos;) 添加段落风格1document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;, style=&apos;ListBullet&apos;) 使用blod、italic 等等12345paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)run = paragraph.add_run(&apos;dolor&apos;)run.bold = Truerun.italic = Trueparagraph.add_run(&apos;dolor&apos;).bold = True 2、标题level表示标题的大小1document.add_heading(&apos;The role of dolphins&apos;, level=2) 3、分页1document.add_page_break() 4、表格1table = document.add_table(rows=2, cols=2) 访问方法：取出来，单独赋值12cell = table.cell(0, 1)cell.text = &apos;parrot, possibly dead&apos; 依然使用二维数组类似的索引。123row = table.rows[1]row.cells[0].text = &apos;Foo bar to you.&apos;row.cells[1].text = &apos;And a hearty foo bar to you too sir!&apos; 分清楚结构123for row in table.rows: for cell in row.cells: print(cell.text) 查看信息12row_count = len(table.rows)col_count = len(table.columns) 添加一行1row = table.add_row() 动态添加表格123456789101112table = document.add_table(1, 3)# 标题heading_cells = table.rows[0].cellsheading_cells[0].text = &apos;Qty&apos;heading_cells[1].text = &apos;SKU&apos;heading_cells[2].text = &apos;Description&apos;# 添加内容for item in items: cells = table.add_row().cells cells[0].text = str(item.column1) cells[1].text = item.column2 cells[2].text = item.column3 5、添加图片12from docx.shared import Inchesdocument.add_picture(&apos;image-filename.png&apos;, width=Inches(1.25), height=Inches(1.25)) 二、操作document只能打开07之后的，会覆盖。12document = Document(&apos;existing-document-file.docx&apos;)document.save(&apos;new-file-name.docx&apos;) 打开文件1234567891011f = open(&apos;foobar.docx&apos;, &apos;rb&apos;)document = Document(f)f.close()# orwith open(&apos;foobar.docx&apos;, &apos;rb&apos;) as f: source_stream = StringIO(f.read())document = Document(source_stream)source_stream.close()...target_stream = StringIO()document.save(target_stream) 三、操作text段落居中12345from docx.enum.text import WD_ALIGN_PARAGRAPHdocument = Document()paragraph = document.add_paragraph()paragraph_format = paragraph.paragraph_formatparagraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER 左边整体缩进1234from docx.shared import Inchesparagraph = document.add_paragraph()paragraph_format = paragraph.paragraph_formatparagraph_format.left_indent = Inches(0.5) 右边整体缩进12from docx.shared import Ptparagraph_format.right_indent = Pt(24) 首行缩进1paragraph_format.first_line_indent = Inches(-0.25) 从字体调节，字体大小123456run = document.add_paragraph().add_run()font = run.fontfrom docx.shared import Ptfont.size = Pt(10.5) # 5号字体font.italic = Truefont.underline = True 字体颜色12from docx.shared import RGBColorfont.color.rgb = RGBColor(0x42, 0x24, 0xE9)]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[virtualenv 模块 虚拟环境]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_virtualenv%2F</url>
+      <content type="text"><![CDATA[1、安装virtualenv1pip install virtualenv 2、进入到某个文件夹创建纯净python2环境123mkdir workspacecd workspacevirtualenv python2 或者使用pycharm，也可以生成虚拟环境，不用的时候，直接删除文件就可以了。进入虚拟环境后，pip安装时独立的，不会影响。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[chardet 模块 编码检测]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_chardet%2F</url>
+      <content type="text"><![CDATA[一、基本用法使用detect函数输入字符串，输出检测的编码和置信度。123456import urllibrawdata = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;).read()import chardetchardet.detect(rawdata)[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 二、高级用法处理大量文本，增量式的检测。12345678910111213import urllibfrom chardet.universaldetector import UniversalDetectorusock = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;)detector = UniversalDetector()for line in usock.readlines(): detector.feed(line) if detector.done: breakdetector.close()usock.close()print detector.result[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 使用UniversalDetector()检测器，.feed（）添加检测文本，增量检测的时候，如果达到最小阈值，则.done的值为True。使用.close()关闭，.result为结果。 123456789101112import globfrom chardet.universaldetector import UniversalDetectordetector = UniversalDetector()for filename in glob.glob(&apos;*.xml&apos;): print filename.ljust(60), detector.reset() for line in file(filename, &apos;rb&apos;): detector.feed(line) if detector.done: break detector.close() print detector.result .reset()为UniversalDetector()检测器的重用。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[ANSII码和进制转换]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_ANSII%2F</url>
+      <content type="text"><![CDATA[一、进制转换bin()：其他进制数值 —&gt; 二进制字符串123[10=&gt;2]: bin(10) [8 =&gt;2]: bin(012) [16=&gt;2]: bin(0xa) oct()：其他进制数值 —&gt; 八进制字符串123[10=&gt;8]: oct(10) [2 =&gt;8]: oct(0b1010) [16=&gt;8]: oct(0xa) int()：其他进制数值 —&gt; 十进制字符串123[2=&gt;10]: int(0b1010) 、int(&quot;1010&quot;,2)、int(&quot;0b1010&quot;,2) [8=&gt;10]: int(012) 、int(&quot;12&quot;,8)、int(&quot;012&quot;,8) [16=&gt;10]: int(0xa)、int(&quot;0xa&quot;,16)、int(&quot;a&quot;,16) hex()：其他进制数值 —&gt; 十六进制字符串123[2 =&gt;16]: hex(0b1010)[8 =&gt;16]: hex(012) [10=&gt;16]: hex(10) 二、ASCII码转换chr(int)：整型 转 ASCII码1chr(97) ord(chr)：ASCII码 转 整型1ord(&quot;a&quot;) 三、位运算左移运算符（&lt;&lt;）右移运算符（&gt;&gt;）按位与（&amp;）按位或（|）按位翻转（～）按位异或（^）]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[os/sys 模块 python操作文件路径]]></title>
+      <url>%2F2017%2F02%2F13%2Fpython_os_sys%2F</url>
+      <content type="text"><![CDATA[当前路径：123# -*- coding: utf-8 -*-import sys, ospwd = sys.path[0] # 获取当前执行脚本的位置 参数： `file`：当前文件完整路径，包括文件名 os.path.dirname(file): 某个文件所在的目录路径 os.path.join(a, b, c,….): 路径构造 a/b/c os.path.abspath(path): 将path从相对路径转成绝对路径 os.pardir: Linux下相当于”../“，上一级目录的标志 1os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)) 搜索当前文件的前n__file__ = r’D:\Lgb\ipc_inv_opt\src\com\jd\pbs\analysis\test.py’运行uppath(4)定位到 r’D:\Lgb\ipc_inv_opt\src’[analysis]-pbs-jd-com-src1234def uppath(n=1): if n == 0: return os.path.abspath(os.path.dirname(__file__)) return os.path.abspath(os.path.join(os.path.dirname(__file__), (os.pardir + os.sep) * (n - 1) + os.pardir)) 1、判断文件夹存在12if os.path.exists(total_path) == False: os.mkdir(total_path) 2、添加当前目录到 import 的路径中，当前目录需要有init12sys.path.append(os.path.dirname(__file__))sys.path.append(os.path.dirname(os.path.dirname(__file__))) os.listdir() # 列出dirname下的目录和文件os.sep # 可以取代操作系统特定的路径分割符。os.name # 字符串指示你正在使用的平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’。os.getcwd() # 函数得到当前工作目录，即当前Python脚本工作的目录路径。os.getenv()和os.putenv() # 函数分别用来读取和设置环境变量。os.listdir() # 返回指定目录下的所有文件和目录名。os.remove() # 函数用来删除一个文件。os.system() # 函数用来运行shell命令。os.linesep # 字符串给出当前平台使用的行终止符。例如，Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’。os.curdir # 返回但前目录（’.’)os.chdir(dirname) # 改变工作目录到dirnameos.path.isdir(name) # 判断name是不是一个目录，name不是目录就返回falseos.path.isfile(name) # 判断name是不是一个文件，不存在name也返回falseos.path.exists(name) # 判断是否存在文件或目录nameos.path.getsize(name) # 获得文件大小，如果name是目录返回0Los.path.abspath(name) # 获得绝对路径os.path.normpath(path) # 规范path字符串形式os.path.split(name) # 分割文件名与目录（事实上，如果你完全使用目录，它也会将最后一个目录作为文件名而分离，同时它不会判断文件或目录是否存在）os.path.splitext() # 分离文件名与扩展名os.path.join(path,name) # 连接目录与文件名或目录os.path.basename(path) # 返回文件名os.path.dirname(path) # 返回文件路径 3、python读取文件方法一、这种为一行一行去读12for line in open(&quot;foo.txt&quot;): print line, 方法二、这种为读取全部文件，然后在一行一行的去读1234f = open(&quot;c:\\1.txt&quot;,&quot;r&quot;) lines = f.readlines()#读取全部内容 for line in lines print line]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[pickle 模块 序列化]]></title>
       <url>%2F2017%2F02%2F13%2Fpython_pickle%2F</url>
       <content type="text"><![CDATA[使用pickle模块将数据对象保存到文件123456789101112131415161718import pickle data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j], &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;), &apos;c&apos;: None&#125; selfref_list = [1, 2, 3]selfref_list.append(selfref_list) output = open(&apos;data.pkl&apos;, &apos;wb&apos;) # Pickle dictionary using protocol 0.pickle.dump(data1, output) # Pickle the list using the highest protocol available.pickle.dump(selfref_list, output, -1) output.close() 使用pickle模块从文件中重构python对象1234567891011import pprint, pickle pkl_file = open(&apos;data.pkl&apos;, &apos;rb&apos;) data1 = pickle.load(pkl_file)pprint.pprint(data1) data2 = pickle.load(pkl_file)pprint.pprint(data2) pkl_file.close()]]></content>

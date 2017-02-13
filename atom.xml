@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-13T02:45:18.869Z</updated>
+  <updated>2017-02-13T03:05:40.785Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,246 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>matplotlib 使用中文</title>
+    <link href="http://yoursite.com/2017/02/13/python_matplotlib_Chinese/"/>
+    <id>http://yoursite.com/2017/02/13/python_matplotlib_Chinese/</id>
+    <published>2017-02-13T02:56:27.140Z</published>
+    <updated>2017-02-13T03:05:40.785Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、颜色调整"><a href="#一、颜色调整" class="headerlink" title="一、颜色调整"></a>一、颜色调整</h3><p>绿色：#6AB27B<br>土色：#a27712<br>浅紫色：#8172B2<br>蓝色：#4C72B0<br>红色：#C44E52</p>
+<h3 id="二、使用中文"><a href="#二、使用中文" class="headerlink" title="二、使用中文"></a>二、使用中文</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from pylab import mpl</div><div class="line">mpl.rcParams[&apos;font.sans-serif&apos;] = [&apos;SimHei&apos;]        # 使用中文</div><div class="line">mpl.rcParams[&apos;axes.unicode_minus&apos;] = False    # 解决负号问题</div></pre></td></tr></table></figure>
+<a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、颜色调整&quot;&gt;&lt;a href=&quot;#一、颜色调整&quot; class=&quot;headerlink&quot; title=&quot;一、颜色调整&quot;&gt;&lt;/a&gt;一、颜色调整&lt;/h3&gt;&lt;p&gt;绿色：#6AB27B&lt;br&gt;土色：#a27712&lt;br&gt;浅紫色：#8172B2&lt;br&gt;蓝色：#4C72B0&lt;br&gt;红色：#C44E52&lt;/p&gt;
+&lt;h3 id=&quot;二、使用中文&quot;&gt;&lt;a href=&quot;#二、使用中文&quot; class=&quot;headerlink&quot; title=&quot;二、使用中文&quot;&gt;&lt;/a&gt;二、使用中文&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;from pylab import mpl&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;mpl.rcParams[&amp;apos;font.sans-serif&amp;apos;] = [&amp;apos;SimHei&amp;apos;]        # 使用中文&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;mpl.rcParams[&amp;apos;axes.unicode_minus&amp;apos;] = False    # 解决负号问题&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="matplotlib" scheme="http://yoursite.com/tags/matplotlib/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>matplotlib 画图风格</title>
+    <link href="http://yoursite.com/2017/02/13/python_matplotlib_style/"/>
+    <id>http://yoursite.com/2017/02/13/python_matplotlib_style/</id>
+    <published>2017-02-13T02:56:27.086Z</published>
+    <updated>2017-02-13T03:05:49.429Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import matplotlib.style as mstyle</div><div class="line">print mstyle.available</div><div class="line">plt.style.use(&apos;seaborn-darkgrid&apos;)</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><br></p>
+<blockquote>
+<h3 id="可选风格："><a href="#可选风格：" class="headerlink" title="可选风格："></a>可选风格：</h3><p>seaborn-darkgrid<br>seaborn-notebook<br>classic<br>seaborn-ticks<br>grayscale<br>bmh<br>seaborn-talk<br>dark_background<br>ggplot<br>fivethirtyeight<br>seaborn-colorblind<br>seaborn-deep<br>seaborn-whitegrid<br>seaborn-bright<br>seaborn-poster<br>seaborn-muted<br>seaborn-paper<br>seaborn-white<br>seaborn-pastel<br>seaborn-dark<br>seaborn-dark-palette</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.style as mstyle&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print mstyle.available&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;plt.style.use(&amp;apos;seaborn-darkgrid&amp;apos;)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="matplotlib" scheme="http://yoursite.com/tags/matplotlib/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python-dcox 模块 生成Word、docx文件</title>
+    <link href="http://yoursite.com/2017/02/13/python_python-dcox/"/>
+    <id>http://yoursite.com/2017/02/13/python_python-dcox/</id>
+    <published>2017-02-13T02:56:26.369Z</published>
+    <updated>2017-02-13T02:59:08.282Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://python-docx.readthedocs.io/en/latest/index.html" target="_blank" rel="external">http://python-docx.readthedocs.io/en/latest/index.html</a><br>生成word的利器！</p>
+<h2 id="一、快速开始"><a href="#一、快速开始" class="headerlink" title="一、快速开始"></a>一、快速开始</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx import Document</div><div class="line">document = Document()</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="1、段落"><a href="#1、段落" class="headerlink" title="1、段落"></a>1、段落</h4><p>加一个段落，下面<code>paragraph</code>是前面内容的光标指向，后面再该处插入一句话。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">paragraph = document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;)</div><div class="line">prior_paragraph = paragraph.insert_paragraph_before(&apos;Lorem ipsum&apos;)</div></pre></td></tr></table></figure></p>
+<p>后面加一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)</div><div class="line">paragraph.add_run(&apos;dolor sit amet.&apos;)</div></pre></td></tr></table></figure></p>
+<p>添加段落风格<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;, style=&apos;ListBullet&apos;)</div></pre></td></tr></table></figure></p>
+<p>使用blod、italic 等等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)</div><div class="line">run = paragraph.add_run(&apos;dolor&apos;)</div><div class="line">run.bold = True</div><div class="line">run.italic = True</div><div class="line">paragraph.add_run(&apos;dolor&apos;).bold = True</div></pre></td></tr></table></figure></p>
+<h4 id="2、标题"><a href="#2、标题" class="headerlink" title="2、标题"></a>2、标题</h4><p><code>level</code>表示标题的大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.add_heading(&apos;The role of dolphins&apos;, level=2)</div></pre></td></tr></table></figure></p>
+<h4 id="3、分页"><a href="#3、分页" class="headerlink" title="3、分页"></a>3、分页</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.add_page_break()</div></pre></td></tr></table></figure>
+<h4 id="4、表格"><a href="#4、表格" class="headerlink" title="4、表格"></a>4、表格</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">table = document.add_table(rows=2, cols=2)</div></pre></td></tr></table></figure>
+<h6 id="访问方法："><a href="#访问方法：" class="headerlink" title="访问方法："></a>访问方法：</h6><p>取出来，单独赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cell = table.cell(0, 1)</div><div class="line">cell.text = &apos;parrot, possibly dead&apos;</div></pre></td></tr></table></figure></p>
+<p>依然使用二维数组类似的索引。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">row = table.rows[1]</div><div class="line">row.cells[0].text = &apos;Foo bar to you.&apos;</div><div class="line">row.cells[1].text = &apos;And a hearty foo bar to you too sir!&apos;</div></pre></td></tr></table></figure></p>
+<p>分清楚结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for row in table.rows:</div><div class="line">    for cell in row.cells:</div><div class="line">        print(cell.text)</div></pre></td></tr></table></figure></p>
+<p>查看信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">row_count = len(table.rows)</div><div class="line">col_count = len(table.columns)</div></pre></td></tr></table></figure></p>
+<h6 id="添加一行"><a href="#添加一行" class="headerlink" title="添加一行"></a>添加一行</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">row = table.add_row()</div></pre></td></tr></table></figure>
+<h6 id="动态添加表格"><a href="#动态添加表格" class="headerlink" title="动态添加表格"></a>动态添加表格</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">table = document.add_table(1, 3)</div><div class="line"># 标题</div><div class="line">heading_cells = table.rows[0].cells</div><div class="line">heading_cells[0].text = &apos;Qty&apos;</div><div class="line">heading_cells[1].text = &apos;SKU&apos;</div><div class="line">heading_cells[2].text = &apos;Description&apos;</div><div class="line"># 添加内容</div><div class="line">for item in items:</div><div class="line">    cells = table.add_row().cells</div><div class="line">    cells[0].text = str(item.column1)</div><div class="line">    cells[1].text = item.column2</div><div class="line">    cells[2].text = item.column3</div></pre></td></tr></table></figure>
+<h4 id="5、添加图片"><a href="#5、添加图片" class="headerlink" title="5、添加图片"></a>5、添加图片</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx.shared import Inches</div><div class="line">document.add_picture(&apos;image-filename.png&apos;, width=Inches(1.25), height=Inches(1.25))</div></pre></td></tr></table></figure>
+<h2 id="二、操作document"><a href="#二、操作document" class="headerlink" title="二、操作document"></a>二、操作document</h2><p>只能打开07之后的，会覆盖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">document = Document(&apos;existing-document-file.docx&apos;)</div><div class="line">document.save(&apos;new-file-name.docx&apos;)</div></pre></td></tr></table></figure></p>
+<p>打开文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">f = open(&apos;foobar.docx&apos;, &apos;rb&apos;)</div><div class="line">document = Document(f)</div><div class="line">f.close()</div><div class="line"># or</div><div class="line">with open(&apos;foobar.docx&apos;, &apos;rb&apos;) as f:</div><div class="line">    source_stream = StringIO(f.read())</div><div class="line">document = Document(source_stream)</div><div class="line">source_stream.close()</div><div class="line">...</div><div class="line">target_stream = StringIO()</div><div class="line">document.save(target_stream)</div></pre></td></tr></table></figure></p>
+<h2 id="三、操作text"><a href="#三、操作text" class="headerlink" title="三、操作text"></a>三、操作text</h2><p>段落居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from docx.enum.text import WD_ALIGN_PARAGRAPH</div><div class="line">document = Document()</div><div class="line">paragraph = document.add_paragraph()</div><div class="line">paragraph_format = paragraph.paragraph_format</div><div class="line">paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER</div></pre></td></tr></table></figure></p>
+<p>左边整体缩进<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from docx.shared import Inches</div><div class="line">paragraph = document.add_paragraph()</div><div class="line">paragraph_format = paragraph.paragraph_format</div><div class="line">paragraph_format.left_indent = Inches(0.5)</div></pre></td></tr></table></figure></p>
+<p>右边整体缩进<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx.shared import Pt</div><div class="line">paragraph_format.right_indent = Pt(24)</div></pre></td></tr></table></figure></p>
+<p>首行缩进<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">paragraph_format.first_line_indent = Inches(-0.25)</div></pre></td></tr></table></figure></p>
+<p>从字体调节，字体大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">run = document.add_paragraph().add_run()</div><div class="line">font = run.font</div><div class="line">from docx.shared import Pt</div><div class="line">font.size = Pt(10.5)  # 5号字体</div><div class="line">font.italic = True</div><div class="line">font.underline = True</div></pre></td></tr></table></figure></p>
+<p>字体颜色<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx.shared import RGBColor</div><div class="line">font.color.rgb = RGBColor(0x42, 0x24, 0xE9)</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://python-docx.readthedocs.io/en/latest/index.html&quot;&gt;http://python-docx.readthedocs.io/en/latest/index.html&lt;/a&gt;&lt;br&gt;生成word的利器！&lt;/p&gt;
+&lt;h2 id=&quot;一、快速开始&quot;&gt;&lt;a href=&quot;#一、快速开始&quot; class=&quot;headerlink&quot; title=&quot;一、快速开始&quot;&gt;&lt;/a&gt;一、快速开始&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;from docx import Document&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;document = Document()&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>virtualenv 模块 虚拟环境</title>
+    <link href="http://yoursite.com/2017/02/13/python_virtualenv/"/>
+    <id>http://yoursite.com/2017/02/13/python_virtualenv/</id>
+    <published>2017-02-13T02:56:25.571Z</published>
+    <updated>2017-02-13T02:58:04.385Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、安装virtualenv"><a href="#1、安装virtualenv" class="headerlink" title="1、安装virtualenv"></a>1、安装virtualenv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div></pre></td></tr></table></figure>
+<h3 id="2、进入到某个文件夹"><a href="#2、进入到某个文件夹" class="headerlink" title="2、进入到某个文件夹"></a>2、进入到某个文件夹</h3><h6 id="创建纯净python2环境"><a href="#创建纯净python2环境" class="headerlink" title="创建纯净python2环境"></a>创建纯净python2环境</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir workspace</div><div class="line">cd workspace</div><div class="line">virtualenv python2</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>或者使用pycharm，也可以生成虚拟环境，不用的时候，直接删除文件就可以了。<br>进入虚拟环境后，pip安装时独立的，不会影响。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、安装virtualenv&quot;&gt;&lt;a href=&quot;#1、安装virtualenv&quot; class=&quot;headerlink&quot; title=&quot;1、安装virtualenv&quot;&gt;&lt;/a&gt;1、安装virtualenv&lt;/h3&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;pip install virtualenv&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;2、进入到某个文件夹&quot;&gt;&lt;a href=&quot;#2、进入到某个文件夹&quot; class=&quot;headerlink&quot; title=&quot;2、进入到某个文件夹&quot;&gt;&lt;/a&gt;2、进入到某个文件夹&lt;/h3&gt;&lt;h6 id=&quot;创建纯净python2环境&quot;&gt;&lt;a href=&quot;#创建纯净python2环境&quot; class=&quot;headerlink&quot; title=&quot;创建纯净python2环境&quot;&gt;&lt;/a&gt;创建纯净python2环境&lt;/h6&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mkdir workspace&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;cd workspace&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;virtualenv python2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>chardet 模块 编码检测</title>
+    <link href="http://yoursite.com/2017/02/13/python_chardet/"/>
+    <id>http://yoursite.com/2017/02/13/python_chardet/</id>
+    <published>2017-02-13T02:56:25.571Z</published>
+    <updated>2017-02-13T03:00:27.510Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h3><h4 id="使用detect函数"><a href="#使用detect函数" class="headerlink" title="使用detect函数"></a>使用<code>detect</code>函数</h4><p>输入字符串，输出检测的编码和置信度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import urllib</div><div class="line">rawdata = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;).read()</div><div class="line">import chardet</div><div class="line">chardet.detect(rawdata)</div><div class="line"></div><div class="line">[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="二、高级用法"><a href="#二、高级用法" class="headerlink" title="二、高级用法"></a>二、高级用法</h3><p>处理大量文本，增量式的检测。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import urllib</div><div class="line">from chardet.universaldetector import UniversalDetector</div><div class="line"></div><div class="line">usock = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;)</div><div class="line">detector = UniversalDetector()</div><div class="line">for line in usock.readlines():</div><div class="line">   detector.feed(line)</div><div class="line">   if detector.done: break</div><div class="line">detector.close()</div><div class="line">usock.close()</div><div class="line">print detector.result</div><div class="line"></div><div class="line">[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125;</div></pre></td></tr></table></figure></p>
+<p>使用<code>UniversalDetector()</code>检测器，<code>.feed（）</code>添加检测文本，增量检测的时候，如果达到最小阈值，则<code>.done</code>的值为<code>True</code>。<br>使用<code>.close()</code>关闭，<code>.result</code>为结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import glob</div><div class="line">from chardet.universaldetector import UniversalDetector</div><div class="line"></div><div class="line">detector = UniversalDetector()</div><div class="line">for filename in glob.glob(&apos;*.xml&apos;):</div><div class="line">    print filename.ljust(60),</div><div class="line">    detector.reset()</div><div class="line">    for line in file(filename, &apos;rb&apos;):</div><div class="line">        detector.feed(line)</div><div class="line">        if detector.done: break</div><div class="line">    detector.close()</div><div class="line">    print detector.result</div></pre></td></tr></table></figure>
+<p><code>.reset()</code>为<code>UniversalDetector()</code>检测器的重用。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、基本用法&quot;&gt;&lt;a href=&quot;#一、基本用法&quot; class=&quot;headerlink&quot; title=&quot;一、基本用法&quot;&gt;&lt;/a&gt;一、基本用法&lt;/h3&gt;&lt;h4 id=&quot;使用detect函数&quot;&gt;&lt;a href=&quot;#使用detect函数&quot; class=&quot;headerlink&quot; title=&quot;使用detect函数&quot;&gt;&lt;/a&gt;使用&lt;code&gt;detect&lt;/code&gt;函数&lt;/h4&gt;&lt;p&gt;输入字符串，输出检测的编码和置信度。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import urllib&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;rawdata = urllib.urlopen(&amp;apos;http://yahoo.co.jp/&amp;apos;).read()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import chardet&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;chardet.detect(rawdata)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[out] &amp;#123;&amp;apos;encoding&amp;apos;: &amp;apos;EUC-JP&amp;apos;, &amp;apos;confidence&amp;apos;: 0.99&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ANSII码和进制转换</title>
+    <link href="http://yoursite.com/2017/02/13/python_ANSII/"/>
+    <id>http://yoursite.com/2017/02/13/python_ANSII/</id>
+    <published>2017-02-13T02:55:24.484Z</published>
+    <updated>2017-02-13T02:56:04.192Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、进制转换"><a href="#一、进制转换" class="headerlink" title="一、进制转换"></a>一、进制转换</h3><p>bin()：其他进制数值 —&gt; 二进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[10=&gt;2]: bin(10)  </div><div class="line">[8 =&gt;2]: bin(012)   </div><div class="line">[16=&gt;2]: bin(0xa)</div></pre></td></tr></table></figure></p>
+<p>oct()：其他进制数值 —&gt; 八进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[10=&gt;8]: oct(10) </div><div class="line">[2 =&gt;8]: oct(0b1010)  </div><div class="line">[16=&gt;8]: oct(0xa)</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>int()：其他进制数值 —&gt; 十进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[2=&gt;10]: int(0b1010) 、int(&quot;1010&quot;,2)、int(&quot;0b1010&quot;,2) </div><div class="line">[8=&gt;10]: int(012) 、int(&quot;12&quot;,8)、int(&quot;012&quot;,8) </div><div class="line">[16=&gt;10]: int(0xa)、int(&quot;0xa&quot;,16)、int(&quot;a&quot;,16)</div></pre></td></tr></table></figure></p>
+<p>hex()：其他进制数值 —&gt; 十六进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[2 =&gt;16]: hex(0b1010)</div><div class="line">[8 =&gt;16]: hex(012)  </div><div class="line">[10=&gt;16]: hex(10)</div></pre></td></tr></table></figure></p>
+<h3 id="二、ASCII码转换"><a href="#二、ASCII码转换" class="headerlink" title="二、ASCII码转换"></a>二、ASCII码转换</h3><p>chr(int)：整型 转 ASCII码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chr(97)</div></pre></td></tr></table></figure></p>
+<p>ord(chr)：ASCII码 转 整型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ord(&quot;a&quot;)</div></pre></td></tr></table></figure></p>
+<h3 id="三、位运算"><a href="#三、位运算" class="headerlink" title="三、位运算"></a>三、位运算</h3><p>左移运算符（&lt;&lt;）<br>右移运算符（&gt;&gt;）<br>按位与（&amp;）<br>按位或（|）<br>按位翻转（～）<br>按位异或（^）</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、进制转换&quot;&gt;&lt;a href=&quot;#一、进制转换&quot; class=&quot;headerlink&quot; title=&quot;一、进制转换&quot;&gt;&lt;/a&gt;一、进制转换&lt;/h3&gt;&lt;p&gt;bin()：其他进制数值 —&amp;gt; 二进制字符串&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[10=&amp;gt;2]: bin(10)  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[8 =&amp;gt;2]: bin(012)   &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[16=&amp;gt;2]: bin(0xa)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;oct()：其他进制数值 —&amp;gt; 八进制字符串&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[10=&amp;gt;8]: oct(10) &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[2 =&amp;gt;8]: oct(0b1010)  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[16=&amp;gt;8]: oct(0xa)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>os/sys 模块 python操作文件路径</title>
+    <link href="http://yoursite.com/2017/02/13/python_os_sys/"/>
+    <id>http://yoursite.com/2017/02/13/python_os_sys/</id>
+    <published>2017-02-13T02:54:18.341Z</published>
+    <updated>2017-02-13T02:55:12.921Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="当前路径："><a href="#当前路径：" class="headerlink" title="当前路径："></a>当前路径：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> sys, os</div><div class="line">pwd = sys.path[<span class="number">0</span>]    <span class="comment"># 获取当前执行脚本的位置</span></div></pre></td></tr></table></figure>
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><blockquote>
+<ul>
+<li><strong>`</strong>file<strong>`</strong>：当前文件完整路径，包括文件名</li>
+<li><strong>os.path.dirname(file)</strong>: 某个文件所在的目录路径</li>
+<li><strong>os.path.join(a, b, c,….)</strong>: 路径构造 a/b/c</li>
+<li><strong>os.path.abspath(path)</strong>: 将path从相对路径转成绝对路径</li>
+<li><strong>os.pardir</strong>: Linux下相当于”../“，上一级目录的标志</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))</div></pre></td></tr></table></figure>
+<h3 id="搜索当前文件的前n"><a href="#搜索当前文件的前n" class="headerlink" title="搜索当前文件的前n"></a>搜索当前文件的前n</h3><p><code>__file__</code> = r’D:\Lgb\ipc_inv_opt\src\com\jd\pbs\analysis\test.py’<br>运行uppath(4)<br>定位到 r’D:\Lgb\ipc_inv_opt\src’<br>[analysis]-pbs-jd-com-src<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">uppath</span><span class="params">(n=<span class="number">1</span>)</span>:</span></div><div class="line">    <span class="keyword">if</span> n == <span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> os.path.abspath(os.path.dirname(__file__))</div><div class="line">    <span class="keyword">return</span> os.path.abspath(os.path.join(os.path.dirname(__file__), (os.pardir + os.sep) * (n - <span class="number">1</span>) + os.pardir))</div></pre></td></tr></table></figure></p>
+<h3 id="1、判断文件夹存在"><a href="#1、判断文件夹存在" class="headerlink" title="1、判断文件夹存在"></a>1、判断文件夹存在</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if os.path.exists(total_path) == False:</div><div class="line">    os.mkdir(total_path)</div></pre></td></tr></table></figure>
+<h3 id="2、添加当前目录到-import-的路径中，当前目录需要有init"><a href="#2、添加当前目录到-import-的路径中，当前目录需要有init" class="headerlink" title="2、添加当前目录到 import 的路径中，当前目录需要有init"></a>2、添加当前目录到 import 的路径中，当前目录需要有<strong>init</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sys.path.append(os.path.dirname(__file__))</div><div class="line">sys.path.append(os.path.dirname(os.path.dirname(__file__)))</div></pre></td></tr></table></figure>
+<p>os.listdir()   # 列出dirname下的目录和文件<br>os.sep  # 可以取代操作系统特定的路径分割符。<br>os.name  # 字符串指示你正在使用的平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’。<br>os.getcwd()  # 函数得到当前工作目录，即当前Python脚本工作的目录路径。<br>os.getenv()和os.putenv()  # 函数分别用来读取和设置环境变量。<br>os.listdir()  # 返回指定目录下的所有文件和目录名。<br>os.remove()  # 函数用来删除一个文件。<br>os.system()  # 函数用来运行shell命令。<br>os.linesep  # 字符串给出当前平台使用的行终止符。例如，Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’。<br>os.curdir  # 返回但前目录（’.’)<br>os.chdir(dirname)  # 改变工作目录到dirname<br>os.path.isdir(name)  # 判断name是不是一个目录，name不是目录就返回false<br>os.path.isfile(name)  # 判断name是不是一个文件，不存在name也返回false<br>os.path.exists(name)  # 判断是否存在文件或目录name<br>os.path.getsize(name)  # 获得文件大小，如果name是目录返回0L<br>os.path.abspath(name)  # 获得绝对路径<br>os.path.normpath(path)  # 规范path字符串形式<br>os.path.split(name)  # 分割文件名与目录（事实上，如果你完全使用目录，它也会将最后一个目录作为文件名而分离，同时它不会判断文件或目录是否存在）<br>os.path.splitext()  # 分离文件名与扩展名<br>os.path.join(path,name)  # 连接目录与文件名或目录<br>os.path.basename(path)  # 返回文件名<br>os.path.dirname(path)  # 返回文件路径</p>
+<h3 id="3、python读取文件"><a href="#3、python读取文件" class="headerlink" title="3、python读取文件"></a>3、python读取文件</h3><p>方法一、这种为一行一行去读<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">for line in open(&quot;foo.txt&quot;): </div><div class="line">    print line,</div></pre></td></tr></table></figure></p>
+<p>方法二、这种为读取全部文件，然后在一行一行的去读<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">f = open(&quot;c:\\1.txt&quot;,&quot;r&quot;) </div><div class="line">lines = f.readlines()#读取全部内容 </div><div class="line">for line in lines </div><div class="line">    print line</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;当前路径：&quot;&gt;&lt;a href=&quot;#当前路径：&quot; class=&quot;headerlink&quot; title=&quot;当前路径：&quot;&gt;&lt;/a&gt;当前路径：&lt;/h3&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# -*- coding: utf-8 -*-&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; sys, os&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;pwd = sys.path[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]    &lt;span class=&quot;comment&quot;&gt;# 获取当前执行脚本的位置&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;参数：&quot;&gt;&lt;a href=&quot;#参数：&quot; class=&quot;headerlink&quot; title=&quot;参数：&quot;&gt;&lt;/a&gt;参数：&lt;/h3&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;`&lt;/strong&gt;file&lt;strong&gt;`&lt;/strong&gt;：当前文件完整路径，包括文件名&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;os.path.dirname(file)&lt;/strong&gt;: 某个文件所在的目录路径&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;os.path.join(a, b, c,….)&lt;/strong&gt;: 路径构造 a/b/c&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;os.path.abspath(path)&lt;/strong&gt;: 将path从相对路径转成绝对路径&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;os.pardir&lt;/strong&gt;: Linux下相当于”../“，上一级目录的标志&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>pickle 模块 序列化</title>
