@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-13T01:27:31.447Z</updated>
+  <updated>2017-02-13T02:28:47.586Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,13 +16,97 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>awk</title>
+    <link href="http://yoursite.com/2017/02/13/linux_awk/"/>
+    <id>http://yoursite.com/2017/02/13/linux_awk/</id>
+    <published>2017-02-13T02:27:58.196Z</published>
+    <updated>2017-02-13T02:28:47.586Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、简单例子"><a href="#1、简单例子" class="headerlink" title="1、简单例子"></a>1、简单例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk  &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos;        # 这个不需要文件输入就可以</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><code>awkscr</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/^$/ &#123;print &quot;This is a blank line&quot;&#125;</div></pre></td></tr></table></figure></p>
+<p>运行脚本文件<code>awkscr</code>对应于<code>test</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk -f awkscr test</div></pre></td></tr></table></figure></p>
+<p>例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo a b c d | awk &apos;&#123;one=1;two=2&#125;&#123;print $(one + two)&#125;&apos;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>-F “\t” ：表示分隔符为\t<br>FS：表示分隔符</p>
+</blockquote>
+<p>灵活指定分隔符，正则指定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">BEGIN &#123;FS=&quot;,&quot;&#125;&#123;print $1  &quot;,&quot;  $6&#125;   # 使用，为分隔符</div><div class="line">FS=&quot;\t&quot;                # 指定一个 tab 为分隔符</div><div class="line">FS=&quot;\t+&quot;              # 指定一个以上的 tab 为分隔符【正则】</div><div class="line">FS=&quot;[&apos;:\t]&quot;            # 指定&apos;、:、 tab 中任何一个为分隔符</div></pre></td></tr></table></figure></p>
+<h4 id="2、模式匹配"><a href="#2、模式匹配" class="headerlink" title="2、模式匹配"></a>2、模式匹配</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">awk &apos;/^$/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div><div class="line">awk &apos;/[0-9]/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div><div class="line">awk &apos;/[A-Za-z]/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html</a></p>
+<p><a href="http://awk.readthedocs.io/en/latest/chapter-one.html" target="_blank" rel="external">http://awk.readthedocs.io/en/latest/chapter-one.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、简单例子&quot;&gt;&lt;a href=&quot;#1、简单例子&quot; class=&quot;headerlink&quot; title=&quot;1、简单例子&quot;&gt;&lt;/a&gt;1、简单例子&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sz-rz-文件传输</title>
+    <link href="http://yoursite.com/2017/02/13/linux_03_rzsz/"/>
+    <id>http://yoursite.com/2017/02/13/linux_03_rzsz/</id>
+    <published>2017-02-13T02:26:31.719Z</published>
+    <updated>2017-02-13T02:27:32.036Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h3><h4 id="1、sz用法（下载）："><a href="#1、sz用法（下载）：" class="headerlink" title="1、sz用法（下载）："></a>1、sz用法（下载）：</h4><p>下载一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>下载多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename1 filename2</div></pre></td></tr></table></figure></p>
+<p>下载dir目录下的所有文件，不包含dir下的文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz dir/*</div></pre></td></tr></table></figure></p>
+<h4 id="2、rz用法（上传）："><a href="#2、rz用法（上传）：" class="headerlink" title="2、rz用法（上传）："></a>2、rz用法（上传）：</h4><p>输入rz回车后，会出现文件选择对话框，选择需要上传文件，一次可以指定多个文件，上传到服务器的路径为当前执行rz命令的目录。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Xshell&quot;&gt;&lt;a href=&quot;#Xshell&quot; class=&quot;headerlink&quot; title=&quot;Xshell&quot;&gt;&lt;/a&gt;Xshell&lt;/h3&gt;&lt;h4 id=&quot;1、sz用法（下载）：&quot;&gt;&lt;a href=&quot;#1、sz用法（下载）：&quot; class=&quot;headerlink&quot; title=&quot;1、sz用法（下载）：&quot;&gt;&lt;/a&gt;1、sz用法（下载）：&lt;/h4&gt;&lt;p&gt;下载一个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux 查看系统信息命令(比较全)</title>
+    <link href="http://yoursite.com/2017/02/13/linux_02_com/"/>
+    <id>http://yoursite.com/2017/02/13/linux_02_com/</id>
+    <published>2017-02-13T01:31:55.594Z</published>
+    <updated>2017-02-13T01:33:13.116Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"># uname -a # 查看内核/操作系统/CPU信息</div><div class="line"># head -n 1 /etc/issue # 查看操作系统版本</div><div class="line"># cat /proc/cpuinfo # 查看CPU信息</div><div class="line"># hostname # 查看计算机名</div><div class="line"># lspci -tv # 列出所有PCI设备</div><div class="line"># lsusb -tv # 列出所有USB设备</div><div class="line"># lsmod # 列出加载的内核模块</div><div class="line"># env # 查看环境变量资源</div><div class="line"># free -m # 查看内存使用量和交换区使用量</div><div class="line"># df -h # 查看各分区使用情况</div><div class="line"># du -sh &lt;目录名&gt; # 查看指定目录的大小</div><div class="line"># grep MemTotal /proc/meminfo # 查看内存总量</div><div class="line"># grep MemFree /proc/meminfo # 查看空闲内存量</div><div class="line"># uptime # 查看系统运行时间、用户数、负载</div><div class="line"># cat /proc/loadavg # 查看系统负载磁盘和分区</div><div class="line"># mount | column -t # 查看挂接的分区状态</div><div class="line"># fdisk -l # 查看所有分区</div><div class="line"># swapon -s # 查看所有交换分区</div><div class="line"># hdparm -i /dev/hda # 查看磁盘参数(仅适用于IDE设备)</div><div class="line"># dmesg | grep IDE # 查看启动时IDE设备检测状况网络</div><div class="line"># ifconfig # 查看所有网络接口的属性</div><div class="line"># iptables -L # 查看防火墙设置</div><div class="line"># route -n # 查看路由表</div><div class="line"># netstat -lntp # 查看所有监听端口</div><div class="line"># netstat -antp # 查看所有已经建立的连接</div><div class="line"># netstat -s # 查看网络统计信息进程</div><div class="line"># ps -ef # 查看所有进程</div><div class="line"># top # 实时显示进程状态用户</div><div class="line"># w # 查看活动用户</div><div class="line"># id &lt;用户名&gt; # 查看指定用户信息</div><div class="line"># last # 查看用户登录日志</div><div class="line"># cut -d: -f1 /etc/passwd # 查看系统所有用户</div><div class="line"># cut -d: -f1 /etc/group # 查看系统所有组</div><div class="line"># crontab -l # 查看当前用户的计划任务服务</div><div class="line"># chkconfig –list # 列出所有系统服务</div><div class="line"># chkconfig –list | grep on # 列出所有启动的系统服务程序</div><div class="line"># rpm -qa # 查看所有安装的软件包</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>一些常用命令</title>
     <link href="http://yoursite.com/2017/02/13/linux_01_base/"/>
     <id>http://yoursite.com/2017/02/13/linux_01_base/</id>
     <published>2017-02-13T01:26:18.588Z</published>
-    <updated>2017-02-13T01:27:31.447Z</updated>
+    <updated>2017-02-13T01:31:32.520Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、基本命令"><a href="#一、基本命令" class="headerlink" title="一、基本命令"></a>一、基本命令</h3><h4 id="（1）查看linux的信息"><a href="#（1）查看linux的信息" class="headerlink" title="（1）查看linux的信息"></a>（1）查看linux的信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">lsb_release -a</div><div class="line">cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos</div><div class="line">file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位</div><div class="line">free -g                                    # 以G为单位，查看内存大小</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h4 id="（2）查看某文件夹下，文件夹的文件大小总和"><a href="#（2）查看某文件夹下，文件夹的文件大小总和" class="headerlink" title="（2）查看某文件夹下，文件夹的文件大小总和"></a>（2）查看某文件夹下，文件夹的文件大小总和</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">du -h --max-depth=1   # 深度为1的文件夹里面文件的总大小</div></pre></td></tr></table></figure>
 <h4 id="（3）查找某文件的路径"><a href="#（3）查找某文件的路径" class="headerlink" title="（3）查找某文件的路径"></a>（3）查找某文件的路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename      # /data0表示目录文件，只找/data0下的名字叫filename的文件</div></pre></td></tr></table></figure>
 <h4 id="（4）管道使用ls"><a href="#（4）管道使用ls" class="headerlink" title="（4）管道使用ls"></a>（4）管道使用ls</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename | xargs ls -l</div></pre></td></tr></table></figure>
@@ -36,7 +120,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;一、基本命令&quot;&gt;&lt;a href=&quot;#一、基本命令&quot; class=&quot;headerlink&quot; title=&quot;一、基本命令&quot;&gt;&lt;/a&gt;一、基本命令&lt;/h3&gt;&lt;h4 id=&quot;（1）查看linux的信息&quot;&gt;&lt;a href=&quot;#（1）查看linux的信息&quot; class=&quot;he
+      &lt;h3 id=&quot;一、基本命令&quot;&gt;&lt;a href=&quot;#一、基本命令&quot; class=&quot;headerlink&quot; title=&quot;一、基本命令&quot;&gt;&lt;/a&gt;一、基本命令&lt;/h3&gt;&lt;h4 id=&quot;（1）查看linux的信息&quot;&gt;&lt;a href=&quot;#（1）查看linux的信息&quot; class=&quot;headerlink&quot; title=&quot;（1）查看linux的信息&quot;&gt;&lt;/a&gt;（1）查看linux的信息&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;uname -a&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;lsb_release -a&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;free -g                                    # 以G为单位，查看内存大小&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
