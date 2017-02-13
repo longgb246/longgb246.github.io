@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-25T04:41:40.768Z</updated>
+  <updated>2017-02-13T01:27:31.447Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一些常用命令</title>
+    <link href="http://yoursite.com/2017/02/13/linux_01_base/"/>
+    <id>http://yoursite.com/2017/02/13/linux_01_base/</id>
+    <published>2017-02-13T01:26:18.588Z</published>
+    <updated>2017-02-13T01:27:31.447Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、基本命令"><a href="#一、基本命令" class="headerlink" title="一、基本命令"></a>一、基本命令</h3><h4 id="（1）查看linux的信息"><a href="#（1）查看linux的信息" class="headerlink" title="（1）查看linux的信息"></a>（1）查看linux的信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">lsb_release -a</div><div class="line">cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos</div><div class="line">file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位</div><div class="line">free -g                                    # 以G为单位，查看内存大小</div></pre></td></tr></table></figure>
+<h4 id="（2）查看某文件夹下，文件夹的文件大小总和"><a href="#（2）查看某文件夹下，文件夹的文件大小总和" class="headerlink" title="（2）查看某文件夹下，文件夹的文件大小总和"></a>（2）查看某文件夹下，文件夹的文件大小总和</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">du -h --max-depth=1   # 深度为1的文件夹里面文件的总大小</div></pre></td></tr></table></figure>
+<h4 id="（3）查找某文件的路径"><a href="#（3）查找某文件的路径" class="headerlink" title="（3）查找某文件的路径"></a>（3）查找某文件的路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename      # /data0表示目录文件，只找/data0下的名字叫filename的文件</div></pre></td></tr></table></figure>
+<h4 id="（4）管道使用ls"><a href="#（4）管道使用ls" class="headerlink" title="（4）管道使用ls"></a>（4）管道使用ls</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename | xargs ls -l</div></pre></td></tr></table></figure>
+<h3 id="二、基本配置"><a href="#二、基本配置" class="headerlink" title="二、基本配置"></a>二、基本配置</h3><h4 id="（1）vim使用鼠标"><a href="#（1）vim使用鼠标" class="headerlink" title="（1）vim使用鼠标"></a>（1）vim使用鼠标</h4><p>在<code>.vimrc</code>中添加<code>set mouse=a</code>这句话，具体还有别的模式，这里不在叙述，尝试用<code>a</code>最合适。</p>
+<h4 id="（2）vim显示行号"><a href="#（2）vim显示行号" class="headerlink" title="（2）vim显示行号"></a>（2）vim显示行号</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:set number</div></pre></td></tr></table></figure>
+<h3 id="三、日期命令"><a href="#三、日期命令" class="headerlink" title="三、日期命令"></a>三、日期命令</h3><p>输出日期<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">date=`date -d &quot;+0 day $1&quot; +%Y-%m-%d`</div><div class="line">enddate=`date -d &quot;+1 day $2&quot; +%Y-%m-%d`</div><div class="line">while [[ $date &lt; $enddate  ]]</div><div class="line">do</div><div class="line">        echo $date</div><div class="line">        date=`date -d &quot;+1 day $date&quot; +%Y-%m-%d`</div><div class="line">done</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1) ls -lt  时间最近的在前面</div><div class="line">2) ls -ltr 时间从前到后</div><div class="line">3) 利用sort</div><div class="line">    ls -l | sort +7 (日期为第8列)   时间从前到后</div><div class="line">    ls -l | sort -r +7      时间最近的在前面</div></pre></td></tr></table></figure>
+<h3 id="四、查看进程和杀死进程"><a href="#四、查看进程和杀死进程" class="headerlink" title="四、查看进程和杀死进程"></a>四、查看进程和杀死进程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ps -ef</div><div class="line">ps -aux</div><div class="line">kill -s 9 1827    # 9是强制、尽快终止进程。1827是PID进程号</div></pre></td></tr></table></figure>
+<h3 id="五、命令"><a href="#五、命令" class="headerlink" title="五、命令"></a>五、命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wc -l filename    # 显示文件的行数</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、基本命令&quot;&gt;&lt;a href=&quot;#一、基本命令&quot; class=&quot;headerlink&quot; title=&quot;一、基本命令&quot;&gt;&lt;/a&gt;一、基本命令&lt;/h3&gt;&lt;h4 id=&quot;（1）查看linux的信息&quot;&gt;&lt;a href=&quot;#（1）查看linux的信息&quot; class=&quot;he
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Advanced Statistics</title>

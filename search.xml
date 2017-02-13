@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[一些常用命令]]></title>
+      <url>%2F2017%2F02%2F13%2Flinux_01_base%2F</url>
+      <content type="text"><![CDATA[一、基本命令（1）查看linux的信息12345uname -alsb_release -acat /etc/redhat-release # 查看服务器是Ubuntu还是Centosfile /sbin/init 或者file /bin/ls # 查看服务器是32、64位free -g # 以G为单位，查看内存大小 （2）查看某文件夹下，文件夹的文件大小总和1du -h --max-depth=1 # 深度为1的文件夹里面文件的总大小 （3）查找某文件的路径1find /data0 -name filename # /data0表示目录文件，只找/data0下的名字叫filename的文件 （4）管道使用ls1find /data0 -name filename | xargs ls -l 二、基本配置（1）vim使用鼠标在.vimrc中添加set mouse=a这句话，具体还有别的模式，这里不在叙述，尝试用a最合适。 （2）vim显示行号1:set number 三、日期命令输出日期1234567date=`date -d &quot;+0 day $1&quot; +%Y-%m-%d`enddate=`date -d &quot;+1 day $2&quot; +%Y-%m-%d`while [[ $date &lt; $enddate ]]do echo $date date=`date -d &quot;+1 day $date&quot; +%Y-%m-%d`done 123451) ls -lt 时间最近的在前面2) ls -ltr 时间从前到后3) 利用sort ls -l | sort +7 (日期为第8列) 时间从前到后 ls -l | sort -r +7 时间最近的在前面 四、查看进程和杀死进程123ps -efps -auxkill -s 9 1827 # 9是强制、尽快终止进程。1827是PID进程号 五、命令1wc -l filename # 显示文件的行数]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[Advanced Statistics]]></title>
       <url>%2F2017%2F01%2F25%2Fadvanced_statistics%2F</url>
       <content type="text"><![CDATA[Advanced StatisticsTransformations of Random VariablesLet me set the example;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$. Now, we use something called a Jacobian, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.So the jacobian is:$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}\end{vmatrix}$$We can then do the following:$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$]]></content>
