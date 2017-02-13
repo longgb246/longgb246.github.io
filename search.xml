@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[time 模块 时间格式]]></title>
+      <title><![CDATA[pickle 模块 序列化]]></title>
       <url>%2F2017%2F02%2F13%2Fpython_pickle%2F</url>
       <content type="text"><![CDATA[使用pickle模块将数据对象保存到文件123456789101112131415161718import pickle data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j], &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;), &apos;c&apos;: None&#125; selfref_list = [1, 2, 3]selfref_list.append(selfref_list) output = open(&apos;data.pkl&apos;, &apos;wb&apos;) # Pickle dictionary using protocol 0.pickle.dump(data1, output) # Pickle the list using the highest protocol available.pickle.dump(selfref_list, output, -1) output.close() 使用pickle模块从文件中重构python对象1234567891011import pprint, pickle pkl_file = open(&apos;data.pkl&apos;, &apos;rb&apos;) data1 = pickle.load(pkl_file)pprint.pprint(data1) data2 = pickle.load(pkl_file)pprint.pprint(data2) pkl_file.close()]]></content>
     </entry>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-13T02:43:49.224Z</updated>
+  <updated>2017-02-13T02:45:18.869Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>time 模块 时间格式</title>
+    <title>pickle 模块 序列化</title>
     <link href="http://yoursite.com/2017/02/13/python_pickle/"/>
     <id>http://yoursite.com/2017/02/13/python_pickle/</id>
     <published>2017-02-13T02:43:06.945Z</published>
-    <updated>2017-02-13T02:43:49.224Z</updated>
+    <updated>2017-02-13T02:45:18.869Z</updated>
     
     <content type="html"><![CDATA[<p>使用pickle模块将数据对象保存到文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import pickle</div><div class="line"> </div><div class="line">data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j],</div><div class="line">         &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;),</div><div class="line">         &apos;c&apos;: None&#125;</div><div class="line"> </div><div class="line">selfref_list = [1, 2, 3]</div><div class="line">selfref_list.append(selfref_list)</div><div class="line"> </div><div class="line">output = open(&apos;data.pkl&apos;, &apos;wb&apos;)</div><div class="line"> </div><div class="line"># Pickle dictionary using protocol 0.</div><div class="line">pickle.dump(data1, output)</div><div class="line"> </div><div class="line"># Pickle the list using the highest protocol available.</div><div class="line">pickle.dump(selfref_list, output, -1)</div><div class="line"> </div><div class="line">output.close()</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
