@@ -3,121 +3,128 @@
   
     
     <entry>
-      <title><![CDATA[matplotlib 使用中文]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_matplotlib_Chinese%2F</url>
-      <content type="text"><![CDATA[一、颜色调整绿色：#6AB27B土色：#a27712浅紫色：#8172B2蓝色：#4C72B0红色：#C44E52 二、使用中文123from pylab import mplmpl.rcParams[&apos;font.sans-serif&apos;] = [&apos;SimHei&apos;] # 使用中文mpl.rcParams[&apos;axes.unicode_minus&apos;] = False # 解决负号问题]]></content>
-    </entry>
-
-    
-    <entry>
-      <title><![CDATA[matplotlib 画图风格]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_matplotlib_style%2F</url>
-      <content type="text"><![CDATA[123import matplotlib.style as mstyleprint mstyle.availableplt.style.use(&apos;seaborn-darkgrid&apos;) 可选风格：seaborn-darkgridseaborn-notebookclassicseaborn-ticksgrayscalebmhseaborn-talkdark_backgroundggplotfivethirtyeightseaborn-colorblindseaborn-deepseaborn-whitegridseaborn-brightseaborn-posterseaborn-mutedseaborn-paperseaborn-whiteseaborn-pastelseaborn-darkseaborn-dark-palette]]></content>
-    </entry>
-
-    
-    <entry>
-      <title><![CDATA[python-dcox 模块 生成Word、docx文件]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_python-dcox%2F</url>
-      <content type="text"><![CDATA[http://python-docx.readthedocs.io/en/latest/index.html生成word的利器！ 一、快速开始12from docx import Documentdocument = Document() 1、段落加一个段落，下面paragraph是前面内容的光标指向，后面再该处插入一句话。12paragraph = document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;)prior_paragraph = paragraph.insert_paragraph_before(&apos;Lorem ipsum&apos;) 后面加一句话12paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)paragraph.add_run(&apos;dolor sit amet.&apos;) 添加段落风格1document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;, style=&apos;ListBullet&apos;) 使用blod、italic 等等12345paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)run = paragraph.add_run(&apos;dolor&apos;)run.bold = Truerun.italic = Trueparagraph.add_run(&apos;dolor&apos;).bold = True 2、标题level表示标题的大小1document.add_heading(&apos;The role of dolphins&apos;, level=2) 3、分页1document.add_page_break() 4、表格1table = document.add_table(rows=2, cols=2) 访问方法：取出来，单独赋值12cell = table.cell(0, 1)cell.text = &apos;parrot, possibly dead&apos; 依然使用二维数组类似的索引。123row = table.rows[1]row.cells[0].text = &apos;Foo bar to you.&apos;row.cells[1].text = &apos;And a hearty foo bar to you too sir!&apos; 分清楚结构123for row in table.rows: for cell in row.cells: print(cell.text) 查看信息12row_count = len(table.rows)col_count = len(table.columns) 添加一行1row = table.add_row() 动态添加表格123456789101112table = document.add_table(1, 3)# 标题heading_cells = table.rows[0].cellsheading_cells[0].text = &apos;Qty&apos;heading_cells[1].text = &apos;SKU&apos;heading_cells[2].text = &apos;Description&apos;# 添加内容for item in items: cells = table.add_row().cells cells[0].text = str(item.column1) cells[1].text = item.column2 cells[2].text = item.column3 5、添加图片12from docx.shared import Inchesdocument.add_picture(&apos;image-filename.png&apos;, width=Inches(1.25), height=Inches(1.25)) 二、操作document只能打开07之后的，会覆盖。12document = Document(&apos;existing-document-file.docx&apos;)document.save(&apos;new-file-name.docx&apos;) 打开文件1234567891011f = open(&apos;foobar.docx&apos;, &apos;rb&apos;)document = Document(f)f.close()# orwith open(&apos;foobar.docx&apos;, &apos;rb&apos;) as f: source_stream = StringIO(f.read())document = Document(source_stream)source_stream.close()...target_stream = StringIO()document.save(target_stream) 三、操作text段落居中12345from docx.enum.text import WD_ALIGN_PARAGRAPHdocument = Document()paragraph = document.add_paragraph()paragraph_format = paragraph.paragraph_formatparagraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER 左边整体缩进1234from docx.shared import Inchesparagraph = document.add_paragraph()paragraph_format = paragraph.paragraph_formatparagraph_format.left_indent = Inches(0.5) 右边整体缩进12from docx.shared import Ptparagraph_format.right_indent = Pt(24) 首行缩进1paragraph_format.first_line_indent = Inches(-0.25) 从字体调节，字体大小123456run = document.add_paragraph().add_run()font = run.fontfrom docx.shared import Ptfont.size = Pt(10.5) # 5号字体font.italic = Truefont.underline = True 字体颜色12from docx.shared import RGBColorfont.color.rgb = RGBColor(0x42, 0x24, 0xE9)]]></content>
-    </entry>
-
-    
-    <entry>
-      <title><![CDATA[chardet 模块 编码检测]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_chardet%2F</url>
-      <content type="text"><![CDATA[一、基本用法使用detect函数输入字符串，输出检测的编码和置信度。123456import urllibrawdata = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;).read()import chardetchardet.detect(rawdata)[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 二、高级用法处理大量文本，增量式的检测。12345678910111213import urllibfrom chardet.universaldetector import UniversalDetectorusock = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;)detector = UniversalDetector()for line in usock.readlines(): detector.feed(line) if detector.done: breakdetector.close()usock.close()print detector.result[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 使用UniversalDetector()检测器，.feed（）添加检测文本，增量检测的时候，如果达到最小阈值，则.done的值为True。使用.close()关闭，.result为结果。 123456789101112import globfrom chardet.universaldetector import UniversalDetectordetector = UniversalDetector()for filename in glob.glob(&apos;*.xml&apos;): print filename.ljust(60), detector.reset() for line in file(filename, &apos;rb&apos;): detector.feed(line) if detector.done: break detector.close() print detector.result .reset()为UniversalDetector()检测器的重用。]]></content>
+      <title><![CDATA[cmd设置内存缓存（伪别名）]]></title>
+      <url>%2F2017%2F02%2F14%2Fwindows_bat_alias%2F</url>
+      <content type="text"><![CDATA[1、创建一个bat文件，alias.bat，内容如下：123doskey ls=dirdoskey python3=C:\Users\xxxx\Anaconda3\python.exedoskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe 2、该文件保存于任意目录下，目录最好为英文，C:\Users\xxxx。3、win+r，输入regedit，打开注册表。12HKEY_LOCAL_MACHINE\Software\Microsoft\CommandHKEY_CURRENT_USER\Software\Microsoft\Command 不过，可能没有AutoRun这个键，可以自己添加：右键——新建——字符串值，输入“AutoRun”，然后选中——右键——修改，把路径输入进去，大概像上图那样，然后关掉就可以了（这里我只改了CURRENT_USER的，没改HKEY_LOCAL_MACHINE，因为我觉得这样基本就够用了） 但是。这只是建立一个缓存，并不是真正意义上的别名。自己尝试过只能直接使用“别名”，不能在“别名”的后面添加别的参数。如：pip3 list不能列出已安装的包，只能显示pip的帮助，相当于仅仅在命令行里输入C:\Users\xxxx\Anaconda3\Scripts\pip.exe，而不是C:\Users\xxxx\Anaconda3\Scripts\pip.exe list。]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[virtualenv 模块 虚拟环境]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_virtualenv%2F</url>
+      <url>%2F2017%2F02%2F14%2Fpython_virtualenv%2F</url>
       <content type="text"><![CDATA[1、安装virtualenv1pip install virtualenv 2、进入到某个文件夹创建纯净python2环境123mkdir workspacecd workspacevirtualenv python2 或者使用pycharm，也可以生成虚拟环境，不用的时候，直接删除文件就可以了。进入虚拟环境后，pip安装时独立的，不会影响。]]></content>
     </entry>
 
     
     <entry>
-      <title><![CDATA[ANSII码和进制转换]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_ANSII%2F</url>
-      <content type="text"><![CDATA[一、进制转换bin()：其他进制数值 —&gt; 二进制字符串123[10=&gt;2]: bin(10) [8 =&gt;2]: bin(012) [16=&gt;2]: bin(0xa) oct()：其他进制数值 —&gt; 八进制字符串123[10=&gt;8]: oct(10) [2 =&gt;8]: oct(0b1010) [16=&gt;8]: oct(0xa) int()：其他进制数值 —&gt; 十进制字符串123[2=&gt;10]: int(0b1010) 、int(&quot;1010&quot;,2)、int(&quot;0b1010&quot;,2) [8=&gt;10]: int(012) 、int(&quot;12&quot;,8)、int(&quot;012&quot;,8) [16=&gt;10]: int(0xa)、int(&quot;0xa&quot;,16)、int(&quot;a&quot;,16) hex()：其他进制数值 —&gt; 十六进制字符串123[2 =&gt;16]: hex(0b1010)[8 =&gt;16]: hex(012) [10=&gt;16]: hex(10) 二、ASCII码转换chr(int)：整型 转 ASCII码1chr(97) ord(chr)：ASCII码 转 整型1ord(&quot;a&quot;) 三、位运算左移运算符（&lt;&lt;）右移运算符（&gt;&gt;）按位与（&amp;）按位或（|）按位翻转（～）按位异或（^）]]></content>
-    </entry>
-
-    
-    <entry>
-      <title><![CDATA[os/sys 模块 python操作文件路径]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_os_sys%2F</url>
-      <content type="text"><![CDATA[当前路径：123# -*- coding: utf-8 -*-import sys, ospwd = sys.path[0] # 获取当前执行脚本的位置 参数： `file`：当前文件完整路径，包括文件名 os.path.dirname(file): 某个文件所在的目录路径 os.path.join(a, b, c,….): 路径构造 a/b/c os.path.abspath(path): 将path从相对路径转成绝对路径 os.pardir: Linux下相当于”../“，上一级目录的标志 1os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)) 搜索当前文件的前n__file__ = r’D:\Lgb\ipc_inv_opt\src\com\jd\pbs\analysis\test.py’运行uppath(4)定位到 r’D:\Lgb\ipc_inv_opt\src’[analysis]-pbs-jd-com-src1234def uppath(n=1): if n == 0: return os.path.abspath(os.path.dirname(__file__)) return os.path.abspath(os.path.join(os.path.dirname(__file__), (os.pardir + os.sep) * (n - 1) + os.pardir)) 1、判断文件夹存在12if os.path.exists(total_path) == False: os.mkdir(total_path) 2、添加当前目录到 import 的路径中，当前目录需要有init12sys.path.append(os.path.dirname(__file__))sys.path.append(os.path.dirname(os.path.dirname(__file__))) os.listdir() # 列出dirname下的目录和文件os.sep # 可以取代操作系统特定的路径分割符。os.name # 字符串指示你正在使用的平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’。os.getcwd() # 函数得到当前工作目录，即当前Python脚本工作的目录路径。os.getenv()和os.putenv() # 函数分别用来读取和设置环境变量。os.listdir() # 返回指定目录下的所有文件和目录名。os.remove() # 函数用来删除一个文件。os.system() # 函数用来运行shell命令。os.linesep # 字符串给出当前平台使用的行终止符。例如，Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’。os.curdir # 返回但前目录（’.’)os.chdir(dirname) # 改变工作目录到dirnameos.path.isdir(name) # 判断name是不是一个目录，name不是目录就返回falseos.path.isfile(name) # 判断name是不是一个文件，不存在name也返回falseos.path.exists(name) # 判断是否存在文件或目录nameos.path.getsize(name) # 获得文件大小，如果name是目录返回0Los.path.abspath(name) # 获得绝对路径os.path.normpath(path) # 规范path字符串形式os.path.split(name) # 分割文件名与目录（事实上，如果你完全使用目录，它也会将最后一个目录作为文件名而分离，同时它不会判断文件或目录是否存在）os.path.splitext() # 分离文件名与扩展名os.path.join(path,name) # 连接目录与文件名或目录os.path.basename(path) # 返回文件名os.path.dirname(path) # 返回文件路径 3、python读取文件方法一、这种为一行一行去读12for line in open(&quot;foo.txt&quot;): print line, 方法二、这种为读取全部文件，然后在一行一行的去读1234f = open(&quot;c:\\1.txt&quot;,&quot;r&quot;) lines = f.readlines()#读取全部内容 for line in lines print line]]></content>
-    </entry>
-
-    
-    <entry>
-      <title><![CDATA[pickle 模块 序列化]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_pickle%2F</url>
-      <content type="text"><![CDATA[使用pickle模块将数据对象保存到文件123456789101112131415161718import pickle data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j], &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;), &apos;c&apos;: None&#125; selfref_list = [1, 2, 3]selfref_list.append(selfref_list) output = open(&apos;data.pkl&apos;, &apos;wb&apos;) # Pickle dictionary using protocol 0.pickle.dump(data1, output) # Pickle the list using the highest protocol available.pickle.dump(selfref_list, output, -1) output.close() 使用pickle模块从文件中重构python对象1234567891011import pprint, pickle pkl_file = open(&apos;data.pkl&apos;, &apos;rb&apos;) data1 = pickle.load(pkl_file)pprint.pprint(data1) data2 = pickle.load(pkl_file)pprint.pprint(data2) pkl_file.close()]]></content>
-    </entry>
-
-    
-    <entry>
       <title><![CDATA[time 模块 时间格式]]></title>
-      <url>%2F2017%2F02%2F13%2Fpython_time%2F</url>
+      <url>%2F2017%2F02%2F14%2Fpython_time%2F</url>
       <content type="text"><![CDATA[1、sleep(seconds)线程推迟指定的时间运行，单位为秒1time.sleep(10) 2、ctime(seconds) -&gt; string将一个时间戳(默认为当前时间)转换成一个时间字符串12time.ctime()&gt;&gt; &apos;Tue Nov 29 17:51:02 2016&apos; 3、localtime([seconds]) -&gt; (tm_year,tm_mon,tm_day,tm_hour,tm_min,tm_sec,tm_wday,tm_yday,tm_isdst)将一个时间戳转换成一个当前时区的struct_time，如果seconds参数未输入，则以当前时间为转换标准12time.localtime(time.time())&gt;&gt; time.struct_time(tm_year=2016, tm_mon=11, tm_mday=29, tm_hour=17, tm_min=52, tm_sec=14, tm_wday=1, tm_yday=334, tm_isdst=0) 4、strftime(format[, tuple]) -&gt; string将指定的struct_time(默认为当前时间)，根据指定的格式化字符串输出12time.strftime(&apos;%Y-%m-%d_%H-%M-%S&apos;,time.localtime())&gt;&gt; &apos;2016-11-29_17-57-51&apos; python中时间日期格式化符号： %y 两位数的年份表示（00-99） %Y 四位数的年份表示（000-9999） %m 月份（01-12） %d 月内中的一天（0-31） %H 24小时制小时数（0-23） %I 12小时制小时数（01-12） %M 分钟数（00=59） %S 秒（00-59） %a 本地简化星期名称 %A 本地完整星期名称 %b 本地简化的月份名称 %B 本地完整的月份名称 %c 本地相应的日期表示和时间表示 %j 年内的一天（001-366） %p 本地A.M.或P.M.的等价符 %U 一年中的星期数（00-53）星期天为星期的开始 %w 星期（0-6），星期天为星期的开始 %W 一年中的星期数（00-53）星期一为星期的开始 %x 本地相应的日期表示 %X 本地相应的时间表示 %Z 当前时区的名称 %% %号本身 5、strptime(string, format) -&gt; struct_time将时间字符串根据指定的格式化符转换成数组形式的时间]]></content>
     </entry>
 
     
     <entry>
-      <title><![CDATA[例子]]></title>
-      <url>%2F2017%2F02%2F13%2Fhive_hadoop_example%2F</url>
-      <content type="text"><![CDATA[1234567891011121314151617CREATE TABLE dev.tmp_check_sku_20161202ASSELECT a.item_sku_id, b.sku_idFROM (SELECT item_sku_id,dt FROM gdm.gdm_m03_item_sku_da WHERE dt= &apos;2016-10-08&apos; AND sku_valid_flag=1) A FULL OUTER JOIN (SELECT sku_id,dt FROM gdm.gdm_m08_item_stock_day_sum WHERE dt= &apos;2016-10-08&apos; ) B ON a.item_sku_id=b.sku_id 1234567891011121314-- 统计数据SELECT CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END AS item_sku_cnt, CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END AS sku_cnt, count(1)FROM dev.tmp_check_sku_20161202GROUP BY CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END, CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END-- 结果1 0 1 7074892 1 0 8320842583 1 1 81142196]]></content>
+      <title><![CDATA[python-dcox 模块 生成Word、docx文件]]></title>
+      <url>%2F2017%2F02%2F14%2Fpython_python-dcox%2F</url>
+      <content type="text"><![CDATA[http://python-docx.readthedocs.io/en/latest/index.html生成word的利器！ 一、快速开始12from docx import Documentdocument = Document() 1、段落加一个段落，下面paragraph是前面内容的光标指向，后面再该处插入一句话。12paragraph = document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;)prior_paragraph = paragraph.insert_paragraph_before(&apos;Lorem ipsum&apos;) 后面加一句话12paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)paragraph.add_run(&apos;dolor sit amet.&apos;) 添加段落风格1document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;, style=&apos;ListBullet&apos;) 使用blod、italic 等等12345paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)run = paragraph.add_run(&apos;dolor&apos;)run.bold = Truerun.italic = Trueparagraph.add_run(&apos;dolor&apos;).bold = True 2、标题level表示标题的大小1document.add_heading(&apos;The role of dolphins&apos;, level=2) 3、分页1document.add_page_break() 4、表格1table = document.add_table(rows=2, cols=2) 访问方法：取出来，单独赋值12cell = table.cell(0, 1)cell.text = &apos;parrot, possibly dead&apos; 依然使用二维数组类似的索引。123row = table.rows[1]row.cells[0].text = &apos;Foo bar to you.&apos;row.cells[1].text = &apos;And a hearty foo bar to you too sir!&apos; 分清楚结构123for row in table.rows: for cell in row.cells: print(cell.text) 查看信息12row_count = len(table.rows)col_count = len(table.columns) 添加一行1row = table.add_row() 动态添加表格123456789101112table = document.add_table(1, 3)# 标题heading_cells = table.rows[0].cellsheading_cells[0].text = &apos;Qty&apos;heading_cells[1].text = &apos;SKU&apos;heading_cells[2].text = &apos;Description&apos;# 添加内容for item in items: cells = table.add_row().cells cells[0].text = str(item.column1) cells[1].text = item.column2 cells[2].text = item.column3 5、添加图片12from docx.shared import Inchesdocument.add_picture(&apos;image-filename.png&apos;, width=Inches(1.25), height=Inches(1.25)) 二、操作document只能打开07之后的，会覆盖。12document = Document(&apos;existing-document-file.docx&apos;)document.save(&apos;new-file-name.docx&apos;) 打开文件1234567891011f = open(&apos;foobar.docx&apos;, &apos;rb&apos;)document = Document(f)f.close()# orwith open(&apos;foobar.docx&apos;, &apos;rb&apos;) as f: source_stream = StringIO(f.read())document = Document(source_stream)source_stream.close()...target_stream = StringIO()document.save(target_stream) 三、操作text段落居中12345from docx.enum.text import WD_ALIGN_PARAGRAPHdocument = Document()paragraph = document.add_paragraph()paragraph_format = paragraph.paragraph_formatparagraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER 左边整体缩进1234from docx.shared import Inchesparagraph = document.add_paragraph()paragraph_format = paragraph.paragraph_formatparagraph_format.left_indent = Inches(0.5) 右边整体缩进12from docx.shared import Ptparagraph_format.right_indent = Pt(24) 首行缩进1paragraph_format.first_line_indent = Inches(-0.25) 从字体调节，字体大小123456run = document.add_paragraph().add_run()font = run.fontfrom docx.shared import Ptfont.size = Pt(10.5) # 5号字体font.italic = Truefont.underline = True 字体颜色12from docx.shared import RGBColorfont.color.rgb = RGBColor(0x42, 0x24, 0xE9)]]></content>
     </entry>
 
     
     <entry>
-      <title><![CDATA[基本命令]]></title>
-      <url>%2F2017%2F02%2F13%2Fhive_hadoop_base%2F</url>
-      <content type="text"><![CDATA[1、设置动态分区12set hive.exec.dynamic.partition=true;set hive.exec.dynamic.partition.mode=nonstrict; 2、设置最大动态分区12set hive.exec.max.dynamic.partitions=2000;set hive.exec.max.dynamic.partitions.pernode=2000; 3、创建动态分区表12345678910111213141516CREATE TABLE IF NOT EXISTS dev.dev_allocation_sale_data ( org_dc_id string, sale_ord_det_id string, sale_ord_id string, parent_sale_ord_id string, item_sku_id string, -- skuid sale_qtty int, -- 销售数量 sale_ord_tm string, -- 销售订单订购时间 sale_ord_type string, -- 订单配送类型 sale_ord_white_flag string, -- 是否包括白名单 item_third_cate_cd string, --sku所属三级分类 item_second_cate_cd string, --sku所属二级分类 shelves_dt string, --上架日期 shelves_tm string --上架时间 ) PARTITIONED by (date_s string,dc_id int); 4、插入动态分区表1234567891011121314insert overwrite table dev.dev_allocation_sale_data partition(date_s,dc_id)select a.org_dc_id, case when b.sale_ord_id is not null then &apos;rdc&apos; when c.sale_ord_id is not null then &apos;fdc_rdc&apos; when d.sale_ord_id is not null then &apos;fdc&apos; else &apos;other&apos; end, d.white_flag, a.item_third_cate_cd, a.item_second_cate_cd, a.shelves_dt, a.shelves_tm, a.dt as date_s, a.dc_idfrom dev.tmp_allocation_order_data_mid01 a 5、取出hive数据12INSERT OVERWRITE LOCAL DIRECTORY &apos;/home/cmo_ipc/Allocation_shell/datasets/sku_datasets&apos; select * from dev.dev_allocation_fdc_data; 动态分区http://blog.csdn.net/kntao/article/details/38683645 http://blog.csdn.net/chenyi8888/article/details/8236726]]></content>
+      <title><![CDATA[pickle 模块 序列化]]></title>
+      <url>%2F2017%2F02%2F14%2Fpython_pickle%2F</url>
+      <content type="text"><![CDATA[使用pickle模块将数据对象保存到文件123456789101112131415161718import pickle data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j], &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;), &apos;c&apos;: None&#125; selfref_list = [1, 2, 3]selfref_list.append(selfref_list) output = open(&apos;data.pkl&apos;, &apos;wb&apos;) # Pickle dictionary using protocol 0.pickle.dump(data1, output) # Pickle the list using the highest protocol available.pickle.dump(selfref_list, output, -1) output.close() 使用pickle模块从文件中重构python对象1234567891011import pprint, pickle pkl_file = open(&apos;data.pkl&apos;, &apos;rb&apos;) data1 = pickle.load(pkl_file)pprint.pprint(data1) data2 = pickle.load(pkl_file)pprint.pprint(data2) pkl_file.close()]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[os/sys 模块 python操作文件路径]]></title>
+      <url>%2F2017%2F02%2F14%2Fpython_os_sys%2F</url>
+      <content type="text"><![CDATA[当前路径：123# -*- coding: utf-8 -*-import sys, ospwd = sys.path[0] # 获取当前执行脚本的位置 参数： `file`：当前文件完整路径，包括文件名 os.path.dirname(file): 某个文件所在的目录路径 os.path.join(a, b, c,….): 路径构造 a/b/c os.path.abspath(path): 将path从相对路径转成绝对路径 os.pardir: Linux下相当于”../“，上一级目录的标志 1os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)) 搜索当前文件的前n__file__ = r’D:\Lgb\ipc_inv_opt\src\com\jd\pbs\analysis\test.py’运行uppath(4)定位到 r’D:\Lgb\ipc_inv_opt\src’[analysis]-pbs-jd-com-src1234def uppath(n=1): if n == 0: return os.path.abspath(os.path.dirname(__file__)) return os.path.abspath(os.path.join(os.path.dirname(__file__), (os.pardir + os.sep) * (n - 1) + os.pardir)) 1、判断文件夹存在12if os.path.exists(total_path) == False: os.mkdir(total_path) 2、添加当前目录到 import 的路径中，当前目录需要有init12sys.path.append(os.path.dirname(__file__))sys.path.append(os.path.dirname(os.path.dirname(__file__))) os.listdir() # 列出dirname下的目录和文件os.sep # 可以取代操作系统特定的路径分割符。os.name # 字符串指示你正在使用的平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’。os.getcwd() # 函数得到当前工作目录，即当前Python脚本工作的目录路径。os.getenv()和os.putenv() # 函数分别用来读取和设置环境变量。os.listdir() # 返回指定目录下的所有文件和目录名。os.remove() # 函数用来删除一个文件。os.system() # 函数用来运行shell命令。os.linesep # 字符串给出当前平台使用的行终止符。例如，Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’。os.curdir # 返回但前目录（’.’)os.chdir(dirname) # 改变工作目录到dirnameos.path.isdir(name) # 判断name是不是一个目录，name不是目录就返回falseos.path.isfile(name) # 判断name是不是一个文件，不存在name也返回falseos.path.exists(name) # 判断是否存在文件或目录nameos.path.getsize(name) # 获得文件大小，如果name是目录返回0Los.path.abspath(name) # 获得绝对路径os.path.normpath(path) # 规范path字符串形式os.path.split(name) # 分割文件名与目录（事实上，如果你完全使用目录，它也会将最后一个目录作为文件名而分离，同时它不会判断文件或目录是否存在）os.path.splitext() # 分离文件名与扩展名os.path.join(path,name) # 连接目录与文件名或目录os.path.basename(path) # 返回文件名os.path.dirname(path) # 返回文件路径 3、python读取文件方法一、这种为一行一行去读12for line in open(&quot;foo.txt&quot;): print line, 方法二、这种为读取全部文件，然后在一行一行的去读1234f = open(&quot;c:\\1.txt&quot;,&quot;r&quot;) lines = f.readlines()#读取全部内容 for line in lines print line]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[matplotlib 画图风格]]></title>
+      <url>%2F2017%2F02%2F14%2Fpython_matplotlib_style%2F</url>
+      <content type="text"><![CDATA[123import matplotlib.style as mstyleprint mstyle.availableplt.style.use(&apos;seaborn-darkgrid&apos;) 可选风格：seaborn-darkgridseaborn-notebookclassicseaborn-ticksgrayscalebmhseaborn-talkdark_backgroundggplotfivethirtyeightseaborn-colorblindseaborn-deepseaborn-whitegridseaborn-brightseaborn-posterseaborn-mutedseaborn-paperseaborn-whiteseaborn-pastelseaborn-darkseaborn-dark-palette]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[matplotlib 使用中文]]></title>
+      <url>%2F2017%2F02%2F14%2Fpython_matplotlib_Chinese%2F</url>
+      <content type="text"><![CDATA[一、颜色调整绿色：#6AB27B土色：#a27712浅紫色：#8172B2蓝色：#4C72B0红色：#C44E52 二、使用中文123from pylab import mplmpl.rcParams[&apos;font.sans-serif&apos;] = [&apos;SimHei&apos;] # 使用中文mpl.rcParams[&apos;axes.unicode_minus&apos;] = False # 解决负号问题]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[chardet 模块 编码检测]]></title>
+      <url>%2F2017%2F02%2F14%2Fpython_chardet%2F</url>
+      <content type="text"><![CDATA[一、基本用法使用detect函数输入字符串，输出检测的编码和置信度。123456import urllibrawdata = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;).read()import chardetchardet.detect(rawdata)[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 二、高级用法处理大量文本，增量式的检测。12345678910111213import urllibfrom chardet.universaldetector import UniversalDetectorusock = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;)detector = UniversalDetector()for line in usock.readlines(): detector.feed(line) if detector.done: breakdetector.close()usock.close()print detector.result[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125; 使用UniversalDetector()检测器，.feed（）添加检测文本，增量检测的时候，如果达到最小阈值，则.done的值为True。使用.close()关闭，.result为结果。 123456789101112import globfrom chardet.universaldetector import UniversalDetectordetector = UniversalDetector()for filename in glob.glob(&apos;*.xml&apos;): print filename.ljust(60), detector.reset() for line in file(filename, &apos;rb&apos;): detector.feed(line) if detector.done: break detector.close() print detector.result .reset()为UniversalDetector()检测器的重用。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[ANSII码和进制转换]]></title>
+      <url>%2F2017%2F02%2F14%2Fpython_ANSII%2F</url>
+      <content type="text"><![CDATA[一、进制转换bin()：其他进制数值 —&gt; 二进制字符串123[10=&gt;2]: bin(10) [8 =&gt;2]: bin(012) [16=&gt;2]: bin(0xa) oct()：其他进制数值 —&gt; 八进制字符串123[10=&gt;8]: oct(10) [2 =&gt;8]: oct(0b1010) [16=&gt;8]: oct(0xa) int()：其他进制数值 —&gt; 十进制字符串123[2=&gt;10]: int(0b1010) 、int(&quot;1010&quot;,2)、int(&quot;0b1010&quot;,2) [8=&gt;10]: int(012) 、int(&quot;12&quot;,8)、int(&quot;012&quot;,8) [16=&gt;10]: int(0xa)、int(&quot;0xa&quot;,16)、int(&quot;a&quot;,16) hex()：其他进制数值 —&gt; 十六进制字符串123[2 =&gt;16]: hex(0b1010)[8 =&gt;16]: hex(012) [10=&gt;16]: hex(10) 二、ASCII码转换chr(int)：整型 转 ASCII码1chr(97) ord(chr)：ASCII码 转 整型1ord(&quot;a&quot;) 三、位运算左移运算符（&lt;&lt;）右移运算符（&gt;&gt;）按位与（&amp;）按位或（|）按位翻转（～）按位异或（^）]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[awk]]></title>
-      <url>%2F2017%2F02%2F13%2Flinux_awk%2F</url>
+      <url>%2F2017%2F02%2F14%2Flinux_awk%2F</url>
       <content type="text"><![CDATA[1、简单例子1awk &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos; # 这个不需要文件输入就可以 awkscr文件：1/^$/ &#123;print &quot;This is a blank line&quot;&#125; 运行脚本文件awkscr对应于test文件：1awk -f awkscr test 例子1echo a b c d | awk &apos;&#123;one=1;two=2&#125;&#123;print $(one + two)&#125;&apos; -F “\t” ：表示分隔符为\tFS：表示分隔符 灵活指定分隔符，正则指定1234BEGIN &#123;FS=&quot;,&quot;&#125;&#123;print $1 &quot;,&quot; $6&#125; # 使用，为分隔符FS=&quot;\t&quot; # 指定一个 tab 为分隔符FS=&quot;\t+&quot; # 指定一个以上的 tab 为分隔符【正则】FS=&quot;[&apos;:\t]&quot; # 指定&apos;、:、 tab 中任何一个为分隔符 2、模式匹配123awk &apos;/^$/ &#123;print &quot;This is a blank line&quot;&#125;&apos; testawk &apos;/[0-9]/ &#123;print &quot;This is a blank line&quot;&#125;&apos; testawk &apos;/[A-Za-z]/ &#123;print &quot;This is a blank line&quot;&#125;&apos; test http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html http://awk.readthedocs.io/en/latest/chapter-one.html]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[sz-rz-文件传输]]></title>
-      <url>%2F2017%2F02%2F13%2Flinux_03_rzsz%2F</url>
+      <url>%2F2017%2F02%2F14%2Flinux_03_rzsz%2F</url>
       <content type="text"><![CDATA[Xshell1、sz用法（下载）：下载一个文件1sz filename 下载多个文件1sz filename1 filename2 下载dir目录下的所有文件，不包含dir下的文件夹1sz dir/* 2、rz用法（上传）：输入rz回车后，会出现文件选择对话框，选择需要上传文件，一次可以指定多个文件，上传到服务器的路径为当前执行rz命令的目录。]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[linux 查看系统信息命令(比较全)]]></title>
-      <url>%2F2017%2F02%2F13%2Flinux_02_com%2F</url>
+      <url>%2F2017%2F02%2F14%2Flinux_02_com%2F</url>
       <content type="text"><![CDATA[12345678910111213141516171819202122232425262728293031323334353637# uname -a # 查看内核/操作系统/CPU信息# head -n 1 /etc/issue # 查看操作系统版本# cat /proc/cpuinfo # 查看CPU信息# hostname # 查看计算机名# lspci -tv # 列出所有PCI设备# lsusb -tv # 列出所有USB设备# lsmod # 列出加载的内核模块# env # 查看环境变量资源# free -m # 查看内存使用量和交换区使用量# df -h # 查看各分区使用情况# du -sh &lt;目录名&gt; # 查看指定目录的大小# grep MemTotal /proc/meminfo # 查看内存总量# grep MemFree /proc/meminfo # 查看空闲内存量# uptime # 查看系统运行时间、用户数、负载# cat /proc/loadavg # 查看系统负载磁盘和分区# mount | column -t # 查看挂接的分区状态# fdisk -l # 查看所有分区# swapon -s # 查看所有交换分区# hdparm -i /dev/hda # 查看磁盘参数(仅适用于IDE设备)# dmesg | grep IDE # 查看启动时IDE设备检测状况网络# ifconfig # 查看所有网络接口的属性# iptables -L # 查看防火墙设置# route -n # 查看路由表# netstat -lntp # 查看所有监听端口# netstat -antp # 查看所有已经建立的连接# netstat -s # 查看网络统计信息进程# ps -ef # 查看所有进程# top # 实时显示进程状态用户# w # 查看活动用户# id &lt;用户名&gt; # 查看指定用户信息# last # 查看用户登录日志# cut -d: -f1 /etc/passwd # 查看系统所有用户# cut -d: -f1 /etc/group # 查看系统所有组# crontab -l # 查看当前用户的计划任务服务# chkconfig –list # 列出所有系统服务# chkconfig –list | grep on # 列出所有启动的系统服务程序# rpm -qa # 查看所有安装的软件包]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[一些常用命令]]></title>
-      <url>%2F2017%2F02%2F13%2Flinux_01_base%2F</url>
+      <url>%2F2017%2F02%2F14%2Flinux_01_base%2F</url>
       <content type="text"><![CDATA[一、基本命令（1）查看linux的信息12345uname -alsb_release -acat /etc/redhat-release # 查看服务器是Ubuntu还是Centosfile /sbin/init 或者file /bin/ls # 查看服务器是32、64位free -g # 以G为单位，查看内存大小 （2）查看某文件夹下，文件夹的文件大小总和1du -h --max-depth=1 # 深度为1的文件夹里面文件的总大小 （3）查找某文件的路径1find /data0 -name filename # /data0表示目录文件，只找/data0下的名字叫filename的文件 （4）管道使用ls1find /data0 -name filename | xargs ls -l 二、基本配置（1）vim使用鼠标在.vimrc中添加set mouse=a这句话，具体还有别的模式，这里不在叙述，尝试用a最合适。 （2）vim显示行号1:set number 三、日期命令输出日期1234567date=`date -d &quot;+0 day $1&quot; +%Y-%m-%d`enddate=`date -d &quot;+1 day $2&quot; +%Y-%m-%d`while [[ $date &lt; $enddate ]]do echo $date date=`date -d &quot;+1 day $date&quot; +%Y-%m-%d`done 123451) ls -lt 时间最近的在前面2) ls -ltr 时间从前到后3) 利用sort ls -l | sort +7 (日期为第8列) 时间从前到后 ls -l | sort -r +7 时间最近的在前面 四、查看进程和杀死进程123ps -efps -auxkill -s 9 1827 # 9是强制、尽快终止进程。1827是PID进程号 五、命令1wc -l filename # 显示文件的行数]]></content>
     </entry>
 
     
     <entry>
-      <title><![CDATA[Advanced Statistics]]></title>
-      <url>%2F2017%2F01%2F25%2Fadvanced_statistics%2F</url>
-      <content type="text"><![CDATA[Advanced StatisticsTransformations of Random VariablesLet me set the example;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$. Now, we use something called a Jacobian, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.So the jacobian is:$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}\end{vmatrix}$$We can then do the following:$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$]]></content>
+      <title><![CDATA[例子]]></title>
+      <url>%2F2017%2F02%2F14%2Fhive_hadoop_example%2F</url>
+      <content type="text"><![CDATA[1234567891011121314151617CREATE TABLE dev.tmp_check_sku_20161202ASSELECT a.item_sku_id, b.sku_idFROM (SELECT item_sku_id,dt FROM gdm.gdm_m03_item_sku_da WHERE dt= &apos;2016-10-08&apos; AND sku_valid_flag=1) A FULL OUTER JOIN (SELECT sku_id,dt FROM gdm.gdm_m08_item_stock_day_sum WHERE dt= &apos;2016-10-08&apos; ) B ON a.item_sku_id=b.sku_id 1234567891011121314-- 统计数据SELECT CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END AS item_sku_cnt, CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END AS sku_cnt, count(1)FROM dev.tmp_check_sku_20161202GROUP BY CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END, CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END-- 结果1 0 1 7074892 1 0 8320842583 1 1 81142196]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[基本命令]]></title>
+      <url>%2F2017%2F02%2F14%2Fhive_hadoop_base%2F</url>
+      <content type="text"><![CDATA[1、设置动态分区12set hive.exec.dynamic.partition=true;set hive.exec.dynamic.partition.mode=nonstrict; 2、设置最大动态分区12set hive.exec.max.dynamic.partitions=2000;set hive.exec.max.dynamic.partitions.pernode=2000; 3、创建动态分区表12345678910111213141516CREATE TABLE IF NOT EXISTS dev.dev_allocation_sale_data ( org_dc_id string, sale_ord_det_id string, sale_ord_id string, parent_sale_ord_id string, item_sku_id string, -- skuid sale_qtty int, -- 销售数量 sale_ord_tm string, -- 销售订单订购时间 sale_ord_type string, -- 订单配送类型 sale_ord_white_flag string, -- 是否包括白名单 item_third_cate_cd string, --sku所属三级分类 item_second_cate_cd string, --sku所属二级分类 shelves_dt string, --上架日期 shelves_tm string --上架时间 ) PARTITIONED by (date_s string,dc_id int); 4、插入动态分区表1234567891011121314insert overwrite table dev.dev_allocation_sale_data partition(date_s,dc_id)select a.org_dc_id, case when b.sale_ord_id is not null then &apos;rdc&apos; when c.sale_ord_id is not null then &apos;fdc_rdc&apos; when d.sale_ord_id is not null then &apos;fdc&apos; else &apos;other&apos; end, d.white_flag, a.item_third_cate_cd, a.item_second_cate_cd, a.shelves_dt, a.shelves_tm, a.dt as date_s, a.dc_idfrom dev.tmp_allocation_order_data_mid01 a 5、取出hive数据12INSERT OVERWRITE LOCAL DIRECTORY &apos;/home/cmo_ipc/Allocation_shell/datasets/sku_datasets&apos; select * from dev.dev_allocation_fdc_data; 动态分区http://blog.csdn.net/kntao/article/details/38683645 http://blog.csdn.net/chenyi8888/article/details/8236726]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[Hello World]]></title>
-      <url>%2F2017%2F01%2F24%2Fhello-world%2F</url>
+      <url>%2F2017%2F02%2F14%2Fhello-world%2F</url>
       <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[Advanced Statistics]]></title>
+      <url>%2F2017%2F02%2F14%2Fadvanced_statistics%2F</url>
+      <content type="text"><![CDATA[Advanced StatisticsTransformations of Random VariablesLet me set the example;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$. Now, we use something called a Jacobian, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.So the jacobian is:$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}\end{vmatrix}$$We can then do the following:$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$]]></content>
     </entry>
 
     
