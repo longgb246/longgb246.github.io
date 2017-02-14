@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-14T15:58:50.037Z</updated>
+  <updated>2017-02-14T16:05:39.414Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,18 +20,21 @@
     <link href="http://yoursite.com/2017/02/14/windows_bat_alias/"/>
     <id>http://yoursite.com/2017/02/14/windows_bat_alias/</id>
     <published>2017-02-14T15:54:41.006Z</published>
-    <updated>2017-02-14T15:58:50.037Z</updated>
+    <updated>2017-02-14T16:05:39.414Z</updated>
     
     <content type="html"><![CDATA[<p>1、创建一个bat文件，alias.bat，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">doskey ls=dir</div><div class="line">doskey python3=C:\Users\xxxx\Anaconda3\python.exe</div><div class="line">doskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe</div></pre></td></tr></table></figure></p>
 <p>2、该文件保存于任意目录下，目录最好为英文，C:\Users\xxxx。<br>3、win+r，输入regedit，打开注册表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\Command</div><div class="line">HKEY_CURRENT_USER\Software\Microsoft\Command</div></pre></td></tr></table></figure></p>
-<p><img src="../pictures/pic_20170214_2343.png" alt="图片未加载" title="pic_20170214_2343.png"></p>
-<p> 不过，可能没有AutoRun这个键，可以自己添加：右键——新建——字符串值，输入“AutoRun”，然后选中——右键——修改，把路径输入进去，大概像上图那样，然后关掉就可以了（这里我只改了CURRENT_USER的，没改HKEY_LOCAL_MACHINE，因为我觉得这样基本就够用了）</p>
-<p>但是。这只是建立一个缓存，并不是真正意义上的别名。<br>自己尝试过只能直接使用“别名”，不能在“别名”的后面添加别的参数。如：<code>pip3 list</code>不能列出已安装的包，只能显示<code>pip</code>的帮助，相当于仅仅在命令行里输入<code>C:\Users\xxxx\Anaconda3\Scripts\pip.exe</code>，而不是<code>C:\Users\xxxx\Anaconda3\Scripts\pip.exe list</code>。</p>
+<p><img src="/pictures/pic_20170214_2343.png" alt="图片未加载" title="pic_20170214_2343.png"></p>
+<a id="more"></a>
+<p>不过，可能没有AutoRun这个键，可以自己添加：右键——新建——字符串值，输入“AutoRun”，然后选中——右键——修改，把路径输入进去，大概像上图那样，然后关掉就可以了（这里我只改了CURRENT_USER的，没改HKEY_LOCAL_MACHINE，因为我觉得这样基本就够用了）</p>
+<p>但是。这只是建立一个缓存，并不是真正意义上的别名。<br>自己尝试过只能直接使用“别名”，不能在“别名”的后面添加别的参数。如：<code>pip3 list</code>不能列出已安装的包，只能显示<code>pip</code>的帮助，相当于仅仅在命令行里输入<br><code>C:\Users\xxxx\Anaconda3\Scripts\pip.exe</code>，<br>而不是<code>C:\Users\xxxx\Anaconda3\Scripts\pip.exe list</code>。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;1、创建一个bat文件，alias.bat，内容如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;li
+      &lt;p&gt;1、创建一个bat文件，alias.bat，内容如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;doskey ls=dir&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;doskey python3=C:\Users\xxxx\Anaconda3\python.exe&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;doskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;2、该文件保存于任意目录下，目录最好为英文，C:\Users\xxxx。&lt;br&gt;3、win+r，输入regedit，打开注册表。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;HKEY_LOCAL_MACHINE\Software\Microsoft\Command&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;HKEY_CURRENT_USER\Software\Microsoft\Command&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/pictures/pic_20170214_2343.png&quot; alt=&quot;图片未加载&quot; title=&quot;pic_20170214_2343.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     

@@ -407,14 +407,16 @@
 
       
         
-          
-            <p>1、创建一个bat文件，alias.bat，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">doskey ls=dir</div><div class="line">doskey python3=C:\Users\xxxx\Anaconda3\python.exe</div><div class="line">doskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe</div></pre></td></tr></table></figure></p>
+          <p>1、创建一个bat文件，alias.bat，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">doskey ls=dir</div><div class="line">doskey python3=C:\Users\xxxx\Anaconda3\python.exe</div><div class="line">doskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe</div></pre></td></tr></table></figure></p>
 <p>2、该文件保存于任意目录下，目录最好为英文，C:\Users\xxxx。<br>3、win+r，输入regedit，打开注册表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\Command</div><div class="line">HKEY_CURRENT_USER\Software\Microsoft\Command</div></pre></td></tr></table></figure></p>
-<p><img src="../pictures/pic_20170214_2343.png" alt="图片未加载" title="pic_20170214_2343.png"></p>
-<p> 不过，可能没有AutoRun这个键，可以自己添加：右键——新建——字符串值，输入“AutoRun”，然后选中——右键——修改，把路径输入进去，大概像上图那样，然后关掉就可以了（这里我只改了CURRENT_USER的，没改HKEY_LOCAL_MACHINE，因为我觉得这样基本就够用了）</p>
-<p>但是。这只是建立一个缓存，并不是真正意义上的别名。<br>自己尝试过只能直接使用“别名”，不能在“别名”的后面添加别的参数。如：<code>pip3 list</code>不能列出已安装的包，只能显示<code>pip</code>的帮助，相当于仅仅在命令行里输入<code>C:\Users\xxxx\Anaconda3\Scripts\pip.exe</code>，而不是<code>C:\Users\xxxx\Anaconda3\Scripts\pip.exe list</code>。</p>
-
-          
+<p><img src="/pictures/pic_20170214_2343.png" alt="图片未加载" title="pic_20170214_2343.png"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/14/windows_bat_alias/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
