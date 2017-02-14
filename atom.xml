@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-14T16:05:39.414Z</updated>
+  <updated>2017-02-14T16:10:24.815Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>cmd设置内存缓存（伪别名）</title>
+    <title>cmd设置命令缓存（伪别名）</title>
     <link href="http://yoursite.com/2017/02/14/windows_bat_alias/"/>
     <id>http://yoursite.com/2017/02/14/windows_bat_alias/</id>
     <published>2017-02-14T15:54:41.006Z</published>
-    <updated>2017-02-14T16:05:39.414Z</updated>
+    <updated>2017-02-14T16:10:24.815Z</updated>
     
     <content type="html"><![CDATA[<p>1、创建一个bat文件，alias.bat，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">doskey ls=dir</div><div class="line">doskey python3=C:\Users\xxxx\Anaconda3\python.exe</div><div class="line">doskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe</div></pre></td></tr></table></figure></p>
 <p>2、该文件保存于任意目录下，目录最好为英文，C:\Users\xxxx。<br>3、win+r，输入regedit，打开注册表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\Command</div><div class="line">HKEY_CURRENT_USER\Software\Microsoft\Command</div></pre></td></tr></table></figure></p>

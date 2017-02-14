@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[cmd设置内存缓存（伪别名）]]></title>
+      <title><![CDATA[cmd设置命令缓存（伪别名）]]></title>
       <url>%2F2017%2F02%2F14%2Fwindows_bat_alias%2F</url>
       <content type="text"><![CDATA[1、创建一个bat文件，alias.bat，内容如下：123doskey ls=dirdoskey python3=C:\Users\xxxx\Anaconda3\python.exedoskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe 2、该文件保存于任意目录下，目录最好为英文，C:\Users\xxxx。3、win+r，输入regedit，打开注册表。12HKEY_LOCAL_MACHINE\Software\Microsoft\CommandHKEY_CURRENT_USER\Software\Microsoft\Command 不过，可能没有AutoRun这个键，可以自己添加：右键——新建——字符串值，输入“AutoRun”，然后选中——右键——修改，把路径输入进去，大概像上图那样，然后关掉就可以了（这里我只改了CURRENT_USER的，没改HKEY_LOCAL_MACHINE，因为我觉得这样基本就够用了） 但是。这只是建立一个缓存，并不是真正意义上的别名。自己尝试过只能直接使用“别名”，不能在“别名”的后面添加别的参数。如：pip3 list不能列出已安装的包，只能显示pip的帮助，相当于仅仅在命令行里输入C:\Users\xxxx\Anaconda3\Scripts\pip.exe，而不是C:\Users\xxxx\Anaconda3\Scripts\pip.exe list。]]></content>
     </entry>
