@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T13:59:27.084Z</updated>
+  <updated>2017-02-15T14:16:22.777Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,318 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Seaborn-05-Pairplot多变量图</title>
+    <link href="http://yoursite.com/2017/02/15/python_seaborn_05/"/>
+    <id>http://yoursite.com/2017/02/15/python_seaborn_05/</id>
+    <published>2017-02-15T14:15:55.000Z</published>
+    <updated>2017-02-15T14:16:22.777Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">from __future__ import division</div><div class="line">import numpy as np</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">import seaborn as sns</div></pre></td></tr></table></figure>
+<h6 id="seaborn-pairplot-data-hue-None-hue-order-None-palette-None-vars-None-x-vars-None-y-vars-None-kind-’scatter’-diag-kind-’hist’-markers-None-size-2-5-aspect-1-dropna-True-plot-kws-None-diag-kws-None-grid-kws-None-¶"><a href="#seaborn-pairplot-data-hue-None-hue-order-None-palette-None-vars-None-x-vars-None-y-vars-None-kind-’scatter’-diag-kind-’hist’-markers-None-size-2-5-aspect-1-dropna-True-plot-kws-None-diag-kws-None-grid-kws-None-¶" class="headerlink" title="seaborn.pairplot(data, hue=None, hue_order=None, palette=None, vars=None, x_vars=None, y_vars=None, kind=’scatter’, diag_kind=’hist’, markers=None, size=2.5, aspect=1, dropna=True, plot_kws=None, diag_kws=None, grid_kws=None)¶"></a>seaborn.pairplot(data, hue=None, hue_order=None, palette=None, vars=None, x_vars=None, y_vars=None, kind=’scatter’, diag_kind=’hist’, markers=None, size=2.5, aspect=1, dropna=True, plot_kws=None, diag_kws=None, grid_kws=None)¶</h6><h6 id="数据指定："><a href="#数据指定：" class="headerlink" title="数据指定："></a>数据指定：</h6><blockquote>
+<p>vars : 与data使用，否则使用data的全部变量。参数类型：numeric类型的变量list。<br>{x, y}_vars : 与data使用，否则使用data的全部变量。参数类型：numeric类型的变量list。<br>dropna : 是否剔除缺失值。参数类型：boolean, optional</p>
+</blockquote>
+<a id="more"></a>
+<h6 id="特殊参数："><a href="#特殊参数：" class="headerlink" title="特殊参数："></a>特殊参数：</h6><blockquote>
+<p>kind : {‘scatter’, ‘reg’}, optional Kind of plot for the non-identity relationships.<br>diag_kind : {‘hist’, ‘kde’}, optional。Kind of plot for the diagonal subplots.</p>
+</blockquote>
+<h6 id="基本参数："><a href="#基本参数：" class="headerlink" title="基本参数："></a>基本参数：</h6><blockquote>
+<p>size : 默认 6，图的尺度大小（正方形）。参数类型：numeric<br>hue : 使用指定变量为分类变量画图。参数类型：string (变量名)<br>hue_order : list of strings Order for the levels of the hue variable in the palette<br>palette : 调色板颜色<br>markers : 使用不同的形状。参数类型：list<br>aspect : scalar, optional。Aspect * size gives the width (in inches) of each facet.<br>{plot, diag, grid}_kws : 指定其他参数。参数类型：dicts</p>
+</blockquote>
+<h6 id="返回："><a href="#返回：" class="headerlink" title="返回："></a>返回：</h6><blockquote>
+<p>PairGrid 对象</p>
+</blockquote>
+<h3 id="1、散点图"><a href="#1、散点图" class="headerlink" title="1、散点图"></a>1、散点图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sns.set(style=&quot;ticks&quot;, color_codes=True)</div><div class="line">iris = sns.load_dataset(&quot;iris&quot;)</div><div class="line">g = sns.pairplot(iris)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-181c1bc96e6b849d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="05_01.png"></p>
+<h3 id="2、指定分类变量的，散点图"><a href="#2、指定分类变量的，散点图" class="headerlink" title="2、指定分类变量的，散点图"></a>2、指定分类变量的，散点图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g2 = sns.pairplot(iris, hue=&quot;species&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-8559927b17853637.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="05_05.png"></p>
+<h6 id="使用调色板"><a href="#使用调色板" class="headerlink" title="使用调色板"></a>使用调色板</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g3 = sns.pairplot(iris, hue=&quot;species&quot;, palette=&quot;husl&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-1d90711f5aea821d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="05_06.png"></p>
+<h6 id="使用不同的形状"><a href="#使用不同的形状" class="headerlink" title="使用不同的形状"></a>使用不同的形状</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g4 = sns.pairplot(iris, hue=&quot;species&quot;, markers=[&quot;o&quot;, &quot;s&quot;, &quot;D&quot;])</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-f3ffb05e902f1cbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="05_07.png"></p>
+<h3 id="3、改变对角图"><a href="#3、改变对角图" class="headerlink" title="3、改变对角图"></a>3、改变对角图</h3><h6 id="使用-KDE"><a href="#使用-KDE" class="headerlink" title="使用 KDE"></a>使用 KDE</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g5 = sns.pairplot(iris, diag_kind=&quot;kde&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ed62ebad7f83cf43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="05_03.png"></p>
+<h6 id="使用回归"><a href="#使用回归" class="headerlink" title="使用回归"></a>使用回归</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g6 = sns.pairplot(iris, kind=&quot;reg&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-07d25cd26f686961.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="05_04.png"></p>
+<h3 id="4、改变点形状，使用参数，使用-edgecolor"><a href="#4、改变点形状，使用参数，使用-edgecolor" class="headerlink" title="4、改变点形状，使用参数，使用 edgecolor"></a>4、改变点形状，使用参数，使用 edgecolor</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">g7 = sns.pairplot(iris, diag_kind=&quot;kde&quot;, markers=&quot;+&quot;,</div><div class="line">                  plot_kws=dict(s=50, edgecolor=&quot;b&quot;, linewidth=1),</div><div class="line">                  diag_kws=dict(shade=True))</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-b2772de52bdcf453.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="05_02.png"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#-*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from __future__ import division&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import seaborn as sns&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h6 id=&quot;seaborn-pairplot-data-hue-None-hue-order-None-palette-None-vars-None-x-vars-None-y-vars-None-kind-’scatter’-diag-kind-’hist’-markers-None-size-2-5-aspect-1-dropna-True-plot-kws-None-diag-kws-None-grid-kws-None-¶&quot;&gt;&lt;a href=&quot;#seaborn-pairplot-data-hue-None-hue-order-None-palette-None-vars-None-x-vars-None-y-vars-None-kind-’scatter’-diag-kind-’hist’-markers-None-size-2-5-aspect-1-dropna-True-plot-kws-None-diag-kws-None-grid-kws-None-¶&quot; class=&quot;headerlink&quot; title=&quot;seaborn.pairplot(data, hue=None, hue_order=None, palette=None, vars=None, x_vars=None, y_vars=None, kind=’scatter’, diag_kind=’hist’, markers=None, size=2.5, aspect=1, dropna=True, plot_kws=None, diag_kws=None, grid_kws=None)¶&quot;&gt;&lt;/a&gt;seaborn.pairplot(data, hue=None, hue_order=None, palette=None, vars=None, x_vars=None, y_vars=None, kind=’scatter’, diag_kind=’hist’, markers=None, size=2.5, aspect=1, dropna=True, plot_kws=None, diag_kws=None, grid_kws=None)¶&lt;/h6&gt;&lt;h6 id=&quot;数据指定：&quot;&gt;&lt;a href=&quot;#数据指定：&quot; class=&quot;headerlink&quot; title=&quot;数据指定：&quot;&gt;&lt;/a&gt;数据指定：&lt;/h6&gt;&lt;blockquote&gt;
+&lt;p&gt;vars : 与data使用，否则使用data的全部变量。参数类型：numeric类型的变量list。&lt;br&gt;{x, y}_vars : 与data使用，否则使用data的全部变量。参数类型：numeric类型的变量list。&lt;br&gt;dropna : 是否剔除缺失值。参数类型：boolean, optional&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Seaborn-04-Jointplot两变量图</title>
+    <link href="http://yoursite.com/2017/02/15/python_seaborn_04/"/>
+    <id>http://yoursite.com/2017/02/15/python_seaborn_04/</id>
+    <published>2017-02-15T14:15:11.000Z</published>
+    <updated>2017-02-15T14:15:33.739Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">import numpy as np</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">import seaborn as sns</div></pre></td></tr></table></figure>
+<blockquote>
+<p>绿色：#6AB27B<br>土色：#a27712<br>浅紫色：#8172B2<br>蓝色：#4C72B0<br>红色：#C44E52</p>
+</blockquote>
+<h6 id="用于2个变量的画图"><a href="#用于2个变量的画图" class="headerlink" title="用于2个变量的画图"></a>用于2个变量的画图</h6><h3 id="1、基本参数"><a href="#1、基本参数" class="headerlink" title="1、基本参数"></a>1、基本参数</h3><h6 id="seaborn-jointplot-x-y-data-None-kind-’scatter’-stat-func-color-None-size-6-ratio-5-space-0-2-dropna-True-xlim-None-ylim-None-joint-kws-None-marginal-kws-None-annot-kws-None-kwargs"><a href="#seaborn-jointplot-x-y-data-None-kind-’scatter’-stat-func-color-None-size-6-ratio-5-space-0-2-dropna-True-xlim-None-ylim-None-joint-kws-None-marginal-kws-None-annot-kws-None-kwargs" class="headerlink" title="seaborn.jointplot(x, y, data=None, kind=’scatter’, stat_func=, color=None, size=6, ratio=5, space=0.2, dropna=True, xlim=None, ylim=None, joint_kws=None, marginal_kws=None, annot_kws=None, **kwargs)"></a>seaborn.jointplot(x, y, data=None, kind=’scatter’, stat_func=<function pearsonr="">, color=None, size=6, ratio=5, space=0.2, dropna=True, xlim=None, ylim=None, joint_kws=None, marginal_kws=None, annot_kws=None, **kwargs)</function></h6><h6 id="特殊参数："><a href="#特殊参数：" class="headerlink" title="特殊参数："></a>特殊参数：</h6><blockquote>
+<p>kind : { “scatter” | “reg” | “resid” | “kde” | “hex” }</p>
+</blockquote>
+<a id="more"></a>
+<h6 id="基本："><a href="#基本：" class="headerlink" title="基本："></a>基本：</h6><blockquote>
+<ul>
+<li><strong>color</strong> : 颜色。参数类型： matplotlib color</li>
+<li><strong>size</strong> : 默认 6，图的尺度大小（正方形）。参数类型：numeric</li>
+<li><strong>ratio</strong> : 中心图与侧边图的比例，越大、中心图占比越大。参数类型：numeric</li>
+<li><strong>space</strong> : 中心图与侧边图的间隔大小。参数类型：numeric</li>
+<li><strong>s</strong> : 点的大小。参数类型：numeric</li>
+<li><strong>linewidth</strong> : 线的宽度。参数类型：numeric</li>
+<li><strong>edgecolor</strong> : 点的边界颜色，默认无色，可以重叠。”w”为白色。参数类型：matplotlib color</li>
+<li><strong>{x, y}lim</strong> : x、y轴的范围。参数类型：two-tuples</li>
+<li><strong>{joint, marginal, annot}_kws</strong> : dicts Additional keyword arguments for the plot components.<br>marginal_kws : 侧边图的信息。例如：dict(bins=15, rug=True)<br>annot_kws : 注释的信息。例如：dict(stat=”r”)</li>
+</ul>
+</blockquote>
+<h6 id="返回："><a href="#返回：" class="headerlink" title="返回："></a>返回：</h6><blockquote>
+<p>JointGrid 对象</p>
+</blockquote>
+<h3 id="2、散点图"><a href="#2、散点图" class="headerlink" title="2、散点图"></a>2、散点图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tips = sns.load_dataset(&quot;tips&quot;)</div><div class="line">g = sns.jointplot(x=&quot;total_bill&quot;, y=&quot;tip&quot;, data=tips)</div><div class="line">g2 = sns.jointplot(x=&quot;total_bill&quot;, y=&quot;tip&quot;, data=tips, kind=&quot;scatter&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-f43e6e48d6c285e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="04_01.png"></p>
+<h3 id="3、回归图"><a href="#3、回归图" class="headerlink" title="3、回归图"></a>3、回归图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g3 = sns.jointplot(&quot;total_bill&quot;, &quot;tip&quot;, data=tips, kind=&quot;reg&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-f3003fa2f0180d91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="04_02.png"></p>
+<h3 id="4、六角图"><a href="#4、六角图" class="headerlink" title="4、六角图"></a>4、六角图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g4 = sns.jointplot(&quot;total_bill&quot;, &quot;tip&quot;, data=tips, kind=&quot;hex&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-2bd5e1bb06b446f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="04_03.png"></p>
+<h3 id="5、KDE-图"><a href="#5、KDE-图" class="headerlink" title="5、KDE 图"></a>5、KDE 图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g5 = sns.jointplot(&quot;total_bill&quot;, &quot;tip&quot;, data=tips, kind=&quot;kde&quot;, space=0, color=&quot;#6AB27B&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-e7210214a7d0cb68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="04_04.png"></p>
+<h3 id="6、分类变量与连续变量的图"><a href="#6、分类变量与连续变量的图" class="headerlink" title="6、分类变量与连续变量的图"></a>6、分类变量与连续变量的图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g6 = sns.jointplot(&quot;size&quot;, &quot;total_bill&quot;, data=tips, color=&quot;#8172B2&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-b95ac898275ba486.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="04_05.png"></p>
+<h3 id="7、图相交：散点图-KDE-图"><a href="#7、图相交：散点图-KDE-图" class="headerlink" title="7、图相交：散点图+KDE 图"></a>7、图相交：散点图+KDE 图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">iris = sns.load_dataset(&quot;iris&quot;)</div><div class="line">g7 = (sns.jointplot(&quot;sepal_length&quot;, &quot;sepal_width&quot;, data=iris, color=&quot;k&quot;)</div><div class="line">      .plot_joint(sns.kdeplot, zorder=0, n_levels=6))</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-64668b06f530d875.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="04_06.png"></p>
+<h3 id="8、使用参数的画图"><a href="#8、使用参数的画图" class="headerlink" title="8、使用参数的画图"></a>8、使用参数的画图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">g8 = sns.jointplot(&quot;petal_length&quot;, &quot;sepal_length&quot;, data=iris, marginal_kws=dict(bins=15, rug=True), </div><div class="line">                    annot_kws=dict(stat=&quot;r&quot;), s=40, edgecolor=&quot;w&quot;, linewidth=1)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ce045f48042cf4b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="04_07.png"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#-*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import seaborn as sns&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;绿色：#6AB27B&lt;br&gt;土色：#a27712&lt;br&gt;浅紫色：#8172B2&lt;br&gt;蓝色：#4C72B0&lt;br&gt;红色：#C44E52&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h6 id=&quot;用于2个变量的画图&quot;&gt;&lt;a href=&quot;#用于2个变量的画图&quot; class=&quot;headerlink&quot; title=&quot;用于2个变量的画图&quot;&gt;&lt;/a&gt;用于2个变量的画图&lt;/h6&gt;&lt;h3 id=&quot;1、基本参数&quot;&gt;&lt;a href=&quot;#1、基本参数&quot; class=&quot;headerlink&quot; title=&quot;1、基本参数&quot;&gt;&lt;/a&gt;1、基本参数&lt;/h3&gt;&lt;h6 id=&quot;seaborn-jointplot-x-y-data-None-kind-’scatter’-stat-func-color-None-size-6-ratio-5-space-0-2-dropna-True-xlim-None-ylim-None-joint-kws-None-marginal-kws-None-annot-kws-None-kwargs&quot;&gt;&lt;a href=&quot;#seaborn-jointplot-x-y-data-None-kind-’scatter’-stat-func-color-None-size-6-ratio-5-space-0-2-dropna-True-xlim-None-ylim-None-joint-kws-None-marginal-kws-None-annot-kws-None-kwargs&quot; class=&quot;headerlink&quot; title=&quot;seaborn.jointplot(x, y, data=None, kind=’scatter’, stat_func=, color=None, size=6, ratio=5, space=0.2, dropna=True, xlim=None, ylim=None, joint_kws=None, marginal_kws=None, annot_kws=None, **kwargs)&quot;&gt;&lt;/a&gt;seaborn.jointplot(x, y, data=None, kind=’scatter’, stat_func=&lt;function pearsonr&gt;, color=None, size=6, ratio=5, space=0.2, dropna=True, xlim=None, ylim=None, joint_kws=None, marginal_kws=None, annot_kws=None, **kwargs)&lt;/h6&gt;&lt;h6 id=&quot;特殊参数：&quot;&gt;&lt;a href=&quot;#特殊参数：&quot; class=&quot;headerlink&quot; title=&quot;特殊参数：&quot;&gt;&lt;/a&gt;特殊参数：&lt;/h6&gt;&lt;blockquote&gt;
+&lt;p&gt;kind : { “scatter” | “reg” | “resid” | “kde” | “hex” }&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Seaborn-03-数据分布图</title>
+    <link href="http://yoursite.com/2017/02/15/python_seaborn_03/"/>
+    <id>http://yoursite.com/2017/02/15/python_seaborn_03/</id>
+    <published>2017-02-15T14:14:31.000Z</published>
+    <updated>2017-02-15T14:14:50.510Z</updated>
+    
+    <content type="html"><![CDATA[<p>基本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">from __future__ import division</div><div class="line">import numpy as np</div><div class="line">import pandas as pd</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">from scipy import stats, integrate</div><div class="line">import seaborn as sns</div></pre></td></tr></table></figure></p>
+<h3 id="1、快速查看分布"><a href="#1、快速查看分布" class="headerlink" title="1、快速查看分布"></a>1、快速查看分布</h3><h4 id="distplot"><a href="#distplot" class="headerlink" title="distplot"></a>distplot</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">x = np.random.randint(0,10,100)</div><div class="line">sns.distplot(x, color=&quot;b&quot;, bins=10, rug=True)</div><div class="line">sns.distplot(x, hist=False)</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-b89b83c8e075b293.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_01.png"></p>
+<h3 id="2、画单变量图"><a href="#2、画单变量图" class="headerlink" title="2、画单变量图"></a>2、画单变量图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">x = np.random.normal(0, 1, size=30)</div><div class="line">bandwidth = 1.06 * x.std() * x.size ** (-1 / 5.)  # 带宽计算公式</div><div class="line">support = np.linspace(-4, 4, 200)</div><div class="line">kernels = []</div><div class="line">for x_i in x:</div><div class="line">    kernel = stats.norm(x_i, bandwidth).pdf(support)</div><div class="line">    kernels.append(kernel)</div><div class="line">    plt.plot(support, kernel, color=&quot;#C55458&quot;)</div><div class="line">sns.rugplot(x, color=&quot;.2&quot;, linewidth=3)</div><div class="line"></div><div class="line">density = np.sum(kernels, axis=0)</div><div class="line">density /= integrate.trapz(density, support)</div><div class="line">plt.plot(support, density)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-e9abe996d9b5a196.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_02.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sns.kdeplot(x, shade=True)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-462f6ba92f868c6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_03.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sns.kdeplot(x)</div><div class="line">sns.kdeplot(x, bw=.2, label=&quot;bw: 0.2&quot;)</div><div class="line">sns.kdeplot(x, bw=2, label=&quot;bw: 2&quot;)</div><div class="line">plt.legend()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-29d0b51e8a3e97f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_04.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">x = np.random.gamma(6, size=200)</div><div class="line">sns.distplot(x)</div><div class="line">sns.distplot(x, label=&apos;kde&apos;, hist=False)</div><div class="line">sns.distplot(x, kde=False, fit=stats.gamma, label=&apos;fit-gamma&apos;, hist=False)</div><div class="line">plt.legend()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-d50c8a44adebce08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_05.png"></p>
+<h3 id="3、画二元变量分布图"><a href="#3、画二元变量分布图" class="headerlink" title="3、画二元变量分布图"></a>3、画二元变量分布图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mean, cov = [0, 1], [[1, .5], [.5, 1]]</div><div class="line">data = np.random.multivariate_normal(mean, cov, 200)</div><div class="line">df = pd.DataFrame(data, columns=[&quot;x&quot;, &quot;y&quot;])</div></pre></td></tr></table></figure>
+<h4 id="（1）散点图"><a href="#（1）散点图" class="headerlink" title="（1）散点图"></a>（1）散点图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sns.jointplot(x=&quot;x&quot;, y=&quot;y&quot;, data=df, stat_func=stats.pearsonr)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ddb078aa4e32167d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_06.png"></p>
+<h4 id="（2）六边图"><a href="#（2）六边图" class="headerlink" title="（2）六边图"></a>（2）六边图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data2 = np.random.multivariate_normal(mean, cov, 1000)</div><div class="line">df2 = pd.DataFrame(data2, columns=[&quot;x&quot;, &quot;y&quot;])</div><div class="line">with sns.axes_style(&quot;white&quot;):</div><div class="line">    sns.jointplot(x=df2[&quot;x&quot;], y=df2[&quot;y&quot;], kind=&quot;hex&quot;, color=&quot;k&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-f5c96ece9537f5e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_061.png"></p>
+<h4 id="（3）相交的-KDE-图"><a href="#（3）相交的-KDE-图" class="headerlink" title="（3）相交的 KDE 图"></a>（3）相交的 KDE 图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sns.jointplot(x=&quot;x&quot;, y=&quot;y&quot;, data=df2, kind=&quot;kde&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-67048aed50daf655.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_07.png"></p>
+<h4 id="（4）地毯图的-KDE-图"><a href="#（4）地毯图的-KDE-图" class="headerlink" title="（4）地毯图的 KDE 图"></a>（4）地毯图的 KDE 图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">f, ax = plt.subplots(figsize=(6, 6))</div><div class="line">sns.kdeplot(df2.x, df2.y, ax=ax)</div><div class="line">sns.rugplot(df2.x, color=&quot;#55A868&quot;, ax=ax)</div><div class="line">sns.rugplot(df2.y, vertical=True, ax=ax, color=&quot;#4C72B0&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-abe465425c2dea29.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_08.png"></p>
+<h4 id="（5）星云图"><a href="#（5）星云图" class="headerlink" title="（5）星云图"></a>（5）星云图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f2, ax = plt.subplots(figsize=(6, 6))</div><div class="line">cmap = sns.cubehelix_palette(as_cmap=True, dark=0, light=1, reverse=True)</div><div class="line">sns.kdeplot(df2.x, df2.y, cmap=cmap, n_levels=60, shade=True)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-f75cef380d74a948.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_09.png"></p>
+<h4 id="（6）加入-图"><a href="#（6）加入-图" class="headerlink" title="（6）加入+图"></a>（6）加入+图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">g = sns.jointplot(x=&quot;x&quot;, y=&quot;y&quot;, data=df, kind=&quot;kde&quot;, color=&quot;#988CBE&quot;)</div><div class="line">g.plot_joint(plt.scatter, c=&quot;w&quot;, s=30, linewidth=1, marker=&quot;+&quot;)</div><div class="line">g.ax_joint.collections[0].set_alpha(0)</div><div class="line">g.set_axis_labels(&quot;$X$&quot;, &quot;$Y$&quot;)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-9465a07b8bd675b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_10.png"></p>
+<h4 id="（7）画出两两变量散点图"><a href="#（7）画出两两变量散点图" class="headerlink" title="（7）画出两两变量散点图"></a>（7）画出两两变量散点图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iris = sns.load_dataset(&quot;iris&quot;)</div><div class="line">sns.pairplot(iris)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-8cd800f2b92253f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_11.png"></p>
+<h4 id="（8）画联合核函数"><a href="#（8）画联合核函数" class="headerlink" title="（8）画联合核函数"></a>（8）画联合核函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">g = sns.PairGrid(iris)</div><div class="line">g.map_diag(sns.kdeplot)</div><div class="line">g.map_offdiag(sns.kdeplot, cmap=&quot;Blues_d&quot;, n_levels=6)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-4134093336d7cd38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_12.png"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;基本&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#-*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from __future__ import division&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import pandas as pd&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from scipy import stats, integrate&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import seaborn as sns&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;1、快速查看分布&quot;&gt;&lt;a href=&quot;#1、快速查看分布&quot; class=&quot;headerlink&quot; title=&quot;1、快速查看分布&quot;&gt;&lt;/a&gt;1、快速查看分布&lt;/h3&gt;&lt;h4 id=&quot;distplot&quot;&gt;&lt;a href=&quot;#distplot&quot; class=&quot;headerlink&quot; title=&quot;distplot&quot;&gt;&lt;/a&gt;distplot&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;x = np.random.randint(0,10,100)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sns.distplot(x, color=&amp;quot;b&amp;quot;, bins=10, rug=True)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sns.distplot(x, hist=False)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Seaborn-02-颜色板控制</title>
+    <link href="http://yoursite.com/2017/02/15/python_seaborn_02/"/>
+    <id>http://yoursite.com/2017/02/15/python_seaborn_02/</id>
+    <published>2017-02-15T14:13:47.000Z</published>
+    <updated>2017-02-15T14:14:08.514Z</updated>
+    
+    <content type="html"><![CDATA[<p>基本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">from __future__ import division</div><div class="line">import numpy as np</div><div class="line">import pandas as pd</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">import seaborn as sns</div></pre></td></tr></table></figure></p>
+<h3 id="1、定性调色板-Qualitative"><a href="#1、定性调色板-Qualitative" class="headerlink" title="1、定性调色板 Qualitative"></a>1、定性调色板 Qualitative</h3><p>默认的定性调色板：deep, muted, pastel, bright, dark, colorblind.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">current_palette = sns.color_palette()</div><div class="line">sns.palplot(current_palette)</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-1edf678b94171821.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_01.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">current_palette = sns.color_palette(&quot;pastel&quot;)</div><div class="line">sns.palplot(current_palette)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-c6d1c2e81741aeca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_02.png"></p>
+<h3 id="2、使用环形调色板"><a href="#2、使用环形调色板" class="headerlink" title="2、使用环形调色板"></a>2、使用环形调色板</h3><p>画出均匀色带的颜色（改变颜色，但是保持色彩的亮度和饱和度）<br>hls_palette : h(hue)l(lightness)s(saturation)，均在0-1之间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.hls_palette(8, l=.3, s=.8))</div><div class="line">sns.palplot(sns.husl_palette(8, l=.3, s=.8))</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-3233dfe757526f97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_03.png"></p>
+<h3 id="3、自定义一个RGB颜色带"><a href="#3、自定义一个RGB颜色带" class="headerlink" title="3、自定义一个RGB颜色带"></a>3、自定义一个RGB颜色带</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">flatui = [&quot;#9b59b6&quot;, &quot;#3498db&quot;, &quot;#95a5a6&quot;, &quot;#e74c3c&quot;, &quot;#34495e&quot;, &quot;#2ecc71&quot;]</div><div class="line">sns.palplot(sns.color_palette(flatui))</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-a6c6ff1fb4458537.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_041.png"></p>
+<h3 id="4、序列颜色-Sequential"><a href="#4、序列颜色-Sequential" class="headerlink" title="4、序列颜色 Sequential"></a>4、序列颜色 Sequential</h3><p>cubehelix_palette<br>最好：start0~3,rot-1~1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.cubehelix_palette(8, start=.5, rot=-.75))</div><div class="line">sns.palplot(sns.cubehelix_palette(8, start=1.2, rot=.01))</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-d9bc2fe3a7776ef3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_04.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.cubehelix_palette(8, start=2, rot=0, dark=0, light=.95, reverse=True))</div><div class="line">sns.palplot(sns.cubehelix_palette(8, start=2, rot=0.05, reverse=True))</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-95bc29fc86a5c993.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_05.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">x, y = np.random.multivariate_normal([0, 0], [[1, -.5], [-.5, 1]], size=300).T</div><div class="line">cmap = sns.cubehelix_palette(light=1, as_cmap=True)</div><div class="line">sns.kdeplot(x, y, cmap=cmap, shade=True)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-56ec80c2777281fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_06.png"></p>
+<p>light_palette、dark_palette 两种颜色调，渐亮、渐暗<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.light_palette(&quot;green&quot;))</div><div class="line">sns.palplot(sns.light_palette(&quot;#000000&quot;))</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-dc3f7802e7c0bfd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_07.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.dark_palette(&quot;purple&quot;))</div><div class="line">sns.palplot(sns.dark_palette(&quot;#a27712&quot;))</div><div class="line"></div><div class="line">pal = sns.dark_palette(&quot;palegreen&quot;, as_cmap=True)</div><div class="line">sns.kdeplot(x, y, cmap=pal)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ed0c05e2b01bdb7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_08.png"></p>
+<h3 id="5、对称色调-diverging-palette"><a href="#5、对称色调-diverging-palette" class="headerlink" title="5、对称色调 diverging_palette"></a>5、对称色调 diverging_palette</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.diverging_palette(145, 280, s=85, l=25, n=7))</div><div class="line">sns.palplot(sns.diverging_palette(10, 220, sep=80, n=7))</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-20531fab569a2f65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_09.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.diverging_palette(255, 133, l=60, n=7, center=&quot;dark&quot;))</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-af32f32b4e135c16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_10.png"></p>
+<h3 id="6、色调画图"><a href="#6、色调画图" class="headerlink" title="6、色调画图"></a>6、色调画图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">def sinplot(flip=1):</div><div class="line">    x = np.linspace(0, 14, 100)</div><div class="line">    for i in range(1, 7):</div><div class="line">        plt.plot(x, np.sin(x + i * .5) * (7 - i) * flip)</div><div class="line"></div><div class="line">sns.set_palette(&quot;husl&quot;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-4beb9956c1b753ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_11.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with sns.color_palette(&quot;PuBuGn_d&quot;):</div><div class="line">    sinplot()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-71a718863be531c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_12.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with sns.cubehelix_palette(8, start=1.2, rot=.01):</div><div class="line">    sinplot()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-126a28f82cd56368.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_13.png"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;基本&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#-*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from __future__ import division&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import pandas as pd&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import seaborn as sns&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;1、定性调色板-Qualitative&quot;&gt;&lt;a href=&quot;#1、定性调色板-Qualitative&quot; class=&quot;headerlink&quot; title=&quot;1、定性调色板 Qualitative&quot;&gt;&lt;/a&gt;1、定性调色板 Qualitative&lt;/h3&gt;&lt;p&gt;默认的定性调色板：deep, muted, pastel, bright, dark, colorblind.&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;current_palette = sns.color_palette()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sns.palplot(current_palette)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Seaborn-01-图控制</title>
+    <link href="http://yoursite.com/2017/02/15/python_seaborn_01/"/>
+    <id>http://yoursite.com/2017/02/15/python_seaborn_01/</id>
+    <published>2017-02-15T14:12:53.000Z</published>
+    <updated>2017-02-15T14:13:35.629Z</updated>
+    
+    <content type="html"><![CDATA[<p>基本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">import numpy as np</div><div class="line">import matplotlib as mpl</div><div class="line">import matplotlib.pyplot as plt</div></pre></td></tr></table></figure></p>
+<h3 id="1、引入-seaborn-风格"><a href="#1、引入-seaborn-风格" class="headerlink" title="1、引入 seaborn 风格"></a>1、引入 seaborn 风格</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def sinplot(flip=1):</div><div class="line">    x = np.linspace(0, 14, 100)</div><div class="line">    for i in range(1, 7):</div><div class="line">        plt.plot(x, np.sin(x + i * .5) * (7 - i) * flip)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-3ceec96eb96978e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_01.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import seaborn as sns</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-9ff0fa621bafa8ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_02.png"></p>
+<h3 id="2、预设主题：axes-style-和-set-style"><a href="#2、预设主题：axes-style-和-set-style" class="headerlink" title="2、预设主题：axes_style() 和 set_style()"></a>2、预设主题：axes_style() 和 set_style()</h3><p>darkgrid, whitegrid, dark, white, ticks，默认的是 darkgrid<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sns.set_style(&quot;whitegrid&quot;)</div><div class="line">data = np.random.normal(size=(20, 6)) + np.arange(6) / 2</div><div class="line">sns.boxplot(data=data)  # 箱型线</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-2532954fecba9ad0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_03.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.set_style(&quot;dark&quot;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-a5b49e81299d5fae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_04.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.set_style(&quot;white&quot;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-1ddf660d1d4c8a75.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_05.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.set_style(&quot;ticks&quot;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-2e3d411bd8416e4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_06.png"></p>
+<h3 id="3、移除上框-despine"><a href="#3、移除上框-despine" class="headerlink" title="3、移除上框 despine()"></a>3、移除上框 despine()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sinplot()</div><div class="line">sns.despine()  # 默认移除上边框和右边框， despine(top=True, right=True, left=False, bottom = False)</div><div class="line">f, ax = plt.subplots()</div><div class="line">sns.violinplot(data=data)</div><div class="line">sns.despine(offset=10, trim=True)  # 坐标轴分离</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-71966ca31881bd6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_08.png"></p>
+<h3 id="4、暂时风格-axes-style-with"><a href="#4、暂时风格-axes-style-with" class="headerlink" title="4、暂时风格 axes_style() + with"></a>4、暂时风格 axes_style() + with</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">with sns.axes_style(&quot;darkgrid&quot;):</div><div class="line">    plt.subplot(211)</div><div class="line">    sinplot()</div><div class="line">plt.subplot(212)</div><div class="line">sinplot(-1)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ff01e178c0a8f5e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_07.png"></p>
+<h3 id="5、自定义风格"><a href="#5、自定义风格" class="headerlink" title="5、自定义风格"></a>5、自定义风格</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sns.axes_style()  # 查看现有风格</div><div class="line">sns.set_style(&quot;darkgrid&quot;, &#123;&quot;axes.facecolor&quot;: &quot;.9&quot;&#125;)</div><div class="line">sinplot()</div><div class="line">sns.set_context(&quot;notebook&quot;, font_scale=1.5, rc=&#123;&quot;lines.linewidth&quot;: 2.5&#125;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;基本&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#-*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib as mpl&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;1、引入-seaborn-风格&quot;&gt;&lt;a href=&quot;#1、引入-seaborn-风格&quot; class=&quot;headerlink&quot; title=&quot;1、引入 seaborn 风格&quot;&gt;&lt;/a&gt;1、引入 seaborn 风格&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;def sinplot(flip=1):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    x = np.linspace(0, 14, 100)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    for i in range(1, 7):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        plt.plot(x, np.sin(x + i * .5) * (7 - i) * flip)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sinplot()&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pandas-office-10分钟开始</title>
+    <link href="http://yoursite.com/2017/02/15/python_pandas_01/"/>
+    <id>http://yoursite.com/2017/02/15/python_pandas_01/</id>
+    <published>2017-02-15T14:12:37.000Z</published>
+    <updated>2017-02-15T14:12:38.865Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># -*- coding:utf-8 -*-</div><div class="line">import numpy as np</div><div class="line">import pandas as pd</div><div class="line">import matplotlib.pyplot as plt</div></pre></td></tr></table></figure>
+<h3 id="1、创建数据框"><a href="#1、创建数据框" class="headerlink" title="1、创建数据框"></a>1、创建数据框</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dates = pd.date_range(&apos;20130101&apos;, periods=6)</div><div class="line">df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list(&apos;ABCD&apos;))</div><div class="line">left = pd.DataFrame(&#123;&apos;key&apos;: [&apos;foo&apos;, &apos;foo&apos;], &apos;lval&apos;: [1, 2]&#125;)</div><div class="line">right = pd.DataFrame(&#123;&apos;key&apos;: [&apos;foo&apos;, &apos;foo&apos;], &apos;rval&apos;: [4, 5]&#125;)</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="2、查看数据"><a href="#2、查看数据" class="headerlink" title="2、查看数据"></a>2、查看数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">df.head()</div><div class="line">df.tail(3)</div><div class="line">df.describe()</div><div class="line">df.T</div><div class="line">df.sort_index(axis=1, ascending=False)  # 按照行名、列名排列</div><div class="line">df.sort_values(by=&apos;B&apos;)</div></pre></td></tr></table></figure>
+<h3 id="3、选择"><a href="#3、选择" class="headerlink" title="3、选择"></a>3、选择</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># .loc()</div><div class="line"># .iloc()</div></pre></td></tr></table></figure>
+<h3 id="4、缺失值"><a href="#4、缺失值" class="headerlink" title="4、缺失值"></a>4、缺失值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">df[&apos;E&apos;] = [1, 2, np.nan, 1, 2, np.nan]</div><div class="line">df.dropna(how=&apos;any&apos;)</div><div class="line">df.fillna(value=5)</div><div class="line">pd.isnull(df)</div></pre></td></tr></table></figure>
+<h3 id="5、运用"><a href="#5、运用" class="headerlink" title="5、运用"></a>5、运用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">df.apply(np.cumsum)</div></pre></td></tr></table></figure>
+<h3 id="6、交并"><a href="#6、交并" class="headerlink" title="6、交并"></a>6、交并</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(np.random.randn(10, 4))</div><div class="line">pieces = [df[:3], df[3:7], df[7:]]</div><div class="line">pd.concat(pieces, axis=0)</div><div class="line">pd.concat([df, df], axis=1)</div><div class="line">pd.merge(left, right, on=&apos;key&apos;)</div><div class="line">left.merge(right, on=&apos;key&apos;)</div></pre></td></tr></table></figure>
+<h3 id="7、groupby"><a href="#7、groupby" class="headerlink" title="7、groupby"></a>7、groupby</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(&#123;&apos;A&apos;: [&apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;foo&apos;],</div><div class="line">                   &apos;B&apos;: [&apos;one&apos;, &apos;one&apos;, &apos;two&apos;, &apos;three&apos;, &apos;two&apos;, &apos;two&apos;, &apos;one&apos;, &apos;three&apos;],</div><div class="line">                   &apos;C&apos;: np.random.randn(8),</div><div class="line">                   &apos;D&apos;: np.random.randn(8)&#125;)</div><div class="line">df.groupby(&apos;A&apos;).sum()</div><div class="line">df.groupby([&apos;A&apos;, &apos;B&apos;]).sum()</div></pre></td></tr></table></figure>
+<h3 id="8、重组数据框"><a href="#8、重组数据框" class="headerlink" title="8、重组数据框"></a>8、重组数据框</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tuples = list(zip(*[[&apos;bar&apos;, &apos;bar&apos;, &apos;baz&apos;, &apos;baz&apos;, &apos;foo&apos;, &apos;foo&apos;, &apos;qux&apos;, &apos;qux&apos;],</div><div class="line">                    [&apos;one&apos;, &apos;two&apos;, &apos;one&apos;, &apos;two&apos;, &apos;one&apos;, &apos;two&apos;, &apos;one&apos;, &apos;two&apos;]]))</div><div class="line">index = pd.MultiIndex.from_tuples(tuples, names=[&apos;first&apos;, &apos;second&apos;])</div><div class="line">df = pd.DataFrame(np.random.randn(8, 2), index=index, columns=[&apos;A&apos;, &apos;B&apos;])</div><div class="line">df2 = df[:4]</div><div class="line">stacked = df2.stack()</div><div class="line">stacked.unstack()</div><div class="line">stacked.unstack(1)</div><div class="line">stacked.unstack(0)</div></pre></td></tr></table></figure>
+<h3 id="Pivot-Tables"><a href="#Pivot-Tables" class="headerlink" title="Pivot Tables"></a>Pivot Tables</h3><h3 id="9、时间序列"><a href="#9、时间序列" class="headerlink" title="9、时间序列"></a>9、时间序列</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">rng = pd.date_range(&apos;1/1/2012&apos;, periods=100, freq=&apos;S&apos;)  # 按秒进行</div><div class="line">rng2 = pd.date_range(&apos;3/6/2012 00:00&apos;, periods=5, freq=&apos;D&apos;)  # 按天进行</div><div class="line">rng3 = pd.date_range(&apos;1/1/2012&apos;, periods=5, freq=&apos;M&apos;)  # 按月进行，保留天数</div><div class="line">ts = pd.Series(np.random.randn(len(rng3)), index=rng3)</div><div class="line">ps = ts.to_period()  # 天变为月，仅保留月数</div><div class="line">ps.to_timestamp()  # 月变为天</div><div class="line">prng = pd.period_range(&apos;1990Q1&apos;, &apos;2000Q4&apos;, freq=&apos;Q-NOV&apos;)  # 按季度进行</div><div class="line">ts = pd.Series(np.random.randn(len(prng)), prng)</div><div class="line">ts.index = (prng.asfreq(&apos;M&apos;, &apos;e&apos;) + 1).asfreq(&apos;H&apos;, &apos;s&apos;) + 9  # 季度转化为日期，指定时间</div></pre></td></tr></table></figure>
+<h3 id="10、Categoricals-分类的使用"><a href="#10、Categoricals-分类的使用" class="headerlink" title="10、Categoricals 分类的使用"></a>10、Categoricals 分类的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(&#123;&quot;id&quot;: [1, 2, 3, 4, 5, 6], &quot;raw_grade&quot;: [&apos;a&apos;, &apos;b&apos;, &apos;b&apos;, &apos;a&apos;, &apos;a&apos;, &apos;e&apos;]&#125;)</div><div class="line">df[&quot;grade&quot;] = df[&quot;raw_grade&quot;].astype(&quot;category&quot;)</div><div class="line">df[&quot;grade&quot;].cat.categories = [&quot;very good&quot;, &quot;good&quot;, &quot;very bad&quot;]</div><div class="line">df[&quot;grade&quot;] = df[&quot;grade&quot;].cat.set_categories([&quot;very bad&quot;, &quot;bad&quot;, &quot;medium&quot;, &quot;good&quot;, &quot;very good&quot;])</div><div class="line">df.sort_values(by=&quot;grade&quot;)df.groupby(&quot;grade&quot;).size()</div></pre></td></tr></table></figure>
+<h3 id="11、画图"><a href="#11、画图" class="headerlink" title="11、画图"></a>11、画图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ts = pd.Series(np.random.randn(1000), index=pd.date_range(&apos;1/1/2000&apos;, periods=1000))</div><div class="line">ts = ts.cumsum()</div><div class="line">ts.plot()</div><div class="line">df = pd.DataFrame(np.random.randn(1000, 4), index=ts.index, columns=[&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;])</div><div class="line">df = df.cumsum()df.plot(); plt.legend(loc=&apos;best&apos;)</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;基本&quot;&gt;&lt;a href=&quot;#基本&quot; class=&quot;headerlink&quot; title=&quot;基本&quot;&gt;&lt;/a&gt;基本&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;# -*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import pandas as pd&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;1、创建数据框&quot;&gt;&lt;a href=&quot;#1、创建数据框&quot; class=&quot;headerlink&quot; title=&quot;1、创建数据框&quot;&gt;&lt;/a&gt;1、创建数据框&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;dates = pd.date_range(&amp;apos;20130101&amp;apos;, periods=6)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list(&amp;apos;ABCD&amp;apos;))&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;left = pd.DataFrame(&amp;#123;&amp;apos;key&amp;apos;: [&amp;apos;foo&amp;apos;, &amp;apos;foo&amp;apos;], &amp;apos;lval&amp;apos;: [1, 2]&amp;#125;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;right = pd.DataFrame(&amp;#123;&amp;apos;key&amp;apos;: [&amp;apos;foo&amp;apos;, &amp;apos;foo&amp;apos;], &amp;apos;rval&amp;apos;: [4, 5]&amp;#125;)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="pandas" scheme="http://yoursite.com/tags/pandas/"/>
+    
+  </entry>
   
   <entry>
     <title>聚类分析（2）：其他问题与算法</title>
@@ -836,177 +1148,6 @@
     
     
       <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux 查看系统信息命令(比较全)</title>
-    <link href="http://yoursite.com/2017/01/24/linux_02_com/"/>
-    <id>http://yoursite.com/2017/01/24/linux_02_com/</id>
-    <published>2017-01-24T12:35:00.000Z</published>
-    <updated>2017-02-15T12:53:40.325Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"># uname -a # 查看内核/操作系统/CPU信息</div><div class="line"># head -n 1 /etc/issue # 查看操作系统版本</div><div class="line"># cat /proc/cpuinfo # 查看CPU信息</div><div class="line"># hostname # 查看计算机名</div><div class="line"># lspci -tv # 列出所有PCI设备</div><div class="line"># lsusb -tv # 列出所有USB设备</div><div class="line"># lsmod # 列出加载的内核模块</div><div class="line"># env # 查看环境变量资源</div><div class="line"># free -m # 查看内存使用量和交换区使用量</div><div class="line"># df -h # 查看各分区使用情况</div><div class="line"># du -sh &lt;目录名&gt; # 查看指定目录的大小</div><div class="line"># grep MemTotal /proc/meminfo # 查看内存总量</div><div class="line"># grep MemFree /proc/meminfo # 查看空闲内存量</div><div class="line"># uptime # 查看系统运行时间、用户数、负载</div><div class="line"># cat /proc/loadavg # 查看系统负载磁盘和分区</div><div class="line"># mount | column -t # 查看挂接的分区状态</div><div class="line"># fdisk -l # 查看所有分区</div><div class="line"># swapon -s # 查看所有交换分区</div><div class="line"># hdparm -i /dev/hda # 查看磁盘参数(仅适用于IDE设备)</div><div class="line"># dmesg | grep IDE # 查看启动时IDE设备检测状况网络</div><div class="line"># ifconfig # 查看所有网络接口的属性</div><div class="line"># iptables -L # 查看防火墙设置</div><div class="line"># route -n # 查看路由表</div><div class="line"># netstat -lntp # 查看所有监听端口</div><div class="line"># netstat -antp # 查看所有已经建立的连接</div><div class="line"># netstat -s # 查看网络统计信息进程</div><div class="line"># ps -ef # 查看所有进程</div><div class="line"># top # 实时显示进程状态用户</div><div class="line"># w # 查看活动用户</div><div class="line"># id &lt;用户名&gt; # 查看指定用户信息</div><div class="line"># last # 查看用户登录日志</div><div class="line"># cut -d: -f1 /etc/passwd # 查看系统所有用户</div><div class="line"># cut -d: -f1 /etc/group # 查看系统所有组</div><div class="line"># crontab -l # 查看当前用户的计划任务服务</div><div class="line"># chkconfig –list # 列出所有系统服务</div><div class="line"># chkconfig –list | grep on # 列出所有启动的系统服务程序</div><div class="line"># rpm -qa # 查看所有安装的软件包</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一些常用命令</title>
-    <link href="http://yoursite.com/2017/01/24/linux_01_base/"/>
-    <id>http://yoursite.com/2017/01/24/linux_01_base/</id>
-    <published>2017-01-24T12:34:00.000Z</published>
-    <updated>2017-02-15T12:53:31.241Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、基本命令"><a href="#一、基本命令" class="headerlink" title="一、基本命令"></a>一、基本命令</h3><h4 id="（1）查看linux的信息"><a href="#（1）查看linux的信息" class="headerlink" title="（1）查看linux的信息"></a>（1）查看linux的信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">lsb_release -a</div><div class="line">cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos</div><div class="line">file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位</div><div class="line">free -g                                    # 以G为单位，查看内存大小</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h4 id="（2）查看某文件夹下，文件夹的文件大小总和"><a href="#（2）查看某文件夹下，文件夹的文件大小总和" class="headerlink" title="（2）查看某文件夹下，文件夹的文件大小总和"></a>（2）查看某文件夹下，文件夹的文件大小总和</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">du -h --max-depth=1   # 深度为1的文件夹里面文件的总大小</div></pre></td></tr></table></figure>
-<h4 id="（3）查找某文件的路径"><a href="#（3）查找某文件的路径" class="headerlink" title="（3）查找某文件的路径"></a>（3）查找某文件的路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename      # /data0表示目录文件，只找/data0下的名字叫filename的文件</div></pre></td></tr></table></figure>
-<h4 id="（4）管道使用ls"><a href="#（4）管道使用ls" class="headerlink" title="（4）管道使用ls"></a>（4）管道使用ls</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename | xargs ls -l</div></pre></td></tr></table></figure>
-<h3 id="二、基本配置"><a href="#二、基本配置" class="headerlink" title="二、基本配置"></a>二、基本配置</h3><h4 id="（1）vim使用鼠标"><a href="#（1）vim使用鼠标" class="headerlink" title="（1）vim使用鼠标"></a>（1）vim使用鼠标</h4><p>在<code>.vimrc</code>中添加<code>set mouse=a</code>这句话，具体还有别的模式，这里不在叙述，尝试用<code>a</code>最合适。</p>
-<h4 id="（2）vim显示行号"><a href="#（2）vim显示行号" class="headerlink" title="（2）vim显示行号"></a>（2）vim显示行号</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:set number</div></pre></td></tr></table></figure>
-<h3 id="三、日期命令"><a href="#三、日期命令" class="headerlink" title="三、日期命令"></a>三、日期命令</h3><p>输出日期<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">date=`date -d &quot;+0 day $1&quot; +%Y-%m-%d`</div><div class="line">enddate=`date -d &quot;+1 day $2&quot; +%Y-%m-%d`</div><div class="line">while [[ $date &lt; $enddate  ]]</div><div class="line">do</div><div class="line">        echo $date</div><div class="line">        date=`date -d &quot;+1 day $date&quot; +%Y-%m-%d`</div><div class="line">done</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1) ls -lt  时间最近的在前面</div><div class="line">2) ls -ltr 时间从前到后</div><div class="line">3) 利用sort</div><div class="line">    ls -l | sort +7 (日期为第8列)   时间从前到后</div><div class="line">    ls -l | sort -r +7      时间最近的在前面</div></pre></td></tr></table></figure>
-<h3 id="四、查看进程和杀死进程"><a href="#四、查看进程和杀死进程" class="headerlink" title="四、查看进程和杀死进程"></a>四、查看进程和杀死进程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ps -ef</div><div class="line">ps -aux</div><div class="line">kill -s 9 1827    # 9是强制、尽快终止进程。1827是PID进程号</div></pre></td></tr></table></figure>
-<h3 id="五、命令"><a href="#五、命令" class="headerlink" title="五、命令"></a>五、命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wc -l filename    # 显示文件的行数</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、基本命令&quot;&gt;&lt;a href=&quot;#一、基本命令&quot; class=&quot;headerlink&quot; title=&quot;一、基本命令&quot;&gt;&lt;/a&gt;一、基本命令&lt;/h3&gt;&lt;h4 id=&quot;（1）查看linux的信息&quot;&gt;&lt;a href=&quot;#（1）查看linux的信息&quot; class=&quot;headerlink&quot; title=&quot;（1）查看linux的信息&quot;&gt;&lt;/a&gt;（1）查看linux的信息&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;uname -a&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;lsb_release -a&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;free -g                                    # 以G为单位，查看内存大小&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>例子</title>
-    <link href="http://yoursite.com/2017/01/22/hive_hadoop_example/"/>
-    <id>http://yoursite.com/2017/01/22/hive_hadoop_example/</id>
-    <published>2017-01-22T12:35:00.000Z</published>
-    <updated>2017-02-15T12:53:23.244Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE dev.tmp_check_sku_20161202</div><div class="line">AS</div><div class="line">SELECT</div><div class="line">    a.item_sku_id,</div><div class="line">    b.sku_id</div><div class="line">FROM</div><div class="line">    (SELECT item_sku_id,dt</div><div class="line">    FROM </div><div class="line">    gdm.gdm_m03_item_sku_da</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    AND sku_valid_flag=1) A</div><div class="line">    FULL OUTER JOIN</div><div class="line">    (SELECT sku_id,dt</div><div class="line">    FROM gdm.gdm_m08_item_stock_day_sum</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    ) B</div><div class="line">    ON  a.item_sku_id=b.sku_id</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-- 统计数据</div><div class="line">SELECT</div><div class="line">    CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END AS item_sku_cnt,</div><div class="line">    CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END AS sku_cnt,</div><div class="line">    count(1)</div><div class="line">FROM</div><div class="line">    dev.tmp_check_sku_20161202</div><div class="line">GROUP BY</div><div class="line">    CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END,</div><div class="line">    CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END</div><div class="line">-- 结果</div><div class="line">1    0    1    707489</div><div class="line">2    1    0    832084258</div><div class="line">3    1    1    81142196</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;CREATE TABLE dev.tmp_check_sku_20161202&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;AS&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;SELECT&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    a.item_sku_id,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    b.sku_id&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;FROM&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    (SELECT item_sku_id,dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FROM &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    gdm.gdm_m03_item_sku_da&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    WHERE dt= &amp;apos;2016-10-08&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    AND sku_valid_flag=1) A&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FULL OUTER JOIN&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    (SELECT sku_id,dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FROM gdm.gdm_m08_item_stock_day_sum&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    WHERE dt= &amp;apos;2016-10-08&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ) B&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ON  a.item_sku_id=b.sku_id&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Hive&amp;Hadoop" scheme="http://yoursite.com/categories/Hive-Hadoop/"/>
-    
-    
-      <category term="Hive" scheme="http://yoursite.com/tags/Hive/"/>
-    
-      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基本命令</title>
-    <link href="http://yoursite.com/2017/01/22/hive_hadoop_base/"/>
-    <id>http://yoursite.com/2017/01/22/hive_hadoop_base/</id>
-    <published>2017-01-22T12:34:00.000Z</published>
-    <updated>2017-02-15T12:53:13.574Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、设置动态分区"><a href="#1、设置动态分区" class="headerlink" title="1、设置动态分区"></a>1、设置动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.dynamic.partition=true;</div><div class="line">set hive.exec.dynamic.partition.mode=nonstrict;</div></pre></td></tr></table></figure>
-<h3 id="2、设置最大动态分区"><a href="#2、设置最大动态分区" class="headerlink" title="2、设置最大动态分区"></a>2、设置最大动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.max.dynamic.partitions=2000;</div><div class="line">set hive.exec.max.dynamic.partitions.pernode=2000;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="3、创建动态分区表"><a href="#3、创建动态分区表" class="headerlink" title="3、创建动态分区表"></a>3、创建动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE IF NOT EXISTS dev.dev_allocation_sale_data</div><div class="line">    (    org_dc_id         string,</div><div class="line">        sale_ord_det_id string,   </div><div class="line">        sale_ord_id string,       </div><div class="line">        parent_sale_ord_id string,</div><div class="line">        item_sku_id                string,        -- skuid</div><div class="line">        sale_qtty                  int,        -- 销售数量</div><div class="line">        sale_ord_tm                string,        -- 销售订单订购时间</div><div class="line">        sale_ord_type             string,        -- 订单配送类型</div><div class="line">        sale_ord_white_flag        string,         -- 是否包括白名单</div><div class="line">        item_third_cate_cd  string,   --sku所属三级分类</div><div class="line">        item_second_cate_cd  string,      --sku所属二级分类</div><div class="line">        shelves_dt  string, --上架日期</div><div class="line">    shelves_tm   string --上架时间</div><div class="line">    )</div><div class="line">    PARTITIONED by (date_s string,dc_id int);</div></pre></td></tr></table></figure>
-<h3 id="4、插入动态分区表"><a href="#4、插入动态分区表" class="headerlink" title="4、插入动态分区表"></a>4、插入动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">insert overwrite table dev.dev_allocation_sale_data partition(date_s,dc_id)</div><div class="line">select</div><div class="line">         a.org_dc_id,</div><div class="line">         case when b.sale_ord_id is not null then &apos;rdc&apos;</div><div class="line">         when c.sale_ord_id is not null then &apos;fdc_rdc&apos;    when d.sale_ord_id is not null    then &apos;fdc&apos; else &apos;other&apos; end,</div><div class="line">         d.white_flag,</div><div class="line">         a.item_third_cate_cd,</div><div class="line">         a.item_second_cate_cd,</div><div class="line">         a.shelves_dt,</div><div class="line">         a.shelves_tm,   </div><div class="line">         a.dt as date_s,</div><div class="line">         a.dc_id</div><div class="line">from</div><div class="line">        dev.tmp_allocation_order_data_mid01 a</div></pre></td></tr></table></figure>
-<h3 id="5、取出hive数据"><a href="#5、取出hive数据" class="headerlink" title="5、取出hive数据"></a>5、取出hive数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">INSERT OVERWRITE  LOCAL  DIRECTORY  &apos;/home/cmo_ipc/Allocation_shell/datasets/sku_datasets&apos; </div><div class="line">select * from dev.dev_allocation_fdc_data;</div></pre></td></tr></table></figure>
-<h3 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h3><p><a href="http://blog.csdn.net/kntao/article/details/38683645" target="_blank" rel="external">http://blog.csdn.net/kntao/article/details/38683645</a></p>
-<p><a href="http://blog.csdn.net/chenyi8888/article/details/8236726" target="_blank" rel="external">http://blog.csdn.net/chenyi8888/article/details/8236726</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1、设置动态分区&quot;&gt;&lt;a href=&quot;#1、设置动态分区&quot; class=&quot;headerlink&quot; title=&quot;1、设置动态分区&quot;&gt;&lt;/a&gt;1、设置动态分区&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.dynamic.partition=true;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.dynamic.partition.mode=nonstrict;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;2、设置最大动态分区&quot;&gt;&lt;a href=&quot;#2、设置最大动态分区&quot; class=&quot;headerlink&quot; title=&quot;2、设置最大动态分区&quot;&gt;&lt;/a&gt;2、设置最大动态分区&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions=2000;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions.pernode=2000;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Hive&amp;Hadoop" scheme="http://yoursite.com/categories/Hive-Hadoop/"/>
-    
-    
-      <category term="Hive" scheme="http://yoursite.com/tags/Hive/"/>
-    
-      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>virtualenv 模块 虚拟环境</title>
-    <link href="http://yoursite.com/2017/01/14/python_virtualenv/"/>
-    <id>http://yoursite.com/2017/01/14/python_virtualenv/</id>
-    <published>2017-01-14T12:34:00.000Z</published>
-    <updated>2017-02-15T12:52:46.528Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、安装virtualenv"><a href="#1、安装virtualenv" class="headerlink" title="1、安装virtualenv"></a>1、安装virtualenv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div></pre></td></tr></table></figure>
-<h3 id="2、进入到某个文件夹"><a href="#2、进入到某个文件夹" class="headerlink" title="2、进入到某个文件夹"></a>2、进入到某个文件夹</h3><h6 id="创建纯净python2环境"><a href="#创建纯净python2环境" class="headerlink" title="创建纯净python2环境"></a>创建纯净python2环境</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir workspace</div><div class="line">cd workspace</div><div class="line">virtualenv python2</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>或者使用pycharm，也可以生成虚拟环境，不用的时候，直接删除文件就可以了。<br>进入虚拟环境后，pip安装时独立的，不会影响。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1、安装virtualenv&quot;&gt;&lt;a href=&quot;#1、安装virtualenv&quot; class=&quot;headerlink&quot; title=&quot;1、安装virtualenv&quot;&gt;&lt;/a&gt;1、安装virtualenv&lt;/h3&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;pip install virtualenv&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;2、进入到某个文件夹&quot;&gt;&lt;a href=&quot;#2、进入到某个文件夹&quot; class=&quot;headerlink&quot; title=&quot;2、进入到某个文件夹&quot;&gt;&lt;/a&gt;2、进入到某个文件夹&lt;/h3&gt;&lt;h6 id=&quot;创建纯净python2环境&quot;&gt;&lt;a href=&quot;#创建纯净python2环境&quot; class=&quot;headerlink&quot; title=&quot;创建纯净python2环境&quot;&gt;&lt;/a&gt;创建纯净python2环境&lt;/h6&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mkdir workspace&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;cd workspace&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;virtualenv python2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>time 模块 时间格式</title>
-    <link href="http://yoursite.com/2017/01/13/python_time/"/>
-    <id>http://yoursite.com/2017/01/13/python_time/</id>
-    <published>2017-01-13T12:34:00.000Z</published>
-    <updated>2017-02-15T12:52:38.232Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="1、sleep-seconds"><a href="#1、sleep-seconds" class="headerlink" title="1、sleep(seconds)"></a>1、sleep(seconds)</h4><p>线程推迟指定的时间运行，单位为秒<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">time.sleep(10)</div></pre></td></tr></table></figure></p>
-<h4 id="2、ctime-seconds-gt-string"><a href="#2、ctime-seconds-gt-string" class="headerlink" title="2、ctime(seconds) -&gt; string"></a>2、ctime(seconds) -&gt; string</h4><p>将一个时间戳(默认为当前时间)转换成一个时间字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time.ctime()</div><div class="line">&gt;&gt; &apos;Tue Nov 29 17:51:02 2016&apos;</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<h4 id="3、localtime-seconds-gt-tm-year-tm-mon-tm-day-tm-hour-tm-min-tm-sec-tm-wday-tm-yday-tm-isdst"><a href="#3、localtime-seconds-gt-tm-year-tm-mon-tm-day-tm-hour-tm-min-tm-sec-tm-wday-tm-yday-tm-isdst" class="headerlink" title="3、localtime([seconds]) -&gt; (tm_year,tm_mon,tm_day,tm_hour,tm_min,tm_sec,tm_wday,tm_yday,tm_isdst)"></a>3、localtime([seconds]) -&gt; (tm_year,tm_mon,tm_day,tm_hour,tm_min,tm_sec,tm_wday,tm_yday,tm_isdst)</h4><p>将一个时间戳转换成一个当前时区的struct_time，如果seconds参数未输入，则以当前时间为转换标准<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time.localtime(time.time())</div><div class="line">&gt;&gt; time.struct_time(tm_year=2016, tm_mon=11, tm_mday=29, tm_hour=17, tm_min=52, tm_sec=14, tm_wday=1, tm_yday=334, tm_isdst=0)</div></pre></td></tr></table></figure></p>
-<h4 id="4、strftime-format-tuple-gt-string"><a href="#4、strftime-format-tuple-gt-string" class="headerlink" title="4、strftime(format[, tuple]) -&gt; string"></a>4、strftime(format[, tuple]) -&gt; string</h4><p>将指定的struct_time(默认为当前时间)，根据指定的格式化字符串输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time.strftime(&apos;%Y-%m-%d_%H-%M-%S&apos;,time.localtime())</div><div class="line">&gt;&gt; &apos;2016-11-29_17-57-51&apos;</div></pre></td></tr></table></figure></p>
-<p>  python中时间日期格式化符号：<br>  %y 两位数的年份表示（00-99）<br>  %Y 四位数的年份表示（000-9999）<br>  %m 月份（01-12）<br>  %d 月内中的一天（0-31）<br>  %H 24小时制小时数（0-23）<br>  %I 12小时制小时数（01-12）<br>  %M 分钟数（00=59）<br>  %S 秒（00-59）<br>  %a 本地简化星期名称<br>  %A 本地完整星期名称<br>  %b 本地简化的月份名称<br>  %B 本地完整的月份名称<br>  %c 本地相应的日期表示和时间表示<br>  %j 年内的一天（001-366）<br>  %p 本地A.M.或P.M.的等价符<br>  %U 一年中的星期数（00-53）星期天为星期的开始<br>  %w 星期（0-6），星期天为星期的开始<br>  %W 一年中的星期数（00-53）星期一为星期的开始<br>  %x 本地相应的日期表示<br>  %X 本地相应的时间表示<br>  %Z 当前时区的名称<br>  %% %号本身 </p>
-<h4 id="5、strptime-string-format-gt-struct-time"><a href="#5、strptime-string-format-gt-struct-time" class="headerlink" title="5、strptime(string, format) -&gt; struct_time"></a>5、strptime(string, format) -&gt; struct_time</h4><p>将时间字符串根据指定的格式化符转换成数组形式的时间</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;1、sleep-seconds&quot;&gt;&lt;a href=&quot;#1、sleep-seconds&quot; class=&quot;headerlink&quot; title=&quot;1、sleep(seconds)&quot;&gt;&lt;/a&gt;1、sleep(seconds)&lt;/h4&gt;&lt;p&gt;线程推迟指定的时间运行，单位为秒&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;time.sleep(10)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h4 id=&quot;2、ctime-seconds-gt-string&quot;&gt;&lt;a href=&quot;#2、ctime-seconds-gt-string&quot; class=&quot;headerlink&quot; title=&quot;2、ctime(seconds) -&amp;gt; string&quot;&gt;&lt;/a&gt;2、ctime(seconds) -&amp;gt; string&lt;/h4&gt;&lt;p&gt;将一个时间戳(默认为当前时间)转换成一个时间字符串&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;time.ctime()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;&amp;gt; &amp;apos;Tue Nov 29 17:51:02 2016&amp;apos;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
     
   </entry>
   
