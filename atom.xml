@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T13:48:52.833Z</updated>
+  <updated>2017-02-15T13:59:27.084Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,232 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>聚类分析（2）：其他问题与算法</title>
+    <link href="http://yoursite.com/2017/02/15/ML_ITDM_cluster_02/"/>
+    <id>http://yoursite.com/2017/02/15/ML_ITDM_cluster_02/</id>
+    <published>2017-02-15T13:57:34.000Z</published>
+    <updated>2017-02-15T13:59:27.084Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、数据、簇、聚类算法"><a href="#一、数据、簇、聚类算法" class="headerlink" title="一、数据、簇、聚类算法"></a>一、数据、簇、聚类算法</h3><h4 id="（1）数据特性"><a href="#（1）数据特性" class="headerlink" title="（1）数据特性"></a>（1）数据特性</h4><p>可能影响聚类分析的因素：<br>高维性、规模、稀疏性、噪声和离群点、尺度</p>
+<h3 id="二、基于原型的聚类"><a href="#二、基于原型的聚类" class="headerlink" title="二、基于原型的聚类"></a>二、基于原型的聚类</h3><h4 id="（1）模糊聚类"><a href="#（1）模糊聚类" class="headerlink" title="（1）模糊聚类"></a>（1）模糊聚类</h4><h5 id="1、模糊集合"><a href="#1、模糊集合" class="headerlink" title="1、模糊集合"></a>1、模糊集合</h5><p>模糊集合论允许对象以 0 和 1 之间的某个隶属度隶属于一个集合。<br><a id="more"></a></p>
+<h5 id="2、模糊簇"><a href="#2、模糊簇" class="headerlink" title="2、模糊簇"></a>2、模糊簇</h5><p>xi 为数据点集合，Ci 为模糊子集簇。</p>
+<h6 id="xi-的权值"><a href="#xi-的权值" class="headerlink" title="xi 的权值"></a>xi 的权值</h6><p>给定xi的所有权值之和为 1：<br>$$ \sum_{j=1}^{k}w_{ij}=1$$</p>
+<h6 id="Ci-的限制"><a href="#Ci-的限制" class="headerlink" title="Ci 的限制"></a>Ci 的限制</h6><p>每个 Ci 以非零权值至少包含一个点，但不以权值1包含所有点：<br>$$ 0&lt; \sum_{i=1}^{m}w_{ij} &lt; m$$</p>
+<h5 id="3、模糊-c-均值"><a href="#3、模糊-c-均值" class="headerlink" title="3、模糊 c 均值"></a>3、模糊 c 均值</h5><p>模糊 c 均值算法（FCM算法）</p>
+<h6 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-2aba2e55df9606a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_19.png"></p>
+<h6 id="目标函数："><a href="#目标函数：" class="headerlink" title="目标函数："></a>目标函数：</h6><p>计算SSE（误差平方和）：<br>$$ SSE(C_{1},C_{2},…,C_{k})=\sum_{j=1}^{k}\sum_{i=1}^{m}w_{ij}^{p}dist(x_{i},c_{j})^{2}$$</p>
+<p>cj 是第 j 个簇的质心。</p>
+<h6 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h6><p>随机初始化，但是限定求和为1.</p>
+<h6 id="计算质心："><a href="#计算质心：" class="headerlink" title="计算质心："></a>计算质心：</h6><p>$$ c_{j}=\frac{\sum_{i=1}^{m}w_{ij}^{p}x_{i}}{\sum_{i=1}^{m}w_{ij}^{p}}$$</p>
+<p>p为模糊权重，p=1时候，很想传统k均值，p越大，划分越模糊。一般选取p=2。</p>
+<h6 id="更新模糊伪划分"><a href="#更新模糊伪划分" class="headerlink" title="更新模糊伪划分"></a>更新模糊伪划分</h6><p>当使用p时候，最小化SSE，可以推导出：<br>$$ w_{ij}=\frac{(\frac{1}{dist(x_{i},c_{j})^{2}})^{\frac{1}{p-1}}}{\sum_{q=1}^{k}(\frac{1}{dist(x_{i},c_{q})^{2}})^{\frac{1}{p-1}}}$$</p>
+<p>当使用p=2的时候，公式得到简化：<br>$$ w_{ij}=\frac{\frac{1}{dist(x_{i},c_{j})^{2}}}{\sum_{q=1}^{k}\frac{1}{dist(x_{i},c_{q})^{2}}}$$</p>
+<p>下面显示了一个模糊聚类的例子：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-5d5ed64fb7507a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_20.png"></p>
+<h6 id="4、优点与缺点"><a href="#4、优点与缺点" class="headerlink" title="4、优点与缺点"></a>4、优点与缺点</h6><p>与K均值相同的有点和缺点。</p>
+<h4 id="（2）使用混合模型聚类"><a href="#（2）使用混合模型聚类" class="headerlink" title="（2）使用混合模型聚类"></a>（2）使用混合模型聚类</h4><h5 id="1、混合模型"><a href="#1、混合模型" class="headerlink" title="1、混合模型"></a>1、混合模型</h5><blockquote>
+<p>混合模型将数据看作从不同的概率分布得到的观测值集合。其数据产生过程为，给定几个分布（通常类型相同，参数不同）随机的选择一个分布并由它产生一个对象，重复该过程m次。</p>
+</blockquote>
+<p>假定有 K 个分布和 m 个对象{x1,x2，…,xm}，\Theta 是参数的集合，则：<br>$$ prob(x_{i}|\theta _{j})$$<br>是第 i 个对象来自第 j 个分布的概率。<br>由于权值受限，其和为 1 。对于对象 x 的概率由公式给出：<br>$$ prob(x|\Theta)=\sum_{j=1}^{K}w_{j}p_{j}(x|\theta_{j})$$</p>
+<p>如果对象以独立的方式产生，则对象集的概率是每个对象 xi 的概率的乘积。<br>$$ prob(\chi |\Theta)=\prod_{i=1}^{m}prob(x_{i}|\Theta)=\prod_{i=1}^{m}\sum_{j=1}^{K}w_{j}p_{j}(x_{i}|\theta_{j})$$</p>
+<h6 id="混合高斯分布"><a href="#混合高斯分布" class="headerlink" title="混合高斯分布"></a>混合高斯分布</h6><p>假定有两个高斯分布，有相同的标准差 2，均值分别为 -4 和 4 。还假定每个分布以等概率选取，即为 w1=w2=0.5。公式为：<br>$$ prob(x|\Theta)=\frac{1}{2\sqrt{2\pi}}e^{-\frac{(x+4)^{2}}{8}}+\frac{1}{2\sqrt{2\pi}}e^{-\frac{(x-4)^{2}}{8}}$$</p>
+<p>则该模型产生的 20000 个点的直方图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-99cb7d254f7a3627.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_21.png"></p>
+<h5 id="2、使用最大似然估计（MLE）"><a href="#2、使用最大似然估计（MLE）" class="headerlink" title="2、使用最大似然估计（MLE）"></a>2、使用最大似然估计（MLE）</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-f16962be7b86ed20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_22.png"></p>
+<h5 id="3、使用-EM-算法"><a href="#3、使用-EM-算法" class="headerlink" title="3、使用 EM 算法"></a>3、使用 EM 算法</h5><h6 id="EM-算法步骤："><a href="#EM-算法步骤：" class="headerlink" title="EM 算法步骤："></a>EM 算法步骤：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-9b2869bfd5df7b2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_23.png"></p>
+<h6 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-78765db5e05add63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_24.png"></p>
+<h6 id="样本集上的EM："><a href="#样本集上的EM：" class="headerlink" title="样本集上的EM："></a>样本集上的EM：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-ed7f6abae0bc075b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_25.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-fa31354f6b1f2fb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_26.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-7d4182e4def81562.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_27.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-5181ec33aad7fc4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_28.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-536b5c7737f6a838.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_29.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-97ca406ad031203d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_30.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-c463110733506aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_31.png"></p>
+<h6 id="4、EM算法在混合模型的优缺点"><a href="#4、EM算法在混合模型的优缺点" class="headerlink" title="4、EM算法在混合模型的优缺点"></a>4、EM算法在混合模型的优缺点</h6><p>缺点：</p>
+<blockquote>
+<p>1、EM算法可能很慢。<br>2、数据近似斜线性时候，不能很好处理。<br>3、混合模型在有噪声和离群点时，可能有问题。</p>
+</blockquote>
+<p>优点：</p>
+<blockquote>
+<p>1、混合模型比K均值或模糊c均值更一般。<br>2、可以发现不同大小和椭球状的簇。</p>
+</blockquote>
+<h4 id="（3）自组织映射"><a href="#（3）自组织映射" class="headerlink" title="（3）自组织映射"></a>（3）自组织映射</h4><p>自组织映射（SOFM或SOM）是一种基于神经网络观点的聚类和数据可视化技术。</p>
+<p>[369-396=27]</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、数据、簇、聚类算法&quot;&gt;&lt;a href=&quot;#一、数据、簇、聚类算法&quot; class=&quot;headerlink&quot; title=&quot;一、数据、簇、聚类算法&quot;&gt;&lt;/a&gt;一、数据、簇、聚类算法&lt;/h3&gt;&lt;h4 id=&quot;（1）数据特性&quot;&gt;&lt;a href=&quot;#（1）数据特性&quot; class=&quot;headerlink&quot; title=&quot;（1）数据特性&quot;&gt;&lt;/a&gt;（1）数据特性&lt;/h4&gt;&lt;p&gt;可能影响聚类分析的因素：&lt;br&gt;高维性、规模、稀疏性、噪声和离群点、尺度&lt;/p&gt;
+&lt;h3 id=&quot;二、基于原型的聚类&quot;&gt;&lt;a href=&quot;#二、基于原型的聚类&quot; class=&quot;headerlink&quot; title=&quot;二、基于原型的聚类&quot;&gt;&lt;/a&gt;二、基于原型的聚类&lt;/h3&gt;&lt;h4 id=&quot;（1）模糊聚类&quot;&gt;&lt;a href=&quot;#（1）模糊聚类&quot; class=&quot;headerlink&quot; title=&quot;（1）模糊聚类&quot;&gt;&lt;/a&gt;（1）模糊聚类&lt;/h4&gt;&lt;h5 id=&quot;1、模糊集合&quot;&gt;&lt;a href=&quot;#1、模糊集合&quot; class=&quot;headerlink&quot; title=&quot;1、模糊集合&quot;&gt;&lt;/a&gt;1、模糊集合&lt;/h5&gt;&lt;p&gt;模糊集合论允许对象以 0 和 1 之间的某个隶属度隶属于一个集合。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
+      <category term="聚类算法" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>聚类分析（1）：基本概念和算法</title>
+    <link href="http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/"/>
+    <id>http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/</id>
+    <published>2017-02-15T13:57:00.000Z</published>
+    <updated>2017-02-15T13:58:13.382Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><h4 id="（1）聚类分析"><a href="#（1）聚类分析" class="headerlink" title="（1）聚类分析"></a>（1）聚类分析</h4><blockquote>
+<p>目标是，分组数据使得，组内的对象是相似的（相关的），不同组是不同的（不相关的）。</p>
+</blockquote>
+<h4 id="（2）聚类类型"><a href="#（2）聚类类型" class="headerlink" title="（2）聚类类型"></a>（2）聚类类型</h4><h5 id="1、层次、划分"><a href="#1、层次、划分" class="headerlink" title="1、层次、划分"></a>1、层次、划分</h5><p>层次聚类（嵌套聚类，hierarchial clustering）：聚类簇组织成一棵树，每一个结点是其子女的并。<br>划分聚类（非嵌套聚类，partional clustering）：简单的将数据对象划分为不重叠的子集。</p>
+<a id="more"></a>
+<h5 id="2、互斥、重叠、模糊"><a href="#2、互斥、重叠、模糊" class="headerlink" title="2、互斥、重叠、模糊"></a>2、互斥、重叠、模糊</h5><p>互斥聚类（exclusive）：每个对象被指派到单独的单个簇。<br>重叠聚类（overlapping）：一个对象可以同时属于多个簇。<br>模糊聚类（fuzzy clustering）：概率聚类，每个对象以0-1之间的的权值隶属于一个类，但是每个对象的权值之和为1。</p>
+<h5 id="3、完全、部分"><a href="#3、完全、部分" class="headerlink" title="3、完全、部分"></a>3、完全、部分</h5><p>完全聚类（complete clustering）：每个对象指派到一个类。<br>部分聚类（partial clustering）：某些对象可以不属于明确定义的类。</p>
+<h4 id="（3）簇类型"><a href="#（3）簇类型" class="headerlink" title="（3）簇类型"></a>（3）簇类型</h4><p>下面显示一些簇类型：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-362b6fe658b6e41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_01.png"></p>
+<p>类型：明显分离、基于原型（中心簇）、基于图（连通）、基于密度、共同性质的（概念簇）。</p>
+<h3 id="二、K-均值"><a href="#二、K-均值" class="headerlink" title="二、K-均值"></a>二、K-均值</h3><h4 id="（1）基本K-均值算法"><a href="#（1）基本K-均值算法" class="headerlink" title="（1）基本K-均值算法"></a>（1）基本K-均值算法</h4><h6 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-b5af82ded562398f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_02.png"></p>
+<h6 id="目标函数："><a href="#目标函数：" class="headerlink" title="目标函数："></a>目标函数：</h6><p>$$ SSE=\sum_{i=1}^{K}\sum_{x\in C_{i}}dist(c_{i},x)^{2}, c_{i}=\frac{1}{m_{i}}\sum_{x\in C_{i}}x$$</p>
+<p>上面的第3、4步骤试图最小化目标函数（SSE或者其他的），直到收敛。</p>
+<h6 id="常见的邻近度和目标函数组合："><a href="#常见的邻近度和目标函数组合：" class="headerlink" title="常见的邻近度和目标函数组合："></a>常见的邻近度和目标函数组合：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-adfdc1d85292066b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_03.png"></p>
+<h6 id="初始质心："><a href="#初始质心：" class="headerlink" title="初始质心："></a>初始质心：</h6><p>不同的初始质心会收敛到不同的结果。</p>
+<blockquote>
+<p>随机初始质心：问题是，即使运行多次也不一定能得到好的分类。因为，一旦一个簇内有多个质心，该簇很可能被分裂。<br>其他方法：先使用层次聚类，从中提取K个类，使用这K个类的质心作为初始质心。仅对：样本较小，K较小有效。</p>
+</blockquote>
+<h4 id="（2）K均值：附加问题"><a href="#（2）K均值：附加问题" class="headerlink" title="（2）K均值：附加问题"></a>（2）K均值：附加问题</h4><h6 id="处理空簇"><a href="#处理空簇" class="headerlink" title="处理空簇"></a>处理空簇</h6><p>所有的点没有一个分配到一个质心。选择替补质心。</p>
+<h6 id="离群点"><a href="#离群点" class="headerlink" title="离群点"></a>离群点</h6><p>离群点对于k-均值聚类有较大影响，应该删除。</p>
+<h6 id="后处理SSE"><a href="#后处理SSE" class="headerlink" title="后处理SSE"></a>后处理SSE</h6><p>增加簇：</p>
+<blockquote>
+<p>分裂一个簇：选择SSE最大的分裂。<br>引进一个新的质心：选择离所有质心最远的点。</p>
+</blockquote>
+<p>减少簇：</p>
+<blockquote>
+<p>拆散一个簇：删除簇的对应质心。簇中的点重新分配。<br>合并两个簇：选择两个质心最接近的两个簇合并。</p>
+</blockquote>
+<h6 id="增量的更新质心"><a href="#增量的更新质心" class="headerlink" title="增量的更新质心"></a>增量的更新质心</h6><p>给定一个目标函数，每步要零次或两次更新质心。<br>可能产生次序依赖性问题，开销也稍微大一些。</p>
+<h4 id="（3）二分K均值"><a href="#（3）二分K均值" class="headerlink" title="（3）二分K均值"></a>（3）二分K均值</h4><p>思路：</p>
+<blockquote>
+<p>为了得到 K 个簇，将所有点分裂成两个簇，从这些簇中，选取一个继续分裂，直到产生 K 个簇。</p>
+</blockquote>
+<p>算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-2394e71761569cad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_04.png"></p>
+<p>带分裂的簇选择方法有很多：最大的簇，最大SSE的簇等。</p>
+<h4 id="（4）优点与缺点"><a href="#（4）优点与缺点" class="headerlink" title="（4）优点与缺点"></a>（4）优点与缺点</h4><p>优点：二分K均值，不太受初始值的影响。<br>缺点：不能处理非球形簇、不同尺寸、不同密度的簇。</p>
+<h3 id="三、凝聚层次聚类"><a href="#三、凝聚层次聚类" class="headerlink" title="三、凝聚层次聚类"></a>三、凝聚层次聚类</h3><h4 id="（1）基本算法"><a href="#（1）基本算法" class="headerlink" title="（1）基本算法"></a>（1）基本算法</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-8799159151edff4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_05.png"></p>
+<h4 id="（2）距离的度量："><a href="#（2）距离的度量：" class="headerlink" title="（2）距离的度量："></a>（2）距离的度量：</h4><p>最短距离（min）、最长距离（max）、平均距离、ward和质心距离<br><img src="http://upload-images.jianshu.io/upload_images/3341358-03ba4bb8e8df0a7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_06.png"></p>
+<h4 id="（3）簇邻近度的Lance-Williams公式"><a href="#（3）簇邻近度的Lance-Williams公式" class="headerlink" title="（3）簇邻近度的Lance-Williams公式"></a>（3）簇邻近度的Lance-Williams公式</h4><p>Lance-Williams公式：<br>$$p(R,Q)=\alpha_{A}p(A,Q)+ \alpha_{B}p(B,Q)+\beta p(A,B)+\gamma |p(A,Q)-p(B,Q)|$$</p>
+<p>A、B、Q合并得到R。p(. , .)是邻近度函数，以上表示它们为线性函数。<br>下面是Lance-Williams公式鱼邻近度函数的对应：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-ae89f01f8ec66f28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_07.png"></p>
+<h4 id="（4）层次聚类的问题"><a href="#（4）层次聚类的问题" class="headerlink" title="（4）层次聚类的问题"></a>（4）层次聚类的问题</h4><blockquote>
+<p>1、缺乏全局目标函数：避开了解决困难的组合优化问题，很难选择初始点的问题。<br>2、合并是最终的：一旦合并就不能撤销。</p>
+</blockquote>
+<h3 id="四、DBSCAN"><a href="#四、DBSCAN" class="headerlink" title="四、DBSCAN"></a>四、DBSCAN</h3><p>基于密度聚类算法，寻找被低密度区域分离的高密度区域。</p>
+<h4 id="（1）传统密度：基于中心的方法"><a href="#（1）传统密度：基于中心的方法" class="headerlink" title="（1）传统密度：基于中心的方法"></a>（1）传统密度：基于中心的方法</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-56563eca57abd2c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_08.png"></p>
+<blockquote>
+<p>核心点（core point）：该点给定邻域的点个数超过用户给定阈值 MinPts（Eps为用户定义的距离）。A点。<br>边界点（border point）：不是核心点，它落在某个核心点邻域。B点。<br>噪声点（noise point）：即非核心点也非边界点。C点。</p>
+</blockquote>
+<h4 id="（2）DBSCAN算法"><a href="#（2）DBSCAN算法" class="headerlink" title="（2）DBSCAN算法"></a>（2）DBSCAN算法</h4><h5 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h5><blockquote>
+<p>任意两个足够近（Eps之内）的核心点将方到一个簇中。<br>任何与核心点足够近的边界点放到相同簇中（如果边界点靠近不同簇的核心点，要解决平均问题）。<br>噪声点丢弃。</p>
+</blockquote>
+<h5 id="算法步骤：-1"><a href="#算法步骤：-1" class="headerlink" title="算法步骤："></a>算法步骤：</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-d3eef169fea3e7a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_09.png"></p>
+<h5 id="选择-Eps-和-MinPts"><a href="#选择-Eps-和-MinPts" class="headerlink" title="选择 Eps 和 MinPts"></a>选择 Eps 和 MinPts</h5><h6 id="使用-k-距离"><a href="#使用-k-距离" class="headerlink" title="使用 k-距离"></a>使用 k-距离</h6><p>k-最近邻的距离，对于某个k，计算所有点的k-距离，以递增排序，则k-距离会在某个部分急剧变化（噪声点的k-距离很大）。选取k为MinPts，合适的距离为Eps。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-5c7112fc9348f356.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_10.png"></p>
+<p>下面为，使用Eps=10，MinPts=4的结果：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-877f018f6cc497ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_11.png"></p>
+<h4 id="（3）优点与缺点"><a href="#（3）优点与缺点" class="headerlink" title="（3）优点与缺点"></a>（3）优点与缺点</h4><blockquote>
+<p>优点：对抗噪音的能力很强，能够处理任意形状和大小的簇。<br>缺点：DBSCAN当计算近邻的时候，开销很大。</p>
+</blockquote>
+<h3 id="五、簇评估"><a href="#五、簇评估" class="headerlink" title="五、簇评估"></a>五、簇评估</h3><h4 id="（1）非监督簇评估：凝聚度、分离度"><a href="#（1）非监督簇评估：凝聚度、分离度" class="headerlink" title="（1）非监督簇评估：凝聚度、分离度"></a>（1）非监督簇评估：凝聚度、分离度</h4><p>$$ overallValidity=\sum_{i=1}^{K}w_{i}validity(C_{i})$$<br>K个簇的有效性，为个体簇的有效性加权和，下面给出度量表：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-4f58d89f7cc1b7ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_12.png"></p>
+<h5 id="1、基于图：凝聚度、分离度"><a href="#1、基于图：凝聚度、分离度" class="headerlink" title="1、基于图：凝聚度、分离度"></a>1、基于图：凝聚度、分离度</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-f1c03fc8f85479df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_13.png"></p>
+<p>proximity函数可以是相似度、相异度，或者是这些量的简单函数：<br>$$ cohesion(C_{i})=\sum_{x\in C_{i},y\in C_{i}}proximity(x,y)$$<br>$$ separation(C_{i},C_{j})=\sum_{x\in C_{i},y\in C_{j}}proximity(x,y)$$</p>
+<h5 id="2、基于原型：凝聚度、分离度"><a href="#2、基于原型：凝聚度、分离度" class="headerlink" title="2、基于原型：凝聚度、分离度"></a>2、基于原型：凝聚度、分离度</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-90f783db930011ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_14.png"></p>
+<p>ci是Ci的原型（质心），c是总体原型（质心）：<br>$$ cohesion(C_{i})=\sum_{x\in C_{i}}proximity(x,c_{i})$$<br>$$ separation(C_{i},C_{j})=proximity(c_{i},c_{j})$$<br>$$ separation(C_{i})=proximity(c_{i},c)$$</p>
+<h5 id="3、轮廓系数"><a href="#3、轮廓系数" class="headerlink" title="3、轮廓系数"></a>3、轮廓系数</h5><p>轮廓系数（silhouette coefficient）：</p>
+<blockquote>
+<p>1、对于第 i 个对象，计算它到所在簇所有点的平均距离：ai<br>2、对于第 i 个对象，计算它到不含它的其他簇所有对象的平均距离，找出最小的：bi<br>3、对于第 i 个对象，轮廓系数为：<br>$$s_{i}=\frac{(b_{i}-a_{i})}{max(a_{i},b_{i})}$$</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-a14462398698aadd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_15.png"></p>
+<h4 id="（3）非监督簇评估：近邻矩阵"><a href="#（3）非监督簇评估：近邻矩阵" class="headerlink" title="（3）非监督簇评估：近邻矩阵"></a>（3）非监督簇评估：近邻矩阵</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-44f038f80f34a68d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_16.png"></p>
+<p>可以使用某个距离度量法来度量相似度，得到每个点的距离，汇总得到近邻矩阵。但是仅使用于小数据、抽样。</p>
+<h4 id="（4）簇个数"><a href="#（4）簇个数" class="headerlink" title="（4）簇个数"></a>（4）簇个数</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-2f29fe272a86189f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_17.png"></p>
+<p>使用 SSE 和轮廓系数来判断，统计上的 SSE 的说明性更强，统计上不止这一个系数可以分类。</p>
+<h4 id="（5）聚类趋势"><a href="#（5）聚类趋势" class="headerlink" title="（5）聚类趋势"></a>（5）聚类趋势</h4><p>度量空间中的点是否为随机分布的，使用Hopkins统计量：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-fc559a752d89a1cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_18.png"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、概述&quot;&gt;&lt;a href=&quot;#一、概述&quot; class=&quot;headerlink&quot; title=&quot;一、概述&quot;&gt;&lt;/a&gt;一、概述&lt;/h3&gt;&lt;h4 id=&quot;（1）聚类分析&quot;&gt;&lt;a href=&quot;#（1）聚类分析&quot; class=&quot;headerlink&quot; title=&quot;（1）聚类分析&quot;&gt;&lt;/a&gt;（1）聚类分析&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;目标是，分组数据使得，组内的对象是相似的（相关的），不同组是不同的（不相关的）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;（2）聚类类型&quot;&gt;&lt;a href=&quot;#（2）聚类类型&quot; class=&quot;headerlink&quot; title=&quot;（2）聚类类型&quot;&gt;&lt;/a&gt;（2）聚类类型&lt;/h4&gt;&lt;h5 id=&quot;1、层次、划分&quot;&gt;&lt;a href=&quot;#1、层次、划分&quot; class=&quot;headerlink&quot; title=&quot;1、层次、划分&quot;&gt;&lt;/a&gt;1、层次、划分&lt;/h5&gt;&lt;p&gt;层次聚类（嵌套聚类，hierarchial clustering）：聚类簇组织成一棵树，每一个结点是其子女的并。&lt;br&gt;划分聚类（非嵌套聚类，partional clustering）：简单的将数据对象划分为不重叠的子集。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
+      <category term="聚类算法" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关联分析（2）：高级概念</title>
+    <link href="http://yoursite.com/2017/02/15/ML_ITDM_realation_02/"/>
+    <id>http://yoursite.com/2017/02/15/ML_ITDM_realation_02/</id>
+    <published>2017-02-15T13:56:50.000Z</published>
+    <updated>2017-02-15T13:56:52.045Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、处理分类属性"><a href="#一、处理分类属性" class="headerlink" title="一、处理分类属性"></a>一、处理分类属性</h3><p>依然使用虚拟变量。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-2656cf4ac104d32b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7_01.png"></p>
+<p>（1）属性值有可能不频繁，可以分组处理，使得较小数据合并。<br>（2）某些属性的频率出现比其他压高很多，出现冗余模式，可能需要剔除。</p>
+<a id="more"></a>
+<h3 id="二、处理连续变量"><a href="#二、处理连续变量" class="headerlink" title="二、处理连续变量"></a>二、处理连续变量</h3><h4 id="（1）基于离散化方法"><a href="#（1）基于离散化方法" class="headerlink" title="（1）基于离散化方法"></a>（1）基于离散化方法</h4><p>问题：区间宽度不好确定，计算开销比较大，提取许多冗余的规则。</p>
+<h4 id="（2）基于统计学方法"><a href="#（2）基于统计学方法" class="headerlink" title="（2）基于统计学方法"></a>（2）基于统计学方法</h4><p>[略]</p>
+<h4 id="（3）-非离散化方法"><a href="#（3）-非离散化方法" class="headerlink" title="（3） 非离散化方法"></a>（3） 非离散化方法</h4><p>[略]</p>
+<h3 id="三、处理概念分层"><a href="#三、处理概念分层" class="headerlink" title="三、处理概念分层"></a>三、处理概念分层</h3><p>[略]</p>
+<h3 id="四、序列模式"><a href="#四、序列模式" class="headerlink" title="四、序列模式"></a>四、序列模式</h3><p>[略]</p>
+<h3 id="五、子图模式"><a href="#五、子图模式" class="headerlink" title="五、子图模式"></a>五、子图模式</h3><p>[略]</p>
+<h3 id="六、非频繁模式"><a href="#六、非频繁模式" class="headerlink" title="六、非频繁模式"></a>六、非频繁模式</h3><p>[略]</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、处理分类属性&quot;&gt;&lt;a href=&quot;#一、处理分类属性&quot; class=&quot;headerlink&quot; title=&quot;一、处理分类属性&quot;&gt;&lt;/a&gt;一、处理分类属性&lt;/h3&gt;&lt;p&gt;依然使用虚拟变量。&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-2656cf4ac104d32b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;7_01.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;（1）属性值有可能不频繁，可以分组处理，使得较小数据合并。&lt;br&gt;（2）某些属性的频率出现比其他压高很多，出现冗余模式，可能需要剔除。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
+      <category term="关联分析" scheme="http://yoursite.com/tags/%E5%85%B3%E8%81%94%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
     <title>关联分析（1）：基本概念和算法</title>
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_realation_01/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_realation_01/</id>
     <published>2017-02-15T13:48:51.000Z</published>
-    <updated>2017-02-15T13:48:52.833Z</updated>
+    <updated>2017-02-15T13:53:30.355Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h3><h5 id="（一）基本概念"><a href="#（一）基本概念" class="headerlink" title="（一）基本概念"></a>（一）基本概念</h5><h6 id="二元概念"><a href="#二元概念" class="headerlink" title="二元概念"></a>二元概念</h6><p>对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。</p>
 <h6 id="项集和支持度计数"><a href="#项集和支持度计数" class="headerlink" title="项集和支持度计数"></a>项集和支持度计数</h6><p>事务：一行数据。<br>k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}<br><img src="http://upload-images.jianshu.io/upload_images/3341358-11295870eaafecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_01.png"></p>
@@ -106,6 +327,8 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
       <category term="关联分析" scheme="http://yoursite.com/tags/%E5%85%B3%E8%81%94%E5%88%86%E6%9E%90/"/>
     
   </entry>
@@ -115,7 +338,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/</id>
     <published>2017-02-15T13:37:36.000Z</published>
-    <updated>2017-02-15T13:43:52.571Z</updated>
+    <updated>2017-02-15T13:53:25.606Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、不平衡问题"><a href="#一、不平衡问题" class="headerlink" title="一、不平衡问题"></a>一、不平衡问题</h4><h5 id="（1）不平衡数据"><a href="#（1）不平衡数据" class="headerlink" title="（1）不平衡数据"></a>（1）不平衡数据</h5><p>例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。<br>这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。<br>例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。</p>
 <h5 id="（2）混淆矩阵"><a href="#（2）混淆矩阵" class="headerlink" title="（2）混淆矩阵"></a>（2）混淆矩阵</h5><p>在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类被认为是负类。下面显示了混淆矩阵：</p>
@@ -169,6 +392,8 @@
     
       <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
     
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
   </entry>
   
   <entry>
@@ -176,7 +401,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/</id>
     <published>2017-02-15T13:32:47.000Z</published>
-    <updated>2017-02-15T13:43:47.541Z</updated>
+    <updated>2017-02-15T13:53:47.019Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、组合方法"><a href="#一、组合方法" class="headerlink" title="一、组合方法"></a>一、组合方法</h4><h5 id="（1）组合分类器原理："><a href="#（1）组合分类器原理：" class="headerlink" title="（1）组合分类器原理："></a>（1）组合分类器原理：</h5><p>考虑25个二元分类器，每一个分类误差a=0.35。组合分类器通过多数投票，如果基分类器是独立的，则仅当超过一半的基分类器都预测错误时，组合才会错误，则：<br>$$ e_{ensemble}=\sum_{i=1}^{25}C_{25}^{i}a^{i}(1-a)^{25-i}=0.06$$</p>
 <p>可以看出，其远低于0.35。</p>
@@ -238,6 +463,8 @@
     
       <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
     
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
   </entry>
   
   <entry>
@@ -245,7 +472,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_04/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_04/</id>
     <published>2017-02-15T13:26:40.000Z</published>
-    <updated>2017-02-15T13:43:41.437Z</updated>
+    <updated>2017-02-15T13:53:43.243Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h4><p>SVM 寻找一个最大边缘超平面（maximal margin hyperplane），使得将数据分开，并且有最大的margin，泛化能力。</p>
 <h5 id="（1）结构风险最小化（structual-risk-minimization，SRM）"><a href="#（1）结构风险最小化（structual-risk-minimization，SRM）" class="headerlink" title="（1）结构风险最小化（structual risk minimization，SRM）"></a>（1）结构风险最小化（structual risk minimization，SRM）</h5><p>线性分类器的边缘与泛化误差之间的关系，分类器的泛化误差在最坏的情况下：<br>$$R\leqslant R_{e}+\varphi \left(\frac{h}{N},\frac{log(\eta )}{N}\right)$$<br>$\varphi$是h的单调增函数，$1-\eta$表示概率。<br><a id="more"></a></p>
@@ -275,6 +502,8 @@
     
       <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
     
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
   </entry>
   
   <entry>
@@ -282,7 +511,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/</id>
     <published>2017-02-15T13:23:21.000Z</published>
-    <updated>2017-02-15T13:43:34.699Z</updated>
+    <updated>2017-02-15T13:53:40.450Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、感知器"><a href="#一、感知器" class="headerlink" title="一、感知器"></a>一、感知器</h4><p>下图为一个感知器，单个神经元。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_06.png"><br>该感知器的算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3578cedeed16cbe4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_07.png"><br><a id="more"></a></p>
 <h4 id="二、多层人工神经网络"><a href="#二、多层人工神经网络" class="headerlink" title="二、多层人工神经网络"></a>二、多层人工神经网络</h4><h5 id="（1）基本概念"><a href="#（1）基本概念" class="headerlink" title="（1）基本概念"></a>（1）基本概念</h5><p>神经网络，这里先以前馈神经网络为介绍，每层为全连接，则对于2个神经元，参数为：</p>
@@ -316,6 +545,8 @@
     
       <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
     
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
   </entry>
   
   <entry>
@@ -323,7 +554,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/</id>
     <published>2017-02-15T13:14:31.000Z</published>
-    <updated>2017-02-15T13:43:29.145Z</updated>
+    <updated>2017-02-15T13:53:37.398Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、k-最近邻"><a href="#一、k-最近邻" class="headerlink" title="一、k-最近邻"></a>一、k-最近邻</h4><h5 id="1、算法"><a href="#1、算法" class="headerlink" title="1、算法"></a>1、算法</h5><p>积极学习方法（eager learner）：通过训练样本建立模型。<br>消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。</p>
 <h6 id="k-最近邻算法："><a href="#k-最近邻算法：" class="headerlink" title="k-最近邻算法："></a>k-最近邻算法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">令k是最近邻数目，D是训练样例集合</div><div class="line"><span class="keyword">for</span> z <span class="keyword">in</span> 样例集合:</div><div class="line">  计算 z 和每个样例 (x,y) 的距离 d</div><div class="line">  选择离 z 前 k 个近距离的点，为集合 Dt</div><div class="line">  z的标记 y 为 Dt 中类较多的</div></pre></td></tr></table></figure>
@@ -384,6 +615,8 @@
     
       <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
     
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
   </entry>
   
   <entry>
@@ -391,7 +624,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/</id>
     <published>2017-02-15T12:57:50.000Z</published>
-    <updated>2017-02-15T13:43:18.247Z</updated>
+    <updated>2017-02-15T13:53:06.090Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、如何建立决策树"><a href="#一、如何建立决策树" class="headerlink" title="一、如何建立决策树"></a>一、如何建立决策树</h3><h4 id="1、Hunt算法"><a href="#1、Hunt算法" class="headerlink" title="1、Hunt算法"></a>1、Hunt算法</h4><p>Hunt算法是许多决策树算法的基础，包括ID3、C4.5、CART。<br>Hunt算法步骤：</p>
 <blockquote>
@@ -444,6 +677,8 @@
     
       <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
     
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
+    
   </entry>
   
   <entry>
@@ -451,7 +686,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_data/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_data/</id>
     <published>2017-02-15T12:47:32.000Z</published>
-    <updated>2017-02-15T12:47:40.962Z</updated>
+    <updated>2017-02-15T13:53:23.231Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、数据知识"><a href="#一、数据知识" class="headerlink" title="一、数据知识"></a>一、数据知识</h4><p>如果若干属性是强相关的，则说明这些属性可能提供了高度冗余的信息，我们可以决定只保留一个。</p>
 <h4 id="二、数据预处理"><a href="#二、数据预处理" class="headerlink" title="二、数据预处理"></a>二、数据预处理</h4><h5 id="1、维规约："><a href="#1、维规约：" class="headerlink" title="1、维规约："></a>1、维规约：</h5><p>通过创建新属性，将一些旧属性合并在一起来降低数据的维度。通过选择旧属性的子集得到的新属性，这种维规约称为特征子集选择。<br><a id="more"></a></p>
@@ -504,6 +739,8 @@
       <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
     
   </entry>
   
@@ -763,128 +1000,6 @@
     
       &lt;h4 id=&quot;1、sleep-seconds&quot;&gt;&lt;a href=&quot;#1、sleep-seconds&quot; class=&quot;headerlink&quot; title=&quot;1、sleep(seconds)&quot;&gt;&lt;/a&gt;1、sleep(seconds)&lt;/h4&gt;&lt;p&gt;线程推迟指定的时间运行，单位为秒&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;time.sleep(10)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&quot;2、ctime-seconds-gt-string&quot;&gt;&lt;a href=&quot;#2、ctime-seconds-gt-string&quot; class=&quot;headerlink&quot; title=&quot;2、ctime(seconds) -&amp;gt; string&quot;&gt;&lt;/a&gt;2、ctime(seconds) -&amp;gt; string&lt;/h4&gt;&lt;p&gt;将一个时间戳(默认为当前时间)转换成一个时间字符串&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;time.ctime()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;&amp;gt; &amp;apos;Tue Nov 29 17:51:02 2016&amp;apos;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python-dcox 模块 生成Word、docx文件</title>
-    <link href="http://yoursite.com/2017/01/12/python_python-dcox/"/>
-    <id>http://yoursite.com/2017/01/12/python_python-dcox/</id>
-    <published>2017-01-12T12:36:00.000Z</published>
-    <updated>2017-02-15T12:52:31.855Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="http://python-docx.readthedocs.io/en/latest/index.html" target="_blank" rel="external">http://python-docx.readthedocs.io/en/latest/index.html</a><br>生成word的利器！</p>
-<h2 id="一、快速开始"><a href="#一、快速开始" class="headerlink" title="一、快速开始"></a>一、快速开始</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx import Document</div><div class="line">document = Document()</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h4 id="1、段落"><a href="#1、段落" class="headerlink" title="1、段落"></a>1、段落</h4><p>加一个段落，下面<code>paragraph</code>是前面内容的光标指向，后面再该处插入一句话。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">paragraph = document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;)</div><div class="line">prior_paragraph = paragraph.insert_paragraph_before(&apos;Lorem ipsum&apos;)</div></pre></td></tr></table></figure></p>
-<p>后面加一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)</div><div class="line">paragraph.add_run(&apos;dolor sit amet.&apos;)</div></pre></td></tr></table></figure></p>
-<p>添加段落风格<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.add_paragraph(&apos;Lorem ipsum dolor sit amet.&apos;, style=&apos;ListBullet&apos;)</div></pre></td></tr></table></figure></p>
-<p>使用blod、italic 等等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">paragraph = document.add_paragraph(&apos;Lorem ipsum &apos;)</div><div class="line">run = paragraph.add_run(&apos;dolor&apos;)</div><div class="line">run.bold = True</div><div class="line">run.italic = True</div><div class="line">paragraph.add_run(&apos;dolor&apos;).bold = True</div></pre></td></tr></table></figure></p>
-<h4 id="2、标题"><a href="#2、标题" class="headerlink" title="2、标题"></a>2、标题</h4><p><code>level</code>表示标题的大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.add_heading(&apos;The role of dolphins&apos;, level=2)</div></pre></td></tr></table></figure></p>
-<h4 id="3、分页"><a href="#3、分页" class="headerlink" title="3、分页"></a>3、分页</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.add_page_break()</div></pre></td></tr></table></figure>
-<h4 id="4、表格"><a href="#4、表格" class="headerlink" title="4、表格"></a>4、表格</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">table = document.add_table(rows=2, cols=2)</div></pre></td></tr></table></figure>
-<h6 id="访问方法："><a href="#访问方法：" class="headerlink" title="访问方法："></a>访问方法：</h6><p>取出来，单独赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cell = table.cell(0, 1)</div><div class="line">cell.text = &apos;parrot, possibly dead&apos;</div></pre></td></tr></table></figure></p>
-<p>依然使用二维数组类似的索引。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">row = table.rows[1]</div><div class="line">row.cells[0].text = &apos;Foo bar to you.&apos;</div><div class="line">row.cells[1].text = &apos;And a hearty foo bar to you too sir!&apos;</div></pre></td></tr></table></figure></p>
-<p>分清楚结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for row in table.rows:</div><div class="line">    for cell in row.cells:</div><div class="line">        print(cell.text)</div></pre></td></tr></table></figure></p>
-<p>查看信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">row_count = len(table.rows)</div><div class="line">col_count = len(table.columns)</div></pre></td></tr></table></figure></p>
-<h6 id="添加一行"><a href="#添加一行" class="headerlink" title="添加一行"></a>添加一行</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">row = table.add_row()</div></pre></td></tr></table></figure>
-<h6 id="动态添加表格"><a href="#动态添加表格" class="headerlink" title="动态添加表格"></a>动态添加表格</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">table = document.add_table(1, 3)</div><div class="line"># 标题</div><div class="line">heading_cells = table.rows[0].cells</div><div class="line">heading_cells[0].text = &apos;Qty&apos;</div><div class="line">heading_cells[1].text = &apos;SKU&apos;</div><div class="line">heading_cells[2].text = &apos;Description&apos;</div><div class="line"># 添加内容</div><div class="line">for item in items:</div><div class="line">    cells = table.add_row().cells</div><div class="line">    cells[0].text = str(item.column1)</div><div class="line">    cells[1].text = item.column2</div><div class="line">    cells[2].text = item.column3</div></pre></td></tr></table></figure>
-<h4 id="5、添加图片"><a href="#5、添加图片" class="headerlink" title="5、添加图片"></a>5、添加图片</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx.shared import Inches</div><div class="line">document.add_picture(&apos;image-filename.png&apos;, width=Inches(1.25), height=Inches(1.25))</div></pre></td></tr></table></figure>
-<h2 id="二、操作document"><a href="#二、操作document" class="headerlink" title="二、操作document"></a>二、操作document</h2><p>只能打开07之后的，会覆盖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">document = Document(&apos;existing-document-file.docx&apos;)</div><div class="line">document.save(&apos;new-file-name.docx&apos;)</div></pre></td></tr></table></figure></p>
-<p>打开文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">f = open(&apos;foobar.docx&apos;, &apos;rb&apos;)</div><div class="line">document = Document(f)</div><div class="line">f.close()</div><div class="line"># or</div><div class="line">with open(&apos;foobar.docx&apos;, &apos;rb&apos;) as f:</div><div class="line">    source_stream = StringIO(f.read())</div><div class="line">document = Document(source_stream)</div><div class="line">source_stream.close()</div><div class="line">...</div><div class="line">target_stream = StringIO()</div><div class="line">document.save(target_stream)</div></pre></td></tr></table></figure></p>
-<h2 id="三、操作text"><a href="#三、操作text" class="headerlink" title="三、操作text"></a>三、操作text</h2><p>段落居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from docx.enum.text import WD_ALIGN_PARAGRAPH</div><div class="line">document = Document()</div><div class="line">paragraph = document.add_paragraph()</div><div class="line">paragraph_format = paragraph.paragraph_format</div><div class="line">paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER</div></pre></td></tr></table></figure></p>
-<p>左边整体缩进<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from docx.shared import Inches</div><div class="line">paragraph = document.add_paragraph()</div><div class="line">paragraph_format = paragraph.paragraph_format</div><div class="line">paragraph_format.left_indent = Inches(0.5)</div></pre></td></tr></table></figure></p>
-<p>右边整体缩进<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx.shared import Pt</div><div class="line">paragraph_format.right_indent = Pt(24)</div></pre></td></tr></table></figure></p>
-<p>首行缩进<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">paragraph_format.first_line_indent = Inches(-0.25)</div></pre></td></tr></table></figure></p>
-<p>从字体调节，字体大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">run = document.add_paragraph().add_run()</div><div class="line">font = run.font</div><div class="line">from docx.shared import Pt</div><div class="line">font.size = Pt(10.5)  # 5号字体</div><div class="line">font.italic = True</div><div class="line">font.underline = True</div></pre></td></tr></table></figure></p>
-<p>字体颜色<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx.shared import RGBColor</div><div class="line">font.color.rgb = RGBColor(0x42, 0x24, 0xE9)</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;http://python-docx.readthedocs.io/en/latest/index.html&quot;&gt;http://python-docx.readthedocs.io/en/latest/index.html&lt;/a&gt;&lt;br&gt;生成word的利器！&lt;/p&gt;
-&lt;h2 id=&quot;一、快速开始&quot;&gt;&lt;a href=&quot;#一、快速开始&quot; class=&quot;headerlink&quot; title=&quot;一、快速开始&quot;&gt;&lt;/a&gt;一、快速开始&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;from docx import Document&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;document = Document()&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>pickle 模块 序列化</title>
-    <link href="http://yoursite.com/2017/01/12/python_pickle/"/>
-    <id>http://yoursite.com/2017/01/12/python_pickle/</id>
-    <published>2017-01-12T12:35:00.000Z</published>
-    <updated>2017-02-15T12:52:24.794Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用pickle模块将数据对象保存到文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import pickle</div><div class="line"> </div><div class="line">data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j],</div><div class="line">         &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;),</div><div class="line">         &apos;c&apos;: None&#125;</div><div class="line"> </div><div class="line">selfref_list = [1, 2, 3]</div><div class="line">selfref_list.append(selfref_list)</div><div class="line"> </div><div class="line">output = open(&apos;data.pkl&apos;, &apos;wb&apos;)</div><div class="line"> </div><div class="line"># Pickle dictionary using protocol 0.</div><div class="line">pickle.dump(data1, output)</div><div class="line"> </div><div class="line"># Pickle the list using the highest protocol available.</div><div class="line">pickle.dump(selfref_list, output, -1)</div><div class="line"> </div><div class="line">output.close()</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>使用pickle模块从文件中重构python对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import pprint, pickle</div><div class="line"> </div><div class="line">pkl_file = open(&apos;data.pkl&apos;, &apos;rb&apos;)</div><div class="line"> </div><div class="line">data1 = pickle.load(pkl_file)</div><div class="line">pprint.pprint(data1)</div><div class="line"> </div><div class="line">data2 = pickle.load(pkl_file)</div><div class="line">pprint.pprint(data2)</div><div class="line"> </div><div class="line">pkl_file.close()</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;使用pickle模块将数据对象保存到文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import pickle&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;data1 = &amp;#123;&amp;apos;a&amp;apos;: [1, 2.0, 3, 4+6j],&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;         &amp;apos;b&amp;apos;: (&amp;apos;string&amp;apos;, u&amp;apos;Unicode string&amp;apos;),&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;         &amp;apos;c&amp;apos;: None&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;selfref_list = [1, 2, 3]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;selfref_list.append(selfref_list)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;output = open(&amp;apos;data.pkl&amp;apos;, &amp;apos;wb&amp;apos;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;# Pickle dictionary using protocol 0.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;pickle.dump(data1, output)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;# Pickle the list using the highest protocol available.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;pickle.dump(selfref_list, output, -1)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;output.close()&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>os/sys 模块 python操作文件路径</title>
-    <link href="http://yoursite.com/2017/01/12/python_os_sys/"/>
-    <id>http://yoursite.com/2017/01/12/python_os_sys/</id>
-    <published>2017-01-12T12:34:00.000Z</published>
-    <updated>2017-02-15T12:52:09.507Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="当前路径："><a href="#当前路径：" class="headerlink" title="当前路径："></a>当前路径：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> sys, os</div><div class="line">pwd = sys.path[<span class="number">0</span>]    <span class="comment"># 获取当前执行脚本的位置</span></div></pre></td></tr></table></figure>
-<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><blockquote>
-<ul>
-<li><strong>`</strong>file<strong>`</strong>：当前文件完整路径，包括文件名</li>
-<li><strong>os.path.dirname(file)</strong>: 某个文件所在的目录路径</li>
-<li><strong>os.path.join(a, b, c,….)</strong>: 路径构造 a/b/c</li>
-<li><strong>os.path.abspath(path)</strong>: 将path从相对路径转成绝对路径</li>
-<li><strong>os.pardir</strong>: Linux下相当于”../“，上一级目录的标志</li>
-</ul>
-</blockquote>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))</div></pre></td></tr></table></figure>
-<h3 id="搜索当前文件的前n"><a href="#搜索当前文件的前n" class="headerlink" title="搜索当前文件的前n"></a>搜索当前文件的前n</h3><p><code>__file__</code> = r’D:\Lgb\ipc_inv_opt\src\com\jd\pbs\analysis\test.py’<br>运行uppath(4)<br>定位到 r’D:\Lgb\ipc_inv_opt\src’<br>[analysis]-pbs-jd-com-src<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">uppath</span><span class="params">(n=<span class="number">1</span>)</span>:</span></div><div class="line">    <span class="keyword">if</span> n == <span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> os.path.abspath(os.path.dirname(__file__))</div><div class="line">    <span class="keyword">return</span> os.path.abspath(os.path.join(os.path.dirname(__file__), (os.pardir + os.sep) * (n - <span class="number">1</span>) + os.pardir))</div></pre></td></tr></table></figure></p>
-<h3 id="1、判断文件夹存在"><a href="#1、判断文件夹存在" class="headerlink" title="1、判断文件夹存在"></a>1、判断文件夹存在</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if os.path.exists(total_path) == False:</div><div class="line">    os.mkdir(total_path)</div></pre></td></tr></table></figure>
-<h3 id="2、添加当前目录到-import-的路径中，当前目录需要有init"><a href="#2、添加当前目录到-import-的路径中，当前目录需要有init" class="headerlink" title="2、添加当前目录到 import 的路径中，当前目录需要有init"></a>2、添加当前目录到 import 的路径中，当前目录需要有<strong>init</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sys.path.append(os.path.dirname(__file__))</div><div class="line">sys.path.append(os.path.dirname(os.path.dirname(__file__)))</div></pre></td></tr></table></figure>
-<p>os.listdir()   # 列出dirname下的目录和文件<br>os.sep  # 可以取代操作系统特定的路径分割符。<br>os.name  # 字符串指示你正在使用的平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是’posix’。<br>os.getcwd()  # 函数得到当前工作目录，即当前Python脚本工作的目录路径。<br>os.getenv()和os.putenv()  # 函数分别用来读取和设置环境变量。<br>os.listdir()  # 返回指定目录下的所有文件和目录名。<br>os.remove()  # 函数用来删除一个文件。<br>os.system()  # 函数用来运行shell命令。<br>os.linesep  # 字符串给出当前平台使用的行终止符。例如，Windows使用’\r\n’，Linux使用’\n’而Mac使用’\r’。<br>os.curdir  # 返回但前目录（’.’)<br>os.chdir(dirname)  # 改变工作目录到dirname<br>os.path.isdir(name)  # 判断name是不是一个目录，name不是目录就返回false<br>os.path.isfile(name)  # 判断name是不是一个文件，不存在name也返回false<br>os.path.exists(name)  # 判断是否存在文件或目录name<br>os.path.getsize(name)  # 获得文件大小，如果name是目录返回0L<br>os.path.abspath(name)  # 获得绝对路径<br>os.path.normpath(path)  # 规范path字符串形式<br>os.path.split(name)  # 分割文件名与目录（事实上，如果你完全使用目录，它也会将最后一个目录作为文件名而分离，同时它不会判断文件或目录是否存在）<br>os.path.splitext()  # 分离文件名与扩展名<br>os.path.join(path,name)  # 连接目录与文件名或目录<br>os.path.basename(path)  # 返回文件名<br>os.path.dirname(path)  # 返回文件路径</p>
-<h3 id="3、python读取文件"><a href="#3、python读取文件" class="headerlink" title="3、python读取文件"></a>3、python读取文件</h3><p>方法一、这种为一行一行去读<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">for line in open(&quot;foo.txt&quot;): </div><div class="line">    print line,</div></pre></td></tr></table></figure></p>
-<p>方法二、这种为读取全部文件，然后在一行一行的去读<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">f = open(&quot;c:\\1.txt&quot;,&quot;r&quot;) </div><div class="line">lines = f.readlines()#读取全部内容 </div><div class="line">for line in lines </div><div class="line">    print line</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;当前路径：&quot;&gt;&lt;a href=&quot;#当前路径：&quot; class=&quot;headerlink&quot; title=&quot;当前路径：&quot;&gt;&lt;/a&gt;当前路径：&lt;/h3&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# -*- coding: utf-8 -*-&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; sys, os&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;pwd = sys.path[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]    &lt;span class=&quot;comment&quot;&gt;# 获取当前执行脚本的位置&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;参数：&quot;&gt;&lt;a href=&quot;#参数：&quot; class=&quot;headerlink&quot; title=&quot;参数：&quot;&gt;&lt;/a&gt;参数：&lt;/h3&gt;&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;`&lt;/strong&gt;file&lt;strong&gt;`&lt;/strong&gt;：当前文件完整路径，包括文件名&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;os.path.dirname(file)&lt;/strong&gt;: 某个文件所在的目录路径&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;os.path.join(a, b, c,….)&lt;/strong&gt;: 路径构造 a/b/c&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;os.path.abspath(path)&lt;/strong&gt;: 将path从相对路径转成绝对路径&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;os.pardir&lt;/strong&gt;: Linux下相当于”../“，上一级目录的标志&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
     
     </summary>
     

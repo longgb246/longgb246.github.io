@@ -1,0 +1,1112 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习,数据挖掘,算法,数据挖掘导论,聚类算法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="longgb246的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一、概述（1）聚类分析
+目标是，分组数据使得，组内的对象是相似的（相关的），不同组是不同的（不相关的）。
+
+（2）聚类类型1、层次、划分层次聚类（嵌套聚类，hierarchial clustering）：聚类簇组织成一棵树，每一个结点是其子女的并。划分聚类（非嵌套聚类，partional clustering）：简单的将数据对象划分为不重叠的子集。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="聚类分析（1）：基本概念和算法">
+<meta property="og:url" content="http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/index.html">
+<meta property="og:site_name" content="longgb246的博客">
+<meta property="og:description" content="一、概述（1）聚类分析
+目标是，分组数据使得，组内的对象是相似的（相关的），不同组是不同的（不相关的）。
+
+（2）聚类类型1、层次、划分层次聚类（嵌套聚类，hierarchial clustering）：聚类簇组织成一棵树，每一个结点是其子女的并。划分聚类（非嵌套聚类，partional clustering）：简单的将数据对象划分为不重叠的子集。">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-362b6fe658b6e41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-b5af82ded562398f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-adfdc1d85292066b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-2394e71761569cad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-8799159151edff4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-03ba4bb8e8df0a7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-ae89f01f8ec66f28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-56563eca57abd2c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-d3eef169fea3e7a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-5c7112fc9348f356.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-877f018f6cc497ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-4f58d89f7cc1b7ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-f1c03fc8f85479df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-90f783db930011ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-a14462398698aadd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-44f038f80f34a68d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-2f29fe272a86189f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-fc559a752d89a1cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-02-15T13:58:13.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="聚类分析（1）：基本概念和算法">
+<meta name="twitter:description" content="一、概述（1）聚类分析
+目标是，分组数据使得，组内的对象是相似的（相关的），不同组是不同的（不相关的）。
+
+（2）聚类类型1、层次、划分层次聚类（嵌套聚类，hierarchial clustering）：聚类簇组织成一棵树，每一个结点是其子女的并。划分聚类（非嵌套聚类，partional clustering）：简单的将数据对象划分为不重叠的子集。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3341358-362b6fe658b6e41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6379167083128686000',
+      author: 'longgb246'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/"/>
+
+
+
+
+
+  <title> 聚类分析（1）：基本概念和算法 | longgb246的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">longgb246的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="longgb246">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="longgb246的博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="longgb246的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                聚类分析（1）：基本概念和算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-15T21:57:00+08:00">
+                2017-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/15/ML_ITDM_cluster_01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/15/ML_ITDM_cluster_01/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><h4 id="（1）聚类分析"><a href="#（1）聚类分析" class="headerlink" title="（1）聚类分析"></a>（1）聚类分析</h4><blockquote>
+<p>目标是，分组数据使得，组内的对象是相似的（相关的），不同组是不同的（不相关的）。</p>
+</blockquote>
+<h4 id="（2）聚类类型"><a href="#（2）聚类类型" class="headerlink" title="（2）聚类类型"></a>（2）聚类类型</h4><h5 id="1、层次、划分"><a href="#1、层次、划分" class="headerlink" title="1、层次、划分"></a>1、层次、划分</h5><p>层次聚类（嵌套聚类，hierarchial clustering）：聚类簇组织成一棵树，每一个结点是其子女的并。<br>划分聚类（非嵌套聚类，partional clustering）：简单的将数据对象划分为不重叠的子集。</p>
+<a id="more"></a>
+<h5 id="2、互斥、重叠、模糊"><a href="#2、互斥、重叠、模糊" class="headerlink" title="2、互斥、重叠、模糊"></a>2、互斥、重叠、模糊</h5><p>互斥聚类（exclusive）：每个对象被指派到单独的单个簇。<br>重叠聚类（overlapping）：一个对象可以同时属于多个簇。<br>模糊聚类（fuzzy clustering）：概率聚类，每个对象以0-1之间的的权值隶属于一个类，但是每个对象的权值之和为1。</p>
+<h5 id="3、完全、部分"><a href="#3、完全、部分" class="headerlink" title="3、完全、部分"></a>3、完全、部分</h5><p>完全聚类（complete clustering）：每个对象指派到一个类。<br>部分聚类（partial clustering）：某些对象可以不属于明确定义的类。</p>
+<h4 id="（3）簇类型"><a href="#（3）簇类型" class="headerlink" title="（3）簇类型"></a>（3）簇类型</h4><p>下面显示一些簇类型：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-362b6fe658b6e41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_01.png"></p>
+<p>类型：明显分离、基于原型（中心簇）、基于图（连通）、基于密度、共同性质的（概念簇）。</p>
+<h3 id="二、K-均值"><a href="#二、K-均值" class="headerlink" title="二、K-均值"></a>二、K-均值</h3><h4 id="（1）基本K-均值算法"><a href="#（1）基本K-均值算法" class="headerlink" title="（1）基本K-均值算法"></a>（1）基本K-均值算法</h4><h6 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-b5af82ded562398f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_02.png"></p>
+<h6 id="目标函数："><a href="#目标函数：" class="headerlink" title="目标函数："></a>目标函数：</h6><p>$$ SSE=\sum_{i=1}^{K}\sum_{x\in C_{i}}dist(c_{i},x)^{2}, c_{i}=\frac{1}{m_{i}}\sum_{x\in C_{i}}x$$</p>
+<p>上面的第3、4步骤试图最小化目标函数（SSE或者其他的），直到收敛。</p>
+<h6 id="常见的邻近度和目标函数组合："><a href="#常见的邻近度和目标函数组合：" class="headerlink" title="常见的邻近度和目标函数组合："></a>常见的邻近度和目标函数组合：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-adfdc1d85292066b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_03.png"></p>
+<h6 id="初始质心："><a href="#初始质心：" class="headerlink" title="初始质心："></a>初始质心：</h6><p>不同的初始质心会收敛到不同的结果。</p>
+<blockquote>
+<p>随机初始质心：问题是，即使运行多次也不一定能得到好的分类。因为，一旦一个簇内有多个质心，该簇很可能被分裂。<br>其他方法：先使用层次聚类，从中提取K个类，使用这K个类的质心作为初始质心。仅对：样本较小，K较小有效。</p>
+</blockquote>
+<h4 id="（2）K均值：附加问题"><a href="#（2）K均值：附加问题" class="headerlink" title="（2）K均值：附加问题"></a>（2）K均值：附加问题</h4><h6 id="处理空簇"><a href="#处理空簇" class="headerlink" title="处理空簇"></a>处理空簇</h6><p>所有的点没有一个分配到一个质心。选择替补质心。</p>
+<h6 id="离群点"><a href="#离群点" class="headerlink" title="离群点"></a>离群点</h6><p>离群点对于k-均值聚类有较大影响，应该删除。</p>
+<h6 id="后处理SSE"><a href="#后处理SSE" class="headerlink" title="后处理SSE"></a>后处理SSE</h6><p>增加簇：</p>
+<blockquote>
+<p>分裂一个簇：选择SSE最大的分裂。<br>引进一个新的质心：选择离所有质心最远的点。</p>
+</blockquote>
+<p>减少簇：</p>
+<blockquote>
+<p>拆散一个簇：删除簇的对应质心。簇中的点重新分配。<br>合并两个簇：选择两个质心最接近的两个簇合并。</p>
+</blockquote>
+<h6 id="增量的更新质心"><a href="#增量的更新质心" class="headerlink" title="增量的更新质心"></a>增量的更新质心</h6><p>给定一个目标函数，每步要零次或两次更新质心。<br>可能产生次序依赖性问题，开销也稍微大一些。</p>
+<h4 id="（3）二分K均值"><a href="#（3）二分K均值" class="headerlink" title="（3）二分K均值"></a>（3）二分K均值</h4><p>思路：</p>
+<blockquote>
+<p>为了得到 K 个簇，将所有点分裂成两个簇，从这些簇中，选取一个继续分裂，直到产生 K 个簇。</p>
+</blockquote>
+<p>算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-2394e71761569cad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_04.png"></p>
+<p>带分裂的簇选择方法有很多：最大的簇，最大SSE的簇等。</p>
+<h4 id="（4）优点与缺点"><a href="#（4）优点与缺点" class="headerlink" title="（4）优点与缺点"></a>（4）优点与缺点</h4><p>优点：二分K均值，不太受初始值的影响。<br>缺点：不能处理非球形簇、不同尺寸、不同密度的簇。</p>
+<h3 id="三、凝聚层次聚类"><a href="#三、凝聚层次聚类" class="headerlink" title="三、凝聚层次聚类"></a>三、凝聚层次聚类</h3><h4 id="（1）基本算法"><a href="#（1）基本算法" class="headerlink" title="（1）基本算法"></a>（1）基本算法</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-8799159151edff4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_05.png"></p>
+<h4 id="（2）距离的度量："><a href="#（2）距离的度量：" class="headerlink" title="（2）距离的度量："></a>（2）距离的度量：</h4><p>最短距离（min）、最长距离（max）、平均距离、ward和质心距离<br><img src="http://upload-images.jianshu.io/upload_images/3341358-03ba4bb8e8df0a7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_06.png"></p>
+<h4 id="（3）簇邻近度的Lance-Williams公式"><a href="#（3）簇邻近度的Lance-Williams公式" class="headerlink" title="（3）簇邻近度的Lance-Williams公式"></a>（3）簇邻近度的Lance-Williams公式</h4><p>Lance-Williams公式：<br>$$p(R,Q)=\alpha_{A}p(A,Q)+ \alpha_{B}p(B,Q)+\beta p(A,B)+\gamma |p(A,Q)-p(B,Q)|$$</p>
+<p>A、B、Q合并得到R。p(. , .)是邻近度函数，以上表示它们为线性函数。<br>下面是Lance-Williams公式鱼邻近度函数的对应：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-ae89f01f8ec66f28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_07.png"></p>
+<h4 id="（4）层次聚类的问题"><a href="#（4）层次聚类的问题" class="headerlink" title="（4）层次聚类的问题"></a>（4）层次聚类的问题</h4><blockquote>
+<p>1、缺乏全局目标函数：避开了解决困难的组合优化问题，很难选择初始点的问题。<br>2、合并是最终的：一旦合并就不能撤销。</p>
+</blockquote>
+<h3 id="四、DBSCAN"><a href="#四、DBSCAN" class="headerlink" title="四、DBSCAN"></a>四、DBSCAN</h3><p>基于密度聚类算法，寻找被低密度区域分离的高密度区域。</p>
+<h4 id="（1）传统密度：基于中心的方法"><a href="#（1）传统密度：基于中心的方法" class="headerlink" title="（1）传统密度：基于中心的方法"></a>（1）传统密度：基于中心的方法</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-56563eca57abd2c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_08.png"></p>
+<blockquote>
+<p>核心点（core point）：该点给定邻域的点个数超过用户给定阈值 MinPts（Eps为用户定义的距离）。A点。<br>边界点（border point）：不是核心点，它落在某个核心点邻域。B点。<br>噪声点（noise point）：即非核心点也非边界点。C点。</p>
+</blockquote>
+<h4 id="（2）DBSCAN算法"><a href="#（2）DBSCAN算法" class="headerlink" title="（2）DBSCAN算法"></a>（2）DBSCAN算法</h4><h5 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h5><blockquote>
+<p>任意两个足够近（Eps之内）的核心点将方到一个簇中。<br>任何与核心点足够近的边界点放到相同簇中（如果边界点靠近不同簇的核心点，要解决平均问题）。<br>噪声点丢弃。</p>
+</blockquote>
+<h5 id="算法步骤：-1"><a href="#算法步骤：-1" class="headerlink" title="算法步骤："></a>算法步骤：</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-d3eef169fea3e7a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_09.png"></p>
+<h5 id="选择-Eps-和-MinPts"><a href="#选择-Eps-和-MinPts" class="headerlink" title="选择 Eps 和 MinPts"></a>选择 Eps 和 MinPts</h5><h6 id="使用-k-距离"><a href="#使用-k-距离" class="headerlink" title="使用 k-距离"></a>使用 k-距离</h6><p>k-最近邻的距离，对于某个k，计算所有点的k-距离，以递增排序，则k-距离会在某个部分急剧变化（噪声点的k-距离很大）。选取k为MinPts，合适的距离为Eps。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-5c7112fc9348f356.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_10.png"></p>
+<p>下面为，使用Eps=10，MinPts=4的结果：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-877f018f6cc497ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_11.png"></p>
+<h4 id="（3）优点与缺点"><a href="#（3）优点与缺点" class="headerlink" title="（3）优点与缺点"></a>（3）优点与缺点</h4><blockquote>
+<p>优点：对抗噪音的能力很强，能够处理任意形状和大小的簇。<br>缺点：DBSCAN当计算近邻的时候，开销很大。</p>
+</blockquote>
+<h3 id="五、簇评估"><a href="#五、簇评估" class="headerlink" title="五、簇评估"></a>五、簇评估</h3><h4 id="（1）非监督簇评估：凝聚度、分离度"><a href="#（1）非监督簇评估：凝聚度、分离度" class="headerlink" title="（1）非监督簇评估：凝聚度、分离度"></a>（1）非监督簇评估：凝聚度、分离度</h4><p>$$ overallValidity=\sum_{i=1}^{K}w_{i}validity(C_{i})$$<br>K个簇的有效性，为个体簇的有效性加权和，下面给出度量表：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-4f58d89f7cc1b7ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_12.png"></p>
+<h5 id="1、基于图：凝聚度、分离度"><a href="#1、基于图：凝聚度、分离度" class="headerlink" title="1、基于图：凝聚度、分离度"></a>1、基于图：凝聚度、分离度</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-f1c03fc8f85479df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_13.png"></p>
+<p>proximity函数可以是相似度、相异度，或者是这些量的简单函数：<br>$$ cohesion(C_{i})=\sum_{x\in C_{i},y\in C_{i}}proximity(x,y)$$<br>$$ separation(C_{i},C_{j})=\sum_{x\in C_{i},y\in C_{j}}proximity(x,y)$$</p>
+<h5 id="2、基于原型：凝聚度、分离度"><a href="#2、基于原型：凝聚度、分离度" class="headerlink" title="2、基于原型：凝聚度、分离度"></a>2、基于原型：凝聚度、分离度</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-90f783db930011ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_14.png"></p>
+<p>ci是Ci的原型（质心），c是总体原型（质心）：<br>$$ cohesion(C_{i})=\sum_{x\in C_{i}}proximity(x,c_{i})$$<br>$$ separation(C_{i},C_{j})=proximity(c_{i},c_{j})$$<br>$$ separation(C_{i})=proximity(c_{i},c)$$</p>
+<h5 id="3、轮廓系数"><a href="#3、轮廓系数" class="headerlink" title="3、轮廓系数"></a>3、轮廓系数</h5><p>轮廓系数（silhouette coefficient）：</p>
+<blockquote>
+<p>1、对于第 i 个对象，计算它到所在簇所有点的平均距离：ai<br>2、对于第 i 个对象，计算它到不含它的其他簇所有对象的平均距离，找出最小的：bi<br>3、对于第 i 个对象，轮廓系数为：<br>$$s_{i}=\frac{(b_{i}-a_{i})}{max(a_{i},b_{i})}$$</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-a14462398698aadd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_15.png"></p>
+<h4 id="（3）非监督簇评估：近邻矩阵"><a href="#（3）非监督簇评估：近邻矩阵" class="headerlink" title="（3）非监督簇评估：近邻矩阵"></a>（3）非监督簇评估：近邻矩阵</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-44f038f80f34a68d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_16.png"></p>
+<p>可以使用某个距离度量法来度量相似度，得到每个点的距离，汇总得到近邻矩阵。但是仅使用于小数据、抽样。</p>
+<h4 id="（4）簇个数"><a href="#（4）簇个数" class="headerlink" title="（4）簇个数"></a>（4）簇个数</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-2f29fe272a86189f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_17.png"></p>
+<p>使用 SSE 和轮廓系数来判断，统计上的 SSE 的说明性更强，统计上不止这一个系数可以分类。</p>
+<h4 id="（5）聚类趋势"><a href="#（5）聚类趋势" class="headerlink" title="（5）聚类趋势"></a>（5）聚类趋势</h4><p>度量空间中的点是否为随机分布的，使用Hopkins统计量：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-fc559a752d89a1cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_18.png"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wepay.png" alt="longgb246 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/aipay.jpg" alt="longgb246 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/数据挖掘导论/" rel="tag"># 数据挖掘导论</a>
+          
+            <a href="/tags/聚类算法/" rel="tag"># 聚类算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/15/ML_ITDM_realation_02/" rel="next" title="关联分析（2）：高级概念">
+                <i class="fa fa-chevron-left"></i> 关联分析（2）：高级概念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/15/ML_ITDM_cluster_02/" rel="prev" title="聚类分析（2）：其他问题与算法">
+                聚类分析（2）：其他问题与算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/02/15/ML_ITDM_cluster_01/"
+     data-title="聚类分析（1）：基本概念和算法"
+     data-content=""
+     data-url="http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/15/ML_ITDM_cluster_01/"
+           data-title="聚类分析（1）：基本概念和算法" data-url="http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="longgb246" />
+          <p class="site-author-name" itemprop="name">longgb246</p>
+          <p class="site-description motion-element" itemprop="description">这个人太懒了，什么都没有留下...</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/longgb246" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2567912207" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              我的好友
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hyhang.github.io/" title="大抹茶君" target="_blank">大抹茶君</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、概述"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）聚类分析"><span class="nav-number">1.1.</span> <span class="nav-text">（1）聚类分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）聚类类型"><span class="nav-number">1.2.</span> <span class="nav-text">（2）聚类类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、层次、划分"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、层次、划分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、互斥、重叠、模糊"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、互斥、重叠、模糊</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、完全、部分"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、完全、部分</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）簇类型"><span class="nav-number">1.3.</span> <span class="nav-text">（3）簇类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、K-均值"><span class="nav-number">2.</span> <span class="nav-text">二、K-均值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）基本K-均值算法"><span class="nav-number">2.1.</span> <span class="nav-text">（1）基本K-均值算法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#算法步骤："><span class="nav-number">2.1.0.1.</span> <span class="nav-text">算法步骤：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#目标函数："><span class="nav-number">2.1.0.2.</span> <span class="nav-text">目标函数：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#常见的邻近度和目标函数组合："><span class="nav-number">2.1.0.3.</span> <span class="nav-text">常见的邻近度和目标函数组合：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#初始质心："><span class="nav-number">2.1.0.4.</span> <span class="nav-text">初始质心：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）K均值：附加问题"><span class="nav-number">2.2.</span> <span class="nav-text">（2）K均值：附加问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#处理空簇"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">处理空簇</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#离群点"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">离群点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#后处理SSE"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">后处理SSE</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#增量的更新质心"><span class="nav-number">2.2.0.4.</span> <span class="nav-text">增量的更新质心</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）二分K均值"><span class="nav-number">2.3.</span> <span class="nav-text">（3）二分K均值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）优点与缺点"><span class="nav-number">2.4.</span> <span class="nav-text">（4）优点与缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、凝聚层次聚类"><span class="nav-number">3.</span> <span class="nav-text">三、凝聚层次聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）基本算法"><span class="nav-number">3.1.</span> <span class="nav-text">（1）基本算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）距离的度量："><span class="nav-number">3.2.</span> <span class="nav-text">（2）距离的度量：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）簇邻近度的Lance-Williams公式"><span class="nav-number">3.3.</span> <span class="nav-text">（3）簇邻近度的Lance-Williams公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）层次聚类的问题"><span class="nav-number">3.4.</span> <span class="nav-text">（4）层次聚类的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、DBSCAN"><span class="nav-number">4.</span> <span class="nav-text">四、DBSCAN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）传统密度：基于中心的方法"><span class="nav-number">4.1.</span> <span class="nav-text">（1）传统密度：基于中心的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）DBSCAN算法"><span class="nav-number">4.2.</span> <span class="nav-text">（2）DBSCAN算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#思路："><span class="nav-number">4.2.1.</span> <span class="nav-text">思路：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法步骤：-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">算法步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#选择-Eps-和-MinPts"><span class="nav-number">4.2.3.</span> <span class="nav-text">选择 Eps 和 MinPts</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用-k-距离"><span class="nav-number">4.2.3.1.</span> <span class="nav-text">使用 k-距离</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）优点与缺点"><span class="nav-number">4.3.</span> <span class="nav-text">（3）优点与缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、簇评估"><span class="nav-number">5.</span> <span class="nav-text">五、簇评估</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）非监督簇评估：凝聚度、分离度"><span class="nav-number">5.1.</span> <span class="nav-text">（1）非监督簇评估：凝聚度、分离度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、基于图：凝聚度、分离度"><span class="nav-number">5.1.1.</span> <span class="nav-text">1、基于图：凝聚度、分离度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、基于原型：凝聚度、分离度"><span class="nav-number">5.1.2.</span> <span class="nav-text">2、基于原型：凝聚度、分离度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、轮廓系数"><span class="nav-number">5.1.3.</span> <span class="nav-text">3、轮廓系数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）非监督簇评估：近邻矩阵"><span class="nav-number">5.2.</span> <span class="nav-text">（3）非监督簇评估：近邻矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）簇个数"><span class="nav-number">5.3.</span> <span class="nav-text">（4）簇个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（5）聚类趋势"><span class="nav-number">5.4.</span> <span class="nav-text">（5）聚类趋势</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">longgb246</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"longgb246"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+</body>
+</html>
