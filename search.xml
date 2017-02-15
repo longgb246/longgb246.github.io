@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[分类（4）：支持向量机（SVM）]]></title>
+      <url>%2F2017%2F02%2F15%2FML_ITDM_classfy_04%2F</url>
+      <content type="text"><![CDATA[一、基本概念SVM 寻找一个最大边缘超平面（maximal margin hyperplane），使得将数据分开，并且有最大的margin，泛化能力。 （1）结构风险最小化（structual risk minimization，SRM）线性分类器的边缘与泛化误差之间的关系，分类器的泛化误差在最坏的情况下：$$R\leqslant R_{e}+\varphi \left(\frac{h}{N},\frac{log(\eta )}{N}\right)$$$\varphi$是h的单调增函数，$1-\eta$表示概率。 （2）SVM线性分类器模型：$$ w\cdot x+b=0$$线性分类图：于是我们有：$$ w\cdot x_{s}+b=k,w\cdot x_{c}+b=k$$其中，k&gt;0，左边表示在决策边界的上面。k’&lt;0，右边表示在决策边界下面。如果我们标记一个类为+1，另一个类为-1，则有： 距离：$$ w(x_{1}-x_{2})=2\rightarrow d=\frac{2}{\left | w \right |},\left | w \right |=\sqrt{w_{1}^{2}+w_{2}^{2}+…+w_{k}^{2}}$$ （3）线性SVM：可分情况决策边界的参数上面的为+1，下面的为-1，则可以概括为：$$ y_{i}(w\cdot x_{i}+b)\geqslant 1,i=1,2,…,N$$最大化边缘，等价于最小化下面目标函数：$$f(w)=\frac{\left|w\right|^{2}}{2}$$目标函数是二次的，约束在w、b上是线性的，这是一个凸优化问题，通过拉格朗日乘子求解。$$L_{p}=\frac{1}{2}\left|w\right|^{2}-\sum_{i=1}^{N}\lambda _{i}(y_{i}\left(w\cdot x_{i}+b)-1\right)$$ Karuch-Kuhn-Tucher（KKT）：把不等式约束转换为等式约束，限制拉格朗日乘子非负。$$ \lambda_{i}\geqslant 1$$$$ \lambda_{i}[y_{i}(w\cdot x_{i}+b)-1]=0$$下面的等式，使得许多拉格朗日乘子都变为零。该约束表明，除非$y_{i}(w*x_{i}+b)=1$，否则拉格朗日乘子必须为零。那些$\lambda&gt;0$的训练实例在两个超平面上，称为支持向量，$lambda=0$的肯定不在超平面上。决策边界w、b仅仅依赖这些支持向量。此外，也可以使用对偶拉格朗日，使用二次规划求解。 SVM的例子： &lt;简书&gt;：我的心在滴血啊，写了一下午，你居然没有保存，网站页面设计的“保存中…”“已保存”就是个普通js吗？没有事务的吗？就修改文档的时候触发一下，然后也不判断是否联网，是否保存等。逗！！再不用简书。]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[分类（3）：人工神经网络（ANN）]]></title>
       <url>%2F2017%2F02%2F15%2FML_ITDM_classfy_03%2F</url>
       <content type="text"><![CDATA[一、感知器下图为一个感知器，单个神经元。该感知器的算法： 二、多层人工神经网络（1）基本概念神经网络，这里先以前馈神经网络为介绍，每层为全连接，则对于2个神经元，参数为： （1）w权值，（2）b偏置，（3）delta 激活函数。 多层神经网络的结构图，以下为前馈神经网络的结构（2层）：常用的 delta 激活函数：基于梯度下降的权值更新：$$ w_{j}\leftarrow w_{j}-\lambda \frac{\partial E(w)}{\partial w_{j}}$$$\lambda$为学习率。 （2）反向传播（back-propagation）对于数据集，可以使用mini-batch，每次选取一部分，直到将数据使用完毕。每次每个数据包括两个阶段， 向前阶段和向后阶段。 向前阶段：通过初始权值、初始偏置和激活函数，每次更新隐藏层和输出层的值；向后阶段：通过权值更新法则，更新权值和偏置。直到数据使用完毕，或者，权值更新的差值小于某个阈值。 （3）神经网络特点 1、至少含有一个隐藏层的是一种普适近似（universal approximator），即可以用来近似任何目标函数。2、可以处理冗余特征，冗余特征的权值会非常小。3、梯度下降法会收敛到局部极小值，避免方法可以在权值更新公式上加上一个动量项（momentum term）]]></content>

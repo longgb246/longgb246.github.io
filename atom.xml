@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T13:24:21.342Z</updated>
+  <updated>2017-02-15T13:29:31.040Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,13 +16,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>分类（4）：支持向量机（SVM）</title>
+    <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_04/"/>
+    <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_04/</id>
+    <published>2017-02-15T13:26:40.000Z</published>
+    <updated>2017-02-15T13:29:31.040Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h4><p>SVM 寻找一个最大边缘超平面（maximal margin hyperplane），使得将数据分开，并且有最大的margin，泛化能力。</p>
+<h5 id="（1）结构风险最小化（structual-risk-minimization，SRM）"><a href="#（1）结构风险最小化（structual-risk-minimization，SRM）" class="headerlink" title="（1）结构风险最小化（structual risk minimization，SRM）"></a>（1）结构风险最小化（structual risk minimization，SRM）</h5><p>线性分类器的边缘与泛化误差之间的关系，分类器的泛化误差在最坏的情况下：<br>$$R\leqslant R_{e}+\varphi \left(\frac{h}{N},\frac{log(\eta )}{N}\right)$$<br>$\varphi$是h的单调增函数，$1-\eta$表示概率。<br><a id="more"></a></p>
+<h5 id="（2）SVM线性分类器"><a href="#（2）SVM线性分类器" class="headerlink" title="（2）SVM线性分类器"></a>（2）SVM线性分类器</h5><p>模型：<br>$$ w\cdot x+b=0$$<br>线性分类图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-aaf039d936a7738e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_10.png"><br>于是我们有：<br>$$ w\cdot x_{s}+b=k,w\cdot x_{c}+b=k$$<br>其中，k&gt;0，左边表示在决策边界的上面。k’&lt;0，右边表示在决策边界下面。<br>如果我们标记一个类为+1，另一个类为-1，则有：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3b3c4a5c74c6e299.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_11.png"></p>
+<p>距离：<br>$$ w(x_{1}-x_{2})=2\rightarrow d=\frac{2}{\left | w \right |},\left | w \right |=\sqrt{w_{1}^{2}+w_{2}^{2}+…+w_{k}^{2}}$$</p>
+<h5 id="（3）线性SVM：可分情况"><a href="#（3）线性SVM：可分情况" class="headerlink" title="（3）线性SVM：可分情况"></a>（3）线性SVM：可分情况</h5><h6 id="决策边界的参数"><a href="#决策边界的参数" class="headerlink" title="决策边界的参数"></a>决策边界的参数</h6><p>上面的为+1，下面的为-1，则可以概括为：<br>$$ y_{i}(w\cdot x_{i}+b)\geqslant 1,i=1,2,…,N$$<br>最大化边缘，等价于最小化下面目标函数：<br>$$f(w)=\frac{\left|w\right|^{2}}{2}$$<br>目标函数是二次的，约束在w、b上是线性的，这是一个凸优化问题，通过拉格朗日乘子求解。<br>$$L_{p}=\frac{1}{2}\left|w\right|^{2}-\sum_{i=1}^{N}\lambda _{i}(y_{i}\left(w\cdot x_{i}+b)-1\right)$$</p>
+<h6 id="Karuch-Kuhn-Tucher（KKT）："><a href="#Karuch-Kuhn-Tucher（KKT）：" class="headerlink" title="Karuch-Kuhn-Tucher（KKT）："></a>Karuch-Kuhn-Tucher（KKT）：</h6><p>把不等式约束转换为等式约束，限制拉格朗日乘子非负。<br>$$ \lambda_{i}\geqslant 1$$<br>$$ \lambda_{i}[y_{i}(w\cdot x_{i}+b)-1]=0$$<br>下面的等式，使得许多拉格朗日乘子都变为零。该约束表明，除非$y_{i}(w*x_{i}+b)=1$，否则拉格朗日乘子必须为零。<br>那些$\lambda&gt;0$的训练实例在两个超平面上，称为支持向量，$lambda=0$的肯定不在超平面上。决策边界w、b仅仅依赖这些支持向量。<br>此外，也可以使用对偶拉格朗日，使用二次规划求解。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-71585de3f64cfe25.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_12.png"></p>
+<h6 id="SVM的例子："><a href="#SVM的例子：" class="headerlink" title="SVM的例子："></a>SVM的例子：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-271cf98ca192603c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_13.png"></p>
+<p>&lt;简书&gt;：我的心在滴血啊，写了一下午，你居然没有保存，网站页面设计的“保存中…”“已保存”就是个普通js吗？没有事务的吗？就修改文档的时候触发一下，然后也不判断是否联网，是否保存等。逗！！再不用简书。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;一、基本概念&quot;&gt;&lt;a href=&quot;#一、基本概念&quot; class=&quot;headerlink&quot; title=&quot;一、基本概念&quot;&gt;&lt;/a&gt;一、基本概念&lt;/h4&gt;&lt;p&gt;SVM 寻找一个最大边缘超平面（maximal margin hyperplane），使得将数据分开，并且有最大的margin，泛化能力。&lt;/p&gt;
+&lt;h5 id=&quot;（1）结构风险最小化（structual-risk-minimization，SRM）&quot;&gt;&lt;a href=&quot;#（1）结构风险最小化（structual-risk-minimization，SRM）&quot; class=&quot;headerlink&quot; title=&quot;（1）结构风险最小化（structual risk minimization，SRM）&quot;&gt;&lt;/a&gt;（1）结构风险最小化（structual risk minimization，SRM）&lt;/h5&gt;&lt;p&gt;线性分类器的边缘与泛化误差之间的关系，分类器的泛化误差在最坏的情况下：&lt;br&gt;$$R\leqslant R_{e}+\varphi \left(\frac{h}{N},\frac{log(\eta )}{N}\right)$$&lt;br&gt;$\varphi$是h的单调增函数，$1-\eta$表示概率。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>分类（3）：人工神经网络（ANN）</title>
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/</id>
     <published>2017-02-15T13:23:21.000Z</published>
-    <updated>2017-02-15T13:24:21.342Z</updated>
+    <updated>2017-02-15T13:25:42.286Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="一、感知器"><a href="#一、感知器" class="headerlink" title="一、感知器"></a>一、感知器</h4><p>下图为一个感知器，单个神经元。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_06.png"><br><a id="more"></a><br>该感知器的算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3578cedeed16cbe4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_07.png"></p>
+    <content type="html"><![CDATA[<h4 id="一、感知器"><a href="#一、感知器" class="headerlink" title="一、感知器"></a>一、感知器</h4><p>下图为一个感知器，单个神经元。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_06.png"><br>该感知器的算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3578cedeed16cbe4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_07.png"><br><a id="more"></a></p>
 <h4 id="二、多层人工神经网络"><a href="#二、多层人工神经网络" class="headerlink" title="二、多层人工神经网络"></a>二、多层人工神经网络</h4><h5 id="（1）基本概念"><a href="#（1）基本概念" class="headerlink" title="（1）基本概念"></a>（1）基本概念</h5><p>神经网络，这里先以前馈神经网络为介绍，每层为全连接，则对于2个神经元，参数为：</p>
 <blockquote>
 <p>（1）w权值，（2）b偏置，（3）delta 激活函数。</p>
@@ -39,7 +74,7 @@
     
     <summary type="html">
     
-      &lt;h4 id=&quot;一、感知器&quot;&gt;&lt;a href=&quot;#一、感知器&quot; class=&quot;headerlink&quot; title=&quot;一、感知器&quot;&gt;&lt;/a&gt;一、感知器&lt;/h4&gt;&lt;p&gt;下图为一个感知器，单个神经元。&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_06.png&quot;&gt;&lt;br&gt;
+      &lt;h4 id=&quot;一、感知器&quot;&gt;&lt;a href=&quot;#一、感知器&quot; class=&quot;headerlink&quot; title=&quot;一、感知器&quot;&gt;&lt;/a&gt;一、感知器&lt;/h4&gt;&lt;p&gt;下图为一个感知器，单个神经元。&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_06.png&quot;&gt;&lt;br&gt;该感知器的算法：&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-3578cedeed16cbe4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_07.png&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -702,37 +737,6 @@
     <summary type="html">
     
       &lt;h3 id=&quot;一、基本用法&quot;&gt;&lt;a href=&quot;#一、基本用法&quot; class=&quot;headerlink&quot; title=&quot;一、基本用法&quot;&gt;&lt;/a&gt;一、基本用法&lt;/h3&gt;&lt;h4 id=&quot;使用detect函数&quot;&gt;&lt;a href=&quot;#使用detect函数&quot; class=&quot;headerlink&quot; title=&quot;使用detect函数&quot;&gt;&lt;/a&gt;使用&lt;code&gt;detect&lt;/code&gt;函数&lt;/h4&gt;&lt;p&gt;输入字符串，输出检测的编码和置信度。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import urllib&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;rawdata = urllib.urlopen(&amp;apos;http://yahoo.co.jp/&amp;apos;).read()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import chardet&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;chardet.detect(rawdata)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[out] &amp;#123;&amp;apos;encoding&amp;apos;: &amp;apos;EUC-JP&amp;apos;, &amp;apos;confidence&amp;apos;: 0.99&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ANSII码和进制转换</title>
-    <link href="http://yoursite.com/2016/12/25/python_ANSII/"/>
-    <id>http://yoursite.com/2016/12/25/python_ANSII/</id>
-    <published>2016-12-25T12:34:00.000Z</published>
-    <updated>2017-02-15T12:51:15.322Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、进制转换"><a href="#一、进制转换" class="headerlink" title="一、进制转换"></a>一、进制转换</h3><p>bin()：其他进制数值 —&gt; 二进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[10=&gt;2]: bin(10)  </div><div class="line">[8 =&gt;2]: bin(012)   </div><div class="line">[16=&gt;2]: bin(0xa)</div></pre></td></tr></table></figure></p>
-<p>oct()：其他进制数值 —&gt; 八进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[10=&gt;8]: oct(10) </div><div class="line">[2 =&gt;8]: oct(0b1010)  </div><div class="line">[16=&gt;8]: oct(0xa)</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>int()：其他进制数值 —&gt; 十进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[2=&gt;10]: int(0b1010) 、int(&quot;1010&quot;,2)、int(&quot;0b1010&quot;,2) </div><div class="line">[8=&gt;10]: int(012) 、int(&quot;12&quot;,8)、int(&quot;012&quot;,8) </div><div class="line">[16=&gt;10]: int(0xa)、int(&quot;0xa&quot;,16)、int(&quot;a&quot;,16)</div></pre></td></tr></table></figure></p>
-<p>hex()：其他进制数值 —&gt; 十六进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[2 =&gt;16]: hex(0b1010)</div><div class="line">[8 =&gt;16]: hex(012)  </div><div class="line">[10=&gt;16]: hex(10)</div></pre></td></tr></table></figure></p>
-<h3 id="二、ASCII码转换"><a href="#二、ASCII码转换" class="headerlink" title="二、ASCII码转换"></a>二、ASCII码转换</h3><p>chr(int)：整型 转 ASCII码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chr(97)</div></pre></td></tr></table></figure></p>
-<p>ord(chr)：ASCII码 转 整型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ord(&quot;a&quot;)</div></pre></td></tr></table></figure></p>
-<h3 id="三、位运算"><a href="#三、位运算" class="headerlink" title="三、位运算"></a>三、位运算</h3><p>左移运算符（&lt;&lt;）<br>右移运算符（&gt;&gt;）<br>按位与（&amp;）<br>按位或（|）<br>按位翻转（～）<br>按位异或（^）</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、进制转换&quot;&gt;&lt;a href=&quot;#一、进制转换&quot; class=&quot;headerlink&quot; title=&quot;一、进制转换&quot;&gt;&lt;/a&gt;一、进制转换&lt;/h3&gt;&lt;p&gt;bin()：其他进制数值 —&amp;gt; 二进制字符串&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[10=&amp;gt;2]: bin(10)  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[8 =&amp;gt;2]: bin(012)   &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[16=&amp;gt;2]: bin(0xa)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;oct()：其他进制数值 —&amp;gt; 八进制字符串&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[10=&amp;gt;8]: oct(10) &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[2 =&amp;gt;8]: oct(0b1010)  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[16=&amp;gt;8]: oct(0xa)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
     
