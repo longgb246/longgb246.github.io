@@ -122,16 +122,16 @@
 
     
     <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>%2F2017%2F02%2F15%2Fhello-world%2F</url>
-      <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <title><![CDATA[Advanced Statistics]]></title>
+      <url>%2F2017%2F02%2F15%2Fadvanced_statistics%2F</url>
+      <content type="text"><![CDATA[Advanced StatisticsTransformations of Random VariablesLet me set the example;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$. Now, we use something called a Jacobian, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.So the jacobian is:$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}\end{vmatrix}$$We can then do the following:$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$]]></content>
     </entry>
 
     
     <entry>
-      <title><![CDATA[Advanced Statistics]]></title>
-      <url>%2F2017%2F02%2F15%2Fadvanced_statistics%2F</url>
-      <content type="text"><![CDATA[Advanced StatisticsTransformations of Random VariablesLet me set the example;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$. Now, we use something called a Jacobian, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.So the jacobian is:$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}\end{vmatrix}$$We can then do the following:$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$]]></content>
+      <title><![CDATA[Hello World]]></title>
+      <url>%2F2016%2F11%2F19%2Fhello-world%2F</url>
+      <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
     </entry>
 
     

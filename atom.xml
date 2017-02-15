@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T12:43:55.163Z</updated>
+  <updated>2017-02-15T12:47:40.962Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <title>数据</title>
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_data/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_data/</id>
-    <published>2017-02-14T18:25:00.962Z</published>
-    <updated>2017-02-15T12:43:55.163Z</updated>
+    <published>2017-02-15T12:47:32.000Z</published>
+    <updated>2017-02-15T12:47:40.962Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、数据知识"><a href="#一、数据知识" class="headerlink" title="一、数据知识"></a>一、数据知识</h4><p>如果若干属性是强相关的，则说明这些属性可能提供了高度冗余的信息，我们可以决定只保留一个。</p>
 <h4 id="二、数据预处理"><a href="#二、数据预处理" class="headerlink" title="二、数据预处理"></a>二、数据预处理</h4><h5 id="1、维规约："><a href="#1、维规约：" class="headerlink" title="1、维规约："></a>1、维规约：</h5><p>通过创建新属性，将一些旧属性合并在一起来降低数据的维度。通过选择旧属性的子集得到的新属性，这种维规约称为特征子集选择。<br><a id="more"></a></p>
@@ -581,11 +581,37 @@
   </entry>
   
   <entry>
+    <title>Advanced Statistics</title>
+    <link href="http://yoursite.com/2017/02/15/advanced_statistics/"/>
+    <id>http://yoursite.com/2017/02/15/advanced_statistics/</id>
+    <published>2017-02-14T16:42:11.719Z</published>
+    <updated>2017-01-25T04:41:40.768Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Advanced-Statistics"><a href="#Advanced-Statistics" class="headerlink" title="Advanced Statistics"></a>Advanced Statistics</h1><h3 id="Transformations-of-Random-Variables"><a href="#Transformations-of-Random-Variables" class="headerlink" title="Transformations of Random Variables"></a>Transformations of Random Variables</h3><p>Let me set the example;<br>You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.<br>You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.<br><a id="more"></a><br>First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.<br>Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.<br>We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$.</p>
+<p>Now, we use something called a <code>Jacobian</code>, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.<br>So the jacobian is:<br>$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}<br>\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\<br>\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}<br>\end{vmatrix}$$<br>We can then do the following:<br>$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$<br>$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$<br>And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:<br>$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Advanced-Statistics&quot;&gt;&lt;a href=&quot;#Advanced-Statistics&quot; class=&quot;headerlink&quot; title=&quot;Advanced Statistics&quot;&gt;&lt;/a&gt;Advanced Statistics&lt;/h1&gt;&lt;h3 id=&quot;Transformations-of-Random-Variables&quot;&gt;&lt;a href=&quot;#Transformations-of-Random-Variables&quot; class=&quot;headerlink&quot; title=&quot;Transformations of Random Variables&quot;&gt;&lt;/a&gt;Transformations of Random Variables&lt;/h3&gt;&lt;p&gt;Let me set the example;&lt;br&gt;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.&lt;br&gt;You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="统计理论" scheme="http://yoursite.com/categories/%E7%BB%9F%E8%AE%A1%E7%90%86%E8%AE%BA/"/>
+    
+    
+      <category term="start" scheme="http://yoursite.com/tags/start/"/>
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2017/02/15/hello-world/"/>
-    <id>http://yoursite.com/2017/02/15/hello-world/</id>
-    <published>2017-02-14T16:42:11.736Z</published>
-    <updated>2017-01-25T04:28:02.949Z</updated>
+    <link href="http://yoursite.com/2016/11/19/hello-world/"/>
+    <id>http://yoursite.com/2016/11/19/hello-world/</id>
+    <published>2016-11-19T12:34:00.000Z</published>
+    <updated>2017-02-15T12:48:40.339Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
@@ -607,32 +633,6 @@
     </summary>
     
       <category term="我的文章" scheme="http://yoursite.com/categories/%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0/"/>
-    
-    
-      <category term="start" scheme="http://yoursite.com/tags/start/"/>
-    
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Advanced Statistics</title>
-    <link href="http://yoursite.com/2017/02/15/advanced_statistics/"/>
-    <id>http://yoursite.com/2017/02/15/advanced_statistics/</id>
-    <published>2017-02-14T16:42:11.719Z</published>
-    <updated>2017-01-25T04:41:40.768Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Advanced-Statistics"><a href="#Advanced-Statistics" class="headerlink" title="Advanced Statistics"></a>Advanced Statistics</h1><h3 id="Transformations-of-Random-Variables"><a href="#Transformations-of-Random-Variables" class="headerlink" title="Transformations of Random Variables"></a>Transformations of Random Variables</h3><p>Let me set the example;<br>You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.<br>You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.<br><a id="more"></a><br>First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.<br>Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.<br>We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$.</p>
-<p>Now, we use something called a <code>Jacobian</code>, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.<br>So the jacobian is:<br>$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}<br>\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\<br>\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}<br>\end{vmatrix}$$<br>We can then do the following:<br>$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$<br>$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$<br>And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:<br>$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Advanced-Statistics&quot;&gt;&lt;a href=&quot;#Advanced-Statistics&quot; class=&quot;headerlink&quot; title=&quot;Advanced Statistics&quot;&gt;&lt;/a&gt;Advanced Statistics&lt;/h1&gt;&lt;h3 id=&quot;Transformations-of-Random-Variables&quot;&gt;&lt;a href=&quot;#Transformations-of-Random-Variables&quot; class=&quot;headerlink&quot; title=&quot;Transformations of Random Variables&quot;&gt;&lt;/a&gt;Transformations of Random Variables&lt;/h3&gt;&lt;p&gt;Let me set the example;&lt;br&gt;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.&lt;br&gt;You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="统计理论" scheme="http://yoursite.com/categories/%E7%BB%9F%E8%AE%A1%E7%90%86%E8%AE%BA/"/>
     
     
       <category term="start" scheme="http://yoursite.com/tags/start/"/>
