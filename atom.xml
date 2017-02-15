@@ -77,11 +77,188 @@
   </entry>
   
   <entry>
+    <title>awk</title>
+    <link href="http://yoursite.com/2017/01/24/linux_awk/"/>
+    <id>http://yoursite.com/2017/01/24/linux_awk/</id>
+    <published>2017-01-24T12:37:00.000Z</published>
+    <updated>2017-02-15T12:53:54.652Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、简单例子"><a href="#1、简单例子" class="headerlink" title="1、简单例子"></a>1、简单例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk  &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos;        # 这个不需要文件输入就可以</div></pre></td></tr></table></figure>
+<p><code>awkscr</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/^$/ &#123;print &quot;This is a blank line&quot;&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>运行脚本文件<code>awkscr</code>对应于<code>test</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk -f awkscr test</div></pre></td></tr></table></figure></p>
+<p>例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo a b c d | awk &apos;&#123;one=1;two=2&#125;&#123;print $(one + two)&#125;&apos;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>-F “\t” ：表示分隔符为\t<br>FS：表示分隔符</p>
+</blockquote>
+<p>灵活指定分隔符，正则指定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">BEGIN &#123;FS=&quot;,&quot;&#125;&#123;print $1  &quot;,&quot;  $6&#125;   # 使用，为分隔符</div><div class="line">FS=&quot;\t&quot;                # 指定一个 tab 为分隔符</div><div class="line">FS=&quot;\t+&quot;              # 指定一个以上的 tab 为分隔符【正则】</div><div class="line">FS=&quot;[&apos;:\t]&quot;            # 指定&apos;、:、 tab 中任何一个为分隔符</div></pre></td></tr></table></figure></p>
+<h4 id="2、模式匹配"><a href="#2、模式匹配" class="headerlink" title="2、模式匹配"></a>2、模式匹配</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">awk &apos;/^$/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div><div class="line">awk &apos;/[0-9]/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div><div class="line">awk &apos;/[A-Za-z]/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html</a></p>
+<p><a href="http://awk.readthedocs.io/en/latest/chapter-one.html" target="_blank" rel="external">http://awk.readthedocs.io/en/latest/chapter-one.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、简单例子&quot;&gt;&lt;a href=&quot;#1、简单例子&quot; class=&quot;headerlink&quot; title=&quot;1、简单例子&quot;&gt;&lt;/a&gt;1、简单例子&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;awkscr&lt;/code&gt;文件：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;/^$/ &amp;#123;print &amp;quot;This is a blank line&amp;quot;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sz-rz-文件传输</title>
+    <link href="http://yoursite.com/2017/01/24/linux_03_rzsz/"/>
+    <id>http://yoursite.com/2017/01/24/linux_03_rzsz/</id>
+    <published>2017-01-24T12:36:00.000Z</published>
+    <updated>2017-02-15T12:53:47.114Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h3><h4 id="1、sz用法（下载）："><a href="#1、sz用法（下载）：" class="headerlink" title="1、sz用法（下载）："></a>1、sz用法（下载）：</h4><p>下载一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename</div></pre></td></tr></table></figure></p>
+<p>下载多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename1 filename2</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>下载dir目录下的所有文件，不包含dir下的文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz dir/*</div></pre></td></tr></table></figure></p>
+<h4 id="2、rz用法（上传）："><a href="#2、rz用法（上传）：" class="headerlink" title="2、rz用法（上传）："></a>2、rz用法（上传）：</h4><p>输入rz回车后，会出现文件选择对话框，选择需要上传文件，一次可以指定多个文件，上传到服务器的路径为当前执行rz命令的目录。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Xshell&quot;&gt;&lt;a href=&quot;#Xshell&quot; class=&quot;headerlink&quot; title=&quot;Xshell&quot;&gt;&lt;/a&gt;Xshell&lt;/h3&gt;&lt;h4 id=&quot;1、sz用法（下载）：&quot;&gt;&lt;a href=&quot;#1、sz用法（下载）：&quot; class=&quot;headerlink&quot; title=&quot;1、sz用法（下载）：&quot;&gt;&lt;/a&gt;1、sz用法（下载）：&lt;/h4&gt;&lt;p&gt;下载一个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;下载多个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename1 filename2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux 查看系统信息命令(比较全)</title>
+    <link href="http://yoursite.com/2017/01/24/linux_02_com/"/>
+    <id>http://yoursite.com/2017/01/24/linux_02_com/</id>
+    <published>2017-01-24T12:35:00.000Z</published>
+    <updated>2017-02-15T12:53:40.325Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"># uname -a # 查看内核/操作系统/CPU信息</div><div class="line"># head -n 1 /etc/issue # 查看操作系统版本</div><div class="line"># cat /proc/cpuinfo # 查看CPU信息</div><div class="line"># hostname # 查看计算机名</div><div class="line"># lspci -tv # 列出所有PCI设备</div><div class="line"># lsusb -tv # 列出所有USB设备</div><div class="line"># lsmod # 列出加载的内核模块</div><div class="line"># env # 查看环境变量资源</div><div class="line"># free -m # 查看内存使用量和交换区使用量</div><div class="line"># df -h # 查看各分区使用情况</div><div class="line"># du -sh &lt;目录名&gt; # 查看指定目录的大小</div><div class="line"># grep MemTotal /proc/meminfo # 查看内存总量</div><div class="line"># grep MemFree /proc/meminfo # 查看空闲内存量</div><div class="line"># uptime # 查看系统运行时间、用户数、负载</div><div class="line"># cat /proc/loadavg # 查看系统负载磁盘和分区</div><div class="line"># mount | column -t # 查看挂接的分区状态</div><div class="line"># fdisk -l # 查看所有分区</div><div class="line"># swapon -s # 查看所有交换分区</div><div class="line"># hdparm -i /dev/hda # 查看磁盘参数(仅适用于IDE设备)</div><div class="line"># dmesg | grep IDE # 查看启动时IDE设备检测状况网络</div><div class="line"># ifconfig # 查看所有网络接口的属性</div><div class="line"># iptables -L # 查看防火墙设置</div><div class="line"># route -n # 查看路由表</div><div class="line"># netstat -lntp # 查看所有监听端口</div><div class="line"># netstat -antp # 查看所有已经建立的连接</div><div class="line"># netstat -s # 查看网络统计信息进程</div><div class="line"># ps -ef # 查看所有进程</div><div class="line"># top # 实时显示进程状态用户</div><div class="line"># w # 查看活动用户</div><div class="line"># id &lt;用户名&gt; # 查看指定用户信息</div><div class="line"># last # 查看用户登录日志</div><div class="line"># cut -d: -f1 /etc/passwd # 查看系统所有用户</div><div class="line"># cut -d: -f1 /etc/group # 查看系统所有组</div><div class="line"># crontab -l # 查看当前用户的计划任务服务</div><div class="line"># chkconfig –list # 列出所有系统服务</div><div class="line"># chkconfig –list | grep on # 列出所有启动的系统服务程序</div><div class="line"># rpm -qa # 查看所有安装的软件包</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一些常用命令</title>
+    <link href="http://yoursite.com/2017/01/24/linux_01_base/"/>
+    <id>http://yoursite.com/2017/01/24/linux_01_base/</id>
+    <published>2017-01-24T12:34:00.000Z</published>
+    <updated>2017-02-15T12:53:31.241Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、基本命令"><a href="#一、基本命令" class="headerlink" title="一、基本命令"></a>一、基本命令</h3><h4 id="（1）查看linux的信息"><a href="#（1）查看linux的信息" class="headerlink" title="（1）查看linux的信息"></a>（1）查看linux的信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">lsb_release -a</div><div class="line">cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos</div><div class="line">file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位</div><div class="line">free -g                                    # 以G为单位，查看内存大小</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="（2）查看某文件夹下，文件夹的文件大小总和"><a href="#（2）查看某文件夹下，文件夹的文件大小总和" class="headerlink" title="（2）查看某文件夹下，文件夹的文件大小总和"></a>（2）查看某文件夹下，文件夹的文件大小总和</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">du -h --max-depth=1   # 深度为1的文件夹里面文件的总大小</div></pre></td></tr></table></figure>
+<h4 id="（3）查找某文件的路径"><a href="#（3）查找某文件的路径" class="headerlink" title="（3）查找某文件的路径"></a>（3）查找某文件的路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename      # /data0表示目录文件，只找/data0下的名字叫filename的文件</div></pre></td></tr></table></figure>
+<h4 id="（4）管道使用ls"><a href="#（4）管道使用ls" class="headerlink" title="（4）管道使用ls"></a>（4）管道使用ls</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename | xargs ls -l</div></pre></td></tr></table></figure>
+<h3 id="二、基本配置"><a href="#二、基本配置" class="headerlink" title="二、基本配置"></a>二、基本配置</h3><h4 id="（1）vim使用鼠标"><a href="#（1）vim使用鼠标" class="headerlink" title="（1）vim使用鼠标"></a>（1）vim使用鼠标</h4><p>在<code>.vimrc</code>中添加<code>set mouse=a</code>这句话，具体还有别的模式，这里不在叙述，尝试用<code>a</code>最合适。</p>
+<h4 id="（2）vim显示行号"><a href="#（2）vim显示行号" class="headerlink" title="（2）vim显示行号"></a>（2）vim显示行号</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:set number</div></pre></td></tr></table></figure>
+<h3 id="三、日期命令"><a href="#三、日期命令" class="headerlink" title="三、日期命令"></a>三、日期命令</h3><p>输出日期<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">date=`date -d &quot;+0 day $1&quot; +%Y-%m-%d`</div><div class="line">enddate=`date -d &quot;+1 day $2&quot; +%Y-%m-%d`</div><div class="line">while [[ $date &lt; $enddate  ]]</div><div class="line">do</div><div class="line">        echo $date</div><div class="line">        date=`date -d &quot;+1 day $date&quot; +%Y-%m-%d`</div><div class="line">done</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1) ls -lt  时间最近的在前面</div><div class="line">2) ls -ltr 时间从前到后</div><div class="line">3) 利用sort</div><div class="line">    ls -l | sort +7 (日期为第8列)   时间从前到后</div><div class="line">    ls -l | sort -r +7      时间最近的在前面</div></pre></td></tr></table></figure>
+<h3 id="四、查看进程和杀死进程"><a href="#四、查看进程和杀死进程" class="headerlink" title="四、查看进程和杀死进程"></a>四、查看进程和杀死进程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ps -ef</div><div class="line">ps -aux</div><div class="line">kill -s 9 1827    # 9是强制、尽快终止进程。1827是PID进程号</div></pre></td></tr></table></figure>
+<h3 id="五、命令"><a href="#五、命令" class="headerlink" title="五、命令"></a>五、命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wc -l filename    # 显示文件的行数</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、基本命令&quot;&gt;&lt;a href=&quot;#一、基本命令&quot; class=&quot;headerlink&quot; title=&quot;一、基本命令&quot;&gt;&lt;/a&gt;一、基本命令&lt;/h3&gt;&lt;h4 id=&quot;（1）查看linux的信息&quot;&gt;&lt;a href=&quot;#（1）查看linux的信息&quot; class=&quot;headerlink&quot; title=&quot;（1）查看linux的信息&quot;&gt;&lt;/a&gt;（1）查看linux的信息&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;uname -a&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;lsb_release -a&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;free -g                                    # 以G为单位，查看内存大小&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>例子</title>
+    <link href="http://yoursite.com/2017/01/22/hive_hadoop_example/"/>
+    <id>http://yoursite.com/2017/01/22/hive_hadoop_example/</id>
+    <published>2017-01-22T12:35:00.000Z</published>
+    <updated>2017-02-15T12:53:23.244Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE dev.tmp_check_sku_20161202</div><div class="line">AS</div><div class="line">SELECT</div><div class="line">    a.item_sku_id,</div><div class="line">    b.sku_id</div><div class="line">FROM</div><div class="line">    (SELECT item_sku_id,dt</div><div class="line">    FROM </div><div class="line">    gdm.gdm_m03_item_sku_da</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    AND sku_valid_flag=1) A</div><div class="line">    FULL OUTER JOIN</div><div class="line">    (SELECT sku_id,dt</div><div class="line">    FROM gdm.gdm_m08_item_stock_day_sum</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    ) B</div><div class="line">    ON  a.item_sku_id=b.sku_id</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-- 统计数据</div><div class="line">SELECT</div><div class="line">    CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END AS item_sku_cnt,</div><div class="line">    CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END AS sku_cnt,</div><div class="line">    count(1)</div><div class="line">FROM</div><div class="line">    dev.tmp_check_sku_20161202</div><div class="line">GROUP BY</div><div class="line">    CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END,</div><div class="line">    CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END</div><div class="line">-- 结果</div><div class="line">1    0    1    707489</div><div class="line">2    1    0    832084258</div><div class="line">3    1    1    81142196</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;CREATE TABLE dev.tmp_check_sku_20161202&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;AS&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;SELECT&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    a.item_sku_id,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    b.sku_id&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;FROM&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    (SELECT item_sku_id,dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FROM &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    gdm.gdm_m03_item_sku_da&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    WHERE dt= &amp;apos;2016-10-08&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    AND sku_valid_flag=1) A&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FULL OUTER JOIN&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    (SELECT sku_id,dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FROM gdm.gdm_m08_item_stock_day_sum&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    WHERE dt= &amp;apos;2016-10-08&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ) B&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ON  a.item_sku_id=b.sku_id&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Hive&amp;Hadoop" scheme="http://yoursite.com/categories/Hive-Hadoop/"/>
+    
+    
+      <category term="Hive" scheme="http://yoursite.com/tags/Hive/"/>
+    
+      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基本命令</title>
+    <link href="http://yoursite.com/2017/01/22/hive_hadoop_base/"/>
+    <id>http://yoursite.com/2017/01/22/hive_hadoop_base/</id>
+    <published>2017-01-22T12:34:00.000Z</published>
+    <updated>2017-02-15T12:53:13.574Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、设置动态分区"><a href="#1、设置动态分区" class="headerlink" title="1、设置动态分区"></a>1、设置动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.dynamic.partition=true;</div><div class="line">set hive.exec.dynamic.partition.mode=nonstrict;</div></pre></td></tr></table></figure>
+<h3 id="2、设置最大动态分区"><a href="#2、设置最大动态分区" class="headerlink" title="2、设置最大动态分区"></a>2、设置最大动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.max.dynamic.partitions=2000;</div><div class="line">set hive.exec.max.dynamic.partitions.pernode=2000;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="3、创建动态分区表"><a href="#3、创建动态分区表" class="headerlink" title="3、创建动态分区表"></a>3、创建动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE IF NOT EXISTS dev.dev_allocation_sale_data</div><div class="line">    (    org_dc_id         string,</div><div class="line">        sale_ord_det_id string,   </div><div class="line">        sale_ord_id string,       </div><div class="line">        parent_sale_ord_id string,</div><div class="line">        item_sku_id                string,        -- skuid</div><div class="line">        sale_qtty                  int,        -- 销售数量</div><div class="line">        sale_ord_tm                string,        -- 销售订单订购时间</div><div class="line">        sale_ord_type             string,        -- 订单配送类型</div><div class="line">        sale_ord_white_flag        string,         -- 是否包括白名单</div><div class="line">        item_third_cate_cd  string,   --sku所属三级分类</div><div class="line">        item_second_cate_cd  string,      --sku所属二级分类</div><div class="line">        shelves_dt  string, --上架日期</div><div class="line">    shelves_tm   string --上架时间</div><div class="line">    )</div><div class="line">    PARTITIONED by (date_s string,dc_id int);</div></pre></td></tr></table></figure>
+<h3 id="4、插入动态分区表"><a href="#4、插入动态分区表" class="headerlink" title="4、插入动态分区表"></a>4、插入动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">insert overwrite table dev.dev_allocation_sale_data partition(date_s,dc_id)</div><div class="line">select</div><div class="line">         a.org_dc_id,</div><div class="line">         case when b.sale_ord_id is not null then &apos;rdc&apos;</div><div class="line">         when c.sale_ord_id is not null then &apos;fdc_rdc&apos;    when d.sale_ord_id is not null    then &apos;fdc&apos; else &apos;other&apos; end,</div><div class="line">         d.white_flag,</div><div class="line">         a.item_third_cate_cd,</div><div class="line">         a.item_second_cate_cd,</div><div class="line">         a.shelves_dt,</div><div class="line">         a.shelves_tm,   </div><div class="line">         a.dt as date_s,</div><div class="line">         a.dc_id</div><div class="line">from</div><div class="line">        dev.tmp_allocation_order_data_mid01 a</div></pre></td></tr></table></figure>
+<h3 id="5、取出hive数据"><a href="#5、取出hive数据" class="headerlink" title="5、取出hive数据"></a>5、取出hive数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">INSERT OVERWRITE  LOCAL  DIRECTORY  &apos;/home/cmo_ipc/Allocation_shell/datasets/sku_datasets&apos; </div><div class="line">select * from dev.dev_allocation_fdc_data;</div></pre></td></tr></table></figure>
+<h3 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h3><p><a href="http://blog.csdn.net/kntao/article/details/38683645" target="_blank" rel="external">http://blog.csdn.net/kntao/article/details/38683645</a></p>
+<p><a href="http://blog.csdn.net/chenyi8888/article/details/8236726" target="_blank" rel="external">http://blog.csdn.net/chenyi8888/article/details/8236726</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、设置动态分区&quot;&gt;&lt;a href=&quot;#1、设置动态分区&quot; class=&quot;headerlink&quot; title=&quot;1、设置动态分区&quot;&gt;&lt;/a&gt;1、设置动态分区&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.dynamic.partition=true;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.dynamic.partition.mode=nonstrict;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;2、设置最大动态分区&quot;&gt;&lt;a href=&quot;#2、设置最大动态分区&quot; class=&quot;headerlink&quot; title=&quot;2、设置最大动态分区&quot;&gt;&lt;/a&gt;2、设置最大动态分区&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions=2000;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions.pernode=2000;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Hive&amp;Hadoop" scheme="http://yoursite.com/categories/Hive-Hadoop/"/>
+    
+    
+      <category term="Hive" scheme="http://yoursite.com/tags/Hive/"/>
+    
+      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
     <title>cmd设置命令缓存（伪别名）</title>
-    <link href="http://yoursite.com/2017/02/15/windows_bat_alias/"/>
-    <id>http://yoursite.com/2017/02/15/windows_bat_alias/</id>
-    <published>2017-02-14T16:42:11.885Z</published>
-    <updated>2017-02-14T16:10:24.815Z</updated>
+    <link href="http://yoursite.com/2017/01/18/windows_bat_alias/"/>
+    <id>http://yoursite.com/2017/01/18/windows_bat_alias/</id>
+    <published>2017-01-18T12:34:00.000Z</published>
+    <updated>2017-02-15T12:53:04.211Z</updated>
     
     <content type="html"><![CDATA[<p>1、创建一个bat文件，alias.bat，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">doskey ls=dir</div><div class="line">doskey python3=C:\Users\xxxx\Anaconda3\python.exe</div><div class="line">doskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe</div></pre></td></tr></table></figure></p>
 <p>2、该文件保存于任意目录下，目录最好为英文，C:\Users\xxxx。<br>3、win+r，输入regedit，打开注册表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\Command</div><div class="line">HKEY_CURRENT_USER\Software\Microsoft\Command</div></pre></td></tr></table></figure></p>
@@ -110,10 +287,10 @@
   
   <entry>
     <title>virtualenv 模块 虚拟环境</title>
-    <link href="http://yoursite.com/2017/02/15/python_virtualenv/"/>
-    <id>http://yoursite.com/2017/02/15/python_virtualenv/</id>
-    <published>2017-02-14T16:42:11.879Z</published>
-    <updated>2017-02-13T02:58:04.385Z</updated>
+    <link href="http://yoursite.com/2017/01/14/python_virtualenv/"/>
+    <id>http://yoursite.com/2017/01/14/python_virtualenv/</id>
+    <published>2017-01-14T12:34:00.000Z</published>
+    <updated>2017-02-15T12:52:46.528Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1、安装virtualenv"><a href="#1、安装virtualenv" class="headerlink" title="1、安装virtualenv"></a>1、安装virtualenv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div></pre></td></tr></table></figure>
 <h3 id="2、进入到某个文件夹"><a href="#2、进入到某个文件夹" class="headerlink" title="2、进入到某个文件夹"></a>2、进入到某个文件夹</h3><h6 id="创建纯净python2环境"><a href="#创建纯净python2环境" class="headerlink" title="创建纯净python2环境"></a>创建纯净python2环境</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir workspace</div><div class="line">cd workspace</div><div class="line">virtualenv python2</div></pre></td></tr></table></figure>
@@ -137,10 +314,10 @@
   
   <entry>
     <title>time 模块 时间格式</title>
-    <link href="http://yoursite.com/2017/02/15/python_time/"/>
-    <id>http://yoursite.com/2017/02/15/python_time/</id>
-    <published>2017-02-14T16:42:11.842Z</published>
-    <updated>2017-02-13T02:43:00.221Z</updated>
+    <link href="http://yoursite.com/2017/01/13/python_time/"/>
+    <id>http://yoursite.com/2017/01/13/python_time/</id>
+    <published>2017-01-13T12:34:00.000Z</published>
+    <updated>2017-02-15T12:52:38.232Z</updated>
     
     <content type="html"><![CDATA[<h4 id="1、sleep-seconds"><a href="#1、sleep-seconds" class="headerlink" title="1、sleep(seconds)"></a>1、sleep(seconds)</h4><p>线程推迟指定的时间运行，单位为秒<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">time.sleep(10)</div></pre></td></tr></table></figure></p>
 <h4 id="2、ctime-seconds-gt-string"><a href="#2、ctime-seconds-gt-string" class="headerlink" title="2、ctime(seconds) -&gt; string"></a>2、ctime(seconds) -&gt; string</h4><p>将一个时间戳(默认为当前时间)转换成一个时间字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time.ctime()</div><div class="line">&gt;&gt; &apos;Tue Nov 29 17:51:02 2016&apos;</div></pre></td></tr></table></figure></p>
@@ -167,10 +344,10 @@
   
   <entry>
     <title>python-dcox 模块 生成Word、docx文件</title>
-    <link href="http://yoursite.com/2017/02/15/python_python-dcox/"/>
-    <id>http://yoursite.com/2017/02/15/python_python-dcox/</id>
-    <published>2017-02-14T16:42:11.834Z</published>
-    <updated>2017-02-13T02:59:08.282Z</updated>
+    <link href="http://yoursite.com/2017/01/12/python_python-dcox/"/>
+    <id>http://yoursite.com/2017/01/12/python_python-dcox/</id>
+    <published>2017-01-12T12:36:00.000Z</published>
+    <updated>2017-02-15T12:52:31.855Z</updated>
     
     <content type="html"><![CDATA[<p><a href="http://python-docx.readthedocs.io/en/latest/index.html" target="_blank" rel="external">http://python-docx.readthedocs.io/en/latest/index.html</a><br>生成word的利器！</p>
 <h2 id="一、快速开始"><a href="#一、快速开始" class="headerlink" title="一、快速开始"></a>一、快速开始</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx import Document</div><div class="line">document = Document()</div></pre></td></tr></table></figure>
@@ -215,10 +392,10 @@
   
   <entry>
     <title>pickle 模块 序列化</title>
-    <link href="http://yoursite.com/2017/02/15/python_pickle/"/>
-    <id>http://yoursite.com/2017/02/15/python_pickle/</id>
-    <published>2017-02-14T16:42:11.827Z</published>
-    <updated>2017-02-13T02:45:18.869Z</updated>
+    <link href="http://yoursite.com/2017/01/12/python_pickle/"/>
+    <id>http://yoursite.com/2017/01/12/python_pickle/</id>
+    <published>2017-01-12T12:35:00.000Z</published>
+    <updated>2017-02-15T12:52:24.794Z</updated>
     
     <content type="html"><![CDATA[<p>使用pickle模块将数据对象保存到文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import pickle</div><div class="line"> </div><div class="line">data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j],</div><div class="line">         &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;),</div><div class="line">         &apos;c&apos;: None&#125;</div><div class="line"> </div><div class="line">selfref_list = [1, 2, 3]</div><div class="line">selfref_list.append(selfref_list)</div><div class="line"> </div><div class="line">output = open(&apos;data.pkl&apos;, &apos;wb&apos;)</div><div class="line"> </div><div class="line"># Pickle dictionary using protocol 0.</div><div class="line">pickle.dump(data1, output)</div><div class="line"> </div><div class="line"># Pickle the list using the highest protocol available.</div><div class="line">pickle.dump(selfref_list, output, -1)</div><div class="line"> </div><div class="line">output.close()</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
@@ -240,10 +417,10 @@
   
   <entry>
     <title>os/sys 模块 python操作文件路径</title>
-    <link href="http://yoursite.com/2017/02/15/python_os_sys/"/>
-    <id>http://yoursite.com/2017/02/15/python_os_sys/</id>
-    <published>2017-02-14T16:42:11.820Z</published>
-    <updated>2017-02-13T02:55:12.921Z</updated>
+    <link href="http://yoursite.com/2017/01/12/python_os_sys/"/>
+    <id>http://yoursite.com/2017/01/12/python_os_sys/</id>
+    <published>2017-01-12T12:34:00.000Z</published>
+    <updated>2017-02-15T12:52:09.507Z</updated>
     
     <content type="html"><![CDATA[<h3 id="当前路径："><a href="#当前路径：" class="headerlink" title="当前路径："></a>当前路径：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> sys, os</div><div class="line">pwd = sys.path[<span class="number">0</span>]    <span class="comment"># 获取当前执行脚本的位置</span></div></pre></td></tr></table></figure>
 <h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><blockquote>
@@ -289,10 +466,10 @@
   
   <entry>
     <title>matplotlib 画图风格</title>
-    <link href="http://yoursite.com/2017/02/15/python_matplotlib_style/"/>
-    <id>http://yoursite.com/2017/02/15/python_matplotlib_style/</id>
-    <published>2017-02-14T16:42:11.815Z</published>
-    <updated>2017-02-13T03:05:49.429Z</updated>
+    <link href="http://yoursite.com/2016/12/25/python_matplotlib_style/"/>
+    <id>http://yoursite.com/2016/12/25/python_matplotlib_style/</id>
+    <published>2016-12-25T12:37:00.000Z</published>
+    <updated>2017-02-15T12:51:49.543Z</updated>
     
     <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import matplotlib.style as mstyle</div><div class="line">print mstyle.available</div><div class="line">plt.style.use(&apos;seaborn-darkgrid&apos;)</div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -319,10 +496,10 @@
   
   <entry>
     <title>matplotlib 使用中文</title>
-    <link href="http://yoursite.com/2017/02/15/python_matplotlib_Chinese/"/>
-    <id>http://yoursite.com/2017/02/15/python_matplotlib_Chinese/</id>
-    <published>2017-02-14T16:42:11.809Z</published>
-    <updated>2017-02-13T03:05:40.785Z</updated>
+    <link href="http://yoursite.com/2016/12/25/python_matplotlib_Chinese/"/>
+    <id>http://yoursite.com/2016/12/25/python_matplotlib_Chinese/</id>
+    <published>2016-12-25T12:36:00.000Z</published>
+    <updated>2017-02-15T12:51:38.879Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、颜色调整"><a href="#一、颜色调整" class="headerlink" title="一、颜色调整"></a>一、颜色调整</h3><p>绿色：#6AB27B<br>土色：#a27712<br>浅紫色：#8172B2<br>蓝色：#4C72B0<br>红色：#C44E52</p>
 <h3 id="二、使用中文"><a href="#二、使用中文" class="headerlink" title="二、使用中文"></a>二、使用中文</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from pylab import mpl</div><div class="line">mpl.rcParams[&apos;font.sans-serif&apos;] = [&apos;SimHei&apos;]        # 使用中文</div><div class="line">mpl.rcParams[&apos;axes.unicode_minus&apos;] = False    # 解决负号问题</div></pre></td></tr></table></figure>
@@ -346,10 +523,10 @@
   
   <entry>
     <title>chardet 模块 编码检测</title>
-    <link href="http://yoursite.com/2017/02/15/python_chardet/"/>
-    <id>http://yoursite.com/2017/02/15/python_chardet/</id>
-    <published>2017-02-14T16:42:11.801Z</published>
-    <updated>2017-02-13T03:00:27.510Z</updated>
+    <link href="http://yoursite.com/2016/12/25/python_chardet/"/>
+    <id>http://yoursite.com/2016/12/25/python_chardet/</id>
+    <published>2016-12-25T12:35:00.000Z</published>
+    <updated>2017-02-15T12:51:24.418Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h3><h4 id="使用detect函数"><a href="#使用detect函数" class="headerlink" title="使用detect函数"></a>使用<code>detect</code>函数</h4><p>输入字符串，输出检测的编码和置信度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import urllib</div><div class="line">rawdata = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;).read()</div><div class="line">import chardet</div><div class="line">chardet.detect(rawdata)</div><div class="line"></div><div class="line">[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125;</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
@@ -374,10 +551,10 @@
   
   <entry>
     <title>ANSII码和进制转换</title>
-    <link href="http://yoursite.com/2017/02/15/python_ANSII/"/>
-    <id>http://yoursite.com/2017/02/15/python_ANSII/</id>
-    <published>2017-02-14T16:42:11.795Z</published>
-    <updated>2017-02-13T02:56:04.192Z</updated>
+    <link href="http://yoursite.com/2016/12/25/python_ANSII/"/>
+    <id>http://yoursite.com/2016/12/25/python_ANSII/</id>
+    <published>2016-12-25T12:34:00.000Z</published>
+    <updated>2017-02-15T12:51:15.322Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、进制转换"><a href="#一、进制转换" class="headerlink" title="一、进制转换"></a>一、进制转换</h3><p>bin()：其他进制数值 —&gt; 二进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[10=&gt;2]: bin(10)  </div><div class="line">[8 =&gt;2]: bin(012)   </div><div class="line">[16=&gt;2]: bin(0xa)</div></pre></td></tr></table></figure></p>
 <p>oct()：其他进制数值 —&gt; 八进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[10=&gt;8]: oct(10) </div><div class="line">[2 =&gt;8]: oct(0b1010)  </div><div class="line">[16=&gt;8]: oct(0xa)</div></pre></td></tr></table></figure></p>
@@ -404,188 +581,11 @@
   </entry>
   
   <entry>
-    <title>awk</title>
-    <link href="http://yoursite.com/2017/02/15/linux_awk/"/>
-    <id>http://yoursite.com/2017/02/15/linux_awk/</id>
-    <published>2017-02-14T16:42:11.773Z</published>
-    <updated>2017-02-13T02:31:14.921Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、简单例子"><a href="#1、简单例子" class="headerlink" title="1、简单例子"></a>1、简单例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk  &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos;        # 这个不需要文件输入就可以</div></pre></td></tr></table></figure>
-<p><code>awkscr</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/^$/ &#123;print &quot;This is a blank line&quot;&#125;</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>运行脚本文件<code>awkscr</code>对应于<code>test</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk -f awkscr test</div></pre></td></tr></table></figure></p>
-<p>例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo a b c d | awk &apos;&#123;one=1;two=2&#125;&#123;print $(one + two)&#125;&apos;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>-F “\t” ：表示分隔符为\t<br>FS：表示分隔符</p>
-</blockquote>
-<p>灵活指定分隔符，正则指定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">BEGIN &#123;FS=&quot;,&quot;&#125;&#123;print $1  &quot;,&quot;  $6&#125;   # 使用，为分隔符</div><div class="line">FS=&quot;\t&quot;                # 指定一个 tab 为分隔符</div><div class="line">FS=&quot;\t+&quot;              # 指定一个以上的 tab 为分隔符【正则】</div><div class="line">FS=&quot;[&apos;:\t]&quot;            # 指定&apos;、:、 tab 中任何一个为分隔符</div></pre></td></tr></table></figure></p>
-<h4 id="2、模式匹配"><a href="#2、模式匹配" class="headerlink" title="2、模式匹配"></a>2、模式匹配</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">awk &apos;/^$/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div><div class="line">awk &apos;/[0-9]/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div><div class="line">awk &apos;/[A-Za-z]/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div></pre></td></tr></table></figure>
-<p><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html</a></p>
-<p><a href="http://awk.readthedocs.io/en/latest/chapter-one.html" target="_blank" rel="external">http://awk.readthedocs.io/en/latest/chapter-one.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1、简单例子&quot;&gt;&lt;a href=&quot;#1、简单例子&quot; class=&quot;headerlink&quot; title=&quot;1、简单例子&quot;&gt;&lt;/a&gt;1、简单例子&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;code&gt;awkscr&lt;/code&gt;文件：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;/^$/ &amp;#123;print &amp;quot;This is a blank line&amp;quot;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sz-rz-文件传输</title>
-    <link href="http://yoursite.com/2017/02/15/linux_03_rzsz/"/>
-    <id>http://yoursite.com/2017/02/15/linux_03_rzsz/</id>
-    <published>2017-02-14T16:42:11.766Z</published>
-    <updated>2017-02-13T02:31:24.537Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h3><h4 id="1、sz用法（下载）："><a href="#1、sz用法（下载）：" class="headerlink" title="1、sz用法（下载）："></a>1、sz用法（下载）：</h4><p>下载一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename</div></pre></td></tr></table></figure></p>
-<p>下载多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename1 filename2</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>下载dir目录下的所有文件，不包含dir下的文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz dir/*</div></pre></td></tr></table></figure></p>
-<h4 id="2、rz用法（上传）："><a href="#2、rz用法（上传）：" class="headerlink" title="2、rz用法（上传）："></a>2、rz用法（上传）：</h4><p>输入rz回车后，会出现文件选择对话框，选择需要上传文件，一次可以指定多个文件，上传到服务器的路径为当前执行rz命令的目录。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;Xshell&quot;&gt;&lt;a href=&quot;#Xshell&quot; class=&quot;headerlink&quot; title=&quot;Xshell&quot;&gt;&lt;/a&gt;Xshell&lt;/h3&gt;&lt;h4 id=&quot;1、sz用法（下载）：&quot;&gt;&lt;a href=&quot;#1、sz用法（下载）：&quot; class=&quot;headerlink&quot; title=&quot;1、sz用法（下载）：&quot;&gt;&lt;/a&gt;1、sz用法（下载）：&lt;/h4&gt;&lt;p&gt;下载一个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;下载多个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename1 filename2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux 查看系统信息命令(比较全)</title>
-    <link href="http://yoursite.com/2017/02/15/linux_02_com/"/>
-    <id>http://yoursite.com/2017/02/15/linux_02_com/</id>
-    <published>2017-02-14T16:42:11.759Z</published>
-    <updated>2017-02-13T01:33:13.116Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"># uname -a # 查看内核/操作系统/CPU信息</div><div class="line"># head -n 1 /etc/issue # 查看操作系统版本</div><div class="line"># cat /proc/cpuinfo # 查看CPU信息</div><div class="line"># hostname # 查看计算机名</div><div class="line"># lspci -tv # 列出所有PCI设备</div><div class="line"># lsusb -tv # 列出所有USB设备</div><div class="line"># lsmod # 列出加载的内核模块</div><div class="line"># env # 查看环境变量资源</div><div class="line"># free -m # 查看内存使用量和交换区使用量</div><div class="line"># df -h # 查看各分区使用情况</div><div class="line"># du -sh &lt;目录名&gt; # 查看指定目录的大小</div><div class="line"># grep MemTotal /proc/meminfo # 查看内存总量</div><div class="line"># grep MemFree /proc/meminfo # 查看空闲内存量</div><div class="line"># uptime # 查看系统运行时间、用户数、负载</div><div class="line"># cat /proc/loadavg # 查看系统负载磁盘和分区</div><div class="line"># mount | column -t # 查看挂接的分区状态</div><div class="line"># fdisk -l # 查看所有分区</div><div class="line"># swapon -s # 查看所有交换分区</div><div class="line"># hdparm -i /dev/hda # 查看磁盘参数(仅适用于IDE设备)</div><div class="line"># dmesg | grep IDE # 查看启动时IDE设备检测状况网络</div><div class="line"># ifconfig # 查看所有网络接口的属性</div><div class="line"># iptables -L # 查看防火墙设置</div><div class="line"># route -n # 查看路由表</div><div class="line"># netstat -lntp # 查看所有监听端口</div><div class="line"># netstat -antp # 查看所有已经建立的连接</div><div class="line"># netstat -s # 查看网络统计信息进程</div><div class="line"># ps -ef # 查看所有进程</div><div class="line"># top # 实时显示进程状态用户</div><div class="line"># w # 查看活动用户</div><div class="line"># id &lt;用户名&gt; # 查看指定用户信息</div><div class="line"># last # 查看用户登录日志</div><div class="line"># cut -d: -f1 /etc/passwd # 查看系统所有用户</div><div class="line"># cut -d: -f1 /etc/group # 查看系统所有组</div><div class="line"># crontab -l # 查看当前用户的计划任务服务</div><div class="line"># chkconfig –list # 列出所有系统服务</div><div class="line"># chkconfig –list | grep on # 列出所有启动的系统服务程序</div><div class="line"># rpm -qa # 查看所有安装的软件包</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一些常用命令</title>
-    <link href="http://yoursite.com/2017/02/15/linux_01_base/"/>
-    <id>http://yoursite.com/2017/02/15/linux_01_base/</id>
-    <published>2017-02-14T16:42:11.753Z</published>
-    <updated>2017-02-13T01:31:32.520Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、基本命令"><a href="#一、基本命令" class="headerlink" title="一、基本命令"></a>一、基本命令</h3><h4 id="（1）查看linux的信息"><a href="#（1）查看linux的信息" class="headerlink" title="（1）查看linux的信息"></a>（1）查看linux的信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">lsb_release -a</div><div class="line">cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos</div><div class="line">file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位</div><div class="line">free -g                                    # 以G为单位，查看内存大小</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h4 id="（2）查看某文件夹下，文件夹的文件大小总和"><a href="#（2）查看某文件夹下，文件夹的文件大小总和" class="headerlink" title="（2）查看某文件夹下，文件夹的文件大小总和"></a>（2）查看某文件夹下，文件夹的文件大小总和</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">du -h --max-depth=1   # 深度为1的文件夹里面文件的总大小</div></pre></td></tr></table></figure>
-<h4 id="（3）查找某文件的路径"><a href="#（3）查找某文件的路径" class="headerlink" title="（3）查找某文件的路径"></a>（3）查找某文件的路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename      # /data0表示目录文件，只找/data0下的名字叫filename的文件</div></pre></td></tr></table></figure>
-<h4 id="（4）管道使用ls"><a href="#（4）管道使用ls" class="headerlink" title="（4）管道使用ls"></a>（4）管道使用ls</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find  /data0  -name  filename | xargs ls -l</div></pre></td></tr></table></figure>
-<h3 id="二、基本配置"><a href="#二、基本配置" class="headerlink" title="二、基本配置"></a>二、基本配置</h3><h4 id="（1）vim使用鼠标"><a href="#（1）vim使用鼠标" class="headerlink" title="（1）vim使用鼠标"></a>（1）vim使用鼠标</h4><p>在<code>.vimrc</code>中添加<code>set mouse=a</code>这句话，具体还有别的模式，这里不在叙述，尝试用<code>a</code>最合适。</p>
-<h4 id="（2）vim显示行号"><a href="#（2）vim显示行号" class="headerlink" title="（2）vim显示行号"></a>（2）vim显示行号</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:set number</div></pre></td></tr></table></figure>
-<h3 id="三、日期命令"><a href="#三、日期命令" class="headerlink" title="三、日期命令"></a>三、日期命令</h3><p>输出日期<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">date=`date -d &quot;+0 day $1&quot; +%Y-%m-%d`</div><div class="line">enddate=`date -d &quot;+1 day $2&quot; +%Y-%m-%d`</div><div class="line">while [[ $date &lt; $enddate  ]]</div><div class="line">do</div><div class="line">        echo $date</div><div class="line">        date=`date -d &quot;+1 day $date&quot; +%Y-%m-%d`</div><div class="line">done</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1) ls -lt  时间最近的在前面</div><div class="line">2) ls -ltr 时间从前到后</div><div class="line">3) 利用sort</div><div class="line">    ls -l | sort +7 (日期为第8列)   时间从前到后</div><div class="line">    ls -l | sort -r +7      时间最近的在前面</div></pre></td></tr></table></figure>
-<h3 id="四、查看进程和杀死进程"><a href="#四、查看进程和杀死进程" class="headerlink" title="四、查看进程和杀死进程"></a>四、查看进程和杀死进程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ps -ef</div><div class="line">ps -aux</div><div class="line">kill -s 9 1827    # 9是强制、尽快终止进程。1827是PID进程号</div></pre></td></tr></table></figure>
-<h3 id="五、命令"><a href="#五、命令" class="headerlink" title="五、命令"></a>五、命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wc -l filename    # 显示文件的行数</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、基本命令&quot;&gt;&lt;a href=&quot;#一、基本命令&quot; class=&quot;headerlink&quot; title=&quot;一、基本命令&quot;&gt;&lt;/a&gt;一、基本命令&lt;/h3&gt;&lt;h4 id=&quot;（1）查看linux的信息&quot;&gt;&lt;a href=&quot;#（1）查看linux的信息&quot; class=&quot;headerlink&quot; title=&quot;（1）查看linux的信息&quot;&gt;&lt;/a&gt;（1）查看linux的信息&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;uname -a&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;lsb_release -a&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;free -g                                    # 以G为单位，查看内存大小&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>例子</title>
-    <link href="http://yoursite.com/2017/02/15/hive_hadoop_example/"/>
-    <id>http://yoursite.com/2017/02/15/hive_hadoop_example/</id>
-    <published>2017-02-14T16:42:11.746Z</published>
-    <updated>2017-02-13T02:35:59.774Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE dev.tmp_check_sku_20161202</div><div class="line">AS</div><div class="line">SELECT</div><div class="line">    a.item_sku_id,</div><div class="line">    b.sku_id</div><div class="line">FROM</div><div class="line">    (SELECT item_sku_id,dt</div><div class="line">    FROM </div><div class="line">    gdm.gdm_m03_item_sku_da</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    AND sku_valid_flag=1) A</div><div class="line">    FULL OUTER JOIN</div><div class="line">    (SELECT sku_id,dt</div><div class="line">    FROM gdm.gdm_m08_item_stock_day_sum</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    ) B</div><div class="line">    ON  a.item_sku_id=b.sku_id</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-- 统计数据</div><div class="line">SELECT</div><div class="line">    CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END AS item_sku_cnt,</div><div class="line">    CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END AS sku_cnt,</div><div class="line">    count(1)</div><div class="line">FROM</div><div class="line">    dev.tmp_check_sku_20161202</div><div class="line">GROUP BY</div><div class="line">    CASE WHEN item_sku_id IS NOT NULL THEN 1 ELSE 0 END,</div><div class="line">    CASE WHEN sku_id IS NOT NULL THEN 1 ELSE 0 END</div><div class="line">-- 结果</div><div class="line">1    0    1    707489</div><div class="line">2    1    0    832084258</div><div class="line">3    1    1    81142196</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;CREATE TABLE dev.tmp_check_sku_20161202&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;AS&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;SELECT&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    a.item_sku_id,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    b.sku_id&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;FROM&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    (SELECT item_sku_id,dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FROM &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    gdm.gdm_m03_item_sku_da&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    WHERE dt= &amp;apos;2016-10-08&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    AND sku_valid_flag=1) A&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FULL OUTER JOIN&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    (SELECT sku_id,dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    FROM gdm.gdm_m08_item_stock_day_sum&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    WHERE dt= &amp;apos;2016-10-08&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ) B&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ON  a.item_sku_id=b.sku_id&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Hive&amp;Hadoop" scheme="http://yoursite.com/categories/Hive-Hadoop/"/>
-    
-    
-      <category term="Hive" scheme="http://yoursite.com/tags/Hive/"/>
-    
-      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基本命令</title>
-    <link href="http://yoursite.com/2017/02/15/hive_hadoop_base/"/>
-    <id>http://yoursite.com/2017/02/15/hive_hadoop_base/</id>
-    <published>2017-02-14T16:42:11.742Z</published>
-    <updated>2017-02-13T02:34:48.701Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、设置动态分区"><a href="#1、设置动态分区" class="headerlink" title="1、设置动态分区"></a>1、设置动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.dynamic.partition=true;</div><div class="line">set hive.exec.dynamic.partition.mode=nonstrict;</div></pre></td></tr></table></figure>
-<h3 id="2、设置最大动态分区"><a href="#2、设置最大动态分区" class="headerlink" title="2、设置最大动态分区"></a>2、设置最大动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.max.dynamic.partitions=2000;</div><div class="line">set hive.exec.max.dynamic.partitions.pernode=2000;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="3、创建动态分区表"><a href="#3、创建动态分区表" class="headerlink" title="3、创建动态分区表"></a>3、创建动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE IF NOT EXISTS dev.dev_allocation_sale_data</div><div class="line">    (    org_dc_id         string,</div><div class="line">        sale_ord_det_id string,   </div><div class="line">        sale_ord_id string,       </div><div class="line">        parent_sale_ord_id string,</div><div class="line">        item_sku_id                string,        -- skuid</div><div class="line">        sale_qtty                  int,        -- 销售数量</div><div class="line">        sale_ord_tm                string,        -- 销售订单订购时间</div><div class="line">        sale_ord_type             string,        -- 订单配送类型</div><div class="line">        sale_ord_white_flag        string,         -- 是否包括白名单</div><div class="line">        item_third_cate_cd  string,   --sku所属三级分类</div><div class="line">        item_second_cate_cd  string,      --sku所属二级分类</div><div class="line">        shelves_dt  string, --上架日期</div><div class="line">    shelves_tm   string --上架时间</div><div class="line">    )</div><div class="line">    PARTITIONED by (date_s string,dc_id int);</div></pre></td></tr></table></figure>
-<h3 id="4、插入动态分区表"><a href="#4、插入动态分区表" class="headerlink" title="4、插入动态分区表"></a>4、插入动态分区表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">insert overwrite table dev.dev_allocation_sale_data partition(date_s,dc_id)</div><div class="line">select</div><div class="line">         a.org_dc_id,</div><div class="line">         case when b.sale_ord_id is not null then &apos;rdc&apos;</div><div class="line">         when c.sale_ord_id is not null then &apos;fdc_rdc&apos;    when d.sale_ord_id is not null    then &apos;fdc&apos; else &apos;other&apos; end,</div><div class="line">         d.white_flag,</div><div class="line">         a.item_third_cate_cd,</div><div class="line">         a.item_second_cate_cd,</div><div class="line">         a.shelves_dt,</div><div class="line">         a.shelves_tm,   </div><div class="line">         a.dt as date_s,</div><div class="line">         a.dc_id</div><div class="line">from</div><div class="line">        dev.tmp_allocation_order_data_mid01 a</div></pre></td></tr></table></figure>
-<h3 id="5、取出hive数据"><a href="#5、取出hive数据" class="headerlink" title="5、取出hive数据"></a>5、取出hive数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">INSERT OVERWRITE  LOCAL  DIRECTORY  &apos;/home/cmo_ipc/Allocation_shell/datasets/sku_datasets&apos; </div><div class="line">select * from dev.dev_allocation_fdc_data;</div></pre></td></tr></table></figure>
-<h3 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h3><p><a href="http://blog.csdn.net/kntao/article/details/38683645" target="_blank" rel="external">http://blog.csdn.net/kntao/article/details/38683645</a></p>
-<p><a href="http://blog.csdn.net/chenyi8888/article/details/8236726" target="_blank" rel="external">http://blog.csdn.net/chenyi8888/article/details/8236726</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1、设置动态分区&quot;&gt;&lt;a href=&quot;#1、设置动态分区&quot; class=&quot;headerlink&quot; title=&quot;1、设置动态分区&quot;&gt;&lt;/a&gt;1、设置动态分区&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.dynamic.partition=true;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.dynamic.partition.mode=nonstrict;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;2、设置最大动态分区&quot;&gt;&lt;a href=&quot;#2、设置最大动态分区&quot; class=&quot;headerlink&quot; title=&quot;2、设置最大动态分区&quot;&gt;&lt;/a&gt;2、设置最大动态分区&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions=2000;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions.pernode=2000;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Hive&amp;Hadoop" scheme="http://yoursite.com/categories/Hive-Hadoop/"/>
-    
-    
-      <category term="Hive" scheme="http://yoursite.com/tags/Hive/"/>
-    
-      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Advanced Statistics</title>
-    <link href="http://yoursite.com/2017/02/15/advanced_statistics/"/>
-    <id>http://yoursite.com/2017/02/15/advanced_statistics/</id>
-    <published>2017-02-14T16:42:11.719Z</published>
-    <updated>2017-01-25T04:41:40.768Z</updated>
+    <link href="http://yoursite.com/2016/11/19/advanced_statistics/"/>
+    <id>http://yoursite.com/2016/11/19/advanced_statistics/</id>
+    <published>2016-11-19T12:35:00.000Z</published>
+    <updated>2017-02-15T12:50:39.075Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Advanced-Statistics"><a href="#Advanced-Statistics" class="headerlink" title="Advanced Statistics"></a>Advanced Statistics</h1><h3 id="Transformations-of-Random-Variables"><a href="#Transformations-of-Random-Variables" class="headerlink" title="Transformations of Random Variables"></a>Transformations of Random Variables</h3><p>Let me set the example;<br>You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.<br>You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.<br><a id="more"></a><br>First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.<br>Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.<br>We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$.</p>
 <p>Now, we use something called a <code>Jacobian</code>, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.<br>So the jacobian is:<br>$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}<br>\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\<br>\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}<br>\end{vmatrix}$$<br>We can then do the following:<br>$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$<br>$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$<br>And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:<br>$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$</p>
