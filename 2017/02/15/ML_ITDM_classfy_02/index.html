@@ -99,7 +99,7 @@ k-最近邻算法：12345令k是最近邻数目，D是训练样例集合for z in
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-f75caad2586c4f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-bc19e263319b348d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-b9d40731e3d646db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-02-15T13:16:05.023Z">
+<meta property="og:updated_time" content="2017-02-15T13:19:53.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分类（2）：k-最近邻、贝叶斯分类器">
 <meta name="twitter:description" content="一、k-最近邻1、算法积极学习方法（eager learner）：通过训练样本建立模型。消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。
@@ -427,12 +427,12 @@ k-最近邻算法：12345令k是最近邻数目，D是训练样例集合for z in
 <h5 id="2、朴素贝叶斯"><a href="#2、朴素贝叶斯" class="headerlink" title="2、朴素贝叶斯"></a>2、朴素贝叶斯</h5><h6 id="（1）条件独立性："><a href="#（1）条件独立性：" class="headerlink" title="（1）条件独立性："></a>（1）条件独立性：</h6><p>给定 Z，X 条件独立于 Y:<br>$$P(X|Y,Z)=P(X|Z)$$<br>则有：<br>$$P(X,Y|Z)=\frac{P(Z,Y,X)}{P(Z)}=\frac{P(Z,Y,X)}{P(Y,Z)}\frac{P(Y,Z)}{P(Z)}=P(X|Y,Z)P(Y|Z)=P(X|Z)P(Y|Z)$$</p>
 <h6 id="（2）朴素贝叶斯分类器："><a href="#（2）朴素贝叶斯分类器：" class="headerlink" title="（2）朴素贝叶斯分类器："></a>（2）朴素贝叶斯分类器：</h6><p>$$P(Y|X)=\frac{P(X|Y)P(Y)}{P(X)}=\frac{P(X_{1},…,X_{d})P(Y)}{P(X)}=\frac{P(Y)\prod_{i=1}^{d}P(X_{i}|Y)}{P(X)}$$</p>
 <h6 id="（3）连续属性的条件概率："><a href="#（3）连续属性的条件概率：" class="headerlink" title="（3）连续属性的条件概率："></a>（3）连续属性的条件概率：</h6><p><1>把每个连续属性离散化，用相应的区间去替代原来的属性，但若某一个区间的样本数目过少，不容易做出可靠的估计。</1></p>
-<p><2>可以假设连续变量服从正态分布，Xi的概率等于：<br>$$P(X_{i}=x_{i}|Y=y_{j})=\frac{1}{\sqrt{2\pi}\sigma_{ij}}e^{-\frac{(x_{i}-\mu_{ij})^{2}}{2\sigma_{ij}}}$$<br>其中 mu 用样本均值估计， sigma 用样本方差估计。</2></p>
+<p><2>可以假设连续变量服从正态分布，Xi的概率等于：<br>$$P(X_{i}=x_{i}|Y=y_{j})=\frac{1}{\sqrt{2\pi}\sigma_{ij}}e^{-\frac{(x_{i}-\mu_{ij})^{2}}{2\sigma_{ij}}}$$<br>其中 $\mu$ 用样本均值估计， $\sigma$ 用样本方差估计。</2></p>
 <h6 id="（4）朴素贝叶斯举例："><a href="#（4）朴素贝叶斯举例：" class="headerlink" title="（4）朴素贝叶斯举例："></a>（4）朴素贝叶斯举例：</h6><p>拖欠贷款为 Y 变量。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-cd962d2b90b84337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_01.png"><br>测试记录X=（有房=否，婚姻状况=已婚，年收入=120K），求后验概率P（No|X）、P（Yes|X）。<br>总的 Y 可以知道，P（Yes）=0.3，P（No）=0.7。则：</p>
 <blockquote>
 <p>P（X | No）=P（有房=否 | No）x P（婚姻状况=已婚 | No）x P（年收入=120K | No）=0.0024<br>P（X | Yes）= P（有房=否 | Yes）x P（婚姻状况=已婚 | Yes）x P（年收入=120K | Yes）=0</p>
 </blockquote>
-<p>因为P（No|X）&gt;P（Yes|X），所以该测试分类为No，不拖欠贷款。<br>上例中，P（婚姻状况=已婚 | Yes）=0，可能会出现极端现象，为了防止出现0，朴素贝叶斯没法正确分类，可以使用 m 估计（m-estimate）：<br>$$ P(x_{i}|y_{j})=\frac{n_{c}+mp}{n+m}$$<br>n 为 yi 的实例总数，nc 为 yi 中 xi 的实例数目，p 是用户指定，m 为等价样本大小的参数。上面的计算：P（婚姻状况=已婚 | Yes）=(0+3 x 1/3)/(3+3)=1/6，而不是0。</p>
+<p>因为P（No|X）&gt;P（Yes|X），所以该测试分类为No，不拖欠贷款。<br>上例中，P（婚姻状况=已婚 | Yes）=0，可能会出现极端现象，为了防止出现0，朴素贝叶斯没法正确分类，可以使用 m 估计（m-estimate）：<br>$$ P(x_{i}|y_{j})=\frac{n_{c}+mp}{n+m}$$<br>$n$ 为 $y_{i}$ 的实例总数，$n_{c}$ 为 $y_{i}$ 中 $x_{i}$ 的实例数目，p 是用户指定，m 为等价样本大小的参数。上面的计算：P（婚姻状况=已婚 | Yes）=(0+3 x 1/3)/(3+3)=1/6，而不是0。</p>
 <h6 id="（4）朴素贝叶斯特征："><a href="#（4）朴素贝叶斯特征：" class="headerlink" title="（4）朴素贝叶斯特征："></a>（4）朴素贝叶斯特征：</h6><blockquote>
 <p>对于噪声点，朴素贝叶斯是健壮的。也可以处理属性值遗漏问题。<br>无关属性，朴素贝叶斯是健壮的。对于相关属性，可能会降低分类性能。</p>
 </blockquote>
@@ -521,6 +521,10 @@ k-最近邻算法：12345令k是最近邻数目，D是训练样例集合for z in
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/15/ML_ITDM_classfy_03/" rel="prev" title="分类（3）：人工神经网络（ANN）">
+                分类（3）：人工神经网络（ANN） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -613,7 +617,7 @@ k-最近邻算法：12345令k是最近邻数目，D是训练样例集合for z in
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

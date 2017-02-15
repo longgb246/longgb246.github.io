@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T13:16:05.023Z</updated>
+  <updated>2017-02-15T13:24:21.342Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,50 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>分类（3）：人工神经网络（ANN）</title>
+    <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/"/>
+    <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/</id>
+    <published>2017-02-15T13:23:21.000Z</published>
+    <updated>2017-02-15T13:24:21.342Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="一、感知器"><a href="#一、感知器" class="headerlink" title="一、感知器"></a>一、感知器</h4><p>下图为一个感知器，单个神经元。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_06.png"><br><a id="more"></a><br>该感知器的算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3578cedeed16cbe4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_07.png"></p>
+<h4 id="二、多层人工神经网络"><a href="#二、多层人工神经网络" class="headerlink" title="二、多层人工神经网络"></a>二、多层人工神经网络</h4><h5 id="（1）基本概念"><a href="#（1）基本概念" class="headerlink" title="（1）基本概念"></a>（1）基本概念</h5><p>神经网络，这里先以前馈神经网络为介绍，每层为全连接，则对于2个神经元，参数为：</p>
+<blockquote>
+<p>（1）w权值，（2）b偏置，（3）delta 激活函数。</p>
+</blockquote>
+<p>多层神经网络的结构图，以下为前馈神经网络的结构（2层）：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-cd4ad3a0be5116c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_08.png"><br>常用的 delta 激活函数：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-234d1970a2ebc9ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_09.png"><br>基于梯度下降的权值更新：<br>$$ w_{j}\leftarrow w_{j}-\lambda \frac{\partial E(w)}{\partial w_{j}}$$<br>$\lambda$为学习率。</p>
+<h5 id="（2）反向传播（back-propagation）"><a href="#（2）反向传播（back-propagation）" class="headerlink" title="（2）反向传播（back-propagation）"></a>（2）反向传播（back-propagation）</h5><p>对于数据集，可以使用mini-batch，每次选取一部分，直到将数据使用完毕。每次每个数据包括两个阶段， 向前阶段和向后阶段。</p>
+<blockquote>
+<p>向前阶段：通过初始权值、初始偏置和激活函数，每次更新隐藏层和输出层的值；<br>向后阶段：通过权值更新法则，更新权值和偏置。<br>直到数据使用完毕，或者，权值更新的差值小于某个阈值。</p>
+</blockquote>
+<h5 id="（3）神经网络特点"><a href="#（3）神经网络特点" class="headerlink" title="（3）神经网络特点"></a>（3）神经网络特点</h5><blockquote>
+<p>1、至少含有一个隐藏层的是一种普适近似（universal approximator），即可以用来近似任何目标函数。<br>2、可以处理冗余特征，冗余特征的权值会非常小。<br>3、梯度下降法会收敛到局部极小值，避免方法可以在权值更新公式上加上一个动量项（momentum term）</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;一、感知器&quot;&gt;&lt;a href=&quot;#一、感知器&quot; class=&quot;headerlink&quot; title=&quot;一、感知器&quot;&gt;&lt;/a&gt;一、感知器&lt;/h4&gt;&lt;p&gt;下图为一个感知器，单个神经元。&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_06.png&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>分类（2）：k-最近邻、贝叶斯分类器</title>
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/</id>
     <published>2017-02-15T13:14:31.000Z</published>
-    <updated>2017-02-15T13:16:05.023Z</updated>
+    <updated>2017-02-15T13:19:53.371Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、k-最近邻"><a href="#一、k-最近邻" class="headerlink" title="一、k-最近邻"></a>一、k-最近邻</h4><h5 id="1、算法"><a href="#1、算法" class="headerlink" title="1、算法"></a>1、算法</h5><p>积极学习方法（eager learner）：通过训练样本建立模型。<br>消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。</p>
 <h6 id="k-最近邻算法："><a href="#k-最近邻算法：" class="headerlink" title="k-最近邻算法："></a>k-最近邻算法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">令k是最近邻数目，D是训练样例集合</div><div class="line"><span class="keyword">for</span> z <span class="keyword">in</span> 样例集合:</div><div class="line">  计算 z 和每个样例 (x,y) 的距离 d</div><div class="line">  选择离 z 前 k 个近距离的点，为集合 Dt</div><div class="line">  z的标记 y 为 Dt 中类较多的</div></pre></td></tr></table></figure>
@@ -33,12 +72,12 @@
 <h5 id="2、朴素贝叶斯"><a href="#2、朴素贝叶斯" class="headerlink" title="2、朴素贝叶斯"></a>2、朴素贝叶斯</h5><h6 id="（1）条件独立性："><a href="#（1）条件独立性：" class="headerlink" title="（1）条件独立性："></a>（1）条件独立性：</h6><p>给定 Z，X 条件独立于 Y:<br>$$P(X|Y,Z)=P(X|Z)$$<br>则有：<br>$$P(X,Y|Z)=\frac{P(Z,Y,X)}{P(Z)}=\frac{P(Z,Y,X)}{P(Y,Z)}\frac{P(Y,Z)}{P(Z)}=P(X|Y,Z)P(Y|Z)=P(X|Z)P(Y|Z)$$</p>
 <h6 id="（2）朴素贝叶斯分类器："><a href="#（2）朴素贝叶斯分类器：" class="headerlink" title="（2）朴素贝叶斯分类器："></a>（2）朴素贝叶斯分类器：</h6><p>$$P(Y|X)=\frac{P(X|Y)P(Y)}{P(X)}=\frac{P(X_{1},…,X_{d})P(Y)}{P(X)}=\frac{P(Y)\prod_{i=1}^{d}P(X_{i}|Y)}{P(X)}$$</p>
 <h6 id="（3）连续属性的条件概率："><a href="#（3）连续属性的条件概率：" class="headerlink" title="（3）连续属性的条件概率："></a>（3）连续属性的条件概率：</h6><p><1>把每个连续属性离散化，用相应的区间去替代原来的属性，但若某一个区间的样本数目过少，不容易做出可靠的估计。</1></p>
-<p><2>可以假设连续变量服从正态分布，Xi的概率等于：<br>$$P(X_{i}=x_{i}|Y=y_{j})=\frac{1}{\sqrt{2\pi}\sigma_{ij}}e^{-\frac{(x_{i}-\mu_{ij})^{2}}{2\sigma_{ij}}}$$<br>其中 mu 用样本均值估计， sigma 用样本方差估计。</2></p>
+<p><2>可以假设连续变量服从正态分布，Xi的概率等于：<br>$$P(X_{i}=x_{i}|Y=y_{j})=\frac{1}{\sqrt{2\pi}\sigma_{ij}}e^{-\frac{(x_{i}-\mu_{ij})^{2}}{2\sigma_{ij}}}$$<br>其中 $\mu$ 用样本均值估计， $\sigma$ 用样本方差估计。</2></p>
 <h6 id="（4）朴素贝叶斯举例："><a href="#（4）朴素贝叶斯举例：" class="headerlink" title="（4）朴素贝叶斯举例："></a>（4）朴素贝叶斯举例：</h6><p>拖欠贷款为 Y 变量。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-cd962d2b90b84337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_01.png"><br>测试记录X=（有房=否，婚姻状况=已婚，年收入=120K），求后验概率P（No|X）、P（Yes|X）。<br>总的 Y 可以知道，P（Yes）=0.3，P（No）=0.7。则：</p>
 <blockquote>
 <p>P（X | No）=P（有房=否 | No）x P（婚姻状况=已婚 | No）x P（年收入=120K | No）=0.0024<br>P（X | Yes）= P（有房=否 | Yes）x P（婚姻状况=已婚 | Yes）x P（年收入=120K | Yes）=0</p>
 </blockquote>
-<p>因为P（No|X）&gt;P（Yes|X），所以该测试分类为No，不拖欠贷款。<br>上例中，P（婚姻状况=已婚 | Yes）=0，可能会出现极端现象，为了防止出现0，朴素贝叶斯没法正确分类，可以使用 m 估计（m-estimate）：<br>$$ P(x_{i}|y_{j})=\frac{n_{c}+mp}{n+m}$$<br>n 为 yi 的实例总数，nc 为 yi 中 xi 的实例数目，p 是用户指定，m 为等价样本大小的参数。上面的计算：P（婚姻状况=已婚 | Yes）=(0+3 x 1/3)/(3+3)=1/6，而不是0。</p>
+<p>因为P（No|X）&gt;P（Yes|X），所以该测试分类为No，不拖欠贷款。<br>上例中，P（婚姻状况=已婚 | Yes）=0，可能会出现极端现象，为了防止出现0，朴素贝叶斯没法正确分类，可以使用 m 估计（m-estimate）：<br>$$ P(x_{i}|y_{j})=\frac{n_{c}+mp}{n+m}$$<br>$n$ 为 $y_{i}$ 的实例总数，$n_{c}$ 为 $y_{i}$ 中 $x_{i}$ 的实例数目，p 是用户指定，m 为等价样本大小的参数。上面的计算：P（婚姻状况=已婚 | Yes）=(0+3 x 1/3)/(3+3)=1/6，而不是0。</p>
 <h6 id="（4）朴素贝叶斯特征："><a href="#（4）朴素贝叶斯特征：" class="headerlink" title="（4）朴素贝叶斯特征："></a>（4）朴素贝叶斯特征：</h6><blockquote>
 <p>对于噪声点，朴素贝叶斯是健壮的。也可以处理属性值遗漏问题。<br>无关属性，朴素贝叶斯是健壮的。对于相关属性，可能会降低分类性能。</p>
 </blockquote>
@@ -701,32 +740,6 @@
     
     
       <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Advanced Statistics</title>
-    <link href="http://yoursite.com/2016/11/19/advanced_statistics/"/>
-    <id>http://yoursite.com/2016/11/19/advanced_statistics/</id>
-    <published>2016-11-19T12:35:00.000Z</published>
-    <updated>2017-02-15T12:50:39.075Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Advanced-Statistics"><a href="#Advanced-Statistics" class="headerlink" title="Advanced Statistics"></a>Advanced Statistics</h1><h3 id="Transformations-of-Random-Variables"><a href="#Transformations-of-Random-Variables" class="headerlink" title="Transformations of Random Variables"></a>Transformations of Random Variables</h3><p>Let me set the example;<br>You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.<br>You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.<br><a id="more"></a><br>First we need to make a new joint pdf including Z, to avoid cluterization of the same random variables, lets first let give $X$ a different name, i.e. $X=W$.<br>Now we saw that we have $Z=X-Y$, but now its $Z=W-Y$.<br>We want to know our variable $Y$, so we re-arrange the above to get $Y=W-Z$.</p>
-<p>Now, we use something called a <code>Jacobian</code>, and we will use its determinant to transform from $(x,y)$ to $(w,z)$, and then we can get the marginal pdf of $Z$.<br>So the jacobian is:<br>$$|J|=|\frac{\partial(x,y)}{\partial(w,z)}|=\begin{vmatrix}<br>\frac{\partial x}{\partial w} &amp; \frac{\partial y}{\partial w} \\\<br>\frac{\partial x}{\partial z} &amp; \frac{\partial y}{\partial z}<br>\end{vmatrix}$$<br>We can then do the following:<br>$$f_{Z,W}=f_{X,Y}(w,w-Z)|J|$$<br>$$=f_{X}(w)f_{Y}(w-z) \cdot |J|$$<br>And then finally, to find the marginal pdf of $Z$, we intergrate out w from the joint pdf:<br>$$f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(w)f_{Y}(w-z)dw$$</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Advanced-Statistics&quot;&gt;&lt;a href=&quot;#Advanced-Statistics&quot; class=&quot;headerlink&quot; title=&quot;Advanced Statistics&quot;&gt;&lt;/a&gt;Advanced Statistics&lt;/h1&gt;&lt;h3 id=&quot;Transformations-of-Random-Variables&quot;&gt;&lt;a href=&quot;#Transformations-of-Random-Variables&quot; class=&quot;headerlink&quot; title=&quot;Transformations of Random Variables&quot;&gt;&lt;/a&gt;Transformations of Random Variables&lt;/h3&gt;&lt;p&gt;Let me set the example;&lt;br&gt;You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.&lt;br&gt;You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="统计理论" scheme="http://yoursite.com/categories/%E7%BB%9F%E8%AE%A1%E7%90%86%E8%AE%BA/"/>
-    
-    
-      <category term="start" scheme="http://yoursite.com/tags/start/"/>
-    
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
   </entry>
   
