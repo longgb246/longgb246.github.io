@@ -1,0 +1,1099 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习,数据挖掘,算法,关联分析," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="longgb246的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一、基本概念（一）基本概念二元概念对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。
+项集和支持度计数事务：一行数据。k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}
+支持度计数：$$\sigma (X)=|\left \{ t_{i}|X\subseteq t_{i},t_{i}\in T \right \}|$$
+如，上式中，项集{啤酒，尿布，牛奶}的支持度计数为2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关联分析（1）：基本概念和算法">
+<meta property="og:url" content="http://yoursite.com/2017/02/15/ML_ITDM_realation_01/index.html">
+<meta property="og:site_name" content="longgb246的博客">
+<meta property="og:description" content="一、基本概念（一）基本概念二元概念对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。
+项集和支持度计数事务：一行数据。k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}
+支持度计数：$$\sigma (X)=|\left \{ t_{i}|X\subseteq t_{i},t_{i}\in T \right \}|$$
+如，上式中，项集{啤酒，尿布，牛奶}的支持度计数为2">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-11295870eaafecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-f927df9a115283bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-d801677ed00d5e34.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-b2707e258f78bc77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-5b2cddb67e3135c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-0c5e063896248cfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-aaf218ec8469cee6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-65f6188c6b9efd01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-3bc842139c766c37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-ed019fe46e334ffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-0b68705bb8cc5be1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-32bbf860fa045aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-e0c5f5413c6a7afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-8f3593ce3505ae32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-7432adb9a6ea16a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-a2192e8898d5c392.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-02-15T13:45:14.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关联分析（1）：基本概念和算法">
+<meta name="twitter:description" content="一、基本概念（一）基本概念二元概念对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。
+项集和支持度计数事务：一行数据。k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}
+支持度计数：$$\sigma (X)=|\left \{ t_{i}|X\subseteq t_{i},t_{i}\in T \right \}|$$
+如，上式中，项集{啤酒，尿布，牛奶}的支持度计数为2">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3341358-11295870eaafecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6379167083128686000',
+      author: 'longgb246'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/15/ML_ITDM_realation_01/"/>
+
+
+
+
+
+  <title> 关联分析（1）：基本概念和算法 | longgb246的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">longgb246的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/ML_ITDM_realation_01/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="longgb246">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="longgb246的博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="longgb246的博客" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关联分析（1）：基本概念和算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-15T21:37:36+08:00">
+                2017-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/15/ML_ITDM_realation_01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/15/ML_ITDM_realation_01/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h3><h5 id="（一）基本概念"><a href="#（一）基本概念" class="headerlink" title="（一）基本概念"></a>（一）基本概念</h5><h6 id="二元概念"><a href="#二元概念" class="headerlink" title="二元概念"></a>二元概念</h6><p>对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。</p>
+<h6 id="项集和支持度计数"><a href="#项集和支持度计数" class="headerlink" title="项集和支持度计数"></a>项集和支持度计数</h6><p>事务：一行数据。<br>k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}<br><img src="http://upload-images.jianshu.io/upload_images/3341358-11295870eaafecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_01.png"></p>
+<p>支持度计数：<br>$$\sigma (X)=|\left \{ t_{i}|X\subseteq t_{i},t_{i}\in T \right \}|$$</p>
+<p>如，上式中，项集{啤酒，尿布，牛奶}的支持度计数为2，因为只有2个事务同时包含3个项。</p>
+<a id="more"></a>
+<h6 id="关联规则（association-rule）"><a href="#关联规则（association-rule）" class="headerlink" title="关联规则（association rule）"></a>关联规则（association rule）</h6><p>关于 X、Y 的关联规则，支持度、置信度的定义如下：<br>$$s(X\rightarrow Y)=\frac{\sigma (X\cup Y)}{N}$$<br>$$s(X\rightarrow Y)=\frac{\sigma (X\cup Y)}{\sigma (X)}$$</p>
+<p>例如：X{牛奶，尿布}，Y{啤酒}，则并集{牛奶，尿布，啤酒}的支持度计数为2，N为事务总数5，所以支持度=2/5=0.4。X 的支持度=3，所以置信度为2/3=0.67。</p>
+<p>支持度很低的规则可能只是偶然出现，低的支持度计数也是无意义的。支持度通常用于删去无意义的规则，<br>置信度越高，表示Y在包含X的事务中出现的可能性较大。Y也可以用于估计在给定X的条件下的条件概率。</p>
+<h5 id="（二）关联规则挖掘"><a href="#（二）关联规则挖掘" class="headerlink" title="（二）关联规则挖掘"></a>（二）关联规则挖掘</h5><blockquote>
+<p>1、频繁项集产生：发现满足最小支持度阈值的所有项集，这些项是频繁项集。<br>2、规则产生：从频繁项集中提取所有高置信度规则，这些规则是强规则。</p>
+</blockquote>
+<h5 id="（三）频繁项集的产生"><a href="#（三）频繁项集的产生" class="headerlink" title="（三）频繁项集的产生"></a>（三）频繁项集的产生</h5><p>格结构（lattice structure）：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-f927df9a115283bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_02.png"></p>
+<h5 id="原始方法："><a href="#原始方法：" class="headerlink" title="原始方法："></a>原始方法：</h5><p>遍历每个项集，使用项集与事务进行比较，计算每个项集的支持度计数。但是该方法的算法复杂度很高：O(NMw)。<br>改进方法：</p>
+<blockquote>
+<p>1、减少候选项的数目。先验原理，不计算支持度而删除某些候选项集。<br>2、减少比较次数。更高级的数据结构。</p>
+</blockquote>
+<h5 id="先验原理"><a href="#先验原理" class="headerlink" title="先验原理"></a>先验原理</h5><blockquote>
+<p>先验原理：如果一个项集是频繁的，则它的所有子集也一定是频繁的。<br>相反的，如果一个项集是非频繁的，则它的所有超集也一定是非频繁的。<br>支持度计数的反单调性：一个项集的支持度不会超过它的子集的支持度。</p>
+</blockquote>
+<h5 id="（四）Apriori-算法的频繁项集产生"><a href="#（四）Apriori-算法的频繁项集产生" class="headerlink" title="（四）Apriori 算法的频繁项集产生"></a>（四）Apriori 算法的频繁项集产生</h5><p>过程图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-d801677ed00d5e34.png" alt="6_03.png"></p>
+<p>算法的流程：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-b2707e258f78bc77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_04.png"></p>
+<p>算法讲解：<br>1、先定一个阈值k。<br>2、候选项集为1-项集的，计算支持度，若支持度大于阈值，则保留；若小于则剔除。<br>3、使用(k-1)-项集，产生k-项集。<br>4、重复上面的步骤，直到无候选集（频繁集），结束。</p>
+<h5 id="1、Apriori-算法："><a href="#1、Apriori-算法：" class="headerlink" title="1、Apriori 算法："></a>1、Apriori 算法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">k = 1</div><div class="line">F_(1) = &#123;1-项集 &gt;= min_c&#125;</div><div class="line">while true</div><div class="line">	k = k + 1</div><div class="line">	Ck = apriori_gen(F_(k-1)) \\产生候选集</div><div class="line">	for c in Ck do \\事务</div><div class="line">		for t in T do</div><div class="line">			if isin(t,c)</div><div class="line">			dc = dc + 1 \\支持度计数</div><div class="line">	F_(k) = &#123;提取频繁k-项集^dc &gt;= min_c&#125;</div></pre></td></tr></table></figure>
+<h5 id="2、Apriori-gen方法："><a href="#2、Apriori-gen方法：" class="headerlink" title="2、Apriori_gen方法："></a>2、Apriori_gen方法：</h5><h6 id="F-k-1-F-1-方法"><a href="#F-k-1-F-1-方法" class="headerlink" title="F(k-1)*F(1)方法"></a>F(k-1)*F(1)方法</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-5b2cddb67e3135c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_05.png"></p>
+<h6 id="F-k-1-F-k-1-方法"><a href="#F-k-1-F-k-1-方法" class="headerlink" title="F(k-1)*F(k-1)方法"></a>F(k-1)*F(k-1)方法</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-0c5e063896248cfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_06.png"></p>
+<p>原理：使用了字典序，例如：算法不会合并{啤酒，尿布}{尿布，牛奶}，因为如果{啤酒，尿布，牛奶}有效，则它应该由{啤酒，尿布}{啤酒，牛奶}合并。</p>
+<h5 id="支持度计数"><a href="#支持度计数" class="headerlink" title="支持度计数"></a>支持度计数</h5><p>支持度计数在apriori_gen函数的候选项保留下来的之中计算。<br>一种枚举方法是：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-aaf218ec8469cee6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_07.png"></p>
+<p>每项都以字典序排列，按照上面的枚举。</p>
+<h6 id="使用hash树进行支持度计数"><a href="#使用hash树进行支持度计数" class="headerlink" title="使用hash树进行支持度计数"></a>使用hash树进行支持度计数</h6><p>[略]</p>
+<h5 id="计算复杂度"><a href="#计算复杂度" class="headerlink" title="计算复杂度"></a>计算复杂度</h5><p>[略]</p>
+<h3 id="二、规则产生"><a href="#二、规则产生" class="headerlink" title="二、规则产生"></a>二、规则产生</h3><h4 id="（1）基于置信度的剪枝"><a href="#（1）基于置信度的剪枝" class="headerlink" title="（1）基于置信度的剪枝"></a>（1）基于置信度的剪枝</h4><h5 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h5><blockquote>
+<p>如果 X-&gt;Y-X 不满足置信度阈值，则X’-&gt;Y-X’ 的规则一定不满足置信度阈值，其中，X’ 是 X 的子集。</p>
+</blockquote>
+<h4 id="（2）Apriori-规则产生"><a href="#（2）Apriori-规则产生" class="headerlink" title="（2）Apriori 规则产生"></a>（2）Apriori 规则产生</h4><p>可以利用上面的定理进行剪枝，如左边的bcd-&gt;a不满足置信度阈值，则下面的都减去：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-65f6188c6b9efd01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_08.png"></p>
+<h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-3bc842139c766c37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_09.png"></p>
+<h3 id="三、频繁项集的紧凑表示"><a href="#三、频繁项集的紧凑表示" class="headerlink" title="三、频繁项集的紧凑表示"></a>三、频繁项集的紧凑表示</h3><h4 id="（1）极大频繁项集"><a href="#（1）极大频繁项集" class="headerlink" title="（1）极大频繁项集"></a>（1）极大频繁项集</h4><blockquote>
+<p>极大频繁项集（maximal frequent itemset）：它的直接超集都不是频繁的，频繁项集。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ed019fe46e334ffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_10.png"></p>
+<p>如上图，{ad}、{ace}、{bcde} 均是极大频繁项集。</p>
+<h4 id="（2）闭频繁项集"><a href="#（2）闭频繁项集" class="headerlink" title="（2）闭频繁项集"></a>（2）闭频繁项集</h4><blockquote>
+<p>闭项集（closed itemset）：项集X是闭的，如果它的直接超集都不具有和它相同的支持度计数。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-0b68705bb8cc5be1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_11.png"></p>
+<p>如上图，{b}{ad}都不是闭项集，而{bc}是闭项集。</p>
+<blockquote>
+<p>闭频繁项集（closed frequent itemset）一个项集是闭频繁项集，它是闭的，并且它的支持度计数大于或等于最小支持度阈值。</p>
+</blockquote>
+<p>计算闭频繁项集的支持度算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-32bbf860fa045aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_12.png"></p>
+<p>项集之间的关系：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-e0c5f5413c6a7afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_13.png"></p>
+<h3 id="四、产生频繁项集的其他方法"><a href="#四、产生频繁项集的其他方法" class="headerlink" title="四、产生频繁项集的其他方法"></a>四、产生频繁项集的其他方法</h3><p>[略]</p>
+<h3 id="五、FP增长算法"><a href="#五、FP增长算法" class="headerlink" title="五、FP增长算法"></a>五、FP增长算法</h3><p>[略]</p>
+<h3 id="六、关联模式的评估"><a href="#六、关联模式的评估" class="headerlink" title="六、关联模式的评估"></a>六、关联模式的评估</h3><h4 id="（1）兴趣度的客观度量"><a href="#（1）兴趣度的客观度量" class="headerlink" title="（1）兴趣度的客观度量"></a>（1）兴趣度的客观度量</h4><h5 id="支持度-置信度框架的局限性"><a href="#支持度-置信度框架的局限性" class="headerlink" title="支持度-置信度框架的局限性"></a>支持度-置信度框架的局限性</h5><p>[略]</p>
+<h5 id="兴趣因子"><a href="#兴趣因子" class="headerlink" title="兴趣因子"></a>兴趣因子</h5><p>[略]</p>
+<h5 id="相关分析"><a href="#相关分析" class="headerlink" title="相关分析"></a>相关分析</h5><p>[略]</p>
+<h5 id="IS度量"><a href="#IS度量" class="headerlink" title="IS度量"></a>IS度量</h5><p>[略]</p>
+<h5 id="1、其他客观度量"><a href="#1、其他客观度量" class="headerlink" title="1、其他客观度量"></a>1、其他客观度量</h5><p>度量分为对称和非对称：</p>
+<blockquote>
+<p>对称：M(A-&gt;B)=M(B-&gt;A)。用于评价项集。<br>非对称：M(A-&gt;B)!=M(B-&gt;A)。用于分析关联规则。</p>
+</blockquote>
+<p>对称度量：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-8f3593ce3505ae32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_14.png"></p>
+<p>非对称度量：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-7432adb9a6ea16a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_15.png"></p>
+<h5 id="2、客观度量的一致性"><a href="#2、客观度量的一致性" class="headerlink" title="2、客观度量的一致性"></a>2、客观度量的一致性</h5><p>上面提到的一系列的度量，不一定都是一致的，需要具体分析。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-a2192e8898d5c392.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_16.png"></p>
+<h5 id="3、客观度量的性质"><a href="#3、客观度量的性质" class="headerlink" title="3、客观度量的性质"></a>3、客观度量的性质</h5><p>[略]<br>[后略]</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wepay.png" alt="longgb246 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/aipay.jpg" alt="longgb246 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/关联分析/" rel="tag"># 关联分析</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/15/ML_ITDM_classfy_05/" rel="next" title="分类（5）：组合分类器-随机森林">
+                <i class="fa fa-chevron-left"></i> 分类（5）：组合分类器-随机森林
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/15/ML_ITDM_classfy_06/" rel="prev" title="分类（6）：不平衡和多分类问题">
+                分类（6）：不平衡和多分类问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/02/15/ML_ITDM_realation_01/"
+     data-title="关联分析（1）：基本概念和算法"
+     data-content=""
+     data-url="http://yoursite.com/2017/02/15/ML_ITDM_realation_01/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/15/ML_ITDM_realation_01/"
+           data-title="关联分析（1）：基本概念和算法" data-url="http://yoursite.com/2017/02/15/ML_ITDM_realation_01/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="longgb246" />
+          <p class="site-author-name" itemprop="name">longgb246</p>
+          <p class="site-description motion-element" itemprop="description">这个人太懒了，什么都没有留下...</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/longgb246" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2567912207" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              我的好友
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hyhang.github.io/" title="大抹茶君" target="_blank">大抹茶君</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、基本概念"><span class="nav-number">1.</span> <span class="nav-text">一、基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（一）基本概念"><span class="nav-number">1.0.1.</span> <span class="nav-text">（一）基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#二元概念"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">二元概念</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#项集和支持度计数"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">项集和支持度计数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#关联规则（association-rule）"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">关联规则（association rule）</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（二）关联规则挖掘"><span class="nav-number">1.0.2.</span> <span class="nav-text">（二）关联规则挖掘</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（三）频繁项集的产生"><span class="nav-number">1.0.3.</span> <span class="nav-text">（三）频繁项集的产生</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#原始方法："><span class="nav-number">1.0.4.</span> <span class="nav-text">原始方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#先验原理"><span class="nav-number">1.0.5.</span> <span class="nav-text">先验原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（四）Apriori-算法的频繁项集产生"><span class="nav-number">1.0.6.</span> <span class="nav-text">（四）Apriori 算法的频繁项集产生</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1、Apriori-算法："><span class="nav-number">1.0.7.</span> <span class="nav-text">1、Apriori 算法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、Apriori-gen方法："><span class="nav-number">1.0.8.</span> <span class="nav-text">2、Apriori_gen方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#F-k-1-F-1-方法"><span class="nav-number">1.0.8.1.</span> <span class="nav-text">F(k-1)*F(1)方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#F-k-1-F-k-1-方法"><span class="nav-number">1.0.8.2.</span> <span class="nav-text">F(k-1)*F(k-1)方法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#支持度计数"><span class="nav-number">1.0.9.</span> <span class="nav-text">支持度计数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用hash树进行支持度计数"><span class="nav-number">1.0.9.1.</span> <span class="nav-text">使用hash树进行支持度计数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#计算复杂度"><span class="nav-number">1.0.10.</span> <span class="nav-text">计算复杂度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、规则产生"><span class="nav-number">2.</span> <span class="nav-text">二、规则产生</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）基于置信度的剪枝"><span class="nav-number">2.1.</span> <span class="nav-text">（1）基于置信度的剪枝</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定理"><span class="nav-number">2.1.1.</span> <span class="nav-text">定理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）Apriori-规则产生"><span class="nav-number">2.2.</span> <span class="nav-text">（2）Apriori 规则产生</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#算法"><span class="nav-number">2.2.1.</span> <span class="nav-text">算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、频繁项集的紧凑表示"><span class="nav-number">3.</span> <span class="nav-text">三、频繁项集的紧凑表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）极大频繁项集"><span class="nav-number">3.1.</span> <span class="nav-text">（1）极大频繁项集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）闭频繁项集"><span class="nav-number">3.2.</span> <span class="nav-text">（2）闭频繁项集</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、产生频繁项集的其他方法"><span class="nav-number">4.</span> <span class="nav-text">四、产生频繁项集的其他方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、FP增长算法"><span class="nav-number">5.</span> <span class="nav-text">五、FP增长算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、关联模式的评估"><span class="nav-number">6.</span> <span class="nav-text">六、关联模式的评估</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）兴趣度的客观度量"><span class="nav-number">6.1.</span> <span class="nav-text">（1）兴趣度的客观度量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#支持度-置信度框架的局限性"><span class="nav-number">6.1.1.</span> <span class="nav-text">支持度-置信度框架的局限性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#兴趣因子"><span class="nav-number">6.1.2.</span> <span class="nav-text">兴趣因子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#相关分析"><span class="nav-number">6.1.3.</span> <span class="nav-text">相关分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#IS度量"><span class="nav-number">6.1.4.</span> <span class="nav-text">IS度量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1、其他客观度量"><span class="nav-number">6.1.5.</span> <span class="nav-text">1、其他客观度量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、客观度量的一致性"><span class="nav-number">6.1.6.</span> <span class="nav-text">2、客观度量的一致性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、客观度量的性质"><span class="nav-number">6.1.7.</span> <span class="nav-text">3、客观度量的性质</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">longgb246</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"longgb246"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+<!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+</body>
+</html>

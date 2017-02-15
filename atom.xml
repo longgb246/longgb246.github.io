@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T13:39:59.700Z</updated>
+  <updated>2017-02-15T13:43:52.571Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/</id>
     <published>2017-02-15T13:37:36.000Z</published>
-    <updated>2017-02-15T13:39:59.700Z</updated>
+    <updated>2017-02-15T13:43:52.571Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、不平衡问题"><a href="#一、不平衡问题" class="headerlink" title="一、不平衡问题"></a>一、不平衡问题</h4><h5 id="（1）不平衡数据"><a href="#（1）不平衡数据" class="headerlink" title="（1）不平衡数据"></a>（1）不平衡数据</h5><p>例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。<br>这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。<br>例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。</p>
 <h5 id="（2）混淆矩阵"><a href="#（2）混淆矩阵" class="headerlink" title="（2）混淆矩阵"></a>（2）混淆矩阵</h5><p>在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类被认为是负类。下面显示了混淆矩阵：</p>
@@ -72,6 +72,103 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
+      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关联分析（1）：基本概念和算法</title>
+    <link href="http://yoursite.com/2017/02/15/ML_ITDM_realation_01/"/>
+    <id>http://yoursite.com/2017/02/15/ML_ITDM_realation_01/</id>
+    <published>2017-02-15T13:37:36.000Z</published>
+    <updated>2017-02-15T13:45:14.664Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h3><h5 id="（一）基本概念"><a href="#（一）基本概念" class="headerlink" title="（一）基本概念"></a>（一）基本概念</h5><h6 id="二元概念"><a href="#二元概念" class="headerlink" title="二元概念"></a>二元概念</h6><p>对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。</p>
+<h6 id="项集和支持度计数"><a href="#项集和支持度计数" class="headerlink" title="项集和支持度计数"></a>项集和支持度计数</h6><p>事务：一行数据。<br>k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}<br><img src="http://upload-images.jianshu.io/upload_images/3341358-11295870eaafecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_01.png"></p>
+<p>支持度计数：<br>$$\sigma (X)=|\left \{ t_{i}|X\subseteq t_{i},t_{i}\in T \right \}|$$</p>
+<p>如，上式中，项集{啤酒，尿布，牛奶}的支持度计数为2，因为只有2个事务同时包含3个项。</p>
+<a id="more"></a>
+<h6 id="关联规则（association-rule）"><a href="#关联规则（association-rule）" class="headerlink" title="关联规则（association rule）"></a>关联规则（association rule）</h6><p>关于 X、Y 的关联规则，支持度、置信度的定义如下：<br>$$s(X\rightarrow Y)=\frac{\sigma (X\cup Y)}{N}$$<br>$$s(X\rightarrow Y)=\frac{\sigma (X\cup Y)}{\sigma (X)}$$</p>
+<p>例如：X{牛奶，尿布}，Y{啤酒}，则并集{牛奶，尿布，啤酒}的支持度计数为2，N为事务总数5，所以支持度=2/5=0.4。X 的支持度=3，所以置信度为2/3=0.67。</p>
+<p>支持度很低的规则可能只是偶然出现，低的支持度计数也是无意义的。支持度通常用于删去无意义的规则，<br>置信度越高，表示Y在包含X的事务中出现的可能性较大。Y也可以用于估计在给定X的条件下的条件概率。</p>
+<h5 id="（二）关联规则挖掘"><a href="#（二）关联规则挖掘" class="headerlink" title="（二）关联规则挖掘"></a>（二）关联规则挖掘</h5><blockquote>
+<p>1、频繁项集产生：发现满足最小支持度阈值的所有项集，这些项是频繁项集。<br>2、规则产生：从频繁项集中提取所有高置信度规则，这些规则是强规则。</p>
+</blockquote>
+<h5 id="（三）频繁项集的产生"><a href="#（三）频繁项集的产生" class="headerlink" title="（三）频繁项集的产生"></a>（三）频繁项集的产生</h5><p>格结构（lattice structure）：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-f927df9a115283bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_02.png"></p>
+<h5 id="原始方法："><a href="#原始方法：" class="headerlink" title="原始方法："></a>原始方法：</h5><p>遍历每个项集，使用项集与事务进行比较，计算每个项集的支持度计数。但是该方法的算法复杂度很高：O(NMw)。<br>改进方法：</p>
+<blockquote>
+<p>1、减少候选项的数目。先验原理，不计算支持度而删除某些候选项集。<br>2、减少比较次数。更高级的数据结构。</p>
+</blockquote>
+<h5 id="先验原理"><a href="#先验原理" class="headerlink" title="先验原理"></a>先验原理</h5><blockquote>
+<p>先验原理：如果一个项集是频繁的，则它的所有子集也一定是频繁的。<br>相反的，如果一个项集是非频繁的，则它的所有超集也一定是非频繁的。<br>支持度计数的反单调性：一个项集的支持度不会超过它的子集的支持度。</p>
+</blockquote>
+<h5 id="（四）Apriori-算法的频繁项集产生"><a href="#（四）Apriori-算法的频繁项集产生" class="headerlink" title="（四）Apriori 算法的频繁项集产生"></a>（四）Apriori 算法的频繁项集产生</h5><p>过程图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-d801677ed00d5e34.png" alt="6_03.png"></p>
+<p>算法的流程：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-b2707e258f78bc77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_04.png"></p>
+<p>算法讲解：<br>1、先定一个阈值k。<br>2、候选项集为1-项集的，计算支持度，若支持度大于阈值，则保留；若小于则剔除。<br>3、使用(k-1)-项集，产生k-项集。<br>4、重复上面的步骤，直到无候选集（频繁集），结束。</p>
+<h5 id="1、Apriori-算法："><a href="#1、Apriori-算法：" class="headerlink" title="1、Apriori 算法："></a>1、Apriori 算法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">k = 1</div><div class="line">F_(1) = &#123;1-项集 &gt;= min_c&#125;</div><div class="line">while true</div><div class="line">	k = k + 1</div><div class="line">	Ck = apriori_gen(F_(k-1)) \\产生候选集</div><div class="line">	for c in Ck do \\事务</div><div class="line">		for t in T do</div><div class="line">			if isin(t,c)</div><div class="line">			dc = dc + 1 \\支持度计数</div><div class="line">	F_(k) = &#123;提取频繁k-项集^dc &gt;= min_c&#125;</div></pre></td></tr></table></figure>
+<h5 id="2、Apriori-gen方法："><a href="#2、Apriori-gen方法：" class="headerlink" title="2、Apriori_gen方法："></a>2、Apriori_gen方法：</h5><h6 id="F-k-1-F-1-方法"><a href="#F-k-1-F-1-方法" class="headerlink" title="F(k-1)*F(1)方法"></a>F(k-1)*F(1)方法</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-5b2cddb67e3135c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_05.png"></p>
+<h6 id="F-k-1-F-k-1-方法"><a href="#F-k-1-F-k-1-方法" class="headerlink" title="F(k-1)*F(k-1)方法"></a>F(k-1)*F(k-1)方法</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-0c5e063896248cfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_06.png"></p>
+<p>原理：使用了字典序，例如：算法不会合并{啤酒，尿布}{尿布，牛奶}，因为如果{啤酒，尿布，牛奶}有效，则它应该由{啤酒，尿布}{啤酒，牛奶}合并。</p>
+<h5 id="支持度计数"><a href="#支持度计数" class="headerlink" title="支持度计数"></a>支持度计数</h5><p>支持度计数在apriori_gen函数的候选项保留下来的之中计算。<br>一种枚举方法是：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-aaf218ec8469cee6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_07.png"></p>
+<p>每项都以字典序排列，按照上面的枚举。</p>
+<h6 id="使用hash树进行支持度计数"><a href="#使用hash树进行支持度计数" class="headerlink" title="使用hash树进行支持度计数"></a>使用hash树进行支持度计数</h6><p>[略]</p>
+<h5 id="计算复杂度"><a href="#计算复杂度" class="headerlink" title="计算复杂度"></a>计算复杂度</h5><p>[略]</p>
+<h3 id="二、规则产生"><a href="#二、规则产生" class="headerlink" title="二、规则产生"></a>二、规则产生</h3><h4 id="（1）基于置信度的剪枝"><a href="#（1）基于置信度的剪枝" class="headerlink" title="（1）基于置信度的剪枝"></a>（1）基于置信度的剪枝</h4><h5 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h5><blockquote>
+<p>如果 X-&gt;Y-X 不满足置信度阈值，则X’-&gt;Y-X’ 的规则一定不满足置信度阈值，其中，X’ 是 X 的子集。</p>
+</blockquote>
+<h4 id="（2）Apriori-规则产生"><a href="#（2）Apriori-规则产生" class="headerlink" title="（2）Apriori 规则产生"></a>（2）Apriori 规则产生</h4><p>可以利用上面的定理进行剪枝，如左边的bcd-&gt;a不满足置信度阈值，则下面的都减去：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-65f6188c6b9efd01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_08.png"></p>
+<h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-3bc842139c766c37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_09.png"></p>
+<h3 id="三、频繁项集的紧凑表示"><a href="#三、频繁项集的紧凑表示" class="headerlink" title="三、频繁项集的紧凑表示"></a>三、频繁项集的紧凑表示</h3><h4 id="（1）极大频繁项集"><a href="#（1）极大频繁项集" class="headerlink" title="（1）极大频繁项集"></a>（1）极大频繁项集</h4><blockquote>
+<p>极大频繁项集（maximal frequent itemset）：它的直接超集都不是频繁的，频繁项集。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ed019fe46e334ffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_10.png"></p>
+<p>如上图，{ad}、{ace}、{bcde} 均是极大频繁项集。</p>
+<h4 id="（2）闭频繁项集"><a href="#（2）闭频繁项集" class="headerlink" title="（2）闭频繁项集"></a>（2）闭频繁项集</h4><blockquote>
+<p>闭项集（closed itemset）：项集X是闭的，如果它的直接超集都不具有和它相同的支持度计数。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-0b68705bb8cc5be1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_11.png"></p>
+<p>如上图，{b}{ad}都不是闭项集，而{bc}是闭项集。</p>
+<blockquote>
+<p>闭频繁项集（closed frequent itemset）一个项集是闭频繁项集，它是闭的，并且它的支持度计数大于或等于最小支持度阈值。</p>
+</blockquote>
+<p>计算闭频繁项集的支持度算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-32bbf860fa045aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_12.png"></p>
+<p>项集之间的关系：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-e0c5f5413c6a7afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_13.png"></p>
+<h3 id="四、产生频繁项集的其他方法"><a href="#四、产生频繁项集的其他方法" class="headerlink" title="四、产生频繁项集的其他方法"></a>四、产生频繁项集的其他方法</h3><p>[略]</p>
+<h3 id="五、FP增长算法"><a href="#五、FP增长算法" class="headerlink" title="五、FP增长算法"></a>五、FP增长算法</h3><p>[略]</p>
+<h3 id="六、关联模式的评估"><a href="#六、关联模式的评估" class="headerlink" title="六、关联模式的评估"></a>六、关联模式的评估</h3><h4 id="（1）兴趣度的客观度量"><a href="#（1）兴趣度的客观度量" class="headerlink" title="（1）兴趣度的客观度量"></a>（1）兴趣度的客观度量</h4><h5 id="支持度-置信度框架的局限性"><a href="#支持度-置信度框架的局限性" class="headerlink" title="支持度-置信度框架的局限性"></a>支持度-置信度框架的局限性</h5><p>[略]</p>
+<h5 id="兴趣因子"><a href="#兴趣因子" class="headerlink" title="兴趣因子"></a>兴趣因子</h5><p>[略]</p>
+<h5 id="相关分析"><a href="#相关分析" class="headerlink" title="相关分析"></a>相关分析</h5><p>[略]</p>
+<h5 id="IS度量"><a href="#IS度量" class="headerlink" title="IS度量"></a>IS度量</h5><p>[略]</p>
+<h5 id="1、其他客观度量"><a href="#1、其他客观度量" class="headerlink" title="1、其他客观度量"></a>1、其他客观度量</h5><p>度量分为对称和非对称：</p>
+<blockquote>
+<p>对称：M(A-&gt;B)=M(B-&gt;A)。用于评价项集。<br>非对称：M(A-&gt;B)!=M(B-&gt;A)。用于分析关联规则。</p>
+</blockquote>
+<p>对称度量：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-8f3593ce3505ae32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_14.png"></p>
+<p>非对称度量：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-7432adb9a6ea16a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_15.png"></p>
+<h5 id="2、客观度量的一致性"><a href="#2、客观度量的一致性" class="headerlink" title="2、客观度量的一致性"></a>2、客观度量的一致性</h5><p>上面提到的一系列的度量，不一定都是一致的，需要具体分析。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-a2192e8898d5c392.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_16.png"></p>
+<h5 id="3、客观度量的性质"><a href="#3、客观度量的性质" class="headerlink" title="3、客观度量的性质"></a>3、客观度量的性质</h5><p>[略]<br>[后略]</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、基本概念&quot;&gt;&lt;a href=&quot;#一、基本概念&quot; class=&quot;headerlink&quot; title=&quot;一、基本概念&quot;&gt;&lt;/a&gt;一、基本概念&lt;/h3&gt;&lt;h5 id=&quot;（一）基本概念&quot;&gt;&lt;a href=&quot;#（一）基本概念&quot; class=&quot;headerlink&quot; title=&quot;（一）基本概念&quot;&gt;&lt;/a&gt;（一）基本概念&lt;/h5&gt;&lt;h6 id=&quot;二元概念&quot;&gt;&lt;a href=&quot;#二元概念&quot; class=&quot;headerlink&quot; title=&quot;二元概念&quot;&gt;&lt;/a&gt;二元概念&lt;/h6&gt;&lt;p&gt;对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。&lt;/p&gt;
+&lt;h6 id=&quot;项集和支持度计数&quot;&gt;&lt;a href=&quot;#项集和支持度计数&quot; class=&quot;headerlink&quot; title=&quot;项集和支持度计数&quot;&gt;&lt;/a&gt;项集和支持度计数&lt;/h6&gt;&lt;p&gt;事务：一行数据。&lt;br&gt;k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-11295870eaafecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;6_01.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;支持度计数：&lt;br&gt;$$\sigma (X)=|\left \{ t_{i}|X\subseteq t_{i},t_{i}\in T \right \}|$$&lt;/p&gt;
+&lt;p&gt;如，上式中，项集{啤酒，尿布，牛奶}的支持度计数为2，因为只有2个事务同时包含3个项。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="关联分析" scheme="http://yoursite.com/tags/%E5%85%B3%E8%81%94%E5%88%86%E6%9E%90/"/>
+    
   </entry>
   
   <entry>
@@ -79,7 +176,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/</id>
     <published>2017-02-15T13:32:47.000Z</published>
-    <updated>2017-02-15T13:34:14.106Z</updated>
+    <updated>2017-02-15T13:43:47.541Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、组合方法"><a href="#一、组合方法" class="headerlink" title="一、组合方法"></a>一、组合方法</h4><h5 id="（1）组合分类器原理："><a href="#（1）组合分类器原理：" class="headerlink" title="（1）组合分类器原理："></a>（1）组合分类器原理：</h5><p>考虑25个二元分类器，每一个分类误差a=0.35。组合分类器通过多数投票，如果基分类器是独立的，则仅当超过一半的基分类器都预测错误时，组合才会错误，则：<br>$$ e_{ensemble}=\sum_{i=1}^{25}C_{25}^{i}a^{i}(1-a)^{25-i}=0.06$$</p>
 <p>可以看出，其远低于0.35。</p>
@@ -139,6 +236,8 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
+      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
+    
   </entry>
   
   <entry>
@@ -146,7 +245,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_04/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_04/</id>
     <published>2017-02-15T13:26:40.000Z</published>
-    <updated>2017-02-15T13:29:31.040Z</updated>
+    <updated>2017-02-15T13:43:41.437Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h4><p>SVM 寻找一个最大边缘超平面（maximal margin hyperplane），使得将数据分开，并且有最大的margin，泛化能力。</p>
 <h5 id="（1）结构风险最小化（structual-risk-minimization，SRM）"><a href="#（1）结构风险最小化（structual-risk-minimization，SRM）" class="headerlink" title="（1）结构风险最小化（structual risk minimization，SRM）"></a>（1）结构风险最小化（structual risk minimization，SRM）</h5><p>线性分类器的边缘与泛化误差之间的关系，分类器的泛化误差在最坏的情况下：<br>$$R\leqslant R_{e}+\varphi \left(\frac{h}{N},\frac{log(\eta )}{N}\right)$$<br>$\varphi$是h的单调增函数，$1-\eta$表示概率。<br><a id="more"></a></p>
@@ -174,6 +273,8 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
+      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
+    
   </entry>
   
   <entry>
@@ -181,7 +282,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/</id>
     <published>2017-02-15T13:23:21.000Z</published>
-    <updated>2017-02-15T13:25:42.286Z</updated>
+    <updated>2017-02-15T13:43:34.699Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、感知器"><a href="#一、感知器" class="headerlink" title="一、感知器"></a>一、感知器</h4><p>下图为一个感知器，单个神经元。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_06.png"><br>该感知器的算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3578cedeed16cbe4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_07.png"><br><a id="more"></a></p>
 <h4 id="二、多层人工神经网络"><a href="#二、多层人工神经网络" class="headerlink" title="二、多层人工神经网络"></a>二、多层人工神经网络</h4><h5 id="（1）基本概念"><a href="#（1）基本概念" class="headerlink" title="（1）基本概念"></a>（1）基本概念</h5><p>神经网络，这里先以前馈神经网络为介绍，每层为全连接，则对于2个神经元，参数为：</p>
@@ -213,6 +314,8 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
+      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
+    
   </entry>
   
   <entry>
@@ -220,7 +323,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/</id>
     <published>2017-02-15T13:14:31.000Z</published>
-    <updated>2017-02-15T13:19:53.371Z</updated>
+    <updated>2017-02-15T13:43:29.145Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、k-最近邻"><a href="#一、k-最近邻" class="headerlink" title="一、k-最近邻"></a>一、k-最近邻</h4><h5 id="1、算法"><a href="#1、算法" class="headerlink" title="1、算法"></a>1、算法</h5><p>积极学习方法（eager learner）：通过训练样本建立模型。<br>消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。</p>
 <h6 id="k-最近邻算法："><a href="#k-最近邻算法：" class="headerlink" title="k-最近邻算法："></a>k-最近邻算法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">令k是最近邻数目，D是训练样例集合</div><div class="line"><span class="keyword">for</span> z <span class="keyword">in</span> 样例集合:</div><div class="line">  计算 z 和每个样例 (x,y) 的距离 d</div><div class="line">  选择离 z 前 k 个近距离的点，为集合 Dt</div><div class="line">  z的标记 y 为 Dt 中类较多的</div></pre></td></tr></table></figure>
@@ -279,6 +382,8 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
+      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
+    
   </entry>
   
   <entry>
@@ -286,7 +391,7 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/</id>
     <published>2017-02-15T12:57:50.000Z</published>
-    <updated>2017-02-15T13:08:15.211Z</updated>
+    <updated>2017-02-15T13:43:18.247Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、如何建立决策树"><a href="#一、如何建立决策树" class="headerlink" title="一、如何建立决策树"></a>一、如何建立决策树</h3><h4 id="1、Hunt算法"><a href="#1、Hunt算法" class="headerlink" title="1、Hunt算法"></a>1、Hunt算法</h4><p>Hunt算法是许多决策树算法的基础，包括ID3、C4.5、CART。<br>Hunt算法步骤：</p>
 <blockquote>
@@ -336,6 +441,8 @@
       <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -785,36 +892,6 @@
     
     
       <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>matplotlib 画图风格</title>
-    <link href="http://yoursite.com/2016/12/25/python_matplotlib_style/"/>
-    <id>http://yoursite.com/2016/12/25/python_matplotlib_style/</id>
-    <published>2016-12-25T12:37:00.000Z</published>
-    <updated>2017-02-15T12:51:49.543Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import matplotlib.style as mstyle</div><div class="line">print mstyle.available</div><div class="line">plt.style.use(&apos;seaborn-darkgrid&apos;)</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p><br></p>
-<blockquote>
-<h3 id="可选风格："><a href="#可选风格：" class="headerlink" title="可选风格："></a>可选风格：</h3><p>seaborn-darkgrid<br>seaborn-notebook<br>classic<br>seaborn-ticks<br>grayscale<br>bmh<br>seaborn-talk<br>dark_background<br>ggplot<br>fivethirtyeight<br>seaborn-colorblind<br>seaborn-deep<br>seaborn-whitegrid<br>seaborn-bright<br>seaborn-poster<br>seaborn-muted<br>seaborn-paper<br>seaborn-white<br>seaborn-pastel<br>seaborn-dark<br>seaborn-dark-palette</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.style as mstyle&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print mstyle.available&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;plt.style.use(&amp;apos;seaborn-darkgrid&amp;apos;)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="matplotlib" scheme="http://yoursite.com/tags/matplotlib/"/>
     
   </entry>
   
