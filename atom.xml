@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T12:33:54.708Z</updated>
+  <updated>2017-02-15T12:36:52.685Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,17 +20,17 @@
     <link href="http://yoursite.com/2017/02/15/ML_ITDM_data/"/>
     <id>http://yoursite.com/2017/02/15/ML_ITDM_data/</id>
     <published>2017-02-14T18:25:00.962Z</published>
-    <updated>2017-02-15T12:33:54.708Z</updated>
+    <updated>2017-02-15T12:36:52.685Z</updated>
     
     <content type="html"><![CDATA[<h4 id="一、数据知识"><a href="#一、数据知识" class="headerlink" title="一、数据知识"></a>一、数据知识</h4><p>如果若干属性是强相关的，则说明这些属性可能提供了高度冗余的信息，我们可以决定只保留一个。</p>
 <h4 id="二、数据预处理"><a href="#二、数据预处理" class="headerlink" title="二、数据预处理"></a>二、数据预处理</h4><h5 id="1、维规约："><a href="#1、维规约：" class="headerlink" title="1、维规约："></a>1、维规约：</h5><p>通过创建新属性，将一些旧属性合并在一起来降低数据的维度。通过选择旧属性的子集得到的新属性，这种维规约称为特征子集选择。<br><a id="more"></a></p>
 <h5 id="2、维灾难："><a href="#2、维灾难：" class="headerlink" title="2、维灾难："></a>2、维灾难：</h5><p>数据维度（属性）过高。数据稀疏，对于分类，没有足够多的数据用于建模；对于聚类，点之间的密度和距离定义失去了意义，分类准确率降低。</p>
 <h5 id="3、数据离散化："><a href="#3、数据离散化：" class="headerlink" title="3、数据离散化："></a>3、数据离散化：</h5><p>将连续型变量离散化为离散型变量。</p>
-<p>######（1）非监督离散化：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-1454dcb18146b13a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2_01.png"></p>
+<h6 id="（1）非监督离散化："><a href="#（1）非监督离散化：" class="headerlink" title="（1）非监督离散化："></a>（1）非监督离散化：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-1454dcb18146b13a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2_01.png"></p>
 <p><em>这里注意K均值离散化是什么样的技术，去寻找资料。</em></p>
 <h6 id="（2）监督离散化："><a href="#（2）监督离散化：" class="headerlink" title="（2）监督离散化："></a>（2）监督离散化：</h6><p>计算熵，希望获得最小的熵：</p>
 <p><img src="http://www.forkosh.com/mathtex.cgi?  e_{i}=-\sum_{k}^{j=1}p_{ij}*log_{2}(p_{ij}" alt="">)</p>
+<p>$$ e_{i}=-\sum_{k}^{j=1}p_{ij}*log_{2}(p_{ij}) $$</p>
 <p><img src="http://www.forkosh.com/mathtex.cgi?  e=\sum_{i=1}^{n}w_{i}e_{i}" alt=""></p>
 <p>其中e为该区间的熵。<br>若纯：对于pij = 0或者1，ei = 0<br>若不纯：则熵最大。</p>
 <h5 id="4、变量变换"><a href="#4、变量变换" class="headerlink" title="4、变量变换"></a>4、变量变换</h5><p>标准化：创建一个变量，使得它有均值为0，标准差为1</p>
