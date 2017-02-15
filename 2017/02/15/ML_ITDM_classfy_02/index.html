@@ -86,40 +86,25 @@
 
 
 
-<meta name="description" content="一、如何建立决策树1、Hunt算法Hunt算法是许多决策树算法的基础，包括ID3、C4.5、CART。Hunt算法步骤：
-
-（1）如果Dt中所有数据都属于同一个类yt，则t是叶结点，用yt标记。（2）如果Dt中包含属于多个类的数据，则选择一个属性，将数据划分为较小子集。创建子女结点，将数据按属性放入子女结点中，然后递归调用该算法。
-
-但是该算法对于大多数情况太苛刻了，需要附加：
-
-（1）没有可以选">
+<meta name="description" content="一、k-最近邻1、算法积极学习方法（eager learner）：通过训练样本建立模型。消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。
+k-最近邻算法：12345令k是最近邻数目，D是训练样例集合for z in 样例集合:  计算 z 和每个样例 (x,y) 的距离 d  选择离 z 前 k 个近距离的点，为集合 Dt  z的标记 y 为 Dt 中类较多的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="分类（1）：决策树与模型评估">
-<meta property="og:url" content="http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/index.html">
+<meta property="og:title" content="分类（2）：k-最近邻、贝叶斯分类器">
+<meta property="og:url" content="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/index.html">
 <meta property="og:site_name" content="longgb246的博客">
-<meta property="og:description" content="一、如何建立决策树1、Hunt算法Hunt算法是许多决策树算法的基础，包括ID3、C4.5、CART。Hunt算法步骤：
-
-（1）如果Dt中所有数据都属于同一个类yt，则t是叶结点，用yt标记。（2）如果Dt中包含属于多个类的数据，则选择一个属性，将数据划分为较小子集。创建子女结点，将数据按属性放入子女结点中，然后递归调用该算法。
-
-但是该算法对于大多数情况太苛刻了，需要附加：
-
-（1）没有可以选">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-4a413987d4132bf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-257b4c916aa27474.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-3c0a745245ba6bbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-62b82142cf5b135e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-208cab6618206bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-02-15T13:08:15.211Z">
+<meta property="og:description" content="一、k-最近邻1、算法积极学习方法（eager learner）：通过训练样本建立模型。消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。
+k-最近邻算法：12345令k是最近邻数目，D是训练样例集合for z in 样例集合:  计算 z 和每个样例 (x,y) 的距离 d  选择离 z 前 k 个近距离的点，为集合 Dt  z的标记 y 为 Dt 中类较多的">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-cd962d2b90b84337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-9e01f1fad2d71412.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-f75caad2586c4f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-bc19e263319b348d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-b9d40731e3d646db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-02-15T13:16:05.023Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类（1）：决策树与模型评估">
-<meta name="twitter:description" content="一、如何建立决策树1、Hunt算法Hunt算法是许多决策树算法的基础，包括ID3、C4.5、CART。Hunt算法步骤：
-
-（1）如果Dt中所有数据都属于同一个类yt，则t是叶结点，用yt标记。（2）如果Dt中包含属于多个类的数据，则选择一个属性，将数据划分为较小子集。创建子女结点，将数据按属性放入子女结点中，然后递归调用该算法。
-
-但是该算法对于大多数情况太苛刻了，需要附加：
-
-（1）没有可以选">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3341358-4a413987d4132bf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="分类（2）：k-最近邻、贝叶斯分类器">
+<meta name="twitter:description" content="一、k-最近邻1、算法积极学习方法（eager learner）：通过训练样本建立模型。消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。
+k-最近邻算法：12345令k是最近邻数目，D是训练样例集合for z in 样例集合:  计算 z 和每个样例 (x,y) 的距离 d  选择离 z 前 k 个近距离的点，为集合 Dt  z的标记 y 为 Dt 中类较多的">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3341358-cd962d2b90b84337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -147,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/"/>
 
 
 
 
 
-  <title> 分类（1）：决策树与模型评估 | longgb246的博客 </title>
+  <title> 分类（2）：k-最近邻、贝叶斯分类器 | longgb246的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -319,7 +304,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -343,7 +328,7 @@
             
             
               
-                分类（1）：决策树与模型评估
+                分类（2）：k-最近邻、贝叶斯分类器
               
             
           </h1>
@@ -358,7 +343,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-15T20:57:50+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-15T21:14:31+08:00">
                 2017-02-15
               </time>
             
@@ -399,8 +384,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/15/ML_ITDM_classfy_01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/15/ML_ITDM_classfy_01/" itemprop="commentCount"></span>
+                <a href="/2017/02/15/ML_ITDM_classfy_02/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/15/ML_ITDM_classfy_02/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -431,31 +416,45 @@
       
 
       
-        <h3 id="一、如何建立决策树"><a href="#一、如何建立决策树" class="headerlink" title="一、如何建立决策树"></a>一、如何建立决策树</h3><h4 id="1、Hunt算法"><a href="#1、Hunt算法" class="headerlink" title="1、Hunt算法"></a>1、Hunt算法</h4><p>Hunt算法是许多决策树算法的基础，包括ID3、C4.5、CART。<br>Hunt算法步骤：</p>
-<blockquote>
-<p>（1）如果Dt中所有数据都属于同一个类yt，则t是叶结点，用yt标记。<br>（2）如果Dt中包含属于多个类的数据，则选择一个属性，将数据划分为较小子集。创建子女结点，将数据按属性放入子女结点中，然后递归调用该算法。</p>
-</blockquote>
-<p>但是该算法对于大多数情况太苛刻了，需要附加：</p>
-<blockquote>
-<p>（1）没有可以选择的属性，则该结点为叶结点，类标号为父结点上较多数的类。<br>（2）如果与Dt相关的数据均为同一个属性，则不可以继续划分，类标号为多数类。</p>
-</blockquote>
+        <h4 id="一、k-最近邻"><a href="#一、k-最近邻" class="headerlink" title="一、k-最近邻"></a>一、k-最近邻</h4><h5 id="1、算法"><a href="#1、算法" class="headerlink" title="1、算法"></a>1、算法</h5><p>积极学习方法（eager learner）：通过训练样本建立模型。<br>消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。</p>
+<h6 id="k-最近邻算法："><a href="#k-最近邻算法：" class="headerlink" title="k-最近邻算法："></a>k-最近邻算法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">令k是最近邻数目，D是训练样例集合</div><div class="line"><span class="keyword">for</span> z <span class="keyword">in</span> 样例集合:</div><div class="line">  计算 z 和每个样例 (x,y) 的距离 d</div><div class="line">  选择离 z 前 k 个近距离的点，为集合 Dt</div><div class="line">  z的标记 y 为 Dt 中类较多的</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h4 id="2、属性划分"><a href="#2、属性划分" class="headerlink" title="2、属性划分"></a>2、属性划分</h4><h6 id="（1）标称变量"><a href="#（1）标称变量" class="headerlink" title="（1）标称变量"></a>（1）标称变量</h6><p>标称变量，二元划分和多路划分。CART只产生二元划分，考虑k个属性的二元划分有$2^{k-1}-1$种方法。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-4a413987d4132bf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_01.png"></p>
-<h6 id="（2）有序变量"><a href="#（2）有序变量" class="headerlink" title="（2）有序变量"></a>（2）有序变量</h6><p>有序变量，也可以是二元划分和多路划分，但是不能违背有序性。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-257b4c916aa27474.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_02.png"></p>
-<h4 id="3、属性划分标准"><a href="#3、属性划分标准" class="headerlink" title="3、属性划分标准"></a>3、属性划分标准</h4><p>选择最佳划分的度量是根据划分后子女结点的不纯度度量。不纯度越低（纯度越高！），划分效果越好。</p>
-<h6 id="（1）不纯度度量："><a href="#（1）不纯度度量：" class="headerlink" title="（1）不纯度度量："></a>（1）不纯度度量：</h6><p>$$Entropy(t)=-\sum_{i=0}^{c-1}p(i|t)log_{2}p(i|t),Entropy(t)\in[0,1]$$<br>$$Gini(t)=1-\sum_{i=0}^{c-1}[p(i|t)]^{2},Gini(t)\in[0,0.5]$$<br>$$ClassificationError(t)=1-max_{i}[p(i|t)],ClassificationError(t)\in[0,0.5]$$<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3c0a745245ba6bbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_03.png"><br>三个度量方法都是希望取值越小越好（越纯）。</p>
-<h6 id="（2）结点度量："><a href="#（2）结点度量：" class="headerlink" title="（2）结点度量："></a>（2）结点度量：</h6><p>为了确定测试结点效果，我们比较父节点（划分前）、子女结点（划分后）的不纯度变化。<br><strong>信息增益：</strong><br>$$\Delta = I(parent)-\sum_{j=1}^{k}\frac{N(v_{j})}{N}I(v_{j})$$<br>其中 $I$ 为不纯度的度量，关于 $N$ 的计算是划分后的个数加权。<br>$I$ 为熵（Entropy）的时候，$\Delta$ 为信息增益。<br><strong>信息增益率（Gain Ratio）：</strong><br>$$GainRatio=\frac{\Delta_{info}}{SplitInfo}=\frac{\Delta_{info}}{-\sum_{i=0}^{c-1}p(i)log_{2}p(i)}$$<br>使用信息增益率，好处是把属性测试条件产生的输出数也考虑进去。说明如果某个属性产生了大量的划分，它的划分信息会很大，从而降低了增益率。<br><strong><em>注：信息增益、信息增益率，我们希望越大越好，表示变化。</em></strong></p>
-<h6 id="（3）连续变量的划分："><a href="#（3）连续变量的划分：" class="headerlink" title="（3）连续变量的划分："></a>（3）连续变量的划分：</h6><p>先对数据进行排序后，按照离散点的取值计算。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-62b82142cf5b135e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_04.png"><br>Gini和熵趋向于有大量不同值的属性。</p>
-<h4 id="4、决策树算法"><a href="#4、决策树算法" class="headerlink" title="4、决策树算法"></a>4、决策树算法</h4><h6 id="（1）决策树归纳算法："><a href="#（1）决策树归纳算法：" class="headerlink" title="（1）决策树归纳算法："></a>（1）决策树归纳算法：</h6><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">TreeGrowth(E,F):</div><div class="line">  if stopping_cond(E,F)=true then</div><div class="line">    leaf = createNode()</div><div class="line">    leaf.label = Classify(E)</div><div class="line">    return leaf</div><div class="line">  else</div><div class="line">    root = createNode()</div><div class="line">    root.test_cond = find_best_split(E,F)</div><div class="line">    令V=&#123;v|v是root.test_cond集合&#125;</div><div class="line">    for v in V do</div><div class="line">      Ev = &#123;e|v条件下的数据集合&#125;</div><div class="line">      child = TreeGrowth(Ev,F)</div><div class="line">      将child添加到树中去，将边(root-&gt;child)标记为v</div><div class="line">  return root</div></pre></td></tr></table></figure>
-<h6 id="（2）决策树特点："><a href="#（2）决策树特点：" class="headerlink" title="（2）决策树特点："></a>（2）决策树特点：</h6><p>1、是一种非参数方法，不要求任何的先验假设。<br>2、找到最佳的决策树是NP完全问题。<br>3、相对容易解释。<br>4、对于噪声有相当好的鲁棒性。<br>5、冗余属性不会对决策树准确率造成影响。即为强相关性，一个用于划分，另一个则将被忽略。相反，不相关的属性，可能在构建树的过程中被偶然选中，导致决策树过于庞大。<br>6、数据碎片问题。当深度越深的时候，数据可能会太少，从而不能做出有统计意义的判断，当样本量小于某个阈值的时候，应该停止分裂。<br>7、子树可能在决策树中重复多次，显得复杂，难以解释。</p>
-<h6 id="（3）斜决策树（oblique-decision-tree）："><a href="#（3）斜决策树（oblique-decision-tree）：" class="headerlink" title="（3）斜决策树（oblique decision tree）："></a>（3）斜决策树（oblique decision tree）：</h6><p>这里涉及到的决策树都是每次选取一个变量分子集划分，对某些数据集（连续属性有着复杂建模）缺乏划分能力。<br>斜决策树可以克服这个问题。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-208cab6618206bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_05.png"><br>测试条件为：<br>$$ x+y&lt;1$$<br>另一种方法是，构造归纳法（constructive induction），该方法创建复合属性，代表已有的属性的算术、逻辑组合。<br>构造归纳的花费较低，而斜决策树要动态的确定属性组合，但构造归纳会产生冗余属性。</p>
-<h4 id="5、模型过拟合"><a href="#5、模型过拟合" class="headerlink" title="5、模型过拟合"></a>5、模型过拟合</h4><p>分类模型误差分为：训练误差（training error）、泛化误差（generalization error）。<br>一个好的模型需要有较低的泛化误差和训练误差。</p>
-<h6 id="奥卡姆剃刀（Occam’s-razor）："><a href="#奥卡姆剃刀（Occam’s-razor）：" class="headerlink" title="奥卡姆剃刀（Occam’s razor）："></a>奥卡姆剃刀（Occam’s razor）：</h6><p>给定两个具有相同泛化误差的模型，较简单的模型比较复杂的模型更可取。</p>
-<h6 id="悲观误差估计（pessimistic-error-estimate）："><a href="#悲观误差估计（pessimistic-error-estimate）：" class="headerlink" title="悲观误差估计（pessimistic error estimate）："></a>悲观误差估计（pessimistic error estimate）：</h6><p>$$e_{g}(T)=\frac{\sum_{i=1}^{k}[e(t_{i})+\Omega (t_{i})]}{\sum_{i=1}^{k}n(t_{i})}=\frac{e(T)+\Omega(T)}{N_{t}}$$<br>$k$是决策树的<strong>叶节点</strong>数目，$e(T)$为总训练误差，$N_{t}$为总训练样本数，$\Omega$为罚项。<br>对二叉树来说，0.5的罚项意味着只要至少能够改善一个训练记录分类，结点就应当扩展，当1位罚项，意味着除非能够减少一个以上训练记录的误分类，否则结点不应当扩展。</p>
-<h6 id="先剪枝："><a href="#先剪枝：" class="headerlink" title="先剪枝："></a>先剪枝：</h6><p>当达到某个条件，提前终止。例如：当观察到某个不纯度度量低于某个确定阈值时就停止扩展叶结点，但是，难点在于很难确定正确终止的阈值。</p>
-<h6 id="后剪枝："><a href="#后剪枝：" class="headerlink" title="后剪枝："></a>后剪枝：</h6><p>初始按照最大规模生长，按照自底向上修剪决策树。修剪方式：<br>（1）子树替换（subtree replacement）用叶结点替代子树，叶结点的类标号为子树的多数类；<br>（2）子树提升（subtree raising）子树中最常使用的分支替代子树。后剪枝能产生更好的结果。</p>
-<h4 id="6、评估分类器性能"><a href="#6、评估分类器性能" class="headerlink" title="6、评估分类器性能"></a>6、评估分类器性能</h4><h6 id="自助法（bootstrap）："><a href="#自助法（bootstrap）：" class="headerlink" title="自助法（bootstrap）："></a>自助法（bootstrap）：</h6><p>训练集是对于原数据集的有放回抽样，如果原始数据集$N$，可以证明，大小为$N$的自助样本大约包含原数据63.2%的记录。当$N$充分大的时候，$1-(1-\frac{1}{N})^{N}$ 概率逼近 $1-e^{-1}=0.632$。抽样 $b$ 次，产生 $b$ 个bootstrap样本，则，总准确率为（$acc_{s}$为包含所有样本计算的准确率）：<br>$$ acc_{boot}=\frac{1}{b}\sum_{i=1}^{b}(0.632\times\varepsilon _{i}+0.368\times acc_{s})$$</p>
-<h6 id="准确度的区间估计："><a href="#准确度的区间估计：" class="headerlink" title="准确度的区间估计："></a>准确度的区间估计：</h6><p>将分类问题看做二项分布，则有：<br>令 $X $为模型正确分类，$p$ 为准确率，$X $服从均值 $Np$、方差 $Np(1-p)$的二项分布。$acc=\frac{X}{N}$为均值 $p$，方差 $\frac{p(1-p)}{N}$ 的二项分布。$acc$ 的置信区间：<br>$$ P\left(-Z_{\frac{\alpha }{2}} \leq \frac{acc-p}{\sqrt{p(1-p)/N}} \leq Z_{1-\frac{\alpha}{2}}\right)=1-\alpha$$<br>$$ P\in\frac{2\times N \times acc +Z_{\frac{\alpha}{2}}^{2}\pm Z_{\frac{\alpha}{2}}\sqrt{Z_{\frac{\alpha}{2}}^{2}+4\times N \times acc-4\times N \times acc^{2}}}{2(N+Z_{\frac{\alpha}{2}}^{2})}$$</p>
+<p>k-最近邻采用多数表决的方法，该算法对 k 敏感：<br>$$y’=argmax_{v}\sum_{(x_{i},y_{i})\in D_{t}} I(v=y_{i})$$<br>所以，需要降低 k 的影响，一种途径就是对距离的不同加权，如下，因为距离远的影响要弱一些，以距离平方的倒数为权值。<br>$$y’=argmax_{v}\sum_{(x_{i},y_{i})\in D_{t}}w_{i}\times I(v=y_{i}),w_{i}=\frac{1}{d(x’,x_{i})^{2}}$$</p>
+<h5 id="2、最近邻分类器特征："><a href="#2、最近邻分类器特征：" class="headerlink" title="2、最近邻分类器特征："></a>2、最近邻分类器特征：</h5><blockquote>
+<p>（1）实例的学习，不需要建模，但分类测试的开销很大。<br>（2）当k比较小的时候，对噪声非常敏感。<br>（3）可以生成任意决策边界。</p>
+</blockquote>
+<h4 id="二、贝叶斯分类器"><a href="#二、贝叶斯分类器" class="headerlink" title="二、贝叶斯分类器"></a>二、贝叶斯分类器</h4><h5 id="1、贝叶斯公式"><a href="#1、贝叶斯公式" class="headerlink" title="1、贝叶斯公式"></a>1、贝叶斯公式</h5><p>$$P(Y_{j}|X)=\frac{P(X|Y_{j})P(Y_{j})}{P(X)}=\frac{P(X|Y_{j})P(Y_{j})}{\sum_{i=1}^{n}P(X|Y_{i})P(Y_{i})}$$</p>
+<h5 id="2、朴素贝叶斯"><a href="#2、朴素贝叶斯" class="headerlink" title="2、朴素贝叶斯"></a>2、朴素贝叶斯</h5><h6 id="（1）条件独立性："><a href="#（1）条件独立性：" class="headerlink" title="（1）条件独立性："></a>（1）条件独立性：</h6><p>给定 Z，X 条件独立于 Y:<br>$$P(X|Y,Z)=P(X|Z)$$<br>则有：<br>$$P(X,Y|Z)=\frac{P(Z,Y,X)}{P(Z)}=\frac{P(Z,Y,X)}{P(Y,Z)}\frac{P(Y,Z)}{P(Z)}=P(X|Y,Z)P(Y|Z)=P(X|Z)P(Y|Z)$$</p>
+<h6 id="（2）朴素贝叶斯分类器："><a href="#（2）朴素贝叶斯分类器：" class="headerlink" title="（2）朴素贝叶斯分类器："></a>（2）朴素贝叶斯分类器：</h6><p>$$P(Y|X)=\frac{P(X|Y)P(Y)}{P(X)}=\frac{P(X_{1},…,X_{d})P(Y)}{P(X)}=\frac{P(Y)\prod_{i=1}^{d}P(X_{i}|Y)}{P(X)}$$</p>
+<h6 id="（3）连续属性的条件概率："><a href="#（3）连续属性的条件概率：" class="headerlink" title="（3）连续属性的条件概率："></a>（3）连续属性的条件概率：</h6><p><1>把每个连续属性离散化，用相应的区间去替代原来的属性，但若某一个区间的样本数目过少，不容易做出可靠的估计。</1></p>
+<p><2>可以假设连续变量服从正态分布，Xi的概率等于：<br>$$P(X_{i}=x_{i}|Y=y_{j})=\frac{1}{\sqrt{2\pi}\sigma_{ij}}e^{-\frac{(x_{i}-\mu_{ij})^{2}}{2\sigma_{ij}}}$$<br>其中 mu 用样本均值估计， sigma 用样本方差估计。</2></p>
+<h6 id="（4）朴素贝叶斯举例："><a href="#（4）朴素贝叶斯举例：" class="headerlink" title="（4）朴素贝叶斯举例："></a>（4）朴素贝叶斯举例：</h6><p>拖欠贷款为 Y 变量。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-cd962d2b90b84337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_01.png"><br>测试记录X=（有房=否，婚姻状况=已婚，年收入=120K），求后验概率P（No|X）、P（Yes|X）。<br>总的 Y 可以知道，P（Yes）=0.3，P（No）=0.7。则：</p>
+<blockquote>
+<p>P（X | No）=P（有房=否 | No）x P（婚姻状况=已婚 | No）x P（年收入=120K | No）=0.0024<br>P（X | Yes）= P（有房=否 | Yes）x P（婚姻状况=已婚 | Yes）x P（年收入=120K | Yes）=0</p>
+</blockquote>
+<p>因为P（No|X）&gt;P（Yes|X），所以该测试分类为No，不拖欠贷款。<br>上例中，P（婚姻状况=已婚 | Yes）=0，可能会出现极端现象，为了防止出现0，朴素贝叶斯没法正确分类，可以使用 m 估计（m-estimate）：<br>$$ P(x_{i}|y_{j})=\frac{n_{c}+mp}{n+m}$$<br>n 为 yi 的实例总数，nc 为 yi 中 xi 的实例数目，p 是用户指定，m 为等价样本大小的参数。上面的计算：P（婚姻状况=已婚 | Yes）=(0+3 x 1/3)/(3+3)=1/6，而不是0。</p>
+<h6 id="（4）朴素贝叶斯特征："><a href="#（4）朴素贝叶斯特征：" class="headerlink" title="（4）朴素贝叶斯特征："></a>（4）朴素贝叶斯特征：</h6><blockquote>
+<p>对于噪声点，朴素贝叶斯是健壮的。也可以处理属性值遗漏问题。<br>无关属性，朴素贝叶斯是健壮的。对于相关属性，可能会降低分类性能。</p>
+</blockquote>
+<h5 id="3、贝叶斯置信网络（Bayesian-belief-networks，BBN）"><a href="#3、贝叶斯置信网络（Bayesian-belief-networks，BBN）" class="headerlink" title="3、贝叶斯置信网络（Bayesian belief networks，BBN）"></a>3、贝叶斯置信网络（Bayesian belief networks，BBN）</h5><h6 id="（1）模型表示："><a href="#（1）模型表示：" class="headerlink" title="（1）模型表示："></a>（1）模型表示：</h6><p>两个主要成分：</p>
+<blockquote>
+<p>一个有向无环图（DAG），表示变量之间的关系；<br>一个概率表，把各个结点和它的直接父节点关联起来。</p>
+</blockquote>
+<p>性质1：条件独立<br>贝叶斯网络中的一个结点，如果它的父母结点已知，则它条件独立于它的所有非后代结点。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-9e01f1fad2d71412.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_02.png"><br>如图（b），给定C，A 条件独立于 B 和 D。<br>除了网络拓扑结构要求的条件独立外，每个结点还关联一个概率表。</p>
+<blockquote>
+<p>（1）如果结点 X 没有父母结点，则表中只包含先验概率P(X);<br>（2）如果结点 X 只有一个父母结点 Y，则表中包含先验概率P(X | Y);<br>（3）如果结点 X 有多个父母结点{Y1，Y2…，Yk}，则表中只包含先验概率P(X|Y1，Y2…，Yk);</p>
+</blockquote>
+<p>下图是一个贝叶斯置信网络。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-f75caad2586c4f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_03.png"></p>
+<h6 id="（2）建立模型："><a href="#（2）建立模型：" class="headerlink" title="（2）建立模型："></a>（2）建立模型：</h6><p>贝叶斯网络拓扑结构的生成算法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">设T=（X1，X2，...Xd）表示变量的全序</div><div class="line"><span class="keyword">for</span> j=<span class="number">1</span> to d do</div><div class="line">  令 XTj 表示 T 中第 j 个次序最高的变量</div><div class="line">  令A（XTj）=&#123;XT1，XT2，...XTj<span class="number">-1</span>&#125; 表示排在 XTj 前面的变量的集合</div><div class="line">  从A（XTj）中去掉对 Xj 没有影响的变量（使用先验知识）</div><div class="line">  在 XTj 和 A（XTj） 中的剩余变量之间画弧</div></pre></td></tr></table></figure></p>
+<p>考虑到图5_03，经过循环后，得到的如下概率：</p>
+<blockquote>
+<p>P（D | E）化简为 P（D）<br>P（HD | E,D）不能化简<br>P（Hb | E,D,HD）化简为 P（Hb | D）<br>P（CP | E,D,HD,Hb）化简为 P（CP | HD,Hb）<br>P（BP | E,D,HD,Hb,CP）化简为 P（BP | HD）</p>
+</blockquote>
+<p>上面的算法，保证了不会生成环。<br>不同的变量排序会产生不同的拓扑结构，理论上需要 d！种排序才能找到最优的，开销很大。代替方法是把变量分成原因变量和结果变量，从原因到结果画弧。</p>
+<h6 id="（3）使用BNN进行推理："><a href="#（3）使用BNN进行推理：" class="headerlink" title="（3）使用BNN进行推理："></a>（3）使用BNN进行推理：</h6><p>根据上面的贝叶斯置信网络图，有下面情况：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-bc19e263319b348d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_04.png"><br><img src="http://upload-images.jianshu.io/upload_images/3341358-b9d40731e3d646db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_05.png"></p>
+<h6 id="（4）BNN的特点："><a href="#（4）BNN的特点：" class="headerlink" title="（4）BNN的特点："></a>（4）BNN的特点：</h6><blockquote>
+<p>构造网络比较费时，但网络结构一旦确定下来，添加新变量就变得容易。<br>很适合处理不完整数据，对有属性遗漏的可以通过概率或求积分来加以处理。<br>数据和先验知识结合起来，该方法对于模型的过拟合问题是非常鲁棒的。</p>
+</blockquote>
 
       
     </div>
@@ -513,8 +512,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/15/ML_ITDM_data/" rel="next" title="数据">
-                <i class="fa fa-chevron-left"></i> 数据
+              <a href="/2017/02/15/ML_ITDM_classfy_01/" rel="next" title="分类（1）：决策树与模型评估">
+                <i class="fa fa-chevron-left"></i> 分类（1）：决策树与模型评估
               </a>
             
           </div>
@@ -522,10 +521,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/15/ML_ITDM_classfy_02/" rel="prev" title="分类（2）：k-最近邻、贝叶斯分类器">
-                分类（2）：k-最近邻、贝叶斯分类器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -540,10 +535,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/02/15/ML_ITDM_classfy_01/"
-     data-title="分类（1）：决策树与模型评估"
+        <div class="ds-share flat" data-thread-key="2017/02/15/ML_ITDM_classfy_02/"
+     data-title="分类（2）：k-最近邻、贝叶斯分类器"
      data-content=""
-     data-url="http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/">
+     data-url="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -570,8 +565,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/02/15/ML_ITDM_classfy_01/"
-           data-title="分类（1）：决策树与模型评估" data-url="http://yoursite.com/2017/02/15/ML_ITDM_classfy_01/">
+      <div class="ds-thread" data-thread-key="2017/02/15/ML_ITDM_classfy_02/"
+           data-title="分类（2）：k-最近邻、贝叶斯分类器" data-url="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/">
       </div>
     
   </div>
@@ -712,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、如何建立决策树"><span class="nav-number">1.</span> <span class="nav-text">一、如何建立决策树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Hunt算法"><span class="nav-number">1.1.</span> <span class="nav-text">1、Hunt算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、属性划分"><span class="nav-number">1.2.</span> <span class="nav-text">2、属性划分</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）标称变量"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">（1）标称变量</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）有序变量"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">（2）有序变量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、属性划分标准"><span class="nav-number">1.3.</span> <span class="nav-text">3、属性划分标准</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）不纯度度量："><span class="nav-number">1.3.0.1.</span> <span class="nav-text">（1）不纯度度量：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）结点度量："><span class="nav-number">1.3.0.2.</span> <span class="nav-text">（2）结点度量：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（3）连续变量的划分："><span class="nav-number">1.3.0.3.</span> <span class="nav-text">（3）连续变量的划分：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、决策树算法"><span class="nav-number">1.4.</span> <span class="nav-text">4、决策树算法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）决策树归纳算法："><span class="nav-number">1.4.0.1.</span> <span class="nav-text">（1）决策树归纳算法：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）决策树特点："><span class="nav-number">1.4.0.2.</span> <span class="nav-text">（2）决策树特点：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（3）斜决策树（oblique-decision-tree）："><span class="nav-number">1.4.0.3.</span> <span class="nav-text">（3）斜决策树（oblique decision tree）：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、模型过拟合"><span class="nav-number">1.5.</span> <span class="nav-text">5、模型过拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#奥卡姆剃刀（Occam’s-razor）："><span class="nav-number">1.5.0.1.</span> <span class="nav-text">奥卡姆剃刀（Occam’s razor）：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#悲观误差估计（pessimistic-error-estimate）："><span class="nav-number">1.5.0.2.</span> <span class="nav-text">悲观误差估计（pessimistic error estimate）：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#先剪枝："><span class="nav-number">1.5.0.3.</span> <span class="nav-text">先剪枝：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#后剪枝："><span class="nav-number">1.5.0.4.</span> <span class="nav-text">后剪枝：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、评估分类器性能"><span class="nav-number">1.6.</span> <span class="nav-text">6、评估分类器性能</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#自助法（bootstrap）："><span class="nav-number">1.6.0.1.</span> <span class="nav-text">自助法（bootstrap）：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#准确度的区间估计："><span class="nav-number">1.6.0.2.</span> <span class="nav-text">准确度的区间估计：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、k-最近邻"><span class="nav-number">1.</span> <span class="nav-text">一、k-最近邻</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、算法"><span class="nav-number">1.1.</span> <span class="nav-text">1、算法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#k-最近邻算法："><span class="nav-number">1.1.1.</span> <span class="nav-text">k-最近邻算法：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、最近邻分类器特征："><span class="nav-number">1.2.</span> <span class="nav-text">2、最近邻分类器特征：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、贝叶斯分类器"><span class="nav-number">2.</span> <span class="nav-text">二、贝叶斯分类器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、贝叶斯公式"><span class="nav-number">2.1.</span> <span class="nav-text">1、贝叶斯公式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、朴素贝叶斯"><span class="nav-number">2.2.</span> <span class="nav-text">2、朴素贝叶斯</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）条件独立性："><span class="nav-number">2.2.1.</span> <span class="nav-text">（1）条件独立性：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）朴素贝叶斯分类器："><span class="nav-number">2.2.2.</span> <span class="nav-text">（2）朴素贝叶斯分类器：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（3）连续属性的条件概率："><span class="nav-number">2.2.3.</span> <span class="nav-text">（3）连续属性的条件概率：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（4）朴素贝叶斯举例："><span class="nav-number">2.2.4.</span> <span class="nav-text">（4）朴素贝叶斯举例：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（4）朴素贝叶斯特征："><span class="nav-number">2.2.5.</span> <span class="nav-text">（4）朴素贝叶斯特征：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、贝叶斯置信网络（Bayesian-belief-networks，BBN）"><span class="nav-number">2.3.</span> <span class="nav-text">3、贝叶斯置信网络（Bayesian belief networks，BBN）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）模型表示："><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）模型表示：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）建立模型："><span class="nav-number">2.3.2.</span> <span class="nav-text">（2）建立模型：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（3）使用BNN进行推理："><span class="nav-number">2.3.3.</span> <span class="nav-text">（3）使用BNN进行推理：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（4）BNN的特点："><span class="nav-number">2.3.4.</span> <span class="nav-text">（4）BNN的特点：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
