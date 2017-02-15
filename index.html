@@ -407,8 +407,7 @@
 
       
         
-          
-            <h3 id="一、如何建立决策树"><a href="#一、如何建立决策树" class="headerlink" title="一、如何建立决策树"></a>一、如何建立决策树</h3><h4 id="1、Hunt算法"><a href="#1、Hunt算法" class="headerlink" title="1、Hunt算法"></a>1、Hunt算法</h4><p>Hunt算法是许多决策树算法的基础，包括ID3、C4.5、CART。<br>Hunt算法步骤：</p>
+          <h3 id="一、如何建立决策树"><a href="#一、如何建立决策树" class="headerlink" title="一、如何建立决策树"></a>一、如何建立决策树</h3><h4 id="1、Hunt算法"><a href="#1、Hunt算法" class="headerlink" title="1、Hunt算法"></a>1、Hunt算法</h4><p>Hunt算法是许多决策树算法的基础，包括ID3、C4.5、CART。<br>Hunt算法步骤：</p>
 <blockquote>
 <p>（1）如果Dt中所有数据都属于同一个类yt，则t是叶结点，用yt标记。<br>（2）如果Dt中包含属于多个类的数据，则选择一个属性，将数据划分为较小子集。创建子女结点，将数据按属性放入子女结点中，然后递归调用该算法。</p>
 </blockquote>
@@ -416,24 +415,13 @@
 <blockquote>
 <p>（1）没有可以选择的属性，则该结点为叶结点，类标号为父结点上较多数的类。<br>（2）如果与Dt相关的数据均为同一个属性，则不可以继续划分，类标号为多数类。</p>
 </blockquote>
-<h4 id="2、属性划分"><a href="#2、属性划分" class="headerlink" title="2、属性划分"></a>2、属性划分</h4><h6 id="（1）标称变量"><a href="#（1）标称变量" class="headerlink" title="（1）标称变量"></a>（1）标称变量</h6><p>标称变量，二元划分和多路划分。CART只产生二元划分，考虑k个属性的二元划分有2^（k-1）-1种方法。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-4a413987d4132bf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_01.png"></p>
-<h6 id="（2）有序变量"><a href="#（2）有序变量" class="headerlink" title="（2）有序变量"></a>（2）有序变量</h6><p>有序变量，也可以是二元划分和多路划分，但是不能违背有序性。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-257b4c916aa27474.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_02.png"></p>
-<h4 id="3、属性划分标准"><a href="#3、属性划分标准" class="headerlink" title="3、属性划分标准"></a>3、属性划分标准</h4><p>选择最佳划分的度量是根据划分后子女结点的不纯度度量。不纯度越低（纯度越高！），划分效果越好。</p>
-<h6 id="（1）不纯度度量："><a href="#（1）不纯度度量：" class="headerlink" title="（1）不纯度度量："></a>（1）不纯度度量：</h6><p>$$Entropy(t)=-\sum_{i=0}^{c-1}p(i|t)log_{2}p(i|t),Entropy(t)\in[0,1]$$<br>$$Gini(t)=1-\sum_{i=0}^{c-1}[p(i|t)]^{2},Gini(t)\in[0,0.5]$$<br>$$ClassificationError(t)=1-max_{i}[p(i|t)],ClassificationError(t)\in[0,0.5]$$<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3c0a745245ba6bbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_03.png"><br>三个度量方法都是希望取值越小越好（越纯）。</p>
-<h6 id="（2）结点度量："><a href="#（2）结点度量：" class="headerlink" title="（2）结点度量："></a>（2）结点度量：</h6><p>为了确定测试结点效果，我们比较父节点（划分前）、子女结点（划分后）的不纯度变化。<br><strong>信息增益：</strong><br>$$\Delta = I(parent)-\sum_{j=1}^{k}\frac{N(v_{j})}{N}I(v_{j})$$<br>其中 I 为不纯度的度量，关于 N 的计算是划分后的个数加权。<br>I 为熵（Entropy）的时候，Delta 为信息增益。<br><strong>信息增益率（Gain Ratio）：</strong><br>$$GainRatio=\frac{\Delta_{info}}{SplitInfo}=\frac{\Delta_{info}}{-\sum_{i=0}^{c-1}p(i)log_{2}p(i)}$$<br>使用信息增益率，好处是把属性测试条件产生的输出数也考虑进去。说明如果某个属性产生了大量的划分，它的划分信息会很大，从而降低了增益率。<br><strong><em>注：信息增益、信息增益率，我们希望越大越好，表示变化。</em></strong></p>
-<h6 id="（3）连续变量的划分："><a href="#（3）连续变量的划分：" class="headerlink" title="（3）连续变量的划分："></a>（3）连续变量的划分：</h6><p>先对数据进行排序后，按照离散点的取值计算。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-62b82142cf5b135e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_04.png"><br>Gini和熵趋向于有大量不同值的属性。</p>
-<h4 id="4、决策树算法"><a href="#4、决策树算法" class="headerlink" title="4、决策树算法"></a>4、决策树算法</h4><h6 id="（1）决策树归纳算法："><a href="#（1）决策树归纳算法：" class="headerlink" title="（1）决策树归纳算法："></a>（1）决策树归纳算法：</h6><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">TreeGrowth(E,F):</div><div class="line">  if stopping_cond(E,F)=true then</div><div class="line">    leaf = createNode()</div><div class="line">    leaf.label = Classify(E)</div><div class="line">    return leaf</div><div class="line">  else</div><div class="line">    root = createNode()</div><div class="line">    root.test_cond = find_best_split(E,F)</div><div class="line">    令V=&#123;v|v是root.test_cond集合&#125;</div><div class="line">    for v in V do</div><div class="line">      Ev = &#123;e|v条件下的数据集合&#125;</div><div class="line">      child = TreeGrowth(Ev,F)</div><div class="line">      将child添加到树中去，将边(root-&gt;child)标记为v</div><div class="line">  return root</div></pre></td></tr></table></figure>
-<h6 id="（2）决策树特点："><a href="#（2）决策树特点：" class="headerlink" title="（2）决策树特点："></a>（2）决策树特点：</h6><p>1、是一种非参数方法，不要求任何的先验假设。<br>2、找到最佳的决策树是NP完全问题。<br>3、相对容易解释。<br>4、对于噪声有相当好的鲁棒性。<br>5、冗余属性不会对决策树准确率造成影响。即为强相关性，一个用于划分，另一个则将被忽略。相反，不相关的属性，可能在构建树的过程中被偶然选中，导致决策树过于庞大。<br>6、数据碎片问题。当深度越深的时候，数据可能会太少，从而不能做出有统计意义的判断，当样本量小于某个阈值的时候，应该停止分裂。<br>7、子树可能在决策树中重复多次，显得复杂，难以解释。</p>
-<h6 id="（3）斜决策树（oblique-decision-tree）："><a href="#（3）斜决策树（oblique-decision-tree）：" class="headerlink" title="（3）斜决策树（oblique decision tree）："></a>（3）斜决策树（oblique decision tree）：</h6><p>这里涉及到的决策树都是每次选取一个变量分子集划分，对某些数据集（连续属性有着复杂建模）缺乏划分能力。<br>斜决策树可以克服这个问题。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-208cab6618206bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4_05.png"><br>测试条件为：<br>$$ x+y&lt;1$$<br>另一种方法是，构造归纳法（constructive induction），该方法创建复合属性，代表已有的属性的算术、逻辑组合。<br>构造归纳的花费较低，而斜决策树要动态的确定属性组合，但构造归纳会产生冗余属性。</p>
-<h4 id="5、模型过拟合"><a href="#5、模型过拟合" class="headerlink" title="5、模型过拟合"></a>5、模型过拟合</h4><p>分类模型误差分为：训练误差（training error）、泛化误差（generalization error）。<br>一个好的模型需要有较低的泛化误差和训练误差。</p>
-<h6 id="奥卡姆剃刀（Occam’s-razor）："><a href="#奥卡姆剃刀（Occam’s-razor）：" class="headerlink" title="奥卡姆剃刀（Occam’s razor）："></a>奥卡姆剃刀（Occam’s razor）：</h6><p>给定两个具有相同泛化误差的模型，较简单的模型比较复杂的模型更可取。</p>
-<h6 id="悲观误差估计（pessimistic-error-estimate）："><a href="#悲观误差估计（pessimistic-error-estimate）：" class="headerlink" title="悲观误差估计（pessimistic error estimate）："></a>悲观误差估计（pessimistic error estimate）：</h6><p>$$e_{g}(T)=\frac{\sum_{i=1}^{k}[e(t_{i})+\Omega (t_{i})]}{\sum_{i=1}^{k}n(t_{i})}=\frac{e(T)+\Omega(T)}{N_{t}}$$<br>k是决策树的<strong>叶节点</strong>数目，e（T）为总训练误差，Nt为总训练样本数，Omega为罚项。<br>对二叉树来说，0.5的罚项意味着只要至少能够改善一个训练记录分类，结点就应当扩展，当1位罚项，意味着除非能够减少一个以上训练记录的误分类，否则结点不应当扩展。</p>
-<h6 id="先剪枝："><a href="#先剪枝：" class="headerlink" title="先剪枝："></a>先剪枝：</h6><p>当达到某个条件，提前终止。例如：当观察到某个不纯度度量低于某个确定阈值时就停止扩展叶结点，但是，难点在于很难确定正确终止的阈值。</p>
-<h6 id="后剪枝："><a href="#后剪枝：" class="headerlink" title="后剪枝："></a>后剪枝：</h6><p>初始按照最大规模生长，按照自底向上修剪决策树。修剪方式：<br>（1）子树替换（subtree replacement）用叶结点替代子树，叶结点的类标号为子树的多数类；<br>（2）子树提升（subtree raising）子树中最常使用的分支替代子树。后剪枝能产生更好的结果。</p>
-<h4 id="6、评估分类器性能"><a href="#6、评估分类器性能" class="headerlink" title="6、评估分类器性能"></a>6、评估分类器性能</h4><h6 id="自助法（bootstrap）："><a href="#自助法（bootstrap）：" class="headerlink" title="自助法（bootstrap）："></a>自助法（bootstrap）：</h6><p>训练集是对于原数据集的有放回抽样，如果原始数据集N，可以证明，大小为N的自助样本大约包含原数据63.2%的记录。当N充分大的时候，1-（1-1/N）^(N) 概率逼近 1-e^(-1)=0.632。抽样 b 次，产生 b 个bootstrap样本，则，总准确率为（accs为包含所有样本计算的准确率）：<br>$$ acc_{boot}=\frac{1}{b}\sum_{i=1}^{b}(0.632\times\varepsilon _{i}+0.368\times acc_{s})$$</p>
-<h6 id="准确度的区间估计："><a href="#准确度的区间估计：" class="headerlink" title="准确度的区间估计："></a>准确度的区间估计：</h6><p>将分类问题看做二项分布，则有：<br>令 X 为模型正确分类，p 为准确率，X 服从均值 Np、方差 Np（1-p）的二项分布。acc=X/N为均值 p，方差 p（1-p）/N 的二项分布。acc 的置信区间：<br>$$ P\left(-Z_{\frac{\alpha }{2}}\leq \frac{acc-p}{\sqrt{p(1-p)/N}}\leqZ_{1-\frac{\alpha}{2}}\right)=1-\alpha$$<br>$$ P\in\frac{2\times N \times acc +Z_{\frac{\alpha}{2}}^{2}\pm Z_{\frac{\alpha}{2}}\sqrt{Z_{\frac{\alpha}{2}}^{2}+4\times N \times acc-4\times N \times acc^{2}}}{2(N+Z_{\frac{\alpha}{2}}^{2})}$$</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/15/ML_ITDM_classfy_01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
