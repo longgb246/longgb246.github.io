@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux," />
+  <meta name="keywords" content="机器学习,数据挖掘,算法," />
 
 
 
@@ -86,19 +86,34 @@
 
 
 
-<meta name="description" content="Xshell1、sz用法（下载）：下载一个文件1sz filename
-下载多个文件1sz filename1 filename2">
+<meta name="description" content="一、组合方法（1）组合分类器原理：考虑25个二元分类器，每一个分类误差a=0.35。组合分类器通过多数投票，如果基分类器是独立的，则仅当超过一半的基分类器都预测错误时，组合才会错误，则：$$ e_{ensemble}=\sum_{i=1}^{25}C_{25}^{i}a^{i}(1-a)^{25-i}=0.06$$
+可以看出，其远低于0.35。
+（2）组合分类器与基分类器比较：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sz-rz-文件传输">
-<meta property="og:url" content="http://yoursite.com/2017/01/24/linux_03_rzsz/index.html">
+<meta property="og:title" content="分类（5）：组合分类器-随机森林">
+<meta property="og:url" content="http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/index.html">
 <meta property="og:site_name" content="longgb246的博客">
-<meta property="og:description" content="Xshell1、sz用法（下载）：下载一个文件1sz filename
-下载多个文件1sz filename1 filename2">
-<meta property="og:updated_time" content="2017-02-15T12:53:47.114Z">
+<meta property="og:description" content="一、组合方法（1）组合分类器原理：考虑25个二元分类器，每一个分类误差a=0.35。组合分类器通过多数投票，如果基分类器是独立的，则仅当超过一半的基分类器都预测错误时，组合才会错误，则：$$ e_{ensemble}=\sum_{i=1}^{25}C_{25}^{i}a^{i}(1-a)^{25-i}=0.06$$
+可以看出，其远低于0.35。
+（2）组合分类器与基分类器比较：">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-54f2009701fddbac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-ac32116bd2c12d57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-567a1833f3ab1c6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-d07e2f579ee5f696.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-f9aa54c012a54386.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-248390a2b40241cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-eac202ad78997335.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-1d3ea4e0010c0305.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-d5ce991ea50f4bd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-c5fc2f3eb53f229b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-7f6c9671e2e85e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-02-15T13:34:14.106Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sz-rz-文件传输">
-<meta name="twitter:description" content="Xshell1、sz用法（下载）：下载一个文件1sz filename
-下载多个文件1sz filename1 filename2">
+<meta name="twitter:title" content="分类（5）：组合分类器-随机森林">
+<meta name="twitter:description" content="一、组合方法（1）组合分类器原理：考虑25个二元分类器，每一个分类误差a=0.35。组合分类器通过多数投票，如果基分类器是独立的，则仅当超过一半的基分类器都预测错误时，组合才会错误，则：$$ e_{ensemble}=\sum_{i=1}^{25}C_{25}^{i}a^{i}(1-a)^{25-i}=0.06$$
+可以看出，其远低于0.35。
+（2）组合分类器与基分类器比较：">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3341358-54f2009701fddbac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -126,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/24/linux_03_rzsz/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/"/>
 
 
 
 
 
-  <title> sz-rz-文件传输 | longgb246的博客 </title>
+  <title> 分类（5）：组合分类器-随机森林 | longgb246的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -298,7 +313,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/24/linux_03_rzsz/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -322,7 +337,7 @@
             
             
               
-                sz-rz-文件传输
+                分类（5）：组合分类器-随机森林
               
             
           </h1>
@@ -337,8 +352,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T20:36:00+08:00">
-                2017-01-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-15T21:32:47+08:00">
+                2017-02-15
               </time>
             
 
@@ -360,8 +375,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -378,8 +393,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/24/linux_03_rzsz/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/linux_03_rzsz/" itemprop="commentCount"></span>
+                <a href="/2017/02/15/ML_ITDM_classfy_05/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/15/ML_ITDM_classfy_05/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -410,11 +425,45 @@
       
 
       
-        <h3 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h3><h4 id="1、sz用法（下载）："><a href="#1、sz用法（下载）：" class="headerlink" title="1、sz用法（下载）："></a>1、sz用法（下载）：</h4><p>下载一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename</div></pre></td></tr></table></figure></p>
-<p>下载多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename1 filename2</div></pre></td></tr></table></figure></p>
+        <h4 id="一、组合方法"><a href="#一、组合方法" class="headerlink" title="一、组合方法"></a>一、组合方法</h4><h5 id="（1）组合分类器原理："><a href="#（1）组合分类器原理：" class="headerlink" title="（1）组合分类器原理："></a>（1）组合分类器原理：</h5><p>考虑25个二元分类器，每一个分类误差a=0.35。组合分类器通过多数投票，如果基分类器是独立的，则仅当超过一半的基分类器都预测错误时，组合才会错误，则：<br>$$ e_{ensemble}=\sum_{i=1}^{25}C_{25}^{i}a^{i}(1-a)^{25-i}=0.06$$</p>
+<p>可以看出，其远低于0.35。</p>
+<h5 id="（2）组合分类器与基分类器比较："><a href="#（2）组合分类器与基分类器比较：" class="headerlink" title="（2）组合分类器与基分类器比较："></a>（2）组合分类器与基分类器比较：</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-54f2009701fddbac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_26.png"></p>
 <a id="more"></a>
-<p>下载dir目录下的所有文件，不包含dir下的文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz dir/*</div></pre></td></tr></table></figure></p>
-<h4 id="2、rz用法（上传）："><a href="#2、rz用法（上传）：" class="headerlink" title="2、rz用法（上传）："></a>2、rz用法（上传）：</h4><p>输入rz回车后，会出现文件选择对话框，选择需要上传文件，一次可以指定多个文件，上传到服务器的路径为当前执行rz命令的目录。</p>
+<p>上图，虚线表示所有基分类器都一样，实线表示所有基分类器都独立。可以看出，当基分类器的错误率大于0.5（仅这个例子吗？）时候，组合分类器的性能不比基分类器的性能好。<br>组合分类器的性能优于基分类器的条件：</p>
+<blockquote>
+<p>1、基分类器应该是<strong>独立</strong>的。<br>2、基分类器应当好于随机猜想。</p>
+</blockquote>
+<h5 id="（3）袋装（bagging）-自助法（bootstrap-aggregating）"><a href="#（3）袋装（bagging）-自助法（bootstrap-aggregating）" class="headerlink" title="（3）袋装（bagging）-自助法（bootstrap aggregating）"></a>（3）袋装（bagging）-自助法（bootstrap aggregating）</h5><h6 id="袋装-自助法（bootstrap）："><a href="#袋装-自助法（bootstrap）：" class="headerlink" title="袋装-自助法（bootstrap）："></a>袋装-自助法（bootstrap）：</h6><p>训练集是对于原数据集的有放回抽样，如果原始数据集N，可以证明，大小为N的自助样本大约包含原数据63.2%的记录。当N充分大的时候，1-（1-1/N）^(N) 概率逼近 1-e^(-1)=0.632。抽样 b 次，产生 b 个bootstrap样本，则，总准确率为（accs为包含所有样本计算的准确率）：<br>$$  acc_{boot}=\frac{1}{b}\sum_{i=1}^{b}(0.632\times\varepsilon _{i}+0.368\times acc_{s})$$</p>
+<h6 id="袋装算法："><a href="#袋装算法：" class="headerlink" title="袋装算法："></a>袋装算法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">设 k 为自助样本的数目</div><div class="line"><span class="keyword">for</span> i = <span class="number">1</span> to k do</div><div class="line">  生成一个大小为 N 的自助样本 Dt</div><div class="line">  在自助样本 Dt 上训练一个基分类器 Ci</div><div class="line">C*=argmax（Ci...）</div></pre></td></tr></table></figure>
+<h6 id="袋装举例理解："><a href="#袋装举例理解：" class="headerlink" title="袋装举例理解："></a>袋装举例理解：</h6><p>下面的这个数据集，使用决策树，熵值来分裂，可以得到分裂点为：x&lt;=0.35  或 x&lt;=0.75，但是无论是哪个分类点，准确率都最多为70%。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-ac32116bd2c12d57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_27.png"></p>
+<p>使用袋装抽样：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-567a1833f3ab1c6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_28.png"></p>
+<p>使用简单的求和，取符号，可以发现，分类正确率为100%：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-d07e2f579ee5f696.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_29.png"></p>
+<h6 id="袋装评价："><a href="#袋装评价：" class="headerlink" title="袋装评价："></a>袋装评价：</h6><blockquote>
+<p>1、通过降低基分类器的<strong>方差</strong>改善了泛化误差<br>2、袋装的性能依赖于基分类器的稳定性。如果基分类器是不稳定的，袋装有助于降低训练数据的随机波动导致的误差；如果基分类器是稳定的，则组合分类器的误差主要由基分类器的偏倚引起，则这种情况下，袋装可能会降低分类器的性能。<br>3、袋装中的数据是均概率被选中，所以对特定数据不敏感，对于噪音，不太受过拟合影响。</p>
+</blockquote>
+<h5 id="（4）提升（Boosting）"><a href="#（4）提升（Boosting）" class="headerlink" title="（4）提升（Boosting）"></a>（4）提升（Boosting）</h5><blockquote>
+<p>提升是一个迭代过程，自适应的改变样本的分布，使得基分类器聚焦在那些很难分类的样本上，提升每次给一个训练样本一个权值，在每一轮结束的时候自动地调整权值。</p>
+</blockquote>
+<p>现在又很多提升算法，算法的差别在于：</p>
+<blockquote>
+<p>（1）每轮提升结束时如何更新训练样本权值<br>（2）如何组合每个分类器的预测</p>
+</blockquote>
+<h6 id="AdaBoost"><a href="#AdaBoost" class="headerlink" title="AdaBoost"></a>AdaBoost</h6><p>在该算法中，基分类器 Ci 的重要性依赖于它的错误率，错误率的定义：<br>$$ error_{i}=\frac{1}{N}\left[\sum_{j=1}^{N}w_{j}I(C_{i}(x_{j}\neq y_{j}))\right]$$<br>对于I，为指示变量，错误个数的加权取平均，基分类器的重要度 \alpha 为：<br>$$ \alpha_{i}=\frac{1}{2}ln\left(\frac{1-error_{i}}{error_{i}}\right)$$<br>作出重要度 \alpha 关于 error 的图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-f9aa54c012a54386.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_30.png"></p>
+<p>发现错误率接近 0 时候，重要度很大，接近 1 时候，重要度负向很大。<br>Adaboost 的权值更新有以下给出，第 j 次迭代：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-248390a2b40241cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_31.png"></p>
+<p>Zj 是一个正规因子，用于确保：<br>$$\sum_{i}w_{i}^{j+1}=1$$</p>
+<h6 id="AdaBoost算法："><a href="#AdaBoost算法：" class="headerlink" title="AdaBoost算法："></a>AdaBoost算法：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-eac202ad78997335.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_32.png"></p>
+<h6 id="AdaBoost例子："><a href="#AdaBoost例子：" class="headerlink" title="AdaBoost例子："></a>AdaBoost例子：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-1d3ea4e0010c0305.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_33.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-d5ce991ea50f4bd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_34.png"></p>
+<blockquote>
+<p>1、该组合分类器的训练误差呈指数递减，从而算法很快就会收敛。<br>2、但是它倾向于那些被误分类的样本，所以提升技术很容易受到过拟合的影响。</p>
+</blockquote>
+<h4 id="二、随机森林（Random-Forest）"><a href="#二、随机森林（Random-Forest）" class="headerlink" title="二、随机森林（Random Forest）"></a>二、随机森林（Random Forest）</h4><h5 id="随机森林的过程图："><a href="#随机森林的过程图：" class="headerlink" title="随机森林的过程图："></a>随机森林的过程图：</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-c5fc2f3eb53f229b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_35.png"></p>
+<p>已经从理论上证明了，当树的数目足够大的时候，随机森林的泛化误差的上界收敛于下面表达式：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-7f6c9671e2e85e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_36.png"></p>
+<h5 id="随机森林性质"><a href="#随机森林性质" class="headerlink" title="随机森林性质"></a>随机森林性质</h5><p>每棵决策树都使用一个从固定概率分布产生的随机向量。可以使用多种方法将随机向量合并到树中。</p>
+<h6 id="不同的随机森立方法："><a href="#不同的随机森立方法：" class="headerlink" title="不同的随机森立方法："></a>不同的随机森立方法：</h6><blockquote>
+<p>1、Forest-RI。随机选择 F 个输入特征来对决策树的结点进行分裂，树之后完全增长不进行任何修剪，这有助于减少树的偏倚。之后用多数投票表决来组合预测。为了增加随机性，可以使用自助样本。<br>2、Forest-RC。d 的数目太小的情况，需要增大特征空间，创建输入特征的线性组合。输入特征用区间[-1,1]的均匀分布产生的系数进行线性组合。<br>3、对于每个结点，从 F 个最佳划分中随机选择一个，该方法也是比上面两个更花费时间。<br>4、随机森林的分裂准确率与Adaboost相媲美，但它对噪声更加鲁棒，运行速度也比Adaboost快得多。</p>
+</blockquote>
+<h6 id="随机森林的一些参数选择"><a href="#随机森林的一些参数选择" class="headerlink" title="随机森林的一些参数选择"></a>随机森林的一些参数选择</h6><p>通常选取特征数目为：<br>$$ F=log_{2}^{d}+1$$<br>d 为输入特征数。</p>
 
       
     </div>
@@ -459,7 +508,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
           
         </div>
       
@@ -468,8 +521,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/24/linux_02_com/" rel="next" title="linux 查看系统信息命令(比较全)">
-                <i class="fa fa-chevron-left"></i> linux 查看系统信息命令(比较全)
+              <a href="/2017/02/15/ML_ITDM_classfy_04/" rel="next" title="分类（4）：支持向量机（SVM）">
+                <i class="fa fa-chevron-left"></i> 分类（4）：支持向量机（SVM）
               </a>
             
           </div>
@@ -477,10 +530,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/24/linux_awk/" rel="prev" title="awk">
-                awk <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -495,10 +544,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/01/24/linux_03_rzsz/"
-     data-title="sz-rz-文件传输"
+        <div class="ds-share flat" data-thread-key="2017/02/15/ML_ITDM_classfy_05/"
+     data-title="分类（5）：组合分类器-随机森林"
      data-content=""
-     data-url="http://yoursite.com/2017/01/24/linux_03_rzsz/">
+     data-url="http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -525,8 +574,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/01/24/linux_03_rzsz/"
-           data-title="sz-rz-文件传输" data-url="http://yoursite.com/2017/01/24/linux_03_rzsz/">
+      <div class="ds-thread" data-thread-key="2017/02/15/ML_ITDM_classfy_05/"
+           data-title="分类（5）：组合分类器-随机森林" data-url="http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/">
       </div>
     
   </div>
@@ -667,7 +716,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xshell"><span class="nav-number">1.</span> <span class="nav-text">Xshell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、sz用法（下载）："><span class="nav-number">1.1.</span> <span class="nav-text">1、sz用法（下载）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、rz用法（上传）："><span class="nav-number">1.2.</span> <span class="nav-text">2、rz用法（上传）：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、组合方法"><span class="nav-number">1.</span> <span class="nav-text">一、组合方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）组合分类器原理："><span class="nav-number">1.1.</span> <span class="nav-text">（1）组合分类器原理：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）组合分类器与基分类器比较："><span class="nav-number">1.2.</span> <span class="nav-text">（2）组合分类器与基分类器比较：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）袋装（bagging）-自助法（bootstrap-aggregating）"><span class="nav-number">1.3.</span> <span class="nav-text">（3）袋装（bagging）-自助法（bootstrap aggregating）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#袋装-自助法（bootstrap）："><span class="nav-number">1.3.1.</span> <span class="nav-text">袋装-自助法（bootstrap）：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#袋装算法："><span class="nav-number">1.3.2.</span> <span class="nav-text">袋装算法：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#袋装举例理解："><span class="nav-number">1.3.3.</span> <span class="nav-text">袋装举例理解：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#袋装评价："><span class="nav-number">1.3.4.</span> <span class="nav-text">袋装评价：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）提升（Boosting）"><span class="nav-number">1.4.</span> <span class="nav-text">（4）提升（Boosting）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#AdaBoost"><span class="nav-number">1.4.1.</span> <span class="nav-text">AdaBoost</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#AdaBoost算法："><span class="nav-number">1.4.2.</span> <span class="nav-text">AdaBoost算法：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#AdaBoost例子："><span class="nav-number">1.4.3.</span> <span class="nav-text">AdaBoost例子：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、随机森林（Random-Forest）"><span class="nav-number">2.</span> <span class="nav-text">二、随机森林（Random Forest）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#随机森林的过程图："><span class="nav-number">2.1.</span> <span class="nav-text">随机森林的过程图：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#随机森林性质"><span class="nav-number">2.2.</span> <span class="nav-text">随机森林性质</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#不同的随机森立方法："><span class="nav-number">2.2.1.</span> <span class="nav-text">不同的随机森立方法：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#随机森林的一些参数选择"><span class="nav-number">2.2.2.</span> <span class="nav-text">随机森林的一些参数选择</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
