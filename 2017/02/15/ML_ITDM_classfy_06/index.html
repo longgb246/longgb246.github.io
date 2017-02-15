@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="start,hexo," />
+  <meta name="keywords" content="机器学习,数据挖掘,算法," />
 
 
 
@@ -86,19 +86,28 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="一、不平衡问题（1）不平衡数据例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。
+（2）混淆矩阵在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/11/19/hello-world/index.html">
+<meta property="og:title" content="分类（6）：不平衡和多分类问题">
+<meta property="og:url" content="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/index.html">
 <meta property="og:site_name" content="longgb246的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2017-02-15T12:48:40.339Z">
+<meta property="og:description" content="一、不平衡问题（1）不平衡数据例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。
+（2）混淆矩阵在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-77c3b86f48870b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-291214111746c1d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-785ee8715b8e3937.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-297e0b3d8f363ce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-e36c99b877fc8be2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-359569c4900501fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-8712856c5236b70b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3341358-bb9f20a6e31754da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-02-15T13:39:59.700Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="分类（6）：不平衡和多分类问题">
+<meta name="twitter:description" content="一、不平衡问题（1）不平衡数据例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。
+（2）混淆矩阵在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3341358-77c3b86f48870b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -126,13 +135,13 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/19/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/"/>
 
 
 
 
 
-  <title> Hello World | longgb246的博客 </title>
+  <title> 分类（6）：不平衡和多分类问题 | longgb246的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -298,7 +307,7 @@ Quick">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/19/hello-world/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -322,7 +331,7 @@ Quick">
             
             
               
-                Hello World
+                分类（6）：不平衡和多分类问题
               
             
           </h1>
@@ -337,8 +346,8 @@ Quick">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-19T20:34:00+08:00">
-                2016-11-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-15T21:37:36+08:00">
+                2017-02-15
               </time>
             
 
@@ -360,8 +369,8 @@ Quick">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的文章/" itemprop="url" rel="index">
-                    <span itemprop="name">我的文章</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -378,8 +387,8 @@ Quick">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/19/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/19/hello-world/" itemprop="commentCount"></span>
+                <a href="/2017/02/15/ML_ITDM_classfy_06/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/15/ML_ITDM_classfy_06/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -410,16 +419,37 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+        <h4 id="一、不平衡问题"><a href="#一、不平衡问题" class="headerlink" title="一、不平衡问题"></a>一、不平衡问题</h4><h5 id="（1）不平衡数据"><a href="#（1）不平衡数据" class="headerlink" title="（1）不平衡数据"></a>（1）不平衡数据</h5><p>例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。<br>这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。<br>例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。</p>
+<h5 id="（2）混淆矩阵"><a href="#（2）混淆矩阵" class="headerlink" title="（2）混淆矩阵"></a>（2）混淆矩阵</h5><p>在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类被认为是负类。下面显示了混淆矩阵：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-77c3b86f48870b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_37.png"></p>
 <a id="more"></a>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+<blockquote>
+<p>真正（true positive，TP）：++<br>假正（false positive，FP）：-+<br>真负（true negative，TN）：–<br>假负（false negative，FN）：+-</p>
+</blockquote>
+<p>真正率（true positive rate，TPR）或灵敏度（sensitivity）：<br>$$ TPR=\frac{TP}{TP+FN}=\frac{(++)}{(++)+(+-)}$$<br>真负率（true negative rate，TNR）或特指度（specificity）：<br>$$TNR=\frac{TN}{TN+FP}=\frac{(–)}{(–)+(-+)}$$<br>假正率（false positive rate，FPR）：<br>$$FPR=\frac{FP}{TN+FP}=\frac{(+-)}{(–)+(-+)}$$<br>假负率（false negative rate，FNR）：<br>$$ FNR=\frac{FN}{FN+TP}=\frac{(-+)}{(-+)+(++)}$$<br>精度（precision）：<br>$$ p=\frac{TP}{TP+FP}=\frac{(++)}{(++)+(-+)}$$<br>召回率（recall）即为真正率：<br>$$r=\frac{(TP)}{(TP)+(FN)}=\frac{(++)}{(++)+(+-)}$$<br>精度和召回率是很重要的度量量，称为 F1 统计量：<br>$$ F_{1}=\frac{2rp}{r+p}=\frac{2\times TP}{2\times TP+FP+FN}=\frac{2}{\frac{1}{r}+\frac{1}{p}}$$<br>F1 是召回率和精度的调和平均数，F1 趋近于它们之间的较小值，因此，一个高的 F1 确保精度和召回率都高。<br>Fb 的公式：<br>$$ F_{b}=\frac{(b^{2}+1)rp}{r+b^{2}p}=\frac{(b^{2}+1)}{\frac{1}{r}+\frac{b^{2}}{p}}$$<br>低的 b 使得 Fb 更加接近精度，高的 b 使得 Fb 更加接近召回率。</p>
+<h5 id="（3）接受者操作曲线（ROC）"><a href="#（3）接受者操作曲线（ROC）" class="headerlink" title="（3）接受者操作曲线（ROC）"></a>（3）接受者操作曲线（ROC）</h5><blockquote>
+<p>是真正率和假正率取折中的一种图形化方法。真正率为 y 轴，假正率为 x 轴。</p>
+</blockquote>
+<p>ROC的几个关键点：</p>
+<blockquote>
+<p>（TPR=0,FPR=0）:把所有的都预测为负<br>（TPR=1,FPR=1）:把所有的都预测为正<br>（TPR=1,FPR=0）:理想模型。只要是正的，都预测为正。</p>
+</blockquote>
+<p>一个好的分类器，尽量靠近左上角，随机猜想为对角线。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-291214111746c1d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_38.png"></p>
+<p>产生ROC曲线方法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-785ee8715b8e3937.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_39.png"></p>
+<h5 id="（4）代价敏感学习"><a href="#（4）代价敏感学习" class="headerlink" title="（4）代价敏感学习"></a>（4）代价敏感学习</h5><p>模型 M 的代价：<br>$$ C_{t}(M)=TP\times C(+,+)+FP\times C(-,+)+FN\times C(+,1)+FN\times C(-,-)$$</p>
+<p>如下是一个代价矩阵：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-297e0b3d8f363ce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_40.png"></p>
+<p>它可以把决策边界扩展：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-e36c99b877fc8be2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_41.png"></p>
+<p>对于代价矩阵，若 C(+,+)=C(-,-)=0 的情况，分类正确不需要代价，则：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-359569c4900501fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_42.png"></p>
+<p>求解可以得到决策边界。</p>
+<h6 id="基于抽样方法"><a href="#基于抽样方法" class="headerlink" title="基于抽样方法"></a>基于抽样方法</h6><p>对于样本进行处理，假设有100个正样本和1000个负样本。<br>不充分抽样（udersampling）：取和正样本一样数量的负样本，取100个负样本，形成训练集。<br>过分抽样（oversampling）：将正样本复制，或者重复抽样，使得正样本的数量和负样本一样1000个。</p>
+<h4 id="二、多类问题"><a href="#二、多类问题" class="headerlink" title="二、多类问题"></a>二、多类问题</h4><blockquote>
+<p>1、one-vs-rest 方法。将多类问题分解为 K 个二类问题，将属于$y_{i}$的归为正类，而其他类被分为负类，依次进行。<br>2、one-vs-one 方法。它构建$\frac{K(K-1)}{2}$ 个二分类器，每一个分类器用来区分一对类 $(y_{i},y_{j})$ ，当为类 $(y_{i},y_{j})$ 建立分类器的时候，将不属于 $(y_{i},y_{j})$ 的样本忽略掉。</p>
+</blockquote>
+<p>例子：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-8712856c5236b70b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_43.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-bb9f20a6e31754da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_44.png"></p>
+<p>使用上述两种方法建模后，可能出现分类平局。另一种方法，将输出转变为概率估计，将实例给予高概率的类。</p>
+<h5 id="纠错输出编码"><a href="#纠错输出编码" class="headerlink" title="纠错输出编码"></a>纠错输出编码</h5><p>纠错输出编码（error-correcting output coding，ECOC）：一种处理多分类更加鲁棒的方法，给予每个类一个代码字，对于每个可能预测错误的，选取距离代码字最近的那一类。</p>
 
       
     </div>
@@ -464,9 +494,11 @@ Quick">
       
         <div class="post-tags">
           
-            <a href="/tags/start/" rel="tag"># start</a>
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/数据挖掘/" rel="tag"># 数据挖掘</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
           
         </div>
       
@@ -475,15 +507,15 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/15/ML_ITDM_classfy_05/" rel="next" title="分类（5）：组合分类器-随机森林">
+                <i class="fa fa-chevron-left"></i> 分类（5）：组合分类器-随机森林
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/19/advanced_statistics/" rel="prev" title="Advanced Statistics">
-                Advanced Statistics <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -498,10 +530,10 @@ Quick">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/11/19/hello-world/"
-     data-title="Hello World"
+        <div class="ds-share flat" data-thread-key="2017/02/15/ML_ITDM_classfy_06/"
+     data-title="分类（6）：不平衡和多分类问题"
      data-content=""
-     data-url="http://yoursite.com/2016/11/19/hello-world/">
+     data-url="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -528,8 +560,8 @@ Quick">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/19/hello-world/"
-           data-title="Hello World" data-url="http://yoursite.com/2016/11/19/hello-world/">
+      <div class="ds-thread" data-thread-key="2017/02/15/ML_ITDM_classfy_06/"
+           data-title="分类（6）：不平衡和多分类问题" data-url="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/">
       </div>
     
   </div>
@@ -670,7 +702,7 @@ Quick">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、不平衡问题"><span class="nav-number">1.</span> <span class="nav-text">一、不平衡问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）不平衡数据"><span class="nav-number">1.1.</span> <span class="nav-text">（1）不平衡数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）混淆矩阵"><span class="nav-number">1.2.</span> <span class="nav-text">（2）混淆矩阵</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）接受者操作曲线（ROC）"><span class="nav-number">1.3.</span> <span class="nav-text">（3）接受者操作曲线（ROC）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）代价敏感学习"><span class="nav-number">1.4.</span> <span class="nav-text">（4）代价敏感学习</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#基于抽样方法"><span class="nav-number">1.4.1.</span> <span class="nav-text">基于抽样方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、多类问题"><span class="nav-number">2.</span> <span class="nav-text">二、多类问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#纠错输出编码"><span class="nav-number">2.1.</span> <span class="nav-text">纠错输出编码</span></a></li></ol></li></ol></div>
             
 
           </div>

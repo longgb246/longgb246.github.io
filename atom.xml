@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T13:34:14.106Z</updated>
+  <updated>2017-02-15T13:39:59.700Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分类（6）：不平衡和多分类问题</title>
+    <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/"/>
+    <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/</id>
+    <published>2017-02-15T13:37:36.000Z</published>
+    <updated>2017-02-15T13:39:59.700Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="一、不平衡问题"><a href="#一、不平衡问题" class="headerlink" title="一、不平衡问题"></a>一、不平衡问题</h4><h5 id="（1）不平衡数据"><a href="#（1）不平衡数据" class="headerlink" title="（1）不平衡数据"></a>（1）不平衡数据</h5><p>例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。<br>这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。<br>例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。</p>
+<h5 id="（2）混淆矩阵"><a href="#（2）混淆矩阵" class="headerlink" title="（2）混淆矩阵"></a>（2）混淆矩阵</h5><p>在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类被认为是负类。下面显示了混淆矩阵：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-77c3b86f48870b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_37.png"></p>
+<a id="more"></a>
+<blockquote>
+<p>真正（true positive，TP）：++<br>假正（false positive，FP）：-+<br>真负（true negative，TN）：–<br>假负（false negative，FN）：+-</p>
+</blockquote>
+<p>真正率（true positive rate，TPR）或灵敏度（sensitivity）：<br>$$ TPR=\frac{TP}{TP+FN}=\frac{(++)}{(++)+(+-)}$$<br>真负率（true negative rate，TNR）或特指度（specificity）：<br>$$TNR=\frac{TN}{TN+FP}=\frac{(–)}{(–)+(-+)}$$<br>假正率（false positive rate，FPR）：<br>$$FPR=\frac{FP}{TN+FP}=\frac{(+-)}{(–)+(-+)}$$<br>假负率（false negative rate，FNR）：<br>$$ FNR=\frac{FN}{FN+TP}=\frac{(-+)}{(-+)+(++)}$$<br>精度（precision）：<br>$$ p=\frac{TP}{TP+FP}=\frac{(++)}{(++)+(-+)}$$<br>召回率（recall）即为真正率：<br>$$r=\frac{(TP)}{(TP)+(FN)}=\frac{(++)}{(++)+(+-)}$$<br>精度和召回率是很重要的度量量，称为 F1 统计量：<br>$$ F_{1}=\frac{2rp}{r+p}=\frac{2\times TP}{2\times TP+FP+FN}=\frac{2}{\frac{1}{r}+\frac{1}{p}}$$<br>F1 是召回率和精度的调和平均数，F1 趋近于它们之间的较小值，因此，一个高的 F1 确保精度和召回率都高。<br>Fb 的公式：<br>$$ F_{b}=\frac{(b^{2}+1)rp}{r+b^{2}p}=\frac{(b^{2}+1)}{\frac{1}{r}+\frac{b^{2}}{p}}$$<br>低的 b 使得 Fb 更加接近精度，高的 b 使得 Fb 更加接近召回率。</p>
+<h5 id="（3）接受者操作曲线（ROC）"><a href="#（3）接受者操作曲线（ROC）" class="headerlink" title="（3）接受者操作曲线（ROC）"></a>（3）接受者操作曲线（ROC）</h5><blockquote>
+<p>是真正率和假正率取折中的一种图形化方法。真正率为 y 轴，假正率为 x 轴。</p>
+</blockquote>
+<p>ROC的几个关键点：</p>
+<blockquote>
+<p>（TPR=0,FPR=0）:把所有的都预测为负<br>（TPR=1,FPR=1）:把所有的都预测为正<br>（TPR=1,FPR=0）:理想模型。只要是正的，都预测为正。</p>
+</blockquote>
+<p>一个好的分类器，尽量靠近左上角，随机猜想为对角线。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-291214111746c1d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_38.png"></p>
+<p>产生ROC曲线方法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-785ee8715b8e3937.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_39.png"></p>
+<h5 id="（4）代价敏感学习"><a href="#（4）代价敏感学习" class="headerlink" title="（4）代价敏感学习"></a>（4）代价敏感学习</h5><p>模型 M 的代价：<br>$$ C_{t}(M)=TP\times C(+,+)+FP\times C(-,+)+FN\times C(+,1)+FN\times C(-,-)$$</p>
+<p>如下是一个代价矩阵：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-297e0b3d8f363ce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_40.png"></p>
+<p>它可以把决策边界扩展：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-e36c99b877fc8be2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_41.png"></p>
+<p>对于代价矩阵，若 C(+,+)=C(-,-)=0 的情况，分类正确不需要代价，则：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-359569c4900501fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_42.png"></p>
+<p>求解可以得到决策边界。</p>
+<h6 id="基于抽样方法"><a href="#基于抽样方法" class="headerlink" title="基于抽样方法"></a>基于抽样方法</h6><p>对于样本进行处理，假设有100个正样本和1000个负样本。<br>不充分抽样（udersampling）：取和正样本一样数量的负样本，取100个负样本，形成训练集。<br>过分抽样（oversampling）：将正样本复制，或者重复抽样，使得正样本的数量和负样本一样1000个。</p>
+<h4 id="二、多类问题"><a href="#二、多类问题" class="headerlink" title="二、多类问题"></a>二、多类问题</h4><blockquote>
+<p>1、one-vs-rest 方法。将多类问题分解为 K 个二类问题，将属于$y_{i}$的归为正类，而其他类被分为负类，依次进行。<br>2、one-vs-one 方法。它构建$\frac{K(K-1)}{2}$ 个二分类器，每一个分类器用来区分一对类 $(y_{i},y_{j})$ ，当为类 $(y_{i},y_{j})$ 建立分类器的时候，将不属于 $(y_{i},y_{j})$ 的样本忽略掉。</p>
+</blockquote>
+<p>例子：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-8712856c5236b70b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_43.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3341358-bb9f20a6e31754da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_44.png"></p>
+<p>使用上述两种方法建模后，可能出现分类平局。另一种方法，将输出转变为概率估计，将实例给予高概率的类。</p>
+<h5 id="纠错输出编码"><a href="#纠错输出编码" class="headerlink" title="纠错输出编码"></a>纠错输出编码</h5><p>纠错输出编码（error-correcting output coding，ECOC）：一种处理多分类更加鲁棒的方法，给予每个类一个代码字，对于每个可能预测错误的，选取距离代码字最近的那一类。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;一、不平衡问题&quot;&gt;&lt;a href=&quot;#一、不平衡问题&quot; class=&quot;headerlink&quot; title=&quot;一、不平衡问题&quot;&gt;&lt;/a&gt;一、不平衡问题&lt;/h4&gt;&lt;h5 id=&quot;（1）不平衡数据&quot;&gt;&lt;a href=&quot;#（1）不平衡数据&quot; class=&quot;headerlink&quot; title=&quot;（1）不平衡数据&quot;&gt;&lt;/a&gt;（1）不平衡数据&lt;/h5&gt;&lt;p&gt;例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。&lt;br&gt;这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。&lt;br&gt;例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。&lt;/p&gt;
+&lt;h5 id=&quot;（2）混淆矩阵&quot;&gt;&lt;a href=&quot;#（2）混淆矩阵&quot; class=&quot;headerlink&quot; title=&quot;（2）混淆矩阵&quot;&gt;&lt;/a&gt;（2）混淆矩阵&lt;/h5&gt;&lt;p&gt;在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类被认为是负类。下面显示了混淆矩阵：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-77c3b86f48870b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_37.png&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>分类（5）：组合分类器-随机森林</title>
@@ -747,33 +806,6 @@
     <summary type="html">
     
       &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.style as mstyle&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print mstyle.available&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;plt.style.use(&amp;apos;seaborn-darkgrid&amp;apos;)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="matplotlib" scheme="http://yoursite.com/tags/matplotlib/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>matplotlib 使用中文</title>
-    <link href="http://yoursite.com/2016/12/25/python_matplotlib_Chinese/"/>
-    <id>http://yoursite.com/2016/12/25/python_matplotlib_Chinese/</id>
-    <published>2016-12-25T12:36:00.000Z</published>
-    <updated>2017-02-15T12:51:38.879Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、颜色调整"><a href="#一、颜色调整" class="headerlink" title="一、颜色调整"></a>一、颜色调整</h3><p>绿色：#6AB27B<br>土色：#a27712<br>浅紫色：#8172B2<br>蓝色：#4C72B0<br>红色：#C44E52</p>
-<h3 id="二、使用中文"><a href="#二、使用中文" class="headerlink" title="二、使用中文"></a>二、使用中文</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from pylab import mpl</div><div class="line">mpl.rcParams[&apos;font.sans-serif&apos;] = [&apos;SimHei&apos;]        # 使用中文</div><div class="line">mpl.rcParams[&apos;axes.unicode_minus&apos;] = False    # 解决负号问题</div></pre></td></tr></table></figure>
-<a id="more"></a>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、颜色调整&quot;&gt;&lt;a href=&quot;#一、颜色调整&quot; class=&quot;headerlink&quot; title=&quot;一、颜色调整&quot;&gt;&lt;/a&gt;一、颜色调整&lt;/h3&gt;&lt;p&gt;绿色：#6AB27B&lt;br&gt;土色：#a27712&lt;br&gt;浅紫色：#8172B2&lt;br&gt;蓝色：#4C72B0&lt;br&gt;红色：#C44E52&lt;/p&gt;
-&lt;h3 id=&quot;二、使用中文&quot;&gt;&lt;a href=&quot;#二、使用中文&quot; class=&quot;headerlink&quot; title=&quot;二、使用中文&quot;&gt;&lt;/a&gt;二、使用中文&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;from pylab import mpl&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;mpl.rcParams[&amp;apos;font.sans-serif&amp;apos;] = [&amp;apos;SimHei&amp;apos;]        # 使用中文&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;mpl.rcParams[&amp;apos;axes.unicode_minus&amp;apos;] = False    # 解决负号问题&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
