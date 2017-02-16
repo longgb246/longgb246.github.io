@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-15T14:16:22.777Z</updated>
+  <updated>2017-02-16T15:47:52.627Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,69 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git配置</title>
+    <link href="http://yoursite.com/2017/02/16/git_pycharm/"/>
+    <id>http://yoursite.com/2017/02/16/git_pycharm/</id>
+    <published>2017-02-16T15:47:00.000Z</published>
+    <updated>2017-02-16T15:47:52.627Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="git上传问题"><a href="#git上传问题" class="headerlink" title="git上传问题"></a>git上传问题</h2><p>当在pycharm中使用git上传时候。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-ffeece3b9cbd9d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>可能会出现以下问题：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-23e7602f72fb864e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<a id="more"></a>
+<p>fatal: Authentication failed for ‘<a href="https://github.com/longgb246/pythonstudy.git/" target="_blank" rel="external">https://github.com/longgb246/pythonstudy.git/</a>‘</p>
+<h2 id="解决方法一："><a href="#解决方法一：" class="headerlink" title="解决方法一："></a>解决方法一：</h2><p>有的情况，如网上所说，重新执行Git config命令配置用户名和邮箱即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config -–global user.name &quot;xxx&quot;   </div><div class="line">git config –-global user.email &quot;xxx@xxx.com&quot;</div></pre></td></tr></table></figure></p>
+<h2 id="解决方法二："><a href="#解决方法二：" class="headerlink" title="解决方法二："></a>解决方法二：</h2><p>更新pycharm中git的指定：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-137b1599d6e094b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>更新到最新的即可使用。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;git上传问题&quot;&gt;&lt;a href=&quot;#git上传问题&quot; class=&quot;headerlink&quot; title=&quot;git上传问题&quot;&gt;&lt;/a&gt;git上传问题&lt;/h2&gt;&lt;p&gt;当在pycharm中使用git上传时候。&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-ffeece3b9cbd9d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;可能会出现以下问题：&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-23e7602f72fb864e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Git" scheme="http://yoursite.com/categories/Git/"/>
+    
+    
+      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
+    
+      <category term="pycharm" scheme="http://yoursite.com/tags/pycharm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git配置</title>
+    <link href="http://yoursite.com/2017/02/16/git_config/"/>
+    <id>http://yoursite.com/2017/02/16/git_config/</id>
+    <published>2017-02-16T15:45:40.000Z</published>
+    <updated>2017-02-16T15:47:39.894Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="使用git-bash："><a href="#使用git-bash：" class="headerlink" title="使用git-bash："></a>使用git-bash：</h2><p>到网站下载即可：<br><a href="https://git-scm.com/downloads" target="_blank" rel="external">https://git-scm.com/downloads</a><br>下载windows版本的就可以。</p>
+<h2 id="设置用户："><a href="#设置用户：" class="headerlink" title="设置用户："></a>设置用户：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config -–global user.name &quot;xxx&quot;   </div><div class="line">git config –-global user.email &quot;xxx@xxx.com&quot;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="其中查看已有的git配置，命令为："><a href="#其中查看已有的git配置，命令为：" class="headerlink" title="其中查看已有的git配置，命令为："></a>其中查看已有的<code>git</code>配置，命令为：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config -l</div></pre></td></tr></table></figure>
+<h2 id="git的lg配置"><a href="#git的lg配置" class="headerlink" title="git的lg配置"></a>git的lg配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global alias.lg &quot;log --color --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit&quot;</div></pre></td></tr></table></figure>
+<p>效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-7bcdd0b33349562d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alias.lg=log --color --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit</div></pre></td></tr></table></figure>
+<p>配置显示比较炫酷，图像如下：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-73ada56bdfc452ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;使用git-bash：&quot;&gt;&lt;a href=&quot;#使用git-bash：&quot; class=&quot;headerlink&quot; title=&quot;使用git-bash：&quot;&gt;&lt;/a&gt;使用git-bash：&lt;/h2&gt;&lt;p&gt;到网站下载即可：&lt;br&gt;&lt;a href=&quot;https://git-scm.com/downloads&quot;&gt;https://git-scm.com/downloads&lt;/a&gt;&lt;br&gt;下载windows版本的就可以。&lt;/p&gt;
+&lt;h2 id=&quot;设置用户：&quot;&gt;&lt;a href=&quot;#设置用户：&quot; class=&quot;headerlink&quot; title=&quot;设置用户：&quot;&gt;&lt;/a&gt;设置用户：&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;git config -–global user.name &amp;quot;xxx&amp;quot;   &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;git config –-global user.email &amp;quot;xxx@xxx.com&amp;quot;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Git" scheme="http://yoursite.com/categories/Git/"/>
+    
+    
+      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>Seaborn-05-Pairplot多变量图</title>
@@ -1085,69 +1148,6 @@
       <category term="Windows" scheme="http://yoursite.com/tags/Windows/"/>
     
       <category term="bat" scheme="http://yoursite.com/tags/bat/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>awk</title>
-    <link href="http://yoursite.com/2017/01/24/linux_awk/"/>
-    <id>http://yoursite.com/2017/01/24/linux_awk/</id>
-    <published>2017-01-24T12:37:00.000Z</published>
-    <updated>2017-02-15T12:53:54.652Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、简单例子"><a href="#1、简单例子" class="headerlink" title="1、简单例子"></a>1、简单例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk  &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos;        # 这个不需要文件输入就可以</div></pre></td></tr></table></figure>
-<p><code>awkscr</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/^$/ &#123;print &quot;This is a blank line&quot;&#125;</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>运行脚本文件<code>awkscr</code>对应于<code>test</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk -f awkscr test</div></pre></td></tr></table></figure></p>
-<p>例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo a b c d | awk &apos;&#123;one=1;two=2&#125;&#123;print $(one + two)&#125;&apos;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>-F “\t” ：表示分隔符为\t<br>FS：表示分隔符</p>
-</blockquote>
-<p>灵活指定分隔符，正则指定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">BEGIN &#123;FS=&quot;,&quot;&#125;&#123;print $1  &quot;,&quot;  $6&#125;   # 使用，为分隔符</div><div class="line">FS=&quot;\t&quot;                # 指定一个 tab 为分隔符</div><div class="line">FS=&quot;\t+&quot;              # 指定一个以上的 tab 为分隔符【正则】</div><div class="line">FS=&quot;[&apos;:\t]&quot;            # 指定&apos;、:、 tab 中任何一个为分隔符</div></pre></td></tr></table></figure></p>
-<h4 id="2、模式匹配"><a href="#2、模式匹配" class="headerlink" title="2、模式匹配"></a>2、模式匹配</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">awk &apos;/^$/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div><div class="line">awk &apos;/[0-9]/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div><div class="line">awk &apos;/[A-Za-z]/ &#123;print &quot;This is a blank line&quot;&#125;&apos;  test</div></pre></td></tr></table></figure>
-<p><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html</a></p>
-<p><a href="http://awk.readthedocs.io/en/latest/chapter-one.html" target="_blank" rel="external">http://awk.readthedocs.io/en/latest/chapter-one.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1、简单例子&quot;&gt;&lt;a href=&quot;#1、简单例子&quot; class=&quot;headerlink&quot; title=&quot;1、简单例子&quot;&gt;&lt;/a&gt;1、简单例子&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;awk  &amp;apos;BEGIN &amp;#123;print &amp;quot;Hello world!&amp;quot;&amp;#125;&amp;apos;        # 这个不需要文件输入就可以&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;code&gt;awkscr&lt;/code&gt;文件：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;/^$/ &amp;#123;print &amp;quot;This is a blank line&amp;quot;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sz-rz-文件传输</title>
-    <link href="http://yoursite.com/2017/01/24/linux_03_rzsz/"/>
-    <id>http://yoursite.com/2017/01/24/linux_03_rzsz/</id>
-    <published>2017-01-24T12:36:00.000Z</published>
-    <updated>2017-02-15T12:53:47.114Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h3><h4 id="1、sz用法（下载）："><a href="#1、sz用法（下载）：" class="headerlink" title="1、sz用法（下载）："></a>1、sz用法（下载）：</h4><p>下载一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename</div></pre></td></tr></table></figure></p>
-<p>下载多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename1 filename2</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>下载dir目录下的所有文件，不包含dir下的文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz dir/*</div></pre></td></tr></table></figure></p>
-<h4 id="2、rz用法（上传）："><a href="#2、rz用法（上传）：" class="headerlink" title="2、rz用法（上传）："></a>2、rz用法（上传）：</h4><p>输入rz回车后，会出现文件选择对话框，选择需要上传文件，一次可以指定多个文件，上传到服务器的路径为当前执行rz命令的目录。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;Xshell&quot;&gt;&lt;a href=&quot;#Xshell&quot; class=&quot;headerlink&quot; title=&quot;Xshell&quot;&gt;&lt;/a&gt;Xshell&lt;/h3&gt;&lt;h4 id=&quot;1、sz用法（下载）：&quot;&gt;&lt;a href=&quot;#1、sz用法（下载）：&quot; class=&quot;headerlink&quot; title=&quot;1、sz用法（下载）：&quot;&gt;&lt;/a&gt;1、sz用法（下载）：&lt;/h4&gt;&lt;p&gt;下载一个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;下载多个文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sz filename1 filename2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
     
   </entry>
   
