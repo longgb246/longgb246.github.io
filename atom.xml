@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-16T15:47:52.627Z</updated>
+  <updated>2017-02-16T15:50:07.256Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>git配置</title>
+    <title>pycharm的git上传</title>
     <link href="http://yoursite.com/2017/02/16/git_pycharm/"/>
     <id>http://yoursite.com/2017/02/16/git_pycharm/</id>
     <published>2017-02-16T15:47:00.000Z</published>
-    <updated>2017-02-16T15:47:52.627Z</updated>
+    <updated>2017-02-16T15:50:07.256Z</updated>
     
     <content type="html"><![CDATA[<h2 id="git上传问题"><a href="#git上传问题" class="headerlink" title="git上传问题"></a>git上传问题</h2><p>当在pycharm中使用git上传时候。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-ffeece3b9cbd9d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>可能会出现以下问题：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-23e7602f72fb864e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
