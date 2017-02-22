@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[编码问题]]></title>
+      <url>%2F2017%2F02%2F22%2Fpython_problem_deencode%2F</url>
+      <content type="text"><![CDATA[Unicode编码问题处理当遇见以下情况。返回字符串为’\\u82f9\\u679c’的unicode时候。123str1 = &apos;\\u82f9\\u679c&apos;print str1 # 结果是 : \\u82f9\\u679cprint u&apos;\\u82f9\\u679c&apos; # 结果是 : 苹果 解决方法：1234str1 = &apos;\\u82f9\\u679c&apos;uni_result = str1.decode(&quot;unicode-escape&quot;)print uni_result# 结果是 : 苹果]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[pycharm的git上传]]></title>
       <url>%2F2017%2F02%2F16%2Fgit_pycharm%2F</url>
       <content type="text"><![CDATA[git上传问题当在pycharm中使用git上传时候。 可能会出现以下问题： fatal: Authentication failed for ‘https://github.com/longgb246/pythonstudy.git/‘ 解决方法一：有的情况，如网上所说，重新执行Git config命令配置用户名和邮箱即可：12git config -–global user.name &quot;xxx&quot; git config –-global user.email &quot;xxx@xxx.com&quot; 解决方法二：更新pycharm中git的指定： 更新到最新的即可使用。]]></content>
