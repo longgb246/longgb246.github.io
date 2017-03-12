@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-24T04:51:55.847Z</updated>
+  <updated>2017-03-12T11:15:47.127Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,290 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jieba结巴分词使用</title>
+    <link href="http://yoursite.com/2017/03/12/python_jieba/"/>
+    <id>http://yoursite.com/2017/03/12/python_jieba/</id>
+    <published>2017-03-12T11:14:00.000Z</published>
+    <updated>2017-03-12T11:15:47.127Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h2><p>通过用户自定义词典来增强歧义纠错能力。<a href="https://github.com/fxsjy/jieba/issues/14" target="_blank" rel="external">https://github.com/fxsjy/jieba/issues/14</a></p>
+<h2 id="1、分词"><a href="#1、分词" class="headerlink" title="1、分词"></a>1、分词</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li><code>jieba.cut</code> 方法接受三个输入参数: 需要分词的字符串；cut_all 参数用来控制是否采用全模式；HMM 参数用来控制是否使用 HMM 模型</li>
+<li><code>jieba.cut_for_search</code> 方法接受两个参数：需要分词的字符串；是否使用 HMM 模型。该方法适合用于搜索引擎构建倒排索引的分词，粒度比较细</li>
+<li><code>jieba.Tokenizer(dictionary=DEFAULT_DICT)</code> 新建自定义分词器，可用于同时使用不同词典。</li>
+<li><code>jieba.dt</code> 为默认分词器，所有全局分词相关函数都是该分词器的映射。</li>
+</ul>
+<a id="more"></a>
+<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><blockquote>
+<ol>
+<li>待分词的字符串可以是 unicode 或 UTF-8 字符串、GBK 字符串。注意：不建议直接输入 GBK 字符串，可能无法预料地错误解码成 UTF-8<br>2.<code>jieba.cut</code> 以及 <code>jieba.cut_for_search</code> 返回的结构都是一个可迭代的 generator，可以使用 for 循环来获得分词后得到的每一个词语(unicode)，或者用<code>jieba.lcut</code> 以及 <code>jieba.lcut_for_search</code> 直接返回 list</li>
+</ol>
+</blockquote>
+<h2 id="2、添加自定义词典"><a href="#2、添加自定义词典" class="headerlink" title="2、添加自定义词典"></a>2、添加自定义词典</h2><ul>
+<li>用法： jieba.load_userdict(file_name) # file_name 为文件类对象或自定义词典的路径</li>
+<li>词典格式和 <code>dict.txt</code> 一样，一个词占一行；每一行分三部分：词语、词频（可省略）、词性（可省略），用空格隔开，顺序不可颠倒。<code>file_name</code> 若为路径或二进制方式打开的文件，则文件必须为 UTF-8 编码。</li>
+<li>词频省略时使用自动计算的能保证分出该词的词频。<br><strong>例如：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">创新办 3 i</div><div class="line">云计算 5</div><div class="line">凱特琳 nz</div><div class="line">台中</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="调整词典"><a href="#调整词典" class="headerlink" title="调整词典"></a>调整词典</h3><ul>
+<li>使用 <code>add_word(word, freq=None, tag=None)</code> 和 <code>del_word(word)</code> 可在程序中动态修改词典。</li>
+<li>使用 <code>suggest_freq(segment, tune=True)</code> 可调节单个词语的词频，使其能（或不能）被分出来。</li>
+<li>注意：自动计算的词频在使用 HMM 新词发现功能时可能无效。<br>代码示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&apos;/&apos;.join(jieba.cut(&apos;如果放到post中将出错。&apos;, HMM=False)))</div><div class="line">如果/放到/post/中将/出错/。</div><div class="line">&gt;&gt;&gt; jieba.suggest_freq((&apos;中&apos;, &apos;将&apos;), True)</div><div class="line">494</div><div class="line">&gt;&gt;&gt; print(&apos;/&apos;.join(jieba.cut(&apos;如果放到post中将出错。&apos;, HMM=False)))</div><div class="line">如果/放到/post/中/将/出错/。</div><div class="line">&gt;&gt;&gt; print(&apos;/&apos;.join(jieba.cut(&apos;「台中」正确应该不会被切开&apos;, HMM=False)))</div><div class="line">「/台/中/」/正确/应该/不会/被/切开</div><div class="line">&gt;&gt;&gt; jieba.suggest_freq(&apos;台中&apos;, True)</div><div class="line">69</div><div class="line">&gt;&gt;&gt; print(&apos;/&apos;.join(jieba.cut(&apos;「台中」正确应该不会被切开&apos;, HMM=False)))</div><div class="line">「/台中/」/正确/应该/不会/被/切开</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3、关键词提取"><a href="#3、关键词提取" class="headerlink" title="3、关键词提取"></a>3、关键词提取</h2><h3 id="基于-TF-IDF-算法的关键词抽取"><a href="#基于-TF-IDF-算法的关键词抽取" class="headerlink" title="基于 TF-IDF 算法的关键词抽取"></a>基于 TF-IDF 算法的关键词抽取</h3><p><code>import jieba.analyse</code></p>
+<ul>
+<li>jieba.analyse.extract_tags(sentence, topK=20, withWeight=False, allowPOS=())<ul>
+<li>sentence 为待提取的文本</li>
+<li>topK 为返回几个 TF/IDF 权重最大的关键词，默认值为 20</li>
+<li>withWeight 为是否一并返回关键词权重值，默认值为 False</li>
+<li>allowPOS 仅包括指定词性的词，默认值为空，即不筛选</li>
+</ul>
+</li>
+<li>jieba.analyse.TFIDF(idf_path=None) 新建 TFIDF 实例，idf_path 为 IDF 频率文件<br>代码示例 （关键词提取）<br><a href="https://github.com/fxsjy/jieba/blob/master/test/extract_tags.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/extract_tags.py</a></li>
+</ul>
+<h3 id="语料库切换"><a href="#语料库切换" class="headerlink" title="语料库切换"></a>语料库切换</h3><h4 id="逆向文件频率（IDF）文本语料库"><a href="#逆向文件频率（IDF）文本语料库" class="headerlink" title="逆向文件频率（IDF）文本语料库"></a>逆向文件频率（IDF）文本语料库</h4><p>关键词提取所使用逆向文件频率（IDF）文本语料库可以切换成自定义语料库的路径</p>
+<ul>
+<li>用法： jieba.analyse.set_idf_path(file_name) # file_name为自定义语料库的路径</li>
+<li>自定义语料库示例：<a href="https://github.com/fxsjy/jieba/blob/master/extra_dict/idf.txt.big" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/extra_dict/idf.txt.big</a></li>
+<li>用法示例：<a href="https://github.com/fxsjy/jieba/blob/master/test/extract_tags_idfpath.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/extract_tags_idfpath.py</a><h4 id="停止词（Stop-Words）文本语料库"><a href="#停止词（Stop-Words）文本语料库" class="headerlink" title="停止词（Stop Words）文本语料库"></a>停止词（Stop Words）文本语料库</h4>关键词提取所使用停止词（Stop Words）文本语料库可以切换成自定义语料库的路径</li>
+<li>用法： jieba.analyse.set_stop_words(file_name) # file_name为自定义语料库的路径</li>
+<li>自定义语料库示例：<a href="https://github.com/fxsjy/jieba/blob/master/extra_dict/stop_words.txt" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/extra_dict/stop_words.txt</a></li>
+<li>用法示例：<a href="https://github.com/fxsjy/jieba/blob/master/test/extract_tags_stop_words.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/extract_tags_stop_words.py</a><h4 id="关键词一并返回关键词权重值示例"><a href="#关键词一并返回关键词权重值示例" class="headerlink" title="关键词一并返回关键词权重值示例"></a>关键词一并返回关键词权重值示例</h4></li>
+<li>用法示例：<a href="https://github.com/fxsjy/jieba/blob/master/test/extract_tags_with_weight.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/extract_tags_with_weight.py</a></li>
+</ul>
+<h3 id="基于-TextRank-算法的关键词抽取"><a href="#基于-TextRank-算法的关键词抽取" class="headerlink" title="基于 TextRank 算法的关键词抽取"></a>基于 TextRank 算法的关键词抽取</h3><ul>
+<li>jieba.analyse.textrank(sentence, topK=20, withWeight=False, allowPOS=(‘ns’, ‘n’, ‘vn’, ‘v’)) 直接使用，接口相同，注意默认过滤词性。</li>
+<li>jieba.analyse.TextRank() 新建自定义 TextRank 实例<br>算法论文： <a href="http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf" target="_blank" rel="external">TextRank: Bringing Order into Texts</a><h4 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想:"></a>基本思想:</h4></li>
+</ul>
+<ol>
+<li>将待抽取关键词的文本进行分词</li>
+<li>以固定窗口大小(默认为5，通过span属性调整)，词之间的共现关系，构建图</li>
+<li>计算图中节点的PageRank，注意是无向带权图<h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例:"></a>使用示例:</h4>见 <a href="https://github.com/fxsjy/jieba/blob/master/test/demo.py" target="_blank" rel="external">test/demo.py</a></li>
+</ol>
+<h2 id="4、词性标注"><a href="#4、词性标注" class="headerlink" title="4、词性标注"></a>4、词性标注</h2><ul>
+<li><code>jieba.posseg.POSTokenizer(tokenizer=None)</code> 新建自定义分词器，<code>tokenizer</code> 参数可指定内部使用的 <code>jieba.Tokenizer</code> 分词器。<code>jieba.posseg.dt</code> 为默认词性标注分词器。</li>
+<li>标注句子分词后每个词的词性，采用和 ictclas 兼容的标记法。</li>
+<li>用法示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import jieba.posseg as pseg</div><div class="line">&gt;&gt;&gt; words = pseg.cut(&quot;我爱北京天安门&quot;)</div><div class="line">&gt;&gt;&gt; for word, flag in words:</div><div class="line">...    print(&apos;%s %s&apos; % (word, flag))</div><div class="line">...</div><div class="line">我 r</div><div class="line">爱 v</div><div class="line">北京 ns</div><div class="line">天安门 ns</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="5、并行分词"><a href="#5、并行分词" class="headerlink" title="5、并行分词"></a>5、并行分词</h2><ul>
+<li>原理：将目标文本按行分隔后，把各行文本分配到多个 Python 进程并行分词，然后归并结果，从而获得分词速度的可观提升</li>
+<li>基于 python 自带的 multiprocessing 模块，目前暂不支持 Windows</li>
+<li>用法：<ul>
+<li><code>jieba.enable_parallel(4)</code> # 开启并行分词模式，参数为并行进程数</li>
+<li><code>jieba.disable_parallel()</code> # 关闭并行分词模式</li>
+</ul>
+</li>
+<li>例子：<a href="https://github.com/fxsjy/jieba/blob/master/test/parallel/test_file.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/parallel/test_file.py</a></li>
+<li>实验结果：在 4 核 3.4GHz Linux 机器上，对金庸全集进行精确分词，获得了 1MB/s 的速度，是单进程版的 3.3 倍。</li>
+<li><strong>注意</strong>：并行分词仅支持默认分词器 <code>jieba.dt</code> 和 <code>jieba.posseg.dt</code>。</li>
+</ul>
+<h2 id="6、Tokenize：返回词语在原文的起止位置"><a href="#6、Tokenize：返回词语在原文的起止位置" class="headerlink" title="6、Tokenize：返回词语在原文的起止位置"></a>6、Tokenize：返回词语在原文的起止位置</h2><ul>
+<li>注意，输入参数只接受 unicode</li>
+<li>默认模式<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">result = jieba.tokenize(<span class="string">u'永和服装饰品有限公司'</span>)</div><div class="line"><span class="keyword">for</span> tk <span class="keyword">in</span> result:</div><div class="line">    print(<span class="string">"word %s\t\t start: %d \t\t end:%d"</span> % (tk[<span class="number">0</span>],tk[<span class="number">1</span>],tk[<span class="number">2</span>]))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">word 永和                start: 0                end:2</div><div class="line">word 服装                start: 2                end:4</div><div class="line">word 饰品                start: 4                end:6</div><div class="line">word 有限公司            start: 6                end:10</div></pre></td></tr></table></figure>
+<ul>
+<li>搜索模式<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">result = jieba.tokenize(<span class="string">u'永和服装饰品有限公司'</span>, mode=<span class="string">'search'</span>)</div><div class="line"><span class="keyword">for</span> tk <span class="keyword">in</span> result:</div><div class="line">    print(<span class="string">"word %s\t\t start: %d \t\t end:%d"</span> % (tk[<span class="number">0</span>],tk[<span class="number">1</span>],tk[<span class="number">2</span>]))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">word 永和                start: 0                end:2</div><div class="line">word 服装                start: 2                end:4</div><div class="line">word 饰品                start: 4                end:6</div><div class="line">word 有限                start: 6                end:8</div><div class="line">word 公司                start: 8                end:10</div><div class="line">word 有限公司            start: 6                end:10</div></pre></td></tr></table></figure>
+<h2 id="7、ChineseAnalyzer-for-Whoosh-搜索引擎"><a href="#7、ChineseAnalyzer-for-Whoosh-搜索引擎" class="headerlink" title="7、ChineseAnalyzer for Whoosh 搜索引擎"></a>7、ChineseAnalyzer for Whoosh 搜索引擎</h2><ul>
+<li>引用： <code>from jieba.analyse import ChineseAnalyzer</code></li>
+<li>用法示例：<a href="https://github.com/fxsjy/jieba/blob/master/test/test_whoosh.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/test_whoosh.py</a></li>
+</ul>
+<h2 id="8、命令行分词"><a href="#8、命令行分词" class="headerlink" title="8、命令行分词"></a>8、命令行分词</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">使用示例：`python -m jieba news.txt &gt; cut_result.txt`</div><div class="line"></div><div class="line">命令行选项（翻译）：</div><div class="line"></div><div class="line">    使用: python -m jieba [options] filename</div><div class="line"></div><div class="line">    结巴命令行界面。</div><div class="line"></div><div class="line">    固定参数:</div><div class="line">      filename              输入文件</div><div class="line"></div><div class="line">    可选参数:</div><div class="line">      -h, --help            显示此帮助信息并退出</div><div class="line">      -d [DELIM], --delimiter [DELIM]</div><div class="line">                            使用 DELIM 分隔词语，而不是用默认的&apos; / &apos;。</div><div class="line">                            若不指定 DELIM，则使用一个空格分隔。</div><div class="line">      -p [DELIM], --pos [DELIM]</div><div class="line">                            启用词性标注；如果指定 DELIM，词语和词性之间</div><div class="line">                            用它分隔，否则用 _ 分隔</div><div class="line">      -D DICT, --dict DICT  使用 DICT 代替默认词典</div><div class="line">      -u USER_DICT, --user-dict USER_DICT</div><div class="line">                            使用 USER_DICT 作为附加词典，与默认词典或自定义词典配合使用</div><div class="line">      -a, --cut-all         全模式分词（不支持词性标注）</div><div class="line">      -n, --no-hmm          不使用隐含马尔可夫模型</div><div class="line">      -q, --quiet           不输出载入信息到 STDERR</div><div class="line">      -V, --version         显示版本信息并退出</div><div class="line"></div><div class="line">    如果没有指定文件名，则使用标准输入。</div><div class="line"></div><div class="line">`--help` 选项输出：</div><div class="line"></div><div class="line">    $&gt; python -m jieba --help</div><div class="line">    Jieba command line interface.</div><div class="line"></div><div class="line">    positional arguments:</div><div class="line">      filename              input file</div><div class="line"></div><div class="line">    optional arguments:</div><div class="line">      -h, --help            show this help message and exit</div><div class="line">      -d [DELIM], --delimiter [DELIM]</div><div class="line">                            use DELIM instead of &apos; / &apos; for word delimiter; or a</div><div class="line">                            space if it is used without DELIM</div><div class="line">      -p [DELIM], --pos [DELIM]</div><div class="line">                            enable POS tagging; if DELIM is specified, use DELIM</div><div class="line">                            instead of &apos;_&apos; for POS delimiter</div><div class="line">      -D DICT, --dict DICT  use DICT as dictionary</div><div class="line">      -u USER_DICT, --user-dict USER_DICT</div><div class="line">                            use USER_DICT together with the default dictionary or</div><div class="line">                            DICT (if specified)</div><div class="line">      -a, --cut-all         full pattern cutting (ignored with POS tagging)</div><div class="line">      -n, --no-hmm          don&apos;t use the Hidden Markov Model</div><div class="line">      -q, --quiet           don&apos;t print loading messages to stderr</div><div class="line">      -V, --version         show program&apos;s version number and exit</div><div class="line"></div><div class="line">    If no filename specified, use STDIN instead.</div></pre></td></tr></table></figure>
+<h2 id="延迟加载机制"><a href="#延迟加载机制" class="headerlink" title="延迟加载机制"></a>延迟加载机制</h2><p>jieba 采用延迟加载，<code>import jieba</code> 和 <code>jieba.Tokenizer()</code> 不会立即触发词典的加载，一旦有必要才开始加载词典构建前缀字典。如果你想手工初始 jieba，也可以手动初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import jieba</div><div class="line">jieba.initialize()  # 手动初始化（可选）</div></pre></td></tr></table></figure></p>
+<p>在 0.28 之前的版本是不能指定主词典的路径的，有了延迟加载机制后，你可以改变主词典的路径:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jieba.set_dictionary(&apos;data/dict.txt.big&apos;)</div></pre></td></tr></table></figure></p>
+<p>例子： <a href="https://github.com/fxsjy/jieba/blob/master/test/test_change_dictpath.py" target="_blank" rel="external">https://github.com/fxsjy/jieba/blob/master/test/test_change_dictpath.py</a></p>
+<h2 id="其他词典"><a href="#其他词典" class="headerlink" title="其他词典"></a>其他词典</h2><ol>
+<li>占用内存较小的词典文件<br><a href="https://github.com/fxsjy/jieba/raw/master/extra_dict/dict.txt.small" target="_blank" rel="external">https://github.com/fxsjy/jieba/raw/master/extra_dict/dict.txt.small</a></li>
+<li>支持繁体分词更好的词典文件<br><a href="https://github.com/fxsjy/jieba/raw/master/extra_dict/dict.txt.big" target="_blank" rel="external">https://github.com/fxsjy/jieba/raw/master/extra_dict/dict.txt.big</a><br>下载你所需要的词典，然后覆盖 jieba/dict.txt 即可；或者用 <code>jieba.set_dictionary(&#39;data/dict.txt.big&#39;)</code></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概念解释&quot;&gt;&lt;a href=&quot;#概念解释&quot; class=&quot;headerlink&quot; title=&quot;概念解释&quot;&gt;&lt;/a&gt;概念解释&lt;/h2&gt;&lt;p&gt;通过用户自定义词典来增强歧义纠错能力。&lt;a href=&quot;https://github.com/fxsjy/jieba/issues/14&quot;&gt;https://github.com/fxsjy/jieba/issues/14&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1、分词&quot;&gt;&lt;a href=&quot;#1、分词&quot; class=&quot;headerlink&quot; title=&quot;1、分词&quot;&gt;&lt;/a&gt;1、分词&lt;/h2&gt;&lt;h3 id=&quot;函数&quot;&gt;&lt;a href=&quot;#函数&quot; class=&quot;headerlink&quot; title=&quot;函数&quot;&gt;&lt;/a&gt;函数&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;jieba.cut&lt;/code&gt; 方法接受三个输入参数: 需要分词的字符串；cut_all 参数用来控制是否采用全模式；HMM 参数用来控制是否使用 HMM 模型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;jieba.cut_for_search&lt;/code&gt; 方法接受两个参数：需要分词的字符串；是否使用 HMM 模型。该方法适合用于搜索引擎构建倒排索引的分词，粒度比较细&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;jieba.Tokenizer(dictionary=DEFAULT_DICT)&lt;/code&gt; 新建自定义分词器，可用于同时使用不同词典。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;jieba.dt&lt;/code&gt; 为默认分词器，所有全局分词相关函数都是该分词器的映射。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="文本挖掘" scheme="http://yoursite.com/tags/%E6%96%87%E6%9C%AC%E6%8C%96%E6%8E%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>logging 模块</title>
+    <link href="http://yoursite.com/2017/03/12/python_logging/"/>
+    <id>http://yoursite.com/2017/03/12/python_logging/</id>
+    <published>2017-03-12T11:11:59.000Z</published>
+    <updated>2017-03-12T11:12:01.012Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="logging模块日志级别"><a href="#logging模块日志级别" class="headerlink" title="logging模块日志级别"></a>logging模块日志级别</h2><p>1 )、 Level:  CRITICAL Numeric value: 50<br>2 )、 Level:  ERROR     Numeric value: 40<br>3 )、 Level:  WARNING Numeric value: 30<br>4 )、 Level:  INFO          Numeric value: 20<br>5 )、 Level:  DEBUG      Numeric value: 10<br>6 )、 Level:  NOTSET    Numeric value: 0</p>
+<p><a href="http://www.cnblogs.com/dkblog/archive/2011/08/26/2155018.html" target="_blank" rel="external">http://www.cnblogs.com/dkblog/archive/2011/08/26/2155018.html</a></p>
+<p><a href="http://blog.csdn.net/zyz511919766/article/details/25136485" target="_blank" rel="external">http://blog.csdn.net/zyz511919766/article/details/25136485</a></p>
+<a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;logging模块日志级别&quot;&gt;&lt;a href=&quot;#logging模块日志级别&quot; class=&quot;headerlink&quot; title=&quot;logging模块日志级别&quot;&gt;&lt;/a&gt;logging模块日志级别&lt;/h2&gt;&lt;p&gt;1 )、 Level:  CRITICAL Numeric value: 50&lt;br&gt;2 )、 Level:  ERROR     Numeric value: 40&lt;br&gt;3 )、 Level:  WARNING Numeric value: 30&lt;br&gt;4 )、 Level:  INFO          Numeric value: 20&lt;br&gt;5 )、 Level:  DEBUG      Numeric value: 10&lt;br&gt;6 )、 Level:  NOTSET    Numeric value: 0&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/dkblog/archive/2011/08/26/2155018.html&quot;&gt;http://www.cnblogs.com/dkblog/archive/2011/08/26/2155018.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/zyz511919766/article/details/25136485&quot;&gt;http://blog.csdn.net/zyz511919766/article/details/25136485&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyInstaller模块</title>
+    <link href="http://yoursite.com/2017/03/12/python_pyInstaller/"/>
+    <id>http://yoursite.com/2017/03/12/python_pyInstaller/</id>
+    <published>2017-03-12T11:10:50.000Z</published>
+    <updated>2017-03-12T11:11:04.189Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="使用PyInstaller"><a href="#使用PyInstaller" class="headerlink" title="使用PyInstaller"></a>使用PyInstaller</h2><h3 id="1、直接打包："><a href="#1、直接打包：" class="headerlink" title="1、直接打包："></a>1、直接打包：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyInstaller  yourapp.py</div></pre></td></tr></table></figure>
+<p>可以得到<code>dsit</code>和<code>build</code>文件，dist文件夹下的exe文件即为打包好的可执行文件，但是依赖许多dll。<br><code>pyInstaller</code>可以添加的指令：</p>
+<blockquote>
+<p>-w指令：直接发布的exe应用带命令行调试窗口，在指令内加入-w命令可以屏蔽<br>-F指令：注意指令区分大小写。这里是大写。使用-F指令可以把应用打包成一个独立的exe文件，否则是一个带各种dll和依赖文件的文件夹</p>
+</blockquote>
+<h3 id="2、配置打包："><a href="#2、配置打包：" class="headerlink" title="2、配置打包："></a>2、配置打包：</h3><p>可以打包相应的图片或者音乐资源等。</p>
+<a id="more"></a>
+<h4 id="2-1-生成配置文件："><a href="#2-1-生成配置文件：" class="headerlink" title="2.1 生成配置文件："></a>2.1 生成配置文件：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyi-makespec  yourapp.py</div></pre></td></tr></table></figure>
+<p>生成配置文件<code>yourapp.spec</code>，大致如下：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-994ac98d574a7336.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>这里datas即为所需要添加的文件，原本是空的<code>list</code>。第一个参数为文件的路径，第二个参数为打包好后将其放入打包文件的相对路径，根据你的程序自己修改。我程序的ico索引是在当前目录下查找，所以相对路径为<code>&#39;.&#39;</code>。</p>
+<h4 id="2-2-执行配置文件"><a href="#2-2-执行配置文件" class="headerlink" title="2.2 执行配置文件"></a>2.2 执行配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyInstaller  yourapp.spec</div></pre></td></tr></table></figure>
+<p>即可。</p>
+<p>相关的配置文件，参考官网：<a href="https://pythonhosted.org/PyInstaller/spec-files.html。" target="_blank" rel="external">https://pythonhosted.org/PyInstaller/spec-files.html。</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;使用PyInstaller&quot;&gt;&lt;a href=&quot;#使用PyInstaller&quot; class=&quot;headerlink&quot; title=&quot;使用PyInstaller&quot;&gt;&lt;/a&gt;使用PyInstaller&lt;/h2&gt;&lt;h3 id=&quot;1、直接打包：&quot;&gt;&lt;a href=&quot;#1、直接打包：&quot; class=&quot;headerlink&quot; title=&quot;1、直接打包：&quot;&gt;&lt;/a&gt;1、直接打包：&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;pyInstaller  yourapp.py&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以得到&lt;code&gt;dsit&lt;/code&gt;和&lt;code&gt;build&lt;/code&gt;文件，dist文件夹下的exe文件即为打包好的可执行文件，但是依赖许多dll。&lt;br&gt;&lt;code&gt;pyInstaller&lt;/code&gt;可以添加的指令：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;-w指令：直接发布的exe应用带命令行调试窗口，在指令内加入-w命令可以屏蔽&lt;br&gt;-F指令：注意指令区分大小写。这里是大写。使用-F指令可以把应用打包成一个独立的exe文件，否则是一个带各种dll和依赖文件的文件夹&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;2、配置打包：&quot;&gt;&lt;a href=&quot;#2、配置打包：&quot; class=&quot;headerlink&quot; title=&quot;2、配置打包：&quot;&gt;&lt;/a&gt;2、配置打包：&lt;/h3&gt;&lt;p&gt;可以打包相应的图片或者音乐资源等。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Latex</title>
+    <link href="http://yoursite.com/2017/03/12/Latex/"/>
+    <id>http://yoursite.com/2017/03/12/Latex/</id>
+    <published>2017-03-12T10:56:01.000Z</published>
+    <updated>2017-03-12T10:56:29.986Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="基本符号"><a href="#基本符号" class="headerlink" title="基本符号"></a>基本符号</h2><h3 id="1、公式开始"><a href="#1、公式开始" class="headerlink" title="1、公式开始"></a>1、公式开始</h3><p>嵌套在文本中，使用<code>$</code>，单独一行使用<code>$$</code>。<br>或者，使用如下作为公式的输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\begin&#123;equation&#125;</div><div class="line">公式</div><div class="line">\end&#123;equation&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="2、希腊符号："><a href="#2、希腊符号：" class="headerlink" title="2、希腊符号："></a>2、希腊符号：</h3><p><code>$ \alpha $</code> : $ \alpha $<br><code>$ \beta $</code> : $ \beta $<br><code>$ \gamma $</code> : $\gamma $<br><code>$ \delta $</code> : $\delta $<br><a id="more"></a><br><code>$ \eta $</code> : $\eta $<br><code>$ \zeta $</code> : $\zeta $<br><code>$ \varepsilon $</code> : $\varepsilon $<br><code>$ \epsilon $</code> : $\epsilon $<br><code>$ \theta $</code> : $\theta $<br><code>$ \vartheta $</code> : $\vartheta $<br><code>$ \iota$</code> : $\iota$<br><code>$ \kappa $</code> : $\kappa $<br><code>$ \xi $</code> : $\xi $<br><code>$ \nu $</code> : $\nu$<br><code>$ \mu $</code> : $\mu $<br><code>$ \lambda $</code> : $\lambda $<br><code>$ \pi $</code> : $\pi $<br><code>$ \varpi $</code> : $\varpi $<br><code>$ \rho $</code> : $\rho $<br><code>$ \varrho $</code> : $\varrho $<br><code>$ \upsilon $</code> : $\upsilon $<br><code>$ \tau $</code> : $\tau $<br><code>$ \varsigma $</code> : $\varsigma $<br><code>$ \sigma $</code> : $\sigma $<br><code>$ \phi $</code> : $\phi $<br><code>$ \varphi $</code> : $\varphi $<br><code>$ \chi $</code> : $\chi $<br><code>$ \psi $</code> : $\psi $<br><code>$ \omega $</code> : $\omega $</p>
+<h3 id="3、基本运算"><a href="#3、基本运算" class="headerlink" title="3、基本运算"></a>3、基本运算</h3><h5 id="3-0-运算格式"><a href="#3-0-运算格式" class="headerlink" title="3.0 运算格式"></a>3.0 运算格式</h5><p><code>$ \frac{分子}{分母} $</code> : $\frac{分子}{分母}$<br><code>$ \sum_{a}^{b} $</code> : $ \sum_{a}^{b} $<br><code>$ \prod_{a}^{b} $</code> : $ \prod_{a}^{b} $<br><code>$ \bigcap_{a}^{b} $</code> : $ \bigcap_{a}^{b} $<br><code>$ \int_{a}^{b} $</code> : $ \int_{a}^{b} $<br><code>$ _{a}^{b}\textrm{} $</code> : $ _{a}^{b}\textrm{} $<br><code>$ \iint_{a}^{b} $</code> : $ \iint_{a}^{b} $<br><code>$ \lim_{a} $</code> : $ \lim_{a} $<br><code>$ \sqrt[a]{b} $</code> : $ \sqrt[a]{b} $<br><code>$ \coprod_{a}^{b} $</code> : $ \coprod_{a}^{b} $<br><code>$ \frac{\mathrm{d} }{\mathrm{d} x} $</code> : $ \frac{\mathrm{d} }{\mathrm{d} x} $</p>
+<h5 id="3-1-比较运算"><a href="#3-1-比较运算" class="headerlink" title="3.1 比较运算"></a>3.1 比较运算</h5><p><code>$ \leq $</code> : $ \leq $<br><code>$ \geq $</code> : $ \geq $<br><code>$ \leqslant $</code> : $ \leqslant $<br><code>$ \geqslant $</code> : $ \geqslant $<br><code>$ \nless $</code> : $ \nless $<br><code>$ \ngtr $</code> : $ \ngtr $<br><code>$ \nleqslant $</code> : $ \nleqslant $<br><code>$ \ngeqslant $</code> : $ \ngeqslant $<br><code>$ \neq $</code> : $ \neq $<br><code>$ \equiv $</code> : $ \equiv $<br><code>$ \not\equiv $</code> : $ \not\equiv $<br><code>$ \ll $</code> : $ \ll $<br><code>$ \gg $</code> : $ \gg $<br><code>$ \approx $</code> : $ \approx $<br><code>$ \simeq $</code> : $ \simeq $<br><code>$ \cong $</code> : $ \cong $</p>
+<h5 id="3-2-集合运算"><a href="#3-2-集合运算" class="headerlink" title="3.2 集合运算"></a>3.2 集合运算</h5><p><code>$ \propto $</code> : $ \propto $<br><code>$ \cap $</code> : $ \cap $<br><code>$ \cup $</code> : $ \cup $<br><code>$ \subset $</code> : $ \subset $<br><code>$ \supset $</code> : $ \supset $<br><code>$ \supseteq $</code> : $ \supseteq $<br><code>$ \subseteq $</code> : $ \subseteq $<br><code>$ \nsubseteq $</code> : $ \nsubseteq $<br><code>$ \nsupseteq $</code> : $ \nsupseteq $<br><code>$ \supseteqq $</code> : $ \supseteqq $<br><code>$ \subseteqq $</code> : $ \subseteqq $<br><code>$ \nsubseteq $</code> : $ \nsubseteq $<br><code>$ \nsupseteqq $</code> : $ \nsupseteqq $<br><code>$ \ni $</code> : $ \ni $<br><code>$ \in $</code> : $ \in $<br><code>$ \notin $</code> : $ \notin $</p>
+<h5 id="3-3-普通运算"><a href="#3-3-普通运算" class="headerlink" title="3.3 普通运算"></a>3.3 普通运算</h5><p><code>$ \times $</code> : $ \times $<br><code>$ \pm $</code> : $ \pm $<br><code>$ \mp $</code> : $ \mp $</p>
+<h5 id="3-4-集合符号"><a href="#3-4-集合符号" class="headerlink" title="3.4 集合符号"></a>3.4 集合符号</h5><p><code>$ \mathbb{P}$</code> : $ \mathbb{P}$<br><code>$ \mathbb{N}$</code> : $ \mathbb{N}$<br><code>$ \mathbb{Z}$</code> : $ \mathbb{Z}$<br><code>$ \mathbb{I}$</code> : $ \mathbb{I}$<br><code>$ \mathbb{Q}$</code> : $ \mathbb{Q}$<br><code>$ \mathbb{R}$</code> : $ \mathbb{R}$<br><code>$ \mathbb{C}$</code> : $ \mathbb{C}$</p>
+<h5 id="3-5-其他运算"><a href="#3-5-其他运算" class="headerlink" title="3.5 其他运算"></a>3.5 其他运算</h5><p><code>$ \therefore $</code> : $ \therefore $<br><code>$ \because $</code> : $ \because $<br><code>$ \partial $</code> : $ \partial $<br><code>$ \varnothing $</code> : $ \varnothing $<br><code>$ \forall $</code> : $ \forall $<br><code>$ \infty $</code> : $ \infty $<br><code>$ \mho $</code> : $ \mho $</p>
+<h5 id="3-6-变量"><a href="#3-6-变量" class="headerlink" title="3.6 变量"></a>3.6 变量</h5><p><code>$ \dot{a} $</code> : $ \dot{a} $<br><code>$ \hat{a} $</code> : $ \hat{a} $<br><code>$ \bar{a} $</code> : $ \bar{a} $<br><code>$ \vec{a} $</code> : $ \vec{a} $<br><code>$ \tilde{a} $</code> : $ \tilde{a} $ </p>
+<h5 id="3-7-箭头"><a href="#3-7-箭头" class="headerlink" title="3.7 箭头"></a>3.7 箭头</h5><p><code>$ \leftrightharpoons $</code> : $ \leftrightharpoons $<br><code>$ \Rightarrow $</code> : $ \Rightarrow $<br><code>$ \Leftarrow $</code> : $ \Leftarrow $<br><code>$ \leftrightarrow $</code> : $ \leftrightarrow $<br><code>$ n \to $</code> : $ n \to $<br><code>$ \xleftarrow[a]{b} $</code> : $ \xleftarrow[a]{b} $<br><code>$ \xrightarrow[a]{b} $</code> : $ \xrightarrow[a]{b} $<br><code>$ \overset{a}{\leftarrow} $</code> : $ \overset{a}{\leftarrow} $<br><code>$ \overset{a}{\rightarrow} $</code> : $ \overset{a}{\rightarrow} $</p>
+<p>比较全的：<br><a href="http://matplotlib.org/1.5.1/users/mathtext.html#mathtext-tutorial" target="_blank" rel="external">http://matplotlib.org/1.5.1/users/mathtext.html#mathtext-tutorial</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;基本符号&quot;&gt;&lt;a href=&quot;#基本符号&quot; class=&quot;headerlink&quot; title=&quot;基本符号&quot;&gt;&lt;/a&gt;基本符号&lt;/h2&gt;&lt;h3 id=&quot;1、公式开始&quot;&gt;&lt;a href=&quot;#1、公式开始&quot; class=&quot;headerlink&quot; title=&quot;1、公式开始&quot;&gt;&lt;/a&gt;1、公式开始&lt;/h3&gt;&lt;p&gt;嵌套在文本中，使用&lt;code&gt;$&lt;/code&gt;，单独一行使用&lt;code&gt;$$&lt;/code&gt;。&lt;br&gt;或者，使用如下作为公式的输入：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;\begin&amp;#123;equation&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;公式&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;\end&amp;#123;equation&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;2、希腊符号：&quot;&gt;&lt;a href=&quot;#2、希腊符号：&quot; class=&quot;headerlink&quot; title=&quot;2、希腊符号：&quot;&gt;&lt;/a&gt;2、希腊符号：&lt;/h3&gt;&lt;p&gt;&lt;code&gt;$ \alpha $&lt;/code&gt; : $ \alpha $&lt;br&gt;&lt;code&gt;$ \beta $&lt;/code&gt; : $ \beta $&lt;br&gt;&lt;code&gt;$ \gamma $&lt;/code&gt; : $\gamma $&lt;br&gt;&lt;code&gt;$ \delta $&lt;/code&gt; : $\delta $&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Latex" scheme="http://yoursite.com/categories/Latex/"/>
+    
+    
+      <category term="Latex" scheme="http://yoursite.com/tags/Latex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows Win+R</title>
+    <link href="http://yoursite.com/2017/03/12/windows_win_R/"/>
+    <id>http://yoursite.com/2017/03/12/windows_win_R/</id>
+    <published>2017-03-12T10:54:09.000Z</published>
+    <updated>2017-03-12T10:56:10.385Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>msconfig 系统配置实用程序<br>mspaint 画图板<br>dxdiag 检查directx信息<br>devmgmt.msc 设备管理器<br>notepad 打开记事本<br>netstat -an （tc）命令检查接口<br>sysedit 系统配置编辑器<br>secpol.msc 本地安全策略<br>syskey 系统加密，一旦加密就不能解开，保护Windows xp系统的双重密码<br>services.msc 本地服务设置<br>sndvol32 音量控制程序<br>taskmgr 任务管理器<br>eventvwr 事件查看器<br>eudcedit 造字程序<br>explorer 打开资源管理器<br>perfmon.msc 计算机性能监测程序<br>regedit.exe 注册表<br>regedt32 注册表编辑器<br>rononce -p 15秒关机<br>calc 启动计算器<br>clipbrd 剪贴板查看器<br>cleanmgr 垃圾整理<br>osk 打开屏幕键盘<br>logoff 注销命令</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;msconfig 系统配置实用程序&lt;br&gt;mspaint 画图板&lt;br&gt;dxdiag 检查directx信息&lt;br&gt;devmgmt.msc 设备管理器&lt;br&gt;notepad 打开记事本&lt;br&gt;netstat -an （tc）命令检查接口&lt;br&gt;sy
+    
+    </summary>
+    
+      <category term="Windows" scheme="http://yoursite.com/categories/Windows/"/>
+    
+    
+      <category term="Windows" scheme="http://yoursite.com/tags/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux-tar</title>
+    <link href="http://yoursite.com/2017/03/12/linux_tar/"/>
+    <id>http://yoursite.com/2017/03/12/linux_tar/</id>
+    <published>2017-03-12T10:50:31.000Z</published>
+    <updated>2017-03-12T10:50:57.125Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 将整个 /etc 目录下的文件全部打包成为 /tmp/etc.tar.gz</div><div class="line">tar -zcvf /tmp/etc.tar.gz /etc</div></pre></td></tr></table></figure>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxvf /tmp/etc.tar.gz</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="主选项："><a href="#主选项：" class="headerlink" title="主选项："></a>主选项：</h3><blockquote>
+<p>c 创建新的档案文件。如果用户想备份一个目录或是一些文件，就要选择这个选项。相当于打包。<br>x 从档案文件中释放文件。相当于拆包。<br>t 列出档案文件的内容，查看已经备份了哪些文件。<br>特别注意，在参数的下达中， c/x/t 仅能存在一个！不可同时存在！因为不可能同时压缩与解压缩。</p>
+</blockquote>
+<h3 id="辅助选项："><a href="#辅助选项：" class="headerlink" title="辅助选项："></a>辅助选项：</h3><blockquote>
+<p>-z ：是否同时具有 gzip 的属性？亦即是否需要用 gzip 压缩或解压？ 一般格式为xx.tar.gz或xx. tgz<br>-j ：是否同时具有 bzip2 的属性？亦即是否需要用 bzip2 压缩或解压？一般格式为xx.tar.bz2<br>-v ：压缩的过程中显示文件！这个常用<br>-f ：使用档名，请留意，在 f 之后要立即接档名喔！不要再加其他参数！<br>-p ：使用原文件的原来属性（属性不会依据使用者而变）<br>–exclude FILE：在压缩的过程中，不要将 FILE 打包！</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;打包&quot;&gt;&lt;a href=&quot;#打包&quot; class=&quot;headerlink&quot; title=&quot;打包&quot;&gt;&lt;/a&gt;打包&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;# 将整个 /etc 目录下的文件全部打包成为 /tmp/etc.tar.gz&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;tar -zcvf /tmp/etc.tar.gz /etc&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;解压&quot;&gt;&lt;a href=&quot;#解压&quot; class=&quot;headerlink&quot; title=&quot;解压&quot;&gt;&lt;/a&gt;解压&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;tar -zxvf /tmp/etc.tar.gz&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>统计排序</title>
@@ -48,9 +332,9 @@
     <link href="http://yoursite.com/2017/02/24/python_problem_deencode/"/>
     <id>http://yoursite.com/2017/02/24/python_problem_deencode/</id>
     <published>2017-02-24T04:50:07.000Z</published>
-    <updated>2017-02-24T04:51:34.567Z</updated>
+    <updated>2017-02-24T04:54:58.045Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Unicode编码问题处理"><a href="#Unicode编码问题处理" class="headerlink" title="Unicode编码问题处理"></a>Unicode编码问题处理</h2><p>当遇见以下情况。<br>返回字符串为’\\u82f9\\u679c’的unicode时候。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">str1 = &apos;\\u82f9\\u679c&apos;</div><div class="line">print str1     # 结果是 : \\u82f9\\u679c</div><div class="line">print  u&apos;\\u82f9\\u679c&apos;     # 结果是 : 苹果</div></pre></td></tr></table></figure></p>
+    <content type="html"><![CDATA[<h2 id="Unicode编码问题处理"><a href="#Unicode编码问题处理" class="headerlink" title="Unicode编码问题处理"></a>Unicode编码问题处理</h2><h3 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h3><p>当遇见以下情况。<br>返回字符串为’\\u82f9\\u679c’的unicode时候。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">str1 = &apos;\\u82f9\\u679c&apos;</div><div class="line">print str1     # 结果是 : \\u82f9\\u679c</div><div class="line">print  u&apos;\\u82f9\\u679c&apos;     # 结果是 : 苹果</div></pre></td></tr></table></figure></p>
 <p>解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">str1 = &apos;\\u82f9\\u679c&apos;</div><div class="line">uni_result = str1.decode(&quot;unicode-escape&quot;)</div><div class="line">print uni_result</div><div class="line"># 结果是 : 苹果</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <h3 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h3><p>aa.text的结果如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">In[190]: aa.text</div><div class="line">Out[190]: u&apos;\xe4\xb8\x8a\xe6\xb5\xb7A\xe8\x82\xa1&apos;</div></pre></td></tr></table></figure></p>
@@ -61,7 +345,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Unicode编码问题处理&quot;&gt;&lt;a href=&quot;#Unicode编码问题处理&quot; class=&quot;headerlink&quot; title=&quot;Unicode编码问题处理&quot;&gt;&lt;/a&gt;Unicode编码问题处理&lt;/h2&gt;&lt;p&gt;当遇见以下情况。&lt;br&gt;返回字符串为’\\u82f9\\u679c’的unicode时候。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;str1 = &amp;apos;\\u82f9\\u679c&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print str1     # 结果是 : \\u82f9\\u679c&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print  u&amp;apos;\\u82f9\\u679c&amp;apos;     # 结果是 : 苹果&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+      &lt;h2 id=&quot;Unicode编码问题处理&quot;&gt;&lt;a href=&quot;#Unicode编码问题处理&quot; class=&quot;headerlink&quot; title=&quot;Unicode编码问题处理&quot;&gt;&lt;/a&gt;Unicode编码问题处理&lt;/h2&gt;&lt;h3 id=&quot;问题一&quot;&gt;&lt;a href=&quot;#问题一&quot; class=&quot;headerlink&quot; title=&quot;问题一&quot;&gt;&lt;/a&gt;问题一&lt;/h3&gt;&lt;p&gt;当遇见以下情况。&lt;br&gt;返回字符串为’\\u82f9\\u679c’的unicode时候。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;str1 = &amp;apos;\\u82f9\\u679c&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print str1     # 结果是 : \\u82f9\\u679c&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print  u&amp;apos;\\u82f9\\u679c&amp;apos;     # 结果是 : 苹果&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;解决方法：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;str1 = &amp;apos;\\u82f9\\u679c&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;uni_result = str1.decode(&amp;quot;unicode-escape&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print uni_result&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;# 结果是 : 苹果&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
@@ -698,389 +982,6 @@
       <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
     
       <category term="关联分析" scheme="http://yoursite.com/tags/%E5%85%B3%E8%81%94%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关联分析（1）：基本概念和算法</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_realation_01/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_realation_01/</id>
-    <published>2017-02-15T13:48:51.000Z</published>
-    <updated>2017-02-15T13:53:30.355Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h3><h5 id="（一）基本概念"><a href="#（一）基本概念" class="headerlink" title="（一）基本概念"></a>（一）基本概念</h5><h6 id="二元概念"><a href="#二元概念" class="headerlink" title="二元概念"></a>二元概念</h6><p>对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。</p>
-<h6 id="项集和支持度计数"><a href="#项集和支持度计数" class="headerlink" title="项集和支持度计数"></a>项集和支持度计数</h6><p>事务：一行数据。<br>k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}<br><img src="http://upload-images.jianshu.io/upload_images/3341358-11295870eaafecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_01.png"></p>
-<p>支持度计数：<br>$$\sigma (X)=|\left \{ t_{i}|X\subseteq t_{i},t_{i}\in T \right \}|$$</p>
-<p>如，上式中，项集{啤酒，尿布，牛奶}的支持度计数为2，因为只有2个事务同时包含3个项。</p>
-<a id="more"></a>
-<h6 id="关联规则（association-rule）"><a href="#关联规则（association-rule）" class="headerlink" title="关联规则（association rule）"></a>关联规则（association rule）</h6><p>关于 X、Y 的关联规则，支持度、置信度的定义如下：<br>$$s(X\rightarrow Y)=\frac{\sigma (X\cup Y)}{N}$$<br>$$s(X\rightarrow Y)=\frac{\sigma (X\cup Y)}{\sigma (X)}$$</p>
-<p>例如：X{牛奶，尿布}，Y{啤酒}，则并集{牛奶，尿布，啤酒}的支持度计数为2，N为事务总数5，所以支持度=2/5=0.4。X 的支持度=3，所以置信度为2/3=0.67。</p>
-<p>支持度很低的规则可能只是偶然出现，低的支持度计数也是无意义的。支持度通常用于删去无意义的规则，<br>置信度越高，表示Y在包含X的事务中出现的可能性较大。Y也可以用于估计在给定X的条件下的条件概率。</p>
-<h5 id="（二）关联规则挖掘"><a href="#（二）关联规则挖掘" class="headerlink" title="（二）关联规则挖掘"></a>（二）关联规则挖掘</h5><blockquote>
-<p>1、频繁项集产生：发现满足最小支持度阈值的所有项集，这些项是频繁项集。<br>2、规则产生：从频繁项集中提取所有高置信度规则，这些规则是强规则。</p>
-</blockquote>
-<h5 id="（三）频繁项集的产生"><a href="#（三）频繁项集的产生" class="headerlink" title="（三）频繁项集的产生"></a>（三）频繁项集的产生</h5><p>格结构（lattice structure）：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-f927df9a115283bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_02.png"></p>
-<h5 id="原始方法："><a href="#原始方法：" class="headerlink" title="原始方法："></a>原始方法：</h5><p>遍历每个项集，使用项集与事务进行比较，计算每个项集的支持度计数。但是该方法的算法复杂度很高：O(NMw)。<br>改进方法：</p>
-<blockquote>
-<p>1、减少候选项的数目。先验原理，不计算支持度而删除某些候选项集。<br>2、减少比较次数。更高级的数据结构。</p>
-</blockquote>
-<h5 id="先验原理"><a href="#先验原理" class="headerlink" title="先验原理"></a>先验原理</h5><blockquote>
-<p>先验原理：如果一个项集是频繁的，则它的所有子集也一定是频繁的。<br>相反的，如果一个项集是非频繁的，则它的所有超集也一定是非频繁的。<br>支持度计数的反单调性：一个项集的支持度不会超过它的子集的支持度。</p>
-</blockquote>
-<h5 id="（四）Apriori-算法的频繁项集产生"><a href="#（四）Apriori-算法的频繁项集产生" class="headerlink" title="（四）Apriori 算法的频繁项集产生"></a>（四）Apriori 算法的频繁项集产生</h5><p>过程图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-d801677ed00d5e34.png" alt="6_03.png"></p>
-<p>算法的流程：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-b2707e258f78bc77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_04.png"></p>
-<p>算法讲解：<br>1、先定一个阈值k。<br>2、候选项集为1-项集的，计算支持度，若支持度大于阈值，则保留；若小于则剔除。<br>3、使用(k-1)-项集，产生k-项集。<br>4、重复上面的步骤，直到无候选集（频繁集），结束。</p>
-<h5 id="1、Apriori-算法："><a href="#1、Apriori-算法：" class="headerlink" title="1、Apriori 算法："></a>1、Apriori 算法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">k = 1</div><div class="line">F_(1) = &#123;1-项集 &gt;= min_c&#125;</div><div class="line">while true</div><div class="line">	k = k + 1</div><div class="line">	Ck = apriori_gen(F_(k-1)) \\产生候选集</div><div class="line">	for c in Ck do \\事务</div><div class="line">		for t in T do</div><div class="line">			if isin(t,c)</div><div class="line">			dc = dc + 1 \\支持度计数</div><div class="line">	F_(k) = &#123;提取频繁k-项集^dc &gt;= min_c&#125;</div></pre></td></tr></table></figure>
-<h5 id="2、Apriori-gen方法："><a href="#2、Apriori-gen方法：" class="headerlink" title="2、Apriori_gen方法："></a>2、Apriori_gen方法：</h5><h6 id="F-k-1-F-1-方法"><a href="#F-k-1-F-1-方法" class="headerlink" title="F(k-1)*F(1)方法"></a>F(k-1)*F(1)方法</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-5b2cddb67e3135c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_05.png"></p>
-<h6 id="F-k-1-F-k-1-方法"><a href="#F-k-1-F-k-1-方法" class="headerlink" title="F(k-1)*F(k-1)方法"></a>F(k-1)*F(k-1)方法</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-0c5e063896248cfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_06.png"></p>
-<p>原理：使用了字典序，例如：算法不会合并{啤酒，尿布}{尿布，牛奶}，因为如果{啤酒，尿布，牛奶}有效，则它应该由{啤酒，尿布}{啤酒，牛奶}合并。</p>
-<h5 id="支持度计数"><a href="#支持度计数" class="headerlink" title="支持度计数"></a>支持度计数</h5><p>支持度计数在apriori_gen函数的候选项保留下来的之中计算。<br>一种枚举方法是：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-aaf218ec8469cee6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_07.png"></p>
-<p>每项都以字典序排列，按照上面的枚举。</p>
-<h6 id="使用hash树进行支持度计数"><a href="#使用hash树进行支持度计数" class="headerlink" title="使用hash树进行支持度计数"></a>使用hash树进行支持度计数</h6><p>[略]</p>
-<h5 id="计算复杂度"><a href="#计算复杂度" class="headerlink" title="计算复杂度"></a>计算复杂度</h5><p>[略]</p>
-<h3 id="二、规则产生"><a href="#二、规则产生" class="headerlink" title="二、规则产生"></a>二、规则产生</h3><h4 id="（1）基于置信度的剪枝"><a href="#（1）基于置信度的剪枝" class="headerlink" title="（1）基于置信度的剪枝"></a>（1）基于置信度的剪枝</h4><h5 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h5><blockquote>
-<p>如果 X-&gt;Y-X 不满足置信度阈值，则X’-&gt;Y-X’ 的规则一定不满足置信度阈值，其中，X’ 是 X 的子集。</p>
-</blockquote>
-<h4 id="（2）Apriori-规则产生"><a href="#（2）Apriori-规则产生" class="headerlink" title="（2）Apriori 规则产生"></a>（2）Apriori 规则产生</h4><p>可以利用上面的定理进行剪枝，如左边的bcd-&gt;a不满足置信度阈值，则下面的都减去：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-65f6188c6b9efd01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_08.png"></p>
-<h5 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-3bc842139c766c37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_09.png"></p>
-<h3 id="三、频繁项集的紧凑表示"><a href="#三、频繁项集的紧凑表示" class="headerlink" title="三、频繁项集的紧凑表示"></a>三、频繁项集的紧凑表示</h3><h4 id="（1）极大频繁项集"><a href="#（1）极大频繁项集" class="headerlink" title="（1）极大频繁项集"></a>（1）极大频繁项集</h4><blockquote>
-<p>极大频繁项集（maximal frequent itemset）：它的直接超集都不是频繁的，频繁项集。</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ed019fe46e334ffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_10.png"></p>
-<p>如上图，{ad}、{ace}、{bcde} 均是极大频繁项集。</p>
-<h4 id="（2）闭频繁项集"><a href="#（2）闭频繁项集" class="headerlink" title="（2）闭频繁项集"></a>（2）闭频繁项集</h4><blockquote>
-<p>闭项集（closed itemset）：项集X是闭的，如果它的直接超集都不具有和它相同的支持度计数。</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-0b68705bb8cc5be1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_11.png"></p>
-<p>如上图，{b}{ad}都不是闭项集，而{bc}是闭项集。</p>
-<blockquote>
-<p>闭频繁项集（closed frequent itemset）一个项集是闭频繁项集，它是闭的，并且它的支持度计数大于或等于最小支持度阈值。</p>
-</blockquote>
-<p>计算闭频繁项集的支持度算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-32bbf860fa045aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_12.png"></p>
-<p>项集之间的关系：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-e0c5f5413c6a7afa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_13.png"></p>
-<h3 id="四、产生频繁项集的其他方法"><a href="#四、产生频繁项集的其他方法" class="headerlink" title="四、产生频繁项集的其他方法"></a>四、产生频繁项集的其他方法</h3><p>[略]</p>
-<h3 id="五、FP增长算法"><a href="#五、FP增长算法" class="headerlink" title="五、FP增长算法"></a>五、FP增长算法</h3><p>[略]</p>
-<h3 id="六、关联模式的评估"><a href="#六、关联模式的评估" class="headerlink" title="六、关联模式的评估"></a>六、关联模式的评估</h3><h4 id="（1）兴趣度的客观度量"><a href="#（1）兴趣度的客观度量" class="headerlink" title="（1）兴趣度的客观度量"></a>（1）兴趣度的客观度量</h4><h5 id="支持度-置信度框架的局限性"><a href="#支持度-置信度框架的局限性" class="headerlink" title="支持度-置信度框架的局限性"></a>支持度-置信度框架的局限性</h5><p>[略]</p>
-<h5 id="兴趣因子"><a href="#兴趣因子" class="headerlink" title="兴趣因子"></a>兴趣因子</h5><p>[略]</p>
-<h5 id="相关分析"><a href="#相关分析" class="headerlink" title="相关分析"></a>相关分析</h5><p>[略]</p>
-<h5 id="IS度量"><a href="#IS度量" class="headerlink" title="IS度量"></a>IS度量</h5><p>[略]</p>
-<h5 id="1、其他客观度量"><a href="#1、其他客观度量" class="headerlink" title="1、其他客观度量"></a>1、其他客观度量</h5><p>度量分为对称和非对称：</p>
-<blockquote>
-<p>对称：M(A-&gt;B)=M(B-&gt;A)。用于评价项集。<br>非对称：M(A-&gt;B)!=M(B-&gt;A)。用于分析关联规则。</p>
-</blockquote>
-<p>对称度量：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-8f3593ce3505ae32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_14.png"></p>
-<p>非对称度量：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-7432adb9a6ea16a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_15.png"></p>
-<h5 id="2、客观度量的一致性"><a href="#2、客观度量的一致性" class="headerlink" title="2、客观度量的一致性"></a>2、客观度量的一致性</h5><p>上面提到的一系列的度量，不一定都是一致的，需要具体分析。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-a2192e8898d5c392.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6_16.png"></p>
-<h5 id="3、客观度量的性质"><a href="#3、客观度量的性质" class="headerlink" title="3、客观度量的性质"></a>3、客观度量的性质</h5><p>[略]<br>[后略]</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、基本概念&quot;&gt;&lt;a href=&quot;#一、基本概念&quot; class=&quot;headerlink&quot; title=&quot;一、基本概念&quot;&gt;&lt;/a&gt;一、基本概念&lt;/h3&gt;&lt;h5 id=&quot;（一）基本概念&quot;&gt;&lt;a href=&quot;#（一）基本概念&quot; class=&quot;headerlink&quot; title=&quot;（一）基本概念&quot;&gt;&lt;/a&gt;（一）基本概念&lt;/h5&gt;&lt;h6 id=&quot;二元概念&quot;&gt;&lt;a href=&quot;#二元概念&quot; class=&quot;headerlink&quot; title=&quot;二元概念&quot;&gt;&lt;/a&gt;二元概念&lt;/h6&gt;&lt;p&gt;对于购物篮数据，使用二元变量表示。1表示购买，0表示没有购买。&lt;/p&gt;
-&lt;h6 id=&quot;项集和支持度计数&quot;&gt;&lt;a href=&quot;#项集和支持度计数&quot; class=&quot;headerlink&quot; title=&quot;项集和支持度计数&quot;&gt;&lt;/a&gt;项集和支持度计数&lt;/h6&gt;&lt;p&gt;事务：一行数据。&lt;br&gt;k-项集：一个事务中，出现项。如：3-项集，{啤酒，尿布，牛奶}&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-11295870eaafecad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;6_01.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;支持度计数：&lt;br&gt;$$\sigma (X)=|\left \{ t_{i}|X\subseteq t_{i},t_{i}\in T \right \}|$$&lt;/p&gt;
-&lt;p&gt;如，上式中，项集{啤酒，尿布，牛奶}的支持度计数为2，因为只有2个事务同时包含3个项。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
-    
-      <category term="关联分析" scheme="http://yoursite.com/tags/%E5%85%B3%E8%81%94%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分类（6）：不平衡和多分类问题</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_06/</id>
-    <published>2017-02-15T13:37:36.000Z</published>
-    <updated>2017-02-15T13:53:25.606Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="一、不平衡问题"><a href="#一、不平衡问题" class="headerlink" title="一、不平衡问题"></a>一、不平衡问题</h4><h5 id="（1）不平衡数据"><a href="#（1）不平衡数据" class="headerlink" title="（1）不平衡数据"></a>（1）不平衡数据</h5><p>例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。<br>这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。<br>例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。</p>
-<h5 id="（2）混淆矩阵"><a href="#（2）混淆矩阵" class="headerlink" title="（2）混淆矩阵"></a>（2）混淆矩阵</h5><p>在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类被认为是负类。下面显示了混淆矩阵：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-77c3b86f48870b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_37.png"></p>
-<a id="more"></a>
-<blockquote>
-<p>真正（true positive，TP）：++<br>假正（false positive，FP）：-+<br>真负（true negative，TN）：–<br>假负（false negative，FN）：+-</p>
-</blockquote>
-<p>真正率（true positive rate，TPR）或灵敏度（sensitivity）：<br>$$ TPR=\frac{TP}{TP+FN}=\frac{(++)}{(++)+(+-)}$$<br>真负率（true negative rate，TNR）或特指度（specificity）：<br>$$TNR=\frac{TN}{TN+FP}=\frac{(–)}{(–)+(-+)}$$<br>假正率（false positive rate，FPR）：<br>$$FPR=\frac{FP}{TN+FP}=\frac{(+-)}{(–)+(-+)}$$<br>假负率（false negative rate，FNR）：<br>$$ FNR=\frac{FN}{FN+TP}=\frac{(-+)}{(-+)+(++)}$$<br>精度（precision）：<br>$$ p=\frac{TP}{TP+FP}=\frac{(++)}{(++)+(-+)}$$<br>召回率（recall）即为真正率：<br>$$r=\frac{(TP)}{(TP)+(FN)}=\frac{(++)}{(++)+(+-)}$$<br>精度和召回率是很重要的度量量，称为 F1 统计量：<br>$$ F_{1}=\frac{2rp}{r+p}=\frac{2\times TP}{2\times TP+FP+FN}=\frac{2}{\frac{1}{r}+\frac{1}{p}}$$<br>F1 是召回率和精度的调和平均数，F1 趋近于它们之间的较小值，因此，一个高的 F1 确保精度和召回率都高。<br>Fb 的公式：<br>$$ F_{b}=\frac{(b^{2}+1)rp}{r+b^{2}p}=\frac{(b^{2}+1)}{\frac{1}{r}+\frac{b^{2}}{p}}$$<br>低的 b 使得 Fb 更加接近精度，高的 b 使得 Fb 更加接近召回率。</p>
-<h5 id="（3）接受者操作曲线（ROC）"><a href="#（3）接受者操作曲线（ROC）" class="headerlink" title="（3）接受者操作曲线（ROC）"></a>（3）接受者操作曲线（ROC）</h5><blockquote>
-<p>是真正率和假正率取折中的一种图形化方法。真正率为 y 轴，假正率为 x 轴。</p>
-</blockquote>
-<p>ROC的几个关键点：</p>
-<blockquote>
-<p>（TPR=0,FPR=0）:把所有的都预测为负<br>（TPR=1,FPR=1）:把所有的都预测为正<br>（TPR=1,FPR=0）:理想模型。只要是正的，都预测为正。</p>
-</blockquote>
-<p>一个好的分类器，尽量靠近左上角，随机猜想为对角线。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-291214111746c1d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_38.png"></p>
-<p>产生ROC曲线方法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-785ee8715b8e3937.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_39.png"></p>
-<h5 id="（4）代价敏感学习"><a href="#（4）代价敏感学习" class="headerlink" title="（4）代价敏感学习"></a>（4）代价敏感学习</h5><p>模型 M 的代价：<br>$$ C_{t}(M)=TP\times C(+,+)+FP\times C(-,+)+FN\times C(+,1)+FN\times C(-,-)$$</p>
-<p>如下是一个代价矩阵：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-297e0b3d8f363ce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_40.png"></p>
-<p>它可以把决策边界扩展：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-e36c99b877fc8be2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_41.png"></p>
-<p>对于代价矩阵，若 C(+,+)=C(-,-)=0 的情况，分类正确不需要代价，则：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-359569c4900501fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_42.png"></p>
-<p>求解可以得到决策边界。</p>
-<h6 id="基于抽样方法"><a href="#基于抽样方法" class="headerlink" title="基于抽样方法"></a>基于抽样方法</h6><p>对于样本进行处理，假设有100个正样本和1000个负样本。<br>不充分抽样（udersampling）：取和正样本一样数量的负样本，取100个负样本，形成训练集。<br>过分抽样（oversampling）：将正样本复制，或者重复抽样，使得正样本的数量和负样本一样1000个。</p>
-<h4 id="二、多类问题"><a href="#二、多类问题" class="headerlink" title="二、多类问题"></a>二、多类问题</h4><blockquote>
-<p>1、one-vs-rest 方法。将多类问题分解为 K 个二类问题，将属于$y_{i}$的归为正类，而其他类被分为负类，依次进行。<br>2、one-vs-one 方法。它构建$\frac{K(K-1)}{2}$ 个二分类器，每一个分类器用来区分一对类 $(y_{i},y_{j})$ ，当为类 $(y_{i},y_{j})$ 建立分类器的时候，将不属于 $(y_{i},y_{j})$ 的样本忽略掉。</p>
-</blockquote>
-<p>例子：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-8712856c5236b70b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_43.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-bb9f20a6e31754da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_44.png"></p>
-<p>使用上述两种方法建模后，可能出现分类平局。另一种方法，将输出转变为概率估计，将实例给予高概率的类。</p>
-<h5 id="纠错输出编码"><a href="#纠错输出编码" class="headerlink" title="纠错输出编码"></a>纠错输出编码</h5><p>纠错输出编码（error-correcting output coding，ECOC）：一种处理多分类更加鲁棒的方法，给予每个类一个代码字，对于每个可能预测错误的，选取距离代码字最近的那一类。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;一、不平衡问题&quot;&gt;&lt;a href=&quot;#一、不平衡问题&quot; class=&quot;headerlink&quot; title=&quot;一、不平衡问题&quot;&gt;&lt;/a&gt;一、不平衡问题&lt;/h4&gt;&lt;h5 id=&quot;（1）不平衡数据&quot;&gt;&lt;a href=&quot;#（1）不平衡数据&quot; class=&quot;headerlink&quot; title=&quot;（1）不平衡数据&quot;&gt;&lt;/a&gt;（1）不平衡数据&lt;/h5&gt;&lt;p&gt;例如：一个产品生产的不合格产品数量会远低于合格产品数量。信用卡欺诈的检测中，合法交易远远多于欺诈交易。&lt;br&gt;这时候，准确率的度量会出现一些问题，因为她把每个类都看得同等重要。&lt;br&gt;例如，1%的信用卡交易是欺诈行为，则预测每个交易都是合法的模型有99%的准确率，它也可能检测不到任何欺诈交易。&lt;/p&gt;
-&lt;h5 id=&quot;（2）混淆矩阵&quot;&gt;&lt;a href=&quot;#（2）混淆矩阵&quot; class=&quot;headerlink&quot; title=&quot;（2）混淆矩阵&quot;&gt;&lt;/a&gt;（2）混淆矩阵&lt;/h5&gt;&lt;p&gt;在不平衡数据中，稀有类比较有意义，对于二元分类，稀有类通常记为正类，而多数类被认为是负类。下面显示了混淆矩阵：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-77c3b86f48870b96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_37.png&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分类（5）：组合分类器-随机森林</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_05/</id>
-    <published>2017-02-15T13:32:47.000Z</published>
-    <updated>2017-02-15T13:53:47.019Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="一、组合方法"><a href="#一、组合方法" class="headerlink" title="一、组合方法"></a>一、组合方法</h4><h5 id="（1）组合分类器原理："><a href="#（1）组合分类器原理：" class="headerlink" title="（1）组合分类器原理："></a>（1）组合分类器原理：</h5><p>考虑25个二元分类器，每一个分类误差a=0.35。组合分类器通过多数投票，如果基分类器是独立的，则仅当超过一半的基分类器都预测错误时，组合才会错误，则：<br>$$ e_{ensemble}=\sum_{i=1}^{25}C_{25}^{i}a^{i}(1-a)^{25-i}=0.06$$</p>
-<p>可以看出，其远低于0.35。</p>
-<h5 id="（2）组合分类器与基分类器比较："><a href="#（2）组合分类器与基分类器比较：" class="headerlink" title="（2）组合分类器与基分类器比较："></a>（2）组合分类器与基分类器比较：</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-54f2009701fddbac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_26.png"></p>
-<a id="more"></a>
-<p>上图，虚线表示所有基分类器都一样，实线表示所有基分类器都独立。可以看出，当基分类器的错误率大于0.5（仅这个例子吗？）时候，组合分类器的性能不比基分类器的性能好。<br>组合分类器的性能优于基分类器的条件：</p>
-<blockquote>
-<p>1、基分类器应该是<strong>独立</strong>的。<br>2、基分类器应当好于随机猜想。</p>
-</blockquote>
-<h5 id="（3）袋装（bagging）-自助法（bootstrap-aggregating）"><a href="#（3）袋装（bagging）-自助法（bootstrap-aggregating）" class="headerlink" title="（3）袋装（bagging）-自助法（bootstrap aggregating）"></a>（3）袋装（bagging）-自助法（bootstrap aggregating）</h5><h6 id="袋装-自助法（bootstrap）："><a href="#袋装-自助法（bootstrap）：" class="headerlink" title="袋装-自助法（bootstrap）："></a>袋装-自助法（bootstrap）：</h6><p>训练集是对于原数据集的有放回抽样，如果原始数据集N，可以证明，大小为N的自助样本大约包含原数据63.2%的记录。当N充分大的时候，1-（1-1/N）^(N) 概率逼近 1-e^(-1)=0.632。抽样 b 次，产生 b 个bootstrap样本，则，总准确率为（accs为包含所有样本计算的准确率）：<br>$$  acc_{boot}=\frac{1}{b}\sum_{i=1}^{b}(0.632\times\varepsilon _{i}+0.368\times acc_{s})$$</p>
-<h6 id="袋装算法："><a href="#袋装算法：" class="headerlink" title="袋装算法："></a>袋装算法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">设 k 为自助样本的数目</div><div class="line"><span class="keyword">for</span> i = <span class="number">1</span> to k do</div><div class="line">  生成一个大小为 N 的自助样本 Dt</div><div class="line">  在自助样本 Dt 上训练一个基分类器 Ci</div><div class="line">C*=argmax（Ci...）</div></pre></td></tr></table></figure>
-<h6 id="袋装举例理解："><a href="#袋装举例理解：" class="headerlink" title="袋装举例理解："></a>袋装举例理解：</h6><p>下面的这个数据集，使用决策树，熵值来分裂，可以得到分裂点为：x&lt;=0.35  或 x&lt;=0.75，但是无论是哪个分类点，准确率都最多为70%。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-ac32116bd2c12d57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_27.png"></p>
-<p>使用袋装抽样：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-567a1833f3ab1c6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_28.png"></p>
-<p>使用简单的求和，取符号，可以发现，分类正确率为100%：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-d07e2f579ee5f696.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_29.png"></p>
-<h6 id="袋装评价："><a href="#袋装评价：" class="headerlink" title="袋装评价："></a>袋装评价：</h6><blockquote>
-<p>1、通过降低基分类器的<strong>方差</strong>改善了泛化误差<br>2、袋装的性能依赖于基分类器的稳定性。如果基分类器是不稳定的，袋装有助于降低训练数据的随机波动导致的误差；如果基分类器是稳定的，则组合分类器的误差主要由基分类器的偏倚引起，则这种情况下，袋装可能会降低分类器的性能。<br>3、袋装中的数据是均概率被选中，所以对特定数据不敏感，对于噪音，不太受过拟合影响。</p>
-</blockquote>
-<h5 id="（4）提升（Boosting）"><a href="#（4）提升（Boosting）" class="headerlink" title="（4）提升（Boosting）"></a>（4）提升（Boosting）</h5><blockquote>
-<p>提升是一个迭代过程，自适应的改变样本的分布，使得基分类器聚焦在那些很难分类的样本上，提升每次给一个训练样本一个权值，在每一轮结束的时候自动地调整权值。</p>
-</blockquote>
-<p>现在又很多提升算法，算法的差别在于：</p>
-<blockquote>
-<p>（1）每轮提升结束时如何更新训练样本权值<br>（2）如何组合每个分类器的预测</p>
-</blockquote>
-<h6 id="AdaBoost"><a href="#AdaBoost" class="headerlink" title="AdaBoost"></a>AdaBoost</h6><p>在该算法中，基分类器 Ci 的重要性依赖于它的错误率，错误率的定义：<br>$$ error_{i}=\frac{1}{N}\left[\sum_{j=1}^{N}w_{j}I(C_{i}(x_{j}\neq y_{j}))\right]$$<br>对于I，为指示变量，错误个数的加权取平均，基分类器的重要度 \alpha 为：<br>$$ \alpha_{i}=\frac{1}{2}ln\left(\frac{1-error_{i}}{error_{i}}\right)$$<br>作出重要度 \alpha 关于 error 的图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-f9aa54c012a54386.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_30.png"></p>
-<p>发现错误率接近 0 时候，重要度很大，接近 1 时候，重要度负向很大。<br>Adaboost 的权值更新有以下给出，第 j 次迭代：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-248390a2b40241cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_31.png"></p>
-<p>Zj 是一个正规因子，用于确保：<br>$$\sum_{i}w_{i}^{j+1}=1$$</p>
-<h6 id="AdaBoost算法："><a href="#AdaBoost算法：" class="headerlink" title="AdaBoost算法："></a>AdaBoost算法：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-eac202ad78997335.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_32.png"></p>
-<h6 id="AdaBoost例子："><a href="#AdaBoost例子：" class="headerlink" title="AdaBoost例子："></a>AdaBoost例子：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-1d3ea4e0010c0305.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_33.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-d5ce991ea50f4bd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_34.png"></p>
-<blockquote>
-<p>1、该组合分类器的训练误差呈指数递减，从而算法很快就会收敛。<br>2、但是它倾向于那些被误分类的样本，所以提升技术很容易受到过拟合的影响。</p>
-</blockquote>
-<h4 id="二、随机森林（Random-Forest）"><a href="#二、随机森林（Random-Forest）" class="headerlink" title="二、随机森林（Random Forest）"></a>二、随机森林（Random Forest）</h4><h5 id="随机森林的过程图："><a href="#随机森林的过程图：" class="headerlink" title="随机森林的过程图："></a>随机森林的过程图：</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-c5fc2f3eb53f229b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_35.png"></p>
-<p>已经从理论上证明了，当树的数目足够大的时候，随机森林的泛化误差的上界收敛于下面表达式：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-7f6c9671e2e85e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_36.png"></p>
-<h5 id="随机森林性质"><a href="#随机森林性质" class="headerlink" title="随机森林性质"></a>随机森林性质</h5><p>每棵决策树都使用一个从固定概率分布产生的随机向量。可以使用多种方法将随机向量合并到树中。</p>
-<h6 id="不同的随机森立方法："><a href="#不同的随机森立方法：" class="headerlink" title="不同的随机森立方法："></a>不同的随机森立方法：</h6><blockquote>
-<p>1、Forest-RI。随机选择 F 个输入特征来对决策树的结点进行分裂，树之后完全增长不进行任何修剪，这有助于减少树的偏倚。之后用多数投票表决来组合预测。为了增加随机性，可以使用自助样本。<br>2、Forest-RC。d 的数目太小的情况，需要增大特征空间，创建输入特征的线性组合。输入特征用区间[-1,1]的均匀分布产生的系数进行线性组合。<br>3、对于每个结点，从 F 个最佳划分中随机选择一个，该方法也是比上面两个更花费时间。<br>4、随机森林的分裂准确率与Adaboost相媲美，但它对噪声更加鲁棒，运行速度也比Adaboost快得多。</p>
-</blockquote>
-<h6 id="随机森林的一些参数选择"><a href="#随机森林的一些参数选择" class="headerlink" title="随机森林的一些参数选择"></a>随机森林的一些参数选择</h6><p>通常选取特征数目为：<br>$$ F=log_{2}^{d}+1$$<br>d 为输入特征数。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;一、组合方法&quot;&gt;&lt;a href=&quot;#一、组合方法&quot; class=&quot;headerlink&quot; title=&quot;一、组合方法&quot;&gt;&lt;/a&gt;一、组合方法&lt;/h4&gt;&lt;h5 id=&quot;（1）组合分类器原理：&quot;&gt;&lt;a href=&quot;#（1）组合分类器原理：&quot; class=&quot;headerlink&quot; title=&quot;（1）组合分类器原理：&quot;&gt;&lt;/a&gt;（1）组合分类器原理：&lt;/h5&gt;&lt;p&gt;考虑25个二元分类器，每一个分类误差a=0.35。组合分类器通过多数投票，如果基分类器是独立的，则仅当超过一半的基分类器都预测错误时，组合才会错误，则：&lt;br&gt;$$ e_{ensemble}=\sum_{i=1}^{25}C_{25}^{i}a^{i}(1-a)^{25-i}=0.06$$&lt;/p&gt;
-&lt;p&gt;可以看出，其远低于0.35。&lt;/p&gt;
-&lt;h5 id=&quot;（2）组合分类器与基分类器比较：&quot;&gt;&lt;a href=&quot;#（2）组合分类器与基分类器比较：&quot; class=&quot;headerlink&quot; title=&quot;（2）组合分类器与基分类器比较：&quot;&gt;&lt;/a&gt;（2）组合分类器与基分类器比较：&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-54f2009701fddbac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_26.png&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分类（4）：支持向量机（SVM）</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_04/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_04/</id>
-    <published>2017-02-15T13:26:40.000Z</published>
-    <updated>2017-02-15T13:53:43.243Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h4><p>SVM 寻找一个最大边缘超平面（maximal margin hyperplane），使得将数据分开，并且有最大的margin，泛化能力。</p>
-<h5 id="（1）结构风险最小化（structual-risk-minimization，SRM）"><a href="#（1）结构风险最小化（structual-risk-minimization，SRM）" class="headerlink" title="（1）结构风险最小化（structual risk minimization，SRM）"></a>（1）结构风险最小化（structual risk minimization，SRM）</h5><p>线性分类器的边缘与泛化误差之间的关系，分类器的泛化误差在最坏的情况下：<br>$$R\leqslant R_{e}+\varphi \left(\frac{h}{N},\frac{log(\eta )}{N}\right)$$<br>$\varphi$是h的单调增函数，$1-\eta$表示概率。<br><a id="more"></a></p>
-<h5 id="（2）SVM线性分类器"><a href="#（2）SVM线性分类器" class="headerlink" title="（2）SVM线性分类器"></a>（2）SVM线性分类器</h5><p>模型：<br>$$ w\cdot x+b=0$$<br>线性分类图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-aaf039d936a7738e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_10.png"><br>于是我们有：<br>$$ w\cdot x_{s}+b=k,w\cdot x_{c}+b=k$$<br>其中，k&gt;0，左边表示在决策边界的上面。k’&lt;0，右边表示在决策边界下面。<br>如果我们标记一个类为+1，另一个类为-1，则有：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3b3c4a5c74c6e299.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_11.png"></p>
-<p>距离：<br>$$ w(x_{1}-x_{2})=2\rightarrow d=\frac{2}{\left | w \right |},\left | w \right |=\sqrt{w_{1}^{2}+w_{2}^{2}+…+w_{k}^{2}}$$</p>
-<h5 id="（3）线性SVM：可分情况"><a href="#（3）线性SVM：可分情况" class="headerlink" title="（3）线性SVM：可分情况"></a>（3）线性SVM：可分情况</h5><h6 id="决策边界的参数"><a href="#决策边界的参数" class="headerlink" title="决策边界的参数"></a>决策边界的参数</h6><p>上面的为+1，下面的为-1，则可以概括为：<br>$$ y_{i}(w\cdot x_{i}+b)\geqslant 1,i=1,2,…,N$$<br>最大化边缘，等价于最小化下面目标函数：<br>$$f(w)=\frac{\left|w\right|^{2}}{2}$$<br>目标函数是二次的，约束在w、b上是线性的，这是一个凸优化问题，通过拉格朗日乘子求解。<br>$$L_{p}=\frac{1}{2}\left|w\right|^{2}-\sum_{i=1}^{N}\lambda _{i}(y_{i}\left(w\cdot x_{i}+b)-1\right)$$</p>
-<h6 id="Karuch-Kuhn-Tucher（KKT）："><a href="#Karuch-Kuhn-Tucher（KKT）：" class="headerlink" title="Karuch-Kuhn-Tucher（KKT）："></a>Karuch-Kuhn-Tucher（KKT）：</h6><p>把不等式约束转换为等式约束，限制拉格朗日乘子非负。<br>$$ \lambda_{i}\geqslant 1$$<br>$$ \lambda_{i}[y_{i}(w\cdot x_{i}+b)-1]=0$$<br>下面的等式，使得许多拉格朗日乘子都变为零。该约束表明，除非$y_{i}(w*x_{i}+b)=1$，否则拉格朗日乘子必须为零。<br>那些$\lambda&gt;0$的训练实例在两个超平面上，称为支持向量，$lambda=0$的肯定不在超平面上。决策边界w、b仅仅依赖这些支持向量。<br>此外，也可以使用对偶拉格朗日，使用二次规划求解。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-71585de3f64cfe25.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_12.png"></p>
-<h6 id="SVM的例子："><a href="#SVM的例子：" class="headerlink" title="SVM的例子："></a>SVM的例子：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-271cf98ca192603c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_13.png"></p>
-<p>&lt;简书&gt;：我的心在滴血啊，写了一下午，你居然没有保存，网站页面设计的“保存中…”“已保存”就是个普通js吗？没有事务的吗？就修改文档的时候触发一下，然后也不判断是否联网，是否保存等。逗！！再不用简书。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;一、基本概念&quot;&gt;&lt;a href=&quot;#一、基本概念&quot; class=&quot;headerlink&quot; title=&quot;一、基本概念&quot;&gt;&lt;/a&gt;一、基本概念&lt;/h4&gt;&lt;p&gt;SVM 寻找一个最大边缘超平面（maximal margin hyperplane），使得将数据分开，并且有最大的margin，泛化能力。&lt;/p&gt;
-&lt;h5 id=&quot;（1）结构风险最小化（structual-risk-minimization，SRM）&quot;&gt;&lt;a href=&quot;#（1）结构风险最小化（structual-risk-minimization，SRM）&quot; class=&quot;headerlink&quot; title=&quot;（1）结构风险最小化（structual risk minimization，SRM）&quot;&gt;&lt;/a&gt;（1）结构风险最小化（structual risk minimization，SRM）&lt;/h5&gt;&lt;p&gt;线性分类器的边缘与泛化误差之间的关系，分类器的泛化误差在最坏的情况下：&lt;br&gt;$$R\leqslant R_{e}+\varphi \left(\frac{h}{N},\frac{log(\eta )}{N}\right)$$&lt;br&gt;$\varphi$是h的单调增函数，$1-\eta$表示概率。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分类（3）：人工神经网络（ANN）</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_03/</id>
-    <published>2017-02-15T13:23:21.000Z</published>
-    <updated>2017-02-15T13:53:40.450Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="一、感知器"><a href="#一、感知器" class="headerlink" title="一、感知器"></a>一、感知器</h4><p>下图为一个感知器，单个神经元。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_06.png"><br>该感知器的算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-3578cedeed16cbe4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_07.png"><br><a id="more"></a></p>
-<h4 id="二、多层人工神经网络"><a href="#二、多层人工神经网络" class="headerlink" title="二、多层人工神经网络"></a>二、多层人工神经网络</h4><h5 id="（1）基本概念"><a href="#（1）基本概念" class="headerlink" title="（1）基本概念"></a>（1）基本概念</h5><p>神经网络，这里先以前馈神经网络为介绍，每层为全连接，则对于2个神经元，参数为：</p>
-<blockquote>
-<p>（1）w权值，（2）b偏置，（3）delta 激活函数。</p>
-</blockquote>
-<p>多层神经网络的结构图，以下为前馈神经网络的结构（2层）：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-cd4ad3a0be5116c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_08.png"><br>常用的 delta 激活函数：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-234d1970a2ebc9ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_09.png"><br>基于梯度下降的权值更新：<br>$$ w_{j}\leftarrow w_{j}-\lambda \frac{\partial E(w)}{\partial w_{j}}$$<br>$\lambda$为学习率。</p>
-<h5 id="（2）反向传播（back-propagation）"><a href="#（2）反向传播（back-propagation）" class="headerlink" title="（2）反向传播（back-propagation）"></a>（2）反向传播（back-propagation）</h5><p>对于数据集，可以使用mini-batch，每次选取一部分，直到将数据使用完毕。每次每个数据包括两个阶段， 向前阶段和向后阶段。</p>
-<blockquote>
-<p>向前阶段：通过初始权值、初始偏置和激活函数，每次更新隐藏层和输出层的值；<br>向后阶段：通过权值更新法则，更新权值和偏置。<br>直到数据使用完毕，或者，权值更新的差值小于某个阈值。</p>
-</blockquote>
-<h5 id="（3）神经网络特点"><a href="#（3）神经网络特点" class="headerlink" title="（3）神经网络特点"></a>（3）神经网络特点</h5><blockquote>
-<p>1、至少含有一个隐藏层的是一种普适近似（universal approximator），即可以用来近似任何目标函数。<br>2、可以处理冗余特征，冗余特征的权值会非常小。<br>3、梯度下降法会收敛到局部极小值，避免方法可以在权值更新公式上加上一个动量项（momentum term）</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;一、感知器&quot;&gt;&lt;a href=&quot;#一、感知器&quot; class=&quot;headerlink&quot; title=&quot;一、感知器&quot;&gt;&lt;/a&gt;一、感知器&lt;/h4&gt;&lt;p&gt;下图为一个感知器，单个神经元。&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-c8d5e57205a85f05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_06.png&quot;&gt;&lt;br&gt;该感知器的算法：&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-3578cedeed16cbe4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;5_07.png&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分类（2）：k-最近邻、贝叶斯分类器</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_classfy_02/</id>
-    <published>2017-02-15T13:14:31.000Z</published>
-    <updated>2017-02-15T13:53:37.398Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="一、k-最近邻"><a href="#一、k-最近邻" class="headerlink" title="一、k-最近邻"></a>一、k-最近邻</h4><h5 id="1、算法"><a href="#1、算法" class="headerlink" title="1、算法"></a>1、算法</h5><p>积极学习方法（eager learner）：通过训练样本建立模型。<br>消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。</p>
-<h6 id="k-最近邻算法："><a href="#k-最近邻算法：" class="headerlink" title="k-最近邻算法："></a>k-最近邻算法：</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">令k是最近邻数目，D是训练样例集合</div><div class="line"><span class="keyword">for</span> z <span class="keyword">in</span> 样例集合:</div><div class="line">  计算 z 和每个样例 (x,y) 的距离 d</div><div class="line">  选择离 z 前 k 个近距离的点，为集合 Dt</div><div class="line">  z的标记 y 为 Dt 中类较多的</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>k-最近邻采用多数表决的方法，该算法对 k 敏感：<br>$$y’=argmax_{v}\sum_{(x_{i},y_{i})\in D_{t}} I(v=y_{i})$$<br>所以，需要降低 k 的影响，一种途径就是对距离的不同加权，如下，因为距离远的影响要弱一些，以距离平方的倒数为权值。<br>$$y’=argmax_{v}\sum_{(x_{i},y_{i})\in D_{t}}w_{i}\times I(v=y_{i}),w_{i}=\frac{1}{d(x’,x_{i})^{2}}$$</p>
-<h5 id="2、最近邻分类器特征："><a href="#2、最近邻分类器特征：" class="headerlink" title="2、最近邻分类器特征："></a>2、最近邻分类器特征：</h5><blockquote>
-<p>（1）实例的学习，不需要建模，但分类测试的开销很大。<br>（2）当k比较小的时候，对噪声非常敏感。<br>（3）可以生成任意决策边界。</p>
-</blockquote>
-<h4 id="二、贝叶斯分类器"><a href="#二、贝叶斯分类器" class="headerlink" title="二、贝叶斯分类器"></a>二、贝叶斯分类器</h4><h5 id="1、贝叶斯公式"><a href="#1、贝叶斯公式" class="headerlink" title="1、贝叶斯公式"></a>1、贝叶斯公式</h5><p>$$P(Y_{j}|X)=\frac{P(X|Y_{j})P(Y_{j})}{P(X)}=\frac{P(X|Y_{j})P(Y_{j})}{\sum_{i=1}^{n}P(X|Y_{i})P(Y_{i})}$$</p>
-<h5 id="2、朴素贝叶斯"><a href="#2、朴素贝叶斯" class="headerlink" title="2、朴素贝叶斯"></a>2、朴素贝叶斯</h5><h6 id="（1）条件独立性："><a href="#（1）条件独立性：" class="headerlink" title="（1）条件独立性："></a>（1）条件独立性：</h6><p>给定 Z，X 条件独立于 Y:<br>$$P(X|Y,Z)=P(X|Z)$$<br>则有：<br>$$P(X,Y|Z)=\frac{P(Z,Y,X)}{P(Z)}=\frac{P(Z,Y,X)}{P(Y,Z)}\frac{P(Y,Z)}{P(Z)}=P(X|Y,Z)P(Y|Z)=P(X|Z)P(Y|Z)$$</p>
-<h6 id="（2）朴素贝叶斯分类器："><a href="#（2）朴素贝叶斯分类器：" class="headerlink" title="（2）朴素贝叶斯分类器："></a>（2）朴素贝叶斯分类器：</h6><p>$$P(Y|X)=\frac{P(X|Y)P(Y)}{P(X)}=\frac{P(X_{1},…,X_{d})P(Y)}{P(X)}=\frac{P(Y)\prod_{i=1}^{d}P(X_{i}|Y)}{P(X)}$$</p>
-<h6 id="（3）连续属性的条件概率："><a href="#（3）连续属性的条件概率：" class="headerlink" title="（3）连续属性的条件概率："></a>（3）连续属性的条件概率：</h6><p><1>把每个连续属性离散化，用相应的区间去替代原来的属性，但若某一个区间的样本数目过少，不容易做出可靠的估计。</1></p>
-<p><2>可以假设连续变量服从正态分布，Xi的概率等于：<br>$$P(X_{i}=x_{i}|Y=y_{j})=\frac{1}{\sqrt{2\pi}\sigma_{ij}}e^{-\frac{(x_{i}-\mu_{ij})^{2}}{2\sigma_{ij}}}$$<br>其中 $\mu$ 用样本均值估计， $\sigma$ 用样本方差估计。</2></p>
-<h6 id="（4）朴素贝叶斯举例："><a href="#（4）朴素贝叶斯举例：" class="headerlink" title="（4）朴素贝叶斯举例："></a>（4）朴素贝叶斯举例：</h6><p>拖欠贷款为 Y 变量。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-cd962d2b90b84337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_01.png"><br>测试记录X=（有房=否，婚姻状况=已婚，年收入=120K），求后验概率P（No|X）、P（Yes|X）。<br>总的 Y 可以知道，P（Yes）=0.3，P（No）=0.7。则：</p>
-<blockquote>
-<p>P（X | No）=P（有房=否 | No）x P（婚姻状况=已婚 | No）x P（年收入=120K | No）=0.0024<br>P（X | Yes）= P（有房=否 | Yes）x P（婚姻状况=已婚 | Yes）x P（年收入=120K | Yes）=0</p>
-</blockquote>
-<p>因为P（No|X）&gt;P（Yes|X），所以该测试分类为No，不拖欠贷款。<br>上例中，P（婚姻状况=已婚 | Yes）=0，可能会出现极端现象，为了防止出现0，朴素贝叶斯没法正确分类，可以使用 m 估计（m-estimate）：<br>$$ P(x_{i}|y_{j})=\frac{n_{c}+mp}{n+m}$$<br>$n$ 为 $y_{i}$ 的实例总数，$n_{c}$ 为 $y_{i}$ 中 $x_{i}$ 的实例数目，p 是用户指定，m 为等价样本大小的参数。上面的计算：P（婚姻状况=已婚 | Yes）=(0+3 x 1/3)/(3+3)=1/6，而不是0。</p>
-<h6 id="（4）朴素贝叶斯特征："><a href="#（4）朴素贝叶斯特征：" class="headerlink" title="（4）朴素贝叶斯特征："></a>（4）朴素贝叶斯特征：</h6><blockquote>
-<p>对于噪声点，朴素贝叶斯是健壮的。也可以处理属性值遗漏问题。<br>无关属性，朴素贝叶斯是健壮的。对于相关属性，可能会降低分类性能。</p>
-</blockquote>
-<h5 id="3、贝叶斯置信网络（Bayesian-belief-networks，BBN）"><a href="#3、贝叶斯置信网络（Bayesian-belief-networks，BBN）" class="headerlink" title="3、贝叶斯置信网络（Bayesian belief networks，BBN）"></a>3、贝叶斯置信网络（Bayesian belief networks，BBN）</h5><h6 id="（1）模型表示："><a href="#（1）模型表示：" class="headerlink" title="（1）模型表示："></a>（1）模型表示：</h6><p>两个主要成分：</p>
-<blockquote>
-<p>一个有向无环图（DAG），表示变量之间的关系；<br>一个概率表，把各个结点和它的直接父节点关联起来。</p>
-</blockquote>
-<p>性质1：条件独立<br>贝叶斯网络中的一个结点，如果它的父母结点已知，则它条件独立于它的所有非后代结点。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-9e01f1fad2d71412.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_02.png"><br>如图（b），给定C，A 条件独立于 B 和 D。<br>除了网络拓扑结构要求的条件独立外，每个结点还关联一个概率表。</p>
-<blockquote>
-<p>（1）如果结点 X 没有父母结点，则表中只包含先验概率P(X);<br>（2）如果结点 X 只有一个父母结点 Y，则表中包含先验概率P(X | Y);<br>（3）如果结点 X 有多个父母结点{Y1，Y2…，Yk}，则表中只包含先验概率P(X|Y1，Y2…，Yk);</p>
-</blockquote>
-<p>下图是一个贝叶斯置信网络。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-f75caad2586c4f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_03.png"></p>
-<h6 id="（2）建立模型："><a href="#（2）建立模型：" class="headerlink" title="（2）建立模型："></a>（2）建立模型：</h6><p>贝叶斯网络拓扑结构的生成算法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">设T=（X1，X2，...Xd）表示变量的全序</div><div class="line"><span class="keyword">for</span> j=<span class="number">1</span> to d do</div><div class="line">  令 XTj 表示 T 中第 j 个次序最高的变量</div><div class="line">  令A（XTj）=&#123;XT1，XT2，...XTj<span class="number">-1</span>&#125; 表示排在 XTj 前面的变量的集合</div><div class="line">  从A（XTj）中去掉对 Xj 没有影响的变量（使用先验知识）</div><div class="line">  在 XTj 和 A（XTj） 中的剩余变量之间画弧</div></pre></td></tr></table></figure></p>
-<p>考虑到图5_03，经过循环后，得到的如下概率：</p>
-<blockquote>
-<p>P（D | E）化简为 P（D）<br>P（HD | E,D）不能化简<br>P（Hb | E,D,HD）化简为 P（Hb | D）<br>P（CP | E,D,HD,Hb）化简为 P（CP | HD,Hb）<br>P（BP | E,D,HD,Hb,CP）化简为 P（BP | HD）</p>
-</blockquote>
-<p>上面的算法，保证了不会生成环。<br>不同的变量排序会产生不同的拓扑结构，理论上需要 d！种排序才能找到最优的，开销很大。代替方法是把变量分成原因变量和结果变量，从原因到结果画弧。</p>
-<h6 id="（3）使用BNN进行推理："><a href="#（3）使用BNN进行推理：" class="headerlink" title="（3）使用BNN进行推理："></a>（3）使用BNN进行推理：</h6><p>根据上面的贝叶斯置信网络图，有下面情况：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-bc19e263319b348d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_04.png"><br><img src="http://upload-images.jianshu.io/upload_images/3341358-b9d40731e3d646db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5_05.png"></p>
-<h6 id="（4）BNN的特点："><a href="#（4）BNN的特点：" class="headerlink" title="（4）BNN的特点："></a>（4）BNN的特点：</h6><blockquote>
-<p>构造网络比较费时，但网络结构一旦确定下来，添加新变量就变得容易。<br>很适合处理不完整数据，对有属性遗漏的可以通过概率或求积分来加以处理。<br>数据和先验知识结合起来，该方法对于模型的过拟合问题是非常鲁棒的。</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;一、k-最近邻&quot;&gt;&lt;a href=&quot;#一、k-最近邻&quot; class=&quot;headerlink&quot; title=&quot;一、k-最近邻&quot;&gt;&lt;/a&gt;一、k-最近邻&lt;/h4&gt;&lt;h5 id=&quot;1、算法&quot;&gt;&lt;a href=&quot;#1、算法&quot; class=&quot;headerlink&quot; title=&quot;1、算法&quot;&gt;&lt;/a&gt;1、算法&lt;/h5&gt;&lt;p&gt;积极学习方法（eager learner）：通过训练样本建立模型。&lt;br&gt;消极学习方法（lazy learner）：实例的学习，k-最近邻就属于这种。&lt;/p&gt;
-&lt;h6 id=&quot;k-最近邻算法：&quot;&gt;&lt;a href=&quot;#k-最近邻算法：&quot; class=&quot;headerlink&quot; title=&quot;k-最近邻算法：&quot;&gt;&lt;/a&gt;k-最近邻算法：&lt;/h6&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;令k是最近邻数目，D是训练样例集合&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; z &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; 样例集合:&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  计算 z 和每个样例 (x,y) 的距离 d&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  选择离 z 前 k 个近距离的点，为集合 Dt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  z的标记 y 为 Dt 中类较多的&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="分类算法" scheme="http://yoursite.com/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
     
   </entry>
   

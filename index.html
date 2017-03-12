@@ -114,7 +114,7 @@
       applicationID: '',
       apiKey: '',
       indexName: '',
-      hits: {"per_page":5},
+      hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
@@ -296,7 +296,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/24/python_problem_count/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/python_jieba/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -321,8 +321,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/24/python_problem_count/" itemprop="url">
-                  统计排序
+                <a class="post-title-link" href="/2017/03/12/python_jieba/" itemprop="url">
+                  jieba结巴分词使用
                 </a>
               
             
@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T12:51:41+08:00">
-                2017-02-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T19:14:00+08:00">
+                2017-03-12
               </time>
             
 
@@ -379,8 +379,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/24/python_problem_count/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/24/python_problem_count/" itemprop="commentCount"></span>
+                <a href="/2017/03/12/python_jieba/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/python_jieba/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,11 +407,16 @@
 
       
         
-          <h2 id="统计"><a href="#统计" class="headerlink" title="统计"></a>统计</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from collections import Counter</div><div class="line">Counter(nodes_str)      # 统计有多少</div><div class="line">Counter(Counter(nodes_str).values())    # 统计有多少的有多少</div></pre></td></tr></table></figure>
-<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>对于list和dict都可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">aa = &#123;&apos;a&apos;:1, &apos;b&apos;:3, &apos;c&apos;:2&#125;</div><div class="line">sorted(aa.items(), key=lambda x: x[1])</div></pre></td></tr></table></figure></p>
+          <h2 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h2><p>通过用户自定义词典来增强歧义纠错能力。<a href="https://github.com/fxsjy/jieba/issues/14">https://github.com/fxsjy/jieba/issues/14</a></p>
+<h2 id="1、分词"><a href="#1、分词" class="headerlink" title="1、分词"></a>1、分词</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li><code>jieba.cut</code> 方法接受三个输入参数: 需要分词的字符串；cut_all 参数用来控制是否采用全模式；HMM 参数用来控制是否使用 HMM 模型</li>
+<li><code>jieba.cut_for_search</code> 方法接受两个参数：需要分词的字符串；是否使用 HMM 模型。该方法适合用于搜索引擎构建倒排索引的分词，粒度比较细</li>
+<li><code>jieba.Tokenizer(dictionary=DEFAULT_DICT)</code> 新建自定义分词器，可用于同时使用不同词典。</li>
+<li><code>jieba.dt</code> 为默认分词器，所有全局分词相关函数都是该分词器的映射。</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/24/python_problem_count/#more" rel="contents">
+            <a class="btn" href="/2017/03/12/python_jieba/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -452,7 +457,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/24/python_problem_deencode/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/python_logging/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -477,8 +482,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/24/python_problem_deencode/" itemprop="url">
-                  编码问题
+                <a class="post-title-link" href="/2017/03/12/python_logging/" itemprop="url">
+                  logging 模块
                 </a>
               
             
@@ -494,8 +499,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T12:50:07+08:00">
-                2017-02-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T19:11:59+08:00">
+                2017-03-12
               </time>
             
 
@@ -535,8 +540,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/24/python_problem_deencode/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/24/python_problem_deencode/" itemprop="commentCount"></span>
+                <a href="/2017/03/12/python_logging/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/python_logging/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -563,11 +568,12 @@
 
       
         
-          <h2 id="Unicode编码问题处理"><a href="#Unicode编码问题处理" class="headerlink" title="Unicode编码问题处理"></a>Unicode编码问题处理</h2><p>当遇见以下情况。<br>返回字符串为’\\u82f9\\u679c’的unicode时候。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">str1 = &apos;\\u82f9\\u679c&apos;</div><div class="line">print str1     # 结果是 : \\u82f9\\u679c</div><div class="line">print  u&apos;\\u82f9\\u679c&apos;     # 结果是 : 苹果</div></pre></td></tr></table></figure></p>
-<p>解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">str1 = &apos;\\u82f9\\u679c&apos;</div><div class="line">uni_result = str1.decode(&quot;unicode-escape&quot;)</div><div class="line">print uni_result</div><div class="line"># 结果是 : 苹果</div></pre></td></tr></table></figure></p>
+          <h2 id="logging模块日志级别"><a href="#logging模块日志级别" class="headerlink" title="logging模块日志级别"></a>logging模块日志级别</h2><p>1 )、 Level:  CRITICAL Numeric value: 50<br>2 )、 Level:  ERROR     Numeric value: 40<br>3 )、 Level:  WARNING Numeric value: 30<br>4 )、 Level:  INFO          Numeric value: 20<br>5 )、 Level:  DEBUG      Numeric value: 10<br>6 )、 Level:  NOTSET    Numeric value: 0</p>
+<p><a href="http://www.cnblogs.com/dkblog/archive/2011/08/26/2155018.html">http://www.cnblogs.com/dkblog/archive/2011/08/26/2155018.html</a></p>
+<p><a href="http://blog.csdn.net/zyz511919766/article/details/25136485">http://blog.csdn.net/zyz511919766/article/details/25136485</a></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/24/python_problem_deencode/#more" rel="contents">
+            <a class="btn" href="/2017/03/12/python_logging/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -608,7 +614,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/24/python_time/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/python_pyInstaller/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -633,8 +639,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/24/python_time/" itemprop="url">
-                  time 模块 时间格式
+                <a class="post-title-link" href="/2017/03/12/python_pyInstaller/" itemprop="url">
+                  PyInstaller模块
                 </a>
               
             
@@ -650,8 +656,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T12:48:11+08:00">
-                2017-02-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T19:10:50+08:00">
+                2017-03-12
               </time>
             
 
@@ -691,8 +697,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/24/python_time/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/24/python_time/" itemprop="commentCount"></span>
+                <a href="/2017/03/12/python_pyInstaller/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/python_pyInstaller/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -719,11 +725,15 @@
 
       
         
-          <h4 id="1、sleep-seconds"><a href="#1、sleep-seconds" class="headerlink" title="1、sleep(seconds)"></a>1、sleep(seconds)</h4><p>线程推迟指定的时间运行，单位为秒<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">time.sleep(10)</div></pre></td></tr></table></figure></p>
-<h4 id="2、ctime-seconds-gt-string"><a href="#2、ctime-seconds-gt-string" class="headerlink" title="2、ctime(seconds) -&gt; string"></a>2、ctime(seconds) -&gt; string</h4><p>将一个时间戳(默认为当前时间)转换成一个时间字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">time.ctime()</div><div class="line">&gt;&gt; &apos;Tue Nov 29 17:51:02 2016&apos;</div></pre></td></tr></table></figure></p>
+          <h2 id="使用PyInstaller"><a href="#使用PyInstaller" class="headerlink" title="使用PyInstaller"></a>使用PyInstaller</h2><h3 id="1、直接打包："><a href="#1、直接打包：" class="headerlink" title="1、直接打包："></a>1、直接打包：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyInstaller  yourapp.py</div></pre></td></tr></table></figure>
+<p>可以得到<code>dsit</code>和<code>build</code>文件，dist文件夹下的exe文件即为打包好的可执行文件，但是依赖许多dll。<br><code>pyInstaller</code>可以添加的指令：</p>
+<blockquote>
+<p>-w指令：直接发布的exe应用带命令行调试窗口，在指令内加入-w命令可以屏蔽<br>-F指令：注意指令区分大小写。这里是大写。使用-F指令可以把应用打包成一个独立的exe文件，否则是一个带各种dll和依赖文件的文件夹</p>
+</blockquote>
+<h3 id="2、配置打包："><a href="#2、配置打包：" class="headerlink" title="2、配置打包："></a>2、配置打包：</h3><p>可以打包相应的图片或者音乐资源等。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/24/python_time/#more" rel="contents">
+            <a class="btn" href="/2017/03/12/python_pyInstaller/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -764,7 +774,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/git_pycharm/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/Latex/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -789,8 +799,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/16/git_pycharm/" itemprop="url">
-                  pycharm的git上传
+                <a class="post-title-link" href="/2017/03/12/Latex/" itemprop="url">
+                  Latex
                 </a>
               
             
@@ -806,8 +816,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-16T23:47:00+08:00">
-                2017-02-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T18:56:01+08:00">
+                2017-03-12
               </time>
             
 
@@ -829,8 +839,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
+                  <a href="/categories/Latex/" itemprop="url" rel="index">
+                    <span itemprop="name">Latex</span>
                   </a>
                 </span>
 
@@ -847,8 +857,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/16/git_pycharm/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/16/git_pycharm/" itemprop="commentCount"></span>
+                <a href="/2017/03/12/Latex/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/Latex/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -875,11 +885,11 @@
 
       
         
-          <h2 id="git上传问题"><a href="#git上传问题" class="headerlink" title="git上传问题"></a>git上传问题</h2><p>当在pycharm中使用git上传时候。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-ffeece3b9cbd9d4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>可能会出现以下问题：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-23e7602f72fb864e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+          <h2 id="基本符号"><a href="#基本符号" class="headerlink" title="基本符号"></a>基本符号</h2><h3 id="1、公式开始"><a href="#1、公式开始" class="headerlink" title="1、公式开始"></a>1、公式开始</h3><p>嵌套在文本中，使用<code>$</code>，单独一行使用<code>$$</code>。<br>或者，使用如下作为公式的输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\begin&#123;equation&#125;</div><div class="line">公式</div><div class="line">\end&#123;equation&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="2、希腊符号："><a href="#2、希腊符号：" class="headerlink" title="2、希腊符号："></a>2、希腊符号：</h3><p><code>$ \alpha $</code> : $ \alpha $<br><code>$ \beta $</code> : $ \beta $<br><code>$ \gamma $</code> : $\gamma $<br><code>$ \delta $</code> : $\delta $<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/02/16/git_pycharm/#more" rel="contents">
+            <a class="btn" href="/2017/03/12/Latex/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -920,7 +930,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/git_config/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/windows_win_R/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -945,8 +955,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/16/git_config/" itemprop="url">
-                  git配置
+                <a class="post-title-link" href="/2017/03/12/windows_win_R/" itemprop="url">
+                  Windows Win+R
                 </a>
               
             
@@ -962,8 +972,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-16T23:45:40+08:00">
-                2017-02-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T18:54:09+08:00">
+                2017-03-12
               </time>
             
 
@@ -985,8 +995,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
+                  <a href="/categories/Windows/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows</span>
                   </a>
                 </span>
 
@@ -1003,8 +1013,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/16/git_config/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/16/git_config/" itemprop="commentCount"></span>
+                <a href="/2017/03/12/windows_win_R/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/windows_win_R/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1031,15 +1041,12 @@
 
       
         
-          <h2 id="使用git-bash："><a href="#使用git-bash：" class="headerlink" title="使用git-bash："></a>使用git-bash：</h2><p>到网站下载即可：<br><a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a><br>下载windows版本的就可以。</p>
-<h2 id="设置用户："><a href="#设置用户：" class="headerlink" title="设置用户："></a>设置用户：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config -–global user.name &quot;xxx&quot;   </div><div class="line">git config –-global user.email &quot;xxx@xxx.com&quot;</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/16/git_config/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <blockquote>
+<p>msconfig 系统配置实用程序<br>mspaint 画图板<br>dxdiag 检查directx信息<br>devmgmt.msc 设备管理器<br>notepad 打开记事本<br>netstat -an （tc）命令检查接口<br>sysedit 系统配置编辑器<br>secpol.msc 本地安全策略<br>syskey 系统加密，一旦加密就不能解开，保护Windows xp系统的双重密码<br>services.msc 本地服务设置<br>sndvol32 音量控制程序<br>taskmgr 任务管理器<br>eventvwr 事件查看器<br>eudcedit 造字程序<br>explorer 打开资源管理器<br>perfmon.msc 计算机性能监测程序<br>regedit.exe 注册表<br>regedt32 注册表编辑器<br>rononce -p 15秒关机<br>calc 启动计算器<br>clipbrd 剪贴板查看器<br>cleanmgr 垃圾整理<br>osk 打开屏幕键盘<br>logoff 注销命令</p>
+</blockquote>
+
+          
         
       
     </div>
@@ -1071,7 +1078,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1114,7 +1121,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1123,7 +1130,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1132,7 +1139,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
