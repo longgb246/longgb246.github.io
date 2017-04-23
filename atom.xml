@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-12T11:15:47.127Z</updated>
+  <updated>2017-04-23T05:43:37.672Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tutorial_1 Request and Response</title>
+    <link href="http://yoursite.com/2017/04/23/python_django_tutorial_01/"/>
+    <id>http://yoursite.com/2017/04/23/python_django_tutorial_01/</id>
+    <published>2017-04-23T05:42:54.000Z</published>
+    <updated>2017-04-23T05:43:37.672Z</updated>
+    
+    <content type="html"><![CDATA[<p>[toc]</p>
+<h3 id="一、创建一个Project"><a href="#一、创建一个Project" class="headerlink" title="一、创建一个Project"></a>一、创建一个Project</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django-admin startproject longgb246</div></pre></td></tr></table></figure>
+<p>产生目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">longgb246/</div><div class="line">    manage.py</div><div class="line">    mysite/</div><div class="line">        __init__.py</div><div class="line">        settings.py</div><div class="line">        urls.py</div><div class="line">        wsgi.py</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="二、开启服务"><a href="#二、开启服务" class="headerlink" title="二、开启服务"></a>二、开启服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py runserver</div></pre></td></tr></table></figure>
+<p>端口号：<a href="http://127.0.0.1:8000/" target="_blank" rel="external">http://127.0.0.1:8000/</a><br>还可以改变端口，或者IP<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">python manage.py runserver 8080</div><div class="line">python manage.py runserver 0.0.0.0:8000</div></pre></td></tr></table></figure></p>
+<h3 id="三、开启app"><a href="#三、开启app" class="headerlink" title="三、开启app"></a>三、开启app</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py startapp polls</div></pre></td></tr></table></figure>
+<p>得到以下目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">polls/</div><div class="line">    __init__.py</div><div class="line">    admin.py</div><div class="line">    apps.py</div><div class="line">    migrations/</div><div class="line">        __init__.py</div><div class="line">    models.py</div><div class="line">    tests.py</div><div class="line">    views.py</div></pre></td></tr></table></figure></p>
+<h4 id="3-1-写第一个view"><a href="#3-1-写第一个view" class="headerlink" title="3.1 写第一个view"></a>3.1 写第一个view</h4><p>打开<code>polls/views.py</code><br>写入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from django.http import HttpResponse</div><div class="line">def index(request):</div><div class="line">    return HttpResponse(&quot;Hello, world. You&apos;re at the polls index.&quot;)</div></pre></td></tr></table></figure></p>
+<h4 id="3-2-创建app的urls"><a href="#3-2-创建app的urls" class="headerlink" title="3.2 创建app的urls"></a>3.2 创建app的urls</h4><p>得到以下目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">polls/</div><div class="line">    __init__.py</div><div class="line">    admin.py</div><div class="line">    apps.py</div><div class="line">    migrations/</div><div class="line">        __init__.py</div><div class="line">    models.py</div><div class="line">    tests.py</div><div class="line">    urls.py</div><div class="line">    views.py</div></pre></td></tr></table></figure></p>
+<p>在<code>urls.py</code>中写到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url</div><div class="line">from . import views</div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^$&apos;, views.index, name=&apos;index&apos;),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h4 id="3-3-创建项目的urls"><a href="#3-3-创建项目的urls" class="headerlink" title="3.3 创建项目的urls"></a>3.3 创建项目的urls</h4><p>在目录的<code>urls.py</code>下<br>写入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import include, url</div><div class="line">from django.contrib import admin</div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^polls/&apos;, include(&apos;polls.urls&apos;)),</div><div class="line">    url(r&apos;^admin/&apos;, admin.site.urls),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>把polls写入其中。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h3 id=&quot;一、创建一个Project&quot;&gt;&lt;a href=&quot;#一、创建一个Project&quot; class=&quot;headerlink&quot; title=&quot;一、创建一个Project&quot;&gt;&lt;/a&gt;一、创建一个Project&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;django-admin startproject longgb246&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;产生目录&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;longgb246/&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    manage.py&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    mysite/&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        __init__.py&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        settings.py&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        urls.py&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        wsgi.py&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
   
   <entry>
     <title>jieba结巴分词使用</title>
@@ -943,47 +982,6 @@
       <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
     
       <category term="聚类算法" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关联分析（2）：高级概念</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_realation_02/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_realation_02/</id>
-    <published>2017-02-15T13:56:50.000Z</published>
-    <updated>2017-02-15T13:56:52.045Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、处理分类属性"><a href="#一、处理分类属性" class="headerlink" title="一、处理分类属性"></a>一、处理分类属性</h3><p>依然使用虚拟变量。<br><img src="http://upload-images.jianshu.io/upload_images/3341358-2656cf4ac104d32b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7_01.png"></p>
-<p>（1）属性值有可能不频繁，可以分组处理，使得较小数据合并。<br>（2）某些属性的频率出现比其他压高很多，出现冗余模式，可能需要剔除。</p>
-<a id="more"></a>
-<h3 id="二、处理连续变量"><a href="#二、处理连续变量" class="headerlink" title="二、处理连续变量"></a>二、处理连续变量</h3><h4 id="（1）基于离散化方法"><a href="#（1）基于离散化方法" class="headerlink" title="（1）基于离散化方法"></a>（1）基于离散化方法</h4><p>问题：区间宽度不好确定，计算开销比较大，提取许多冗余的规则。</p>
-<h4 id="（2）基于统计学方法"><a href="#（2）基于统计学方法" class="headerlink" title="（2）基于统计学方法"></a>（2）基于统计学方法</h4><p>[略]</p>
-<h4 id="（3）-非离散化方法"><a href="#（3）-非离散化方法" class="headerlink" title="（3） 非离散化方法"></a>（3） 非离散化方法</h4><p>[略]</p>
-<h3 id="三、处理概念分层"><a href="#三、处理概念分层" class="headerlink" title="三、处理概念分层"></a>三、处理概念分层</h3><p>[略]</p>
-<h3 id="四、序列模式"><a href="#四、序列模式" class="headerlink" title="四、序列模式"></a>四、序列模式</h3><p>[略]</p>
-<h3 id="五、子图模式"><a href="#五、子图模式" class="headerlink" title="五、子图模式"></a>五、子图模式</h3><p>[略]</p>
-<h3 id="六、非频繁模式"><a href="#六、非频繁模式" class="headerlink" title="六、非频繁模式"></a>六、非频繁模式</h3><p>[略]</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、处理分类属性&quot;&gt;&lt;a href=&quot;#一、处理分类属性&quot; class=&quot;headerlink&quot; title=&quot;一、处理分类属性&quot;&gt;&lt;/a&gt;一、处理分类属性&lt;/h3&gt;&lt;p&gt;依然使用虚拟变量。&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/3341358-2656cf4ac104d32b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;7_01.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;（1）属性值有可能不频繁，可以分组处理，使得较小数据合并。&lt;br&gt;（2）某些属性的频率出现比其他压高很多，出现冗余模式，可能需要剔除。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
-    
-      <category term="关联分析" scheme="http://yoursite.com/tags/%E5%85%B3%E8%81%94%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
