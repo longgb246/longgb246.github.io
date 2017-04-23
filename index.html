@@ -296,7 +296,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/23/python_django_tutorial_01/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/23/python_django_tutorial_07/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -321,8 +321,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/23/python_django_tutorial_01/" itemprop="url">
-                  Tutorial_1 Request and Response
+                <a class="post-title-link" href="/2017/04/23/python_django_tutorial_07/" itemprop="url">
+                  Tutorial_7 Customizing the admin site
                 </a>
               
             
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-23T13:42:54+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-23T16:17:11+08:00">
                 2017-04-23
               </time>
             
@@ -379,8 +379,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/04/23/python_django_tutorial_01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/23/python_django_tutorial_01/" itemprop="commentCount"></span>
+                <a href="/2017/04/23/python_django_tutorial_07/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/23/python_django_tutorial_07/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,12 +407,11 @@
 
       
         
-          <p>[toc]</p>
-<h3 id="一、创建一个Project"><a href="#一、创建一个Project" class="headerlink" title="一、创建一个Project"></a>一、创建一个Project</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django-admin startproject longgb246</div></pre></td></tr></table></figure>
-<p>产生目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">longgb246/</div><div class="line">    manage.py</div><div class="line">    mysite/</div><div class="line">        __init__.py</div><div class="line">        settings.py</div><div class="line">        urls.py</div><div class="line">        wsgi.py</div></pre></td></tr></table></figure></p>
+          <h3 id="一、管理admin"><a href="#一、管理admin" class="headerlink" title="一、管理admin"></a>一、管理admin</h3><h4 id="1、修改顺序"><a href="#1、修改顺序" class="headerlink" title="1、修改顺序"></a>1、修改顺序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from django.contrib import admin</div><div class="line">from .models import Question</div><div class="line"></div><div class="line">class QuestionAdmin(admin.ModelAdmin):</div><div class="line">    fields = [&apos;pub_date&apos;, &apos;question_text&apos;]</div><div class="line"></div><div class="line">admin.site.register(Question, QuestionAdmin)</div></pre></td></tr></table></figure>
+<p>使得<code>pub_date</code>显示在<code>question_text</code>前面。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/23/python_django_tutorial_01/#more" rel="contents">
+            <a class="btn" href="/2017/04/23/python_django_tutorial_07/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -453,7 +452,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/python_jieba/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/23/python_django_tutorial_06/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -478,8 +477,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/12/python_jieba/" itemprop="url">
-                  jieba结巴分词使用
+                <a class="post-title-link" href="/2017/04/23/python_django_tutorial_06/" itemprop="url">
+                  Tutorial_6 Static files
                 </a>
               
             
@@ -495,8 +494,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T19:14:00+08:00">
-                2017-03-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-23T16:16:26+08:00">
+                2017-04-23
               </time>
             
 
@@ -536,8 +535,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/12/python_jieba/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/python_jieba/" itemprop="commentCount"></span>
+                <a href="/2017/04/23/python_django_tutorial_06/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/23/python_django_tutorial_06/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -564,16 +563,12 @@
 
       
         
-          <h2 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h2><p>通过用户自定义词典来增强歧义纠错能力。<a href="https://github.com/fxsjy/jieba/issues/14">https://github.com/fxsjy/jieba/issues/14</a></p>
-<h2 id="1、分词"><a href="#1、分词" class="headerlink" title="1、分词"></a>1、分词</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
-<li><code>jieba.cut</code> 方法接受三个输入参数: 需要分词的字符串；cut_all 参数用来控制是否采用全模式；HMM 参数用来控制是否使用 HMM 模型</li>
-<li><code>jieba.cut_for_search</code> 方法接受两个参数：需要分词的字符串；是否使用 HMM 模型。该方法适合用于搜索引擎构建倒排索引的分词，粒度比较细</li>
-<li><code>jieba.Tokenizer(dictionary=DEFAULT_DICT)</code> 新建自定义分词器，可用于同时使用不同词典。</li>
-<li><code>jieba.dt</code> 为默认分词器，所有全局分词相关函数都是该分词器的映射。</li>
-</ul>
+          <h3 id="一、静态文件"><a href="#一、静态文件" class="headerlink" title="一、静态文件"></a>一、静态文件</h3><p>创建<code>static</code>在app的目录下，<code>polls/static/</code>。和建立<code>templates</code>类似，还需要在建立app名字命名的文件夹。将文件放于其下<code>polls/static/polls/</code>。</p>
+<h4 id="1-1-添加css"><a href="#1-1-添加css" class="headerlink" title="1.1 添加css"></a>1.1 添加css</h4><p>建立<code>css</code>文件夹，再建立<code>style.css</code>，写入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">li a &#123;</div><div class="line">    color: green;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>修改<code>index.html</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#123;% load static %&#125;</div><div class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&#123;% static &apos;polls/css/style.css&apos; %&#125;&quot; /&gt;</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/12/python_jieba/#more" rel="contents">
+            <a class="btn" href="/2017/04/23/python_django_tutorial_06/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -614,7 +609,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/python_logging/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/23/python_django_tutorial_05/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -639,8 +634,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/12/python_logging/" itemprop="url">
-                  logging 模块
+                <a class="post-title-link" href="/2017/04/23/python_django_tutorial_05/" itemprop="url">
+                  Tutorial_5 Testing
                 </a>
               
             
@@ -656,8 +651,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T19:11:59+08:00">
-                2017-03-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-23T16:15:34+08:00">
+                2017-04-23
               </time>
             
 
@@ -697,8 +692,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/12/python_logging/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/python_logging/" itemprop="commentCount"></span>
+                <a href="/2017/04/23/python_django_tutorial_05/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/23/python_django_tutorial_05/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -725,12 +720,11 @@
 
       
         
-          <h2 id="logging模块日志级别"><a href="#logging模块日志级别" class="headerlink" title="logging模块日志级别"></a>logging模块日志级别</h2><p>1 )、 Level:  CRITICAL Numeric value: 50<br>2 )、 Level:  ERROR     Numeric value: 40<br>3 )、 Level:  WARNING Numeric value: 30<br>4 )、 Level:  INFO          Numeric value: 20<br>5 )、 Level:  DEBUG      Numeric value: 10<br>6 )、 Level:  NOTSET    Numeric value: 0</p>
-<p><a href="http://www.cnblogs.com/dkblog/archive/2011/08/26/2155018.html">http://www.cnblogs.com/dkblog/archive/2011/08/26/2155018.html</a></p>
-<p><a href="http://blog.csdn.net/zyz511919766/article/details/25136485">http://blog.csdn.net/zyz511919766/article/details/25136485</a></p>
+          <h3 id="一、测试"><a href="#一、测试" class="headerlink" title="一、测试"></a>一、测试</h3><p>写测试类，在app的<code>tests.py</code>文件下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import datetime</div><div class="line">from django.utils import timezone</div><div class="line">from django.test import TestCase</div><div class="line">from .models import Question</div><div class="line"></div><div class="line">class QuestionMethodTests(TestCase):</div><div class="line">    def test_was_published_recently_with_future_question(self):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        was_published_recently() should return False for questions whose</div><div class="line">        pub_date is in the future.</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        time = timezone.now() + datetime.timedelta(days=30)</div><div class="line">        future_question = Question(pub_date=time)</div><div class="line">        self.assertIs(future_question.was_published_recently(), False)</div></pre></td></tr></table></figure></p>
+<p>在终端运行。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/12/python_logging/#more" rel="contents">
+            <a class="btn" href="/2017/04/23/python_django_tutorial_05/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -771,7 +765,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/python_pyInstaller/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/23/python_django_tutorial_04/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -796,8 +790,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/12/python_pyInstaller/" itemprop="url">
-                  PyInstaller模块
+                <a class="post-title-link" href="/2017/04/23/python_django_tutorial_04/" itemprop="url">
+                  Tutorial_4 Forms and generic views
                 </a>
               
             
@@ -813,8 +807,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T19:10:50+08:00">
-                2017-03-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-23T16:14:20+08:00">
+                2017-04-23
               </time>
             
 
@@ -854,8 +848,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/12/python_pyInstaller/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/python_pyInstaller/" itemprop="commentCount"></span>
+                <a href="/2017/04/23/python_django_tutorial_04/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/23/python_django_tutorial_04/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -882,15 +876,11 @@
 
       
         
-          <h2 id="使用PyInstaller"><a href="#使用PyInstaller" class="headerlink" title="使用PyInstaller"></a>使用PyInstaller</h2><h3 id="1、直接打包："><a href="#1、直接打包：" class="headerlink" title="1、直接打包："></a>1、直接打包：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyInstaller  yourapp.py</div></pre></td></tr></table></figure>
-<p>可以得到<code>dsit</code>和<code>build</code>文件，dist文件夹下的exe文件即为打包好的可执行文件，但是依赖许多dll。<br><code>pyInstaller</code>可以添加的指令：</p>
-<blockquote>
-<p>-w指令：直接发布的exe应用带命令行调试窗口，在指令内加入-w命令可以屏蔽<br>-F指令：注意指令区分大小写。这里是大写。使用-F指令可以把应用打包成一个独立的exe文件，否则是一个带各种dll和依赖文件的文件夹</p>
-</blockquote>
-<h3 id="2、配置打包："><a href="#2、配置打包：" class="headerlink" title="2、配置打包："></a>2、配置打包：</h3><p>可以打包相应的图片或者音乐资源等。</p>
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/h1&gt;</div><div class="line">&#123;% if error_message %&#125;&lt;p&gt;&lt;strong&gt;&#123;&#123; error_message &#125;&#125;&lt;/strong&gt;&lt;/p&gt;&#123;% endif %&#125;</div><div class="line">&lt;form action=&quot;&#123;% url &apos;polls:vote&apos; question.id %&#125;&quot; method=&quot;post&quot;&gt;</div><div class="line">&#123;% csrf_token %&#125;</div><div class="line">&#123;% for choice in question.choice_set.all %&#125;</div><div class="line">    &lt;input type=&quot;radio&quot; name=&quot;choice&quot; id=&quot;choice&#123;&#123; forloop.counter &#125;&#125;&quot; value=&quot;&#123;&#123; choice.id &#125;&#125;&quot; /&gt;</div><div class="line">    &lt;label for=&quot;choice&#123;&#123; forloop.counter &#125;&#125;&quot;&gt;&#123;&#123; choice.choice_text &#125;&#125;&lt;/label&gt;&lt;br /&gt;</div><div class="line">&#123;% endfor %&#125;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;Vote&quot; /&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p>其中<code>forloop.counter</code>是指<code>for</code>循环了多少次。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/12/python_pyInstaller/#more" rel="contents">
+            <a class="btn" href="/2017/04/23/python_django_tutorial_04/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -931,7 +921,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/12/Latex/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/23/python_django_tutorial_03/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -956,8 +946,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/12/Latex/" itemprop="url">
-                  Latex
+                <a class="post-title-link" href="/2017/04/23/python_django_tutorial_03/" itemprop="url">
+                  Tutorial_3 Views and templates
                 </a>
               
             
@@ -973,8 +963,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T18:56:01+08:00">
-                2017-03-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-23T16:13:21+08:00">
+                2017-04-23
               </time>
             
 
@@ -996,8 +986,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Latex/" itemprop="url" rel="index">
-                    <span itemprop="name">Latex</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -1014,8 +1004,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/03/12/Latex/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/12/Latex/" itemprop="commentCount"></span>
+                <a href="/2017/04/23/python_django_tutorial_03/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/23/python_django_tutorial_03/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1042,11 +1032,10 @@
 
       
         
-          <h2 id="基本符号"><a href="#基本符号" class="headerlink" title="基本符号"></a>基本符号</h2><h3 id="1、公式开始"><a href="#1、公式开始" class="headerlink" title="1、公式开始"></a>1、公式开始</h3><p>嵌套在文本中，使用<code>$</code>，单独一行使用<code>$$</code>。<br>或者，使用如下作为公式的输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">\begin&#123;equation&#125;</div><div class="line">公式</div><div class="line">\end&#123;equation&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="2、希腊符号："><a href="#2、希腊符号：" class="headerlink" title="2、希腊符号："></a>2、希腊符号：</h3><p><code>$ \alpha $</code> : $ \alpha $<br><code>$ \beta $</code> : $ \beta $<br><code>$ \gamma $</code> : $\gamma $<br><code>$ \delta $</code> : $\delta $<br>
+          <h3 id="一、视图"><a href="#一、视图" class="headerlink" title="一、视图"></a>一、视图</h3><p>添加更多的视图，在<code>app</code>的<code>views.py</code>下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def detail(request, question_id):</div><div class="line">    return HttpResponse(&quot;You&apos;re looking at question %s.&quot; % question_id)</div><div class="line"></div><div class="line">def results(request, question_id):</div><div class="line">    response = &quot;You&apos;re looking at the results of question %s.&quot;</div><div class="line">    return HttpResponse(response % question_id)</div><div class="line"></div><div class="line">def vote(request, question_id):</div><div class="line">    return HttpResponse(&quot;You&apos;re voting on question %s.&quot; % question_id)</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/12/Latex/#more" rel="contents">
+            <a class="btn" href="/2017/04/23/python_django_tutorial_03/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1082,7 +1071,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1125,7 +1114,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

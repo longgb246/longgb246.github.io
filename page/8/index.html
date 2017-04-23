@@ -296,7 +296,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/hive_hadoop_base/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/14/windows_bat_alias/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -321,8 +321,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/01/22/hive_hadoop_base/" itemprop="url">
-                  基本命令
+                <a class="post-title-link" href="/2017/02/14/windows_bat_alias/" itemprop="url">
+                  cmd设置命令缓存（伪别名）
                 </a>
               
             
@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T20:34:00+08:00">
-                2017-01-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-14T20:34:00+08:00">
+                2017-02-14
               </time>
             
 
@@ -361,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hive-Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hive&Hadoop</span>
+                  <a href="/categories/Windows/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows</span>
                   </a>
                 </span>
 
@@ -379,8 +379,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/22/hive_hadoop_base/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/22/hive_hadoop_base/" itemprop="commentCount"></span>
+                <a href="/2017/02/14/windows_bat_alias/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/14/windows_bat_alias/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,11 +407,12 @@
 
       
         
-          <h3 id="1、设置动态分区"><a href="#1、设置动态分区" class="headerlink" title="1、设置动态分区"></a>1、设置动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.dynamic.partition=true;</div><div class="line">set hive.exec.dynamic.partition.mode=nonstrict;</div></pre></td></tr></table></figure>
-<h3 id="2、设置最大动态分区"><a href="#2、设置最大动态分区" class="headerlink" title="2、设置最大动态分区"></a>2、设置最大动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.max.dynamic.partitions=2000;</div><div class="line">set hive.exec.max.dynamic.partitions.pernode=2000;</div></pre></td></tr></table></figure>
+          <p>1、创建一个bat文件，alias.bat，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">doskey ls=dir</div><div class="line">doskey python3=C:\Users\xxxx\Anaconda3\python.exe</div><div class="line">doskey pip3=C:\Users\xxxx\Anaconda3\Scripts\pip.exe</div></pre></td></tr></table></figure></p>
+<p>2、该文件保存于任意目录下，目录最好为英文，C:\Users\xxxx。<br>3、win+r，输入regedit，打开注册表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">HKEY_LOCAL_MACHINE\Software\Microsoft\Command</div><div class="line">HKEY_CURRENT_USER\Software\Microsoft\Command</div></pre></td></tr></table></figure></p>
+<p><img src="/pictures/pic_20170214_2343.png" alt="图片未加载" title="pic_20170214_2343.png"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/22/hive_hadoop_base/#more" rel="contents">
+            <a class="btn" href="/2017/02/14/windows_bat_alias/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -452,7 +453,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/14/python_virtualenv/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/24/linux_awk/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -477,8 +478,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/01/14/python_virtualenv/" itemprop="url">
-                  virtualenv 模块 虚拟环境
+                <a class="post-title-link" href="/2017/01/24/linux_awk/" itemprop="url">
+                  awk
                 </a>
               
             
@@ -494,8 +495,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-14T20:34:00+08:00">
-                2017-01-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T20:37:00+08:00">
+                2017-01-24
               </time>
             
 
@@ -517,8 +518,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -535,8 +536,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/14/python_virtualenv/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/14/python_virtualenv/" itemprop="commentCount"></span>
+                <a href="/2017/01/24/linux_awk/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/linux_awk/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -563,11 +564,11 @@
 
       
         
-          <h3 id="1、安装virtualenv"><a href="#1、安装virtualenv" class="headerlink" title="1、安装virtualenv"></a>1、安装virtualenv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div></pre></td></tr></table></figure>
-<h3 id="2、进入到某个文件夹"><a href="#2、进入到某个文件夹" class="headerlink" title="2、进入到某个文件夹"></a>2、进入到某个文件夹</h3><h6 id="创建纯净python2环境"><a href="#创建纯净python2环境" class="headerlink" title="创建纯净python2环境"></a>创建纯净python2环境</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir workspace</div><div class="line">cd workspace</div><div class="line">virtualenv python2</div></pre></td></tr></table></figure>
+          <h3 id="1、简单例子"><a href="#1、简单例子" class="headerlink" title="1、简单例子"></a>1、简单例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk  &apos;BEGIN &#123;print &quot;Hello world!&quot;&#125;&apos;        # 这个不需要文件输入就可以</div></pre></td></tr></table></figure>
+<p><code>awkscr</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/^$/ &#123;print &quot;This is a blank line&quot;&#125;</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/14/python_virtualenv/#more" rel="contents">
+            <a class="btn" href="/2017/01/24/linux_awk/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -608,7 +609,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/12/python_python-dcox/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/24/linux_03_rzsz/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -633,8 +634,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/01/12/python_python-dcox/" itemprop="url">
-                  python-dcox 模块 生成Word、docx文件
+                <a class="post-title-link" href="/2017/01/24/linux_03_rzsz/" itemprop="url">
+                  sz-rz-文件传输
                 </a>
               
             
@@ -650,8 +651,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T20:36:00+08:00">
-                2017-01-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T20:36:00+08:00">
+                2017-01-24
               </time>
             
 
@@ -673,8 +674,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -691,8 +692,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/12/python_python-dcox/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/12/python_python-dcox/" itemprop="commentCount"></span>
+                <a href="/2017/01/24/linux_03_rzsz/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/linux_03_rzsz/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -719,11 +720,11 @@
 
       
         
-          <p><a href="http://python-docx.readthedocs.io/en/latest/index.html">http://python-docx.readthedocs.io/en/latest/index.html</a><br>生成word的利器！</p>
-<h2 id="一、快速开始"><a href="#一、快速开始" class="headerlink" title="一、快速开始"></a>一、快速开始</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx import Document</div><div class="line">document = Document()</div></pre></td></tr></table></figure>
+          <h3 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h3><h4 id="1、sz用法（下载）："><a href="#1、sz用法（下载）：" class="headerlink" title="1、sz用法（下载）："></a>1、sz用法（下载）：</h4><p>下载一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename</div></pre></td></tr></table></figure></p>
+<p>下载多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sz filename1 filename2</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/12/python_python-dcox/#more" rel="contents">
+            <a class="btn" href="/2017/01/24/linux_03_rzsz/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -764,7 +765,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/12/python_pickle/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/24/linux_02_com/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -789,8 +790,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/01/12/python_pickle/" itemprop="url">
-                  pickle 模块 序列化
+                <a class="post-title-link" href="/2017/01/24/linux_02_com/" itemprop="url">
+                  linux 查看系统信息命令(比较全)
                 </a>
               
             
@@ -806,8 +807,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T20:35:00+08:00">
-                2017-01-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T20:35:00+08:00">
+                2017-01-24
               </time>
             
 
@@ -829,8 +830,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -847,8 +848,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/12/python_pickle/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/12/python_pickle/" itemprop="commentCount"></span>
+                <a href="/2017/01/24/linux_02_com/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/linux_02_com/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -875,14 +876,9 @@
 
       
         
-          <p>使用pickle模块将数据对象保存到文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import pickle</div><div class="line"> </div><div class="line">data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j],</div><div class="line">         &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;),</div><div class="line">         &apos;c&apos;: None&#125;</div><div class="line"> </div><div class="line">selfref_list = [1, 2, 3]</div><div class="line">selfref_list.append(selfref_list)</div><div class="line"> </div><div class="line">output = open(&apos;data.pkl&apos;, &apos;wb&apos;)</div><div class="line"> </div><div class="line"># Pickle dictionary using protocol 0.</div><div class="line">pickle.dump(data1, output)</div><div class="line"> </div><div class="line"># Pickle the list using the highest protocol available.</div><div class="line">pickle.dump(selfref_list, output, -1)</div><div class="line"> </div><div class="line">output.close()</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/12/python_pickle/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"># uname -a # 查看内核/操作系统/CPU信息</div><div class="line"># head -n 1 /etc/issue # 查看操作系统版本</div><div class="line"># cat /proc/cpuinfo # 查看CPU信息</div><div class="line"># hostname # 查看计算机名</div><div class="line"># lspci -tv # 列出所有PCI设备</div><div class="line"># lsusb -tv # 列出所有USB设备</div><div class="line"># lsmod # 列出加载的内核模块</div><div class="line"># env # 查看环境变量资源</div><div class="line"># free -m # 查看内存使用量和交换区使用量</div><div class="line"># df -h # 查看各分区使用情况</div><div class="line"># du -sh &lt;目录名&gt; # 查看指定目录的大小</div><div class="line"># grep MemTotal /proc/meminfo # 查看内存总量</div><div class="line"># grep MemFree /proc/meminfo # 查看空闲内存量</div><div class="line"># uptime # 查看系统运行时间、用户数、负载</div><div class="line"># cat /proc/loadavg # 查看系统负载磁盘和分区</div><div class="line"># mount | column -t # 查看挂接的分区状态</div><div class="line"># fdisk -l # 查看所有分区</div><div class="line"># swapon -s # 查看所有交换分区</div><div class="line"># hdparm -i /dev/hda # 查看磁盘参数(仅适用于IDE设备)</div><div class="line"># dmesg | grep IDE # 查看启动时IDE设备检测状况网络</div><div class="line"># ifconfig # 查看所有网络接口的属性</div><div class="line"># iptables -L # 查看防火墙设置</div><div class="line"># route -n # 查看路由表</div><div class="line"># netstat -lntp # 查看所有监听端口</div><div class="line"># netstat -antp # 查看所有已经建立的连接</div><div class="line"># netstat -s # 查看网络统计信息进程</div><div class="line"># ps -ef # 查看所有进程</div><div class="line"># top # 实时显示进程状态用户</div><div class="line"># w # 查看活动用户</div><div class="line"># id &lt;用户名&gt; # 查看指定用户信息</div><div class="line"># last # 查看用户登录日志</div><div class="line"># cut -d: -f1 /etc/passwd # 查看系统所有用户</div><div class="line"># cut -d: -f1 /etc/group # 查看系统所有组</div><div class="line"># crontab -l # 查看当前用户的计划任务服务</div><div class="line"># chkconfig –list # 列出所有系统服务</div><div class="line"># chkconfig –list | grep on # 列出所有启动的系统服务程序</div><div class="line"># rpm -qa # 查看所有安装的软件包</div></pre></td></tr></table></figure>
+          
         
       
     </div>
@@ -919,7 +915,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/12/python_os_sys/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/24/linux_01_base/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -944,8 +940,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/01/12/python_os_sys/" itemprop="url">
-                  os/sys 模块 python操作文件路径
+                <a class="post-title-link" href="/2017/01/24/linux_01_base/" itemprop="url">
+                  一些常用命令
                 </a>
               
             
@@ -961,8 +957,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T20:34:00+08:00">
-                2017-01-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T20:34:00+08:00">
+                2017-01-24
               </time>
             
 
@@ -984,8 +980,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -1002,8 +998,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/12/python_os_sys/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/12/python_os_sys/" itemprop="commentCount"></span>
+                <a href="/2017/01/24/linux_01_base/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/linux_01_base/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1030,19 +1026,10 @@
 
       
         
-          <h3 id="当前路径："><a href="#当前路径：" class="headerlink" title="当前路径："></a>当前路径：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> sys, os</div><div class="line">pwd = sys.path[<span class="number">0</span>]    <span class="comment"># 获取当前执行脚本的位置</span></div></pre></td></tr></table></figure>
-<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><blockquote>
-<ul>
-<li><strong>`</strong>file<strong>`</strong>：当前文件完整路径，包括文件名</li>
-<li><strong>os.path.dirname(file)</strong>: 某个文件所在的目录路径</li>
-<li><strong>os.path.join(a, b, c,….)</strong>: 路径构造 a/b/c</li>
-<li><strong>os.path.abspath(path)</strong>: 将path从相对路径转成绝对路径</li>
-<li><strong>os.pardir</strong>: Linux下相当于”../“，上一级目录的标志</li>
-</ul>
-</blockquote>
+          <h3 id="一、基本命令"><a href="#一、基本命令" class="headerlink" title="一、基本命令"></a>一、基本命令</h3><h4 id="（1）查看linux的信息"><a href="#（1）查看linux的信息" class="headerlink" title="（1）查看linux的信息"></a>（1）查看linux的信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">lsb_release -a</div><div class="line">cat /etc/redhat-release           # 查看服务器是Ubuntu还是Centos</div><div class="line">file /sbin/init 或者file /bin/ls    # 查看服务器是32、64位</div><div class="line">free -g                                    # 以G为单位，查看内存大小</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/12/python_os_sys/#more" rel="contents">
+            <a class="btn" href="/2017/01/24/linux_01_base/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1078,7 +1065,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1121,7 +1108,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

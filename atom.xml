@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-23T05:43:37.672Z</updated>
+  <updated>2017-04-23T08:18:18.798Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,14 +16,223 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Tutorial_7 Customizing the admin site</title>
+    <link href="http://yoursite.com/2017/04/23/python_django_tutorial_07/"/>
+    <id>http://yoursite.com/2017/04/23/python_django_tutorial_07/</id>
+    <published>2017-04-23T08:17:11.000Z</published>
+    <updated>2017-04-23T08:18:18.798Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、管理admin"><a href="#一、管理admin" class="headerlink" title="一、管理admin"></a>一、管理admin</h3><h4 id="1、修改顺序"><a href="#1、修改顺序" class="headerlink" title="1、修改顺序"></a>1、修改顺序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from django.contrib import admin</div><div class="line">from .models import Question</div><div class="line"></div><div class="line">class QuestionAdmin(admin.ModelAdmin):</div><div class="line">    fields = [&apos;pub_date&apos;, &apos;question_text&apos;]</div><div class="line"></div><div class="line">admin.site.register(Question, QuestionAdmin)</div></pre></td></tr></table></figure>
+<p>使得<code>pub_date</code>显示在<code>question_text</code>前面。<br><a id="more"></a></p>
+<h4 id="2、修改标题"><a href="#2、修改标题" class="headerlink" title="2、修改标题"></a>2、修改标题</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class QuestionAdmin(admin.ModelAdmin):</div><div class="line">    fieldsets = [</div><div class="line">        (None,               &#123;&apos;fields&apos;: [&apos;question_text&apos;]&#125;),</div><div class="line">        (&apos;Date information&apos;, &#123;&apos;fields&apos;: [&apos;pub_date&apos;]&#125;),</div><div class="line">    ]</div></pre></td></tr></table></figure>
+<p>使得显示的标题信息增加。</p>
+<h4 id="3、增加投票信息"><a href="#3、增加投票信息" class="headerlink" title="3、增加投票信息"></a>3、增加投票信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">from django.contrib import admin</div><div class="line">from .models import Choice, Question</div><div class="line"></div><div class="line">class ChoiceInline(admin.StackedInline):</div><div class="line">    model = Choice</div><div class="line">    extra = 3</div><div class="line"></div><div class="line">class QuestionAdmin(admin.ModelAdmin):</div><div class="line">    fieldsets = [</div><div class="line">        (None,               &#123;&apos;fields&apos;: [&apos;question_text&apos;]&#125;),</div><div class="line">        (&apos;Date information&apos;, &#123;&apos;fields&apos;: [&apos;pub_date&apos;], &apos;classes&apos;: [&apos;collapse&apos;]&#125;),</div><div class="line">    ]</div><div class="line">    inlines = [ChoiceInline]</div><div class="line"></div><div class="line">admin.site.register(Question, QuestionAdmin)</div></pre></td></tr></table></figure>
+<p>使用内联式的会更好。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class ChoiceInline(admin.TabularInline):</div><div class="line">    #...</div></pre></td></tr></table></figure></p>
+<h4 id="4、列表信息"><a href="#4、列表信息" class="headerlink" title="4、列表信息"></a>4、列表信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class QuestionAdmin(admin.ModelAdmin):</div><div class="line">    # ...</div><div class="line">    list_display = (&apos;question_text&apos;, &apos;pub_date&apos;, &apos;was_published_recently&apos;)</div></pre></td></tr></table></figure>
+<h4 id="5、添加filter"><a href="#5、添加filter" class="headerlink" title="5、添加filter"></a>5、添加filter</h4><p><code>models</code>里添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Question(models.Model):</div><div class="line">    # ...</div><div class="line">    def was_published_recently(self):</div><div class="line">        now = timezone.now()</div><div class="line">        return now - datetime.timedelta(days=1) &lt;= self.pub_date &lt;= now</div><div class="line">    was_published_recently.admin_order_field = &apos;pub_date&apos;</div><div class="line">    was_published_recently.boolean = True</div><div class="line">    was_published_recently.short_description = &apos;Published recently?&apos;</div></pre></td></tr></table></figure></p>
+<p><code>admin</code>里的<code>QuestionAdmin</code>添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">list_filter = [&apos;pub_date&apos;]</div></pre></td></tr></table></figure></p>
+<h4 id="6、添加搜索"><a href="#6、添加搜索" class="headerlink" title="6、添加搜索"></a>6、添加搜索</h4><p><code>admin</code>里的<code>QuestionAdmin</code>添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">search_fields = [&apos;question_text&apos;]</div></pre></td></tr></table></figure></p>
+<h3 id="二、建立app的admin"><a href="#二、建立app的admin" class="headerlink" title="二、建立app的admin"></a>二、建立app的admin</h3><p>在app的<code>templates</code>文件夹下建立<code>admin</code>文件夹，将<code>django/contrib/admin/templates/admin/base_site.html</code>拷贝到<code>templates/admin/</code>下。<br>修改指定部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% block branding %&#125;</div><div class="line">&lt;h1 id=&quot;site-name&quot;&gt;&lt;a href=&quot;&#123;% url &apos;admin:index&apos; %&#125;&quot;&gt;Polls Administration&lt;/a&gt;&lt;/h1&gt;</div><div class="line">&#123;% endblock %&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、管理admin&quot;&gt;&lt;a href=&quot;#一、管理admin&quot; class=&quot;headerlink&quot; title=&quot;一、管理admin&quot;&gt;&lt;/a&gt;一、管理admin&lt;/h3&gt;&lt;h4 id=&quot;1、修改顺序&quot;&gt;&lt;a href=&quot;#1、修改顺序&quot; class=&quot;headerlink&quot; title=&quot;1、修改顺序&quot;&gt;&lt;/a&gt;1、修改顺序&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;from django.contrib import admin&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from .models import Question&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;class QuestionAdmin(admin.ModelAdmin):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    fields = [&amp;apos;pub_date&amp;apos;, &amp;apos;question_text&amp;apos;]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;admin.site.register(Question, QuestionAdmin)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;使得&lt;code&gt;pub_date&lt;/code&gt;显示在&lt;code&gt;question_text&lt;/code&gt;前面。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tutorial_6 Static files</title>
+    <link href="http://yoursite.com/2017/04/23/python_django_tutorial_06/"/>
+    <id>http://yoursite.com/2017/04/23/python_django_tutorial_06/</id>
+    <published>2017-04-23T08:16:26.000Z</published>
+    <updated>2017-04-23T08:18:12.205Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、静态文件"><a href="#一、静态文件" class="headerlink" title="一、静态文件"></a>一、静态文件</h3><p>创建<code>static</code>在app的目录下，<code>polls/static/</code>。和建立<code>templates</code>类似，还需要在建立app名字命名的文件夹。将文件放于其下<code>polls/static/polls/</code>。</p>
+<h4 id="1-1-添加css"><a href="#1-1-添加css" class="headerlink" title="1.1 添加css"></a>1.1 添加css</h4><p>建立<code>css</code>文件夹，再建立<code>style.css</code>，写入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">li a &#123;</div><div class="line">    color: green;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>修改<code>index.html</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#123;% load static %&#125;</div><div class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&#123;% static &apos;polls/css/style.css&apos; %&#125;&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h4 id="1-2-添加图片"><a href="#1-2-添加图片" class="headerlink" title="1.2 添加图片"></a>1.2 添加图片</h4><p>建立文件夹<code>polls/static/polls/images</code>，在其中放置<code>background_001.jpg</code>。添加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">body &#123;</div><div class="line">    background: white url(&quot;../images/background_001.jpg&quot;) no-repeat right bottom;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、静态文件&quot;&gt;&lt;a href=&quot;#一、静态文件&quot; class=&quot;headerlink&quot; title=&quot;一、静态文件&quot;&gt;&lt;/a&gt;一、静态文件&lt;/h3&gt;&lt;p&gt;创建&lt;code&gt;static&lt;/code&gt;在app的目录下，&lt;code&gt;polls/static/&lt;/code&gt;。和建立&lt;code&gt;templates&lt;/code&gt;类似，还需要在建立app名字命名的文件夹。将文件放于其下&lt;code&gt;polls/static/polls/&lt;/code&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;1-1-添加css&quot;&gt;&lt;a href=&quot;#1-1-添加css&quot; class=&quot;headerlink&quot; title=&quot;1.1 添加css&quot;&gt;&lt;/a&gt;1.1 添加css&lt;/h4&gt;&lt;p&gt;建立&lt;code&gt;css&lt;/code&gt;文件夹，再建立&lt;code&gt;style.css&lt;/code&gt;，写入：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;li a &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    color: green;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;修改&lt;code&gt;index.html&lt;/code&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;% load static %&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;&amp;#123;% static &amp;apos;polls/css/style.css&amp;apos; %&amp;#125;&amp;quot; /&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tutorial_5 Testing</title>
+    <link href="http://yoursite.com/2017/04/23/python_django_tutorial_05/"/>
+    <id>http://yoursite.com/2017/04/23/python_django_tutorial_05/</id>
+    <published>2017-04-23T08:15:34.000Z</published>
+    <updated>2017-04-23T08:18:00.211Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、测试"><a href="#一、测试" class="headerlink" title="一、测试"></a>一、测试</h3><p>写测试类，在app的<code>tests.py</code>文件下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import datetime</div><div class="line">from django.utils import timezone</div><div class="line">from django.test import TestCase</div><div class="line">from .models import Question</div><div class="line"></div><div class="line">class QuestionMethodTests(TestCase):</div><div class="line">    def test_was_published_recently_with_future_question(self):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        was_published_recently() should return False for questions whose</div><div class="line">        pub_date is in the future.</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        time = timezone.now() + datetime.timedelta(days=30)</div><div class="line">        future_question = Question(pub_date=time)</div><div class="line">        self.assertIs(future_question.was_published_recently(), False)</div></pre></td></tr></table></figure></p>
+<p>在终端运行。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py test polls</div></pre></td></tr></table></figure></p>
+<p>会显示错误。<br>其中，运行步骤为：<br>1、该命令寻找<code>polls</code>的app<br>2、发现一个<code>django.test.TestCase</code>的类<br>3、创建特殊数据库来测试<br>4、寻找以<code>test</code>为名字开始的函数<code>test_was_published_recently_with_future_question</code>。在调用其中的方法。<br>修改bug。<code>models.py</code>中的该函数部分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def was_published_recently(self):</div><div class="line">    now = timezone.now()</div><div class="line">    return now - datetime.timedelta(days=1) &lt;= self.pub_date &lt;= now</div></pre></td></tr></table></figure></p>
+<p>更加复杂的测试，应该加入到<code>test.py</code>文件中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">def test_was_published_recently_with_old_question(self):</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    was_published_recently() should return False for questions whose</div><div class="line">    pub_date is older than 1 day.</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    time = timezone.now() - datetime.timedelta(days=30)</div><div class="line">    old_question = Question(pub_date=time)</div><div class="line">    self.assertIs(old_question.was_published_recently(), False)</div><div class="line"></div><div class="line">def test_was_published_recently_with_recent_question(self):</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    was_published_recently() should return True for questions whose</div><div class="line">    pub_date is within the last day.</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    time = timezone.now() - datetime.timedelta(hours=1)</div><div class="line">    recent_question = Question(pub_date=time)</div><div class="line">    self.assertIs(recent_question.was_published_recently(), True)</div></pre></td></tr></table></figure></p>
+<p>测试还有别的内容，之后再看。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、测试&quot;&gt;&lt;a href=&quot;#一、测试&quot; class=&quot;headerlink&quot; title=&quot;一、测试&quot;&gt;&lt;/a&gt;一、测试&lt;/h3&gt;&lt;p&gt;写测试类，在app的&lt;code&gt;tests.py&lt;/code&gt;文件下。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;import datetime&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from django.utils import timezone&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from django.test import TestCase&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from .models import Question&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;class QuestionMethodTests(TestCase):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    def test_was_published_recently_with_future_question(self):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;quot;&amp;quot;&amp;quot;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        was_published_recently() should return False for questions whose&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        pub_date is in the future.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;quot;&amp;quot;&amp;quot;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        time = timezone.now() + datetime.timedelta(days=30)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        future_question = Question(pub_date=time)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        self.assertIs(future_question.was_published_recently(), False)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;在终端运行。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tutorial_4 Forms and generic views</title>
+    <link href="http://yoursite.com/2017/04/23/python_django_tutorial_04/"/>
+    <id>http://yoursite.com/2017/04/23/python_django_tutorial_04/</id>
+    <published>2017-04-23T08:14:20.000Z</published>
+    <updated>2017-04-23T08:17:51.497Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/h1&gt;</div><div class="line">&#123;% if error_message %&#125;&lt;p&gt;&lt;strong&gt;&#123;&#123; error_message &#125;&#125;&lt;/strong&gt;&lt;/p&gt;&#123;% endif %&#125;</div><div class="line">&lt;form action=&quot;&#123;% url &apos;polls:vote&apos; question.id %&#125;&quot; method=&quot;post&quot;&gt;</div><div class="line">&#123;% csrf_token %&#125;</div><div class="line">&#123;% for choice in question.choice_set.all %&#125;</div><div class="line">    &lt;input type=&quot;radio&quot; name=&quot;choice&quot; id=&quot;choice&#123;&#123; forloop.counter &#125;&#125;&quot; value=&quot;&#123;&#123; choice.id &#125;&#125;&quot; /&gt;</div><div class="line">    &lt;label for=&quot;choice&#123;&#123; forloop.counter &#125;&#125;&quot;&gt;&#123;&#123; choice.choice_text &#125;&#125;&lt;/label&gt;&lt;br /&gt;</div><div class="line">&#123;% endfor %&#125;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;Vote&quot; /&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p>其中<code>forloop.counter</code>是指<code>for</code>循环了多少次。<br><a id="more"></a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&amp;lt;h1&amp;gt;&amp;#123;&amp;#123; question.question_text &amp;#125;&amp;#125;&amp;lt;/h1&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;% if error_message %&amp;#125;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;&amp;#123;&amp;#123; error_message &amp;#125;&amp;#125;&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&amp;#123;% endif %&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;lt;form action=&amp;quot;&amp;#123;% url &amp;apos;polls:vote&amp;apos; question.id %&amp;#125;&amp;quot; method=&amp;quot;post&amp;quot;&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;% csrf_token %&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;% for choice in question.choice_set.all %&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;lt;input type=&amp;quot;radio&amp;quot; name=&amp;quot;choice&amp;quot; id=&amp;quot;choice&amp;#123;&amp;#123; forloop.counter &amp;#125;&amp;#125;&amp;quot; value=&amp;quot;&amp;#123;&amp;#123; choice.id &amp;#125;&amp;#125;&amp;quot; /&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;lt;label for=&amp;quot;choice&amp;#123;&amp;#123; forloop.counter &amp;#125;&amp;#125;&amp;quot;&amp;gt;&amp;#123;&amp;#123; choice.choice_text &amp;#125;&amp;#125;&amp;lt;/label&amp;gt;&amp;lt;br /&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;% endfor %&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Vote&amp;quot; /&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;lt;/form&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;其中&lt;code&gt;forloop.counter&lt;/code&gt;是指&lt;code&gt;for&lt;/code&gt;循环了多少次。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tutorial_3 Views and templates</title>
+    <link href="http://yoursite.com/2017/04/23/python_django_tutorial_03/"/>
+    <id>http://yoursite.com/2017/04/23/python_django_tutorial_03/</id>
+    <published>2017-04-23T08:13:21.000Z</published>
+    <updated>2017-04-23T08:17:37.330Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、视图"><a href="#一、视图" class="headerlink" title="一、视图"></a>一、视图</h3><p>添加更多的视图，在<code>app</code>的<code>views.py</code>下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def detail(request, question_id):</div><div class="line">    return HttpResponse(&quot;You&apos;re looking at question %s.&quot; % question_id)</div><div class="line"></div><div class="line">def results(request, question_id):</div><div class="line">    response = &quot;You&apos;re looking at the results of question %s.&quot;</div><div class="line">    return HttpResponse(response % question_id)</div><div class="line"></div><div class="line">def vote(request, question_id):</div><div class="line">    return HttpResponse(&quot;You&apos;re voting on question %s.&quot; % question_id)</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>添加了视图之后，我们需要把相应的<code>url</code>添加到<code>app</code>下的<code>urls.py</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url</div><div class="line">from . import views</div><div class="line"></div><div class="line">urlpatterns = [</div><div class="line">    # ex: /polls/</div><div class="line">    url(r&apos;^$&apos;, views.index, name=&apos;index&apos;),</div><div class="line">    # ex: /polls/5/</div><div class="line">    url(r&apos;^(?P&lt;question_id&gt;[0-9]+)/$&apos;, views.detail, name=&apos;detail&apos;),</div><div class="line">    # ex: /polls/5/results/</div><div class="line">    url(r&apos;^(?P&lt;question_id&gt;[0-9]+)/results/$&apos;, views.results, name=&apos;results&apos;),</div><div class="line">    # ex: /polls/5/vote/</div><div class="line">    url(r&apos;^(?P&lt;question_id&gt;[0-9]+)/vote/$&apos;, views.vote, name=&apos;vote&apos;),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h3 id="二、模板"><a href="#二、模板" class="headerlink" title="二、模板"></a>二、模板</h3><p>创建<code>templates</code>文件夹，创建模板文件在<code>polls/templates/polls</code>，创建<code>index.html</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;% if latest_question_list %&#125;</div><div class="line">    &lt;ul&gt;</div><div class="line">    &#123;% for question in latest_question_list %&#125;</div><div class="line">        &lt;li&gt;&lt;a href=&quot;/polls/&#123;&#123; question.id &#125;&#125;/&quot;&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &#123;% endfor %&#125;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&#123;% else %&#125;</div><div class="line">    &lt;p&gt;No polls are available.&lt;/p&gt;</div><div class="line">&#123;% endif %&#125;</div></pre></td></tr></table></figure></p>
+<p>修改视图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">from django.http import HttpResponse</div><div class="line">from django.template import loader</div><div class="line">from .models import Question</div><div class="line"></div><div class="line">def index(request):</div><div class="line">    latest_question_list = Question.objects.order_by(&apos;-pub_date&apos;)[:5]</div><div class="line">    template = loader.get_template(&apos;polls/index.html&apos;)</div><div class="line">    context = &#123;</div><div class="line">        &apos;latest_question_list&apos;: latest_question_list,</div><div class="line">    &#125;</div><div class="line">    return HttpResponse(template.render(context, request))</div></pre></td></tr></table></figure></p>
+<p>上面使用的<code>HttpResponse</code>的方法较为麻烦，可以使用快捷方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from django.shortcuts import render</div><div class="line">from .models import Question</div><div class="line"></div><div class="line">def index(request):</div><div class="line">    latest_question_list = Question.objects.order_by(&apos;-pub_date&apos;)[:5]</div><div class="line">    context = &#123;&apos;latest_question_list&apos;: latest_question_list&#125;</div><div class="line">    return render(request, &apos;polls/index.html&apos;, context)</div></pre></td></tr></table></figure></p>
+<h3 id="三、404"><a href="#三、404" class="headerlink" title="三、404"></a>三、404</h3><p>在app下<code>templates/polls/</code>建立文件<code>detail.html</code>。<br>修改视图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">from django.http import Http404</div><div class="line">from django.shortcuts import render</div><div class="line"></div><div class="line">from .models import Question</div><div class="line"># ...</div><div class="line">def detail(request, question_id):</div><div class="line">    try:</div><div class="line">        question = Question.objects.get(pk=question_id)</div><div class="line">    except Question.DoesNotExist:</div><div class="line">        raise Http404(&quot;Question does not exist&quot;)</div><div class="line">    return render(request, &apos;polls/detail.html&apos;, &#123;&apos;question&apos;: question&#125;)</div></pre></td></tr></table></figure></p>
+<p>快捷方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from django.shortcuts import get_object_or_404, render</div><div class="line"></div><div class="line">from .models import Question</div><div class="line"># ...</div><div class="line">def detail(request, question_id):</div><div class="line">    question = get_object_or_404(Question, pk=question_id)</div><div class="line">    return render(request, &apos;polls/detail.html&apos;, &#123;&apos;question&apos;: question&#125;)</div></pre></td></tr></table></figure></p>
+<p>修改<code>detail.html</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;h1&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/h1&gt;</div><div class="line">&lt;ul&gt;</div><div class="line">&#123;% for choice in question.choice_set.all %&#125;</div><div class="line">    &lt;li&gt;&#123;&#123; choice.choice_text &#125;&#125;&lt;/li&gt;</div><div class="line">&#123;% endfor %&#125;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="四、移除硬url"><a href="#四、移除硬url" class="headerlink" title="四、移除硬url"></a>四、移除硬url</h3><p>在html中写url的时候，不要使用硬url，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;li&gt;&lt;a href=&quot;/polls/&#123;&#123; question.id &#125;&#125;/&quot;&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/a&gt;&lt;/li&gt;</div></pre></td></tr></table></figure></p>
+<p>要如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;li&gt;&lt;a href=&quot;&#123;% url &apos;detail&apos; question.id %&#125;&quot;&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/a&gt;&lt;/li&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="在添加url的命名空间"><a href="#在添加url的命名空间" class="headerlink" title="在添加url的命名空间"></a>在添加<code>url</code>的命名空间</h4><p>在<code>app</code>的<code>urls.py</code>中添加<code>app_name</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url</div><div class="line">from . import views</div><div class="line"></div><div class="line">app_name = &apos;polls&apos;</div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^$&apos;, views.index, name=&apos;index&apos;),</div><div class="line">    url(r&apos;^(?P&lt;question_id&gt;[0-9]+)/$&apos;, views.detail, name=&apos;detail&apos;),</div><div class="line">    url(r&apos;^(?P&lt;question_id&gt;[0-9]+)/results/$&apos;, views.results, name=&apos;results&apos;),</div><div class="line">    url(r&apos;^(?P&lt;question_id&gt;[0-9]+)/vote/$&apos;, views.vote, name=&apos;vote&apos;),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>添加<code>url</code>的命名空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;li&gt;&lt;a href=&quot;&#123;% url &apos;polls:detail&apos; question.id %&#125;&quot;&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/a&gt;&lt;/li&gt;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、视图&quot;&gt;&lt;a href=&quot;#一、视图&quot; class=&quot;headerlink&quot; title=&quot;一、视图&quot;&gt;&lt;/a&gt;一、视图&lt;/h3&gt;&lt;p&gt;添加更多的视图，在&lt;code&gt;app&lt;/code&gt;的&lt;code&gt;views.py&lt;/code&gt;下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;def detail(request, question_id):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    return HttpResponse(&amp;quot;You&amp;apos;re looking at question %s.&amp;quot; % question_id)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;def results(request, question_id):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    response = &amp;quot;You&amp;apos;re looking at the results of question %s.&amp;quot;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    return HttpResponse(response % question_id)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;def vote(request, question_id):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    return HttpResponse(&amp;quot;You&amp;apos;re voting on question %s.&amp;quot; % question_id)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tutorial_2 Models and the admin site</title>
+    <link href="http://yoursite.com/2017/04/23/python_django_tutorial_02/"/>
+    <id>http://yoursite.com/2017/04/23/python_django_tutorial_02/</id>
+    <published>2017-04-23T08:10:51.000Z</published>
+    <updated>2017-04-23T08:11:46.928Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、数据库"><a href="#一、数据库" class="headerlink" title="一、数据库"></a>一、数据库</h3><p>Django默认使用的是SQLite，如果想使用别的，可以在项目的<code>settings</code>下修改：</p>
+<blockquote>
+<p>ENGINE : ‘django.db.backends.sqlite3’, ‘django.db.backends.postgresql’, ‘django.db.backends.mysql’, or ‘django.db.backends.oracle’等等。</p>
+</blockquote>
+<p>如果不使用SQLite的话， USER, PASSWORD和 HOST的信息必须被添加。</p>
+<a id="more"></a>
+<h3 id="二、Models"><a href="#二、Models" class="headerlink" title="二、Models"></a>二、Models</h3><h4 id="2-1-创建"><a href="#2-1-创建" class="headerlink" title="2.1 创建"></a>2.1 创建</h4><p>在app的<code>models.py</code>下创建models<br>写入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from django.db import models</div><div class="line"></div><div class="line">class Question(models.Model):</div><div class="line">    question_text = models.CharField(max_length=200)</div><div class="line">    pub_date = models.DateTimeField(&apos;date published&apos;)</div><div class="line"></div><div class="line">class Choice(models.Model):</div><div class="line">    question = models.ForeignKey(Question, on_delete=models.CASCADE)</div><div class="line">    choice_text = models.CharField(max_length=200)</div><div class="line">    votes = models.IntegerField(default=0)</div></pre></td></tr></table></figure></p>
+<p>使用的是ORM对象关系映射。</p>
+<h4 id="2-2-激活"><a href="#2-2-激活" class="headerlink" title="2.2 激活"></a>2.2 激活</h4><p>建立了polls这个app后，在<code>polls/apps</code>下面有PollsConfig这个类。将其添加到project的settings下面的INSTALLED_APPS。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">INSTALLED_APPS = [</div><div class="line">    &apos;polls.apps.PollsConfig&apos;,</div><div class="line">    &apos;django.contrib.admin&apos;,</div><div class="line">    &apos;django.contrib.auth&apos;,</div><div class="line">    &apos;django.contrib.contenttypes&apos;,</div><div class="line">    &apos;django.contrib.sessions&apos;,</div><div class="line">    &apos;django.contrib.messages&apos;,</div><div class="line">    &apos;django.contrib.staticfiles&apos;,</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h4 id="2-3-迁移"><a href="#2-3-迁移" class="headerlink" title="2.3 迁移"></a>2.3 迁移</h4><p>然后迁移migrations。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py makemigrations polls</div></pre></td></tr></table></figure></p>
+<p>会看见类似：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Migrations for &apos;polls&apos;:</div><div class="line">  polls/migrations/0001_initial.py:</div><div class="line">    - Create model Choice</div><div class="line">    - Create model Question</div><div class="line">    - Add field question to choice</div></pre></td></tr></table></figure></p>
+<p>则会在app的migrations下面产生0001_initial.py文件，适用于记录产生的models变化。可以使用<code>sqlmigrate</code>查看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py sqlmigrate polls 0001</div></pre></td></tr></table></figure></p>
+<p>会看到类似：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">BEGIN;</div><div class="line">--</div><div class="line">-- Create model Choice</div><div class="line">--</div><div class="line">CREATE TABLE &quot;polls_choice&quot; (</div><div class="line">    &quot;id&quot; serial NOT NULL PRIMARY KEY,</div><div class="line">    &quot;choice_text&quot; varchar(200) NOT NULL,</div><div class="line">    &quot;votes&quot; integer NOT NULL</div><div class="line">);</div><div class="line">--</div><div class="line">-- Create model Question</div><div class="line">--</div><div class="line">CREATE TABLE &quot;polls_question&quot; (</div><div class="line">    &quot;id&quot; serial NOT NULL PRIMARY KEY,</div><div class="line">    &quot;question_text&quot; varchar(200) NOT NULL,</div><div class="line">    &quot;pub_date&quot; timestamp with time zone NOT NULL</div><div class="line">);</div><div class="line">--</div><div class="line">-- Add field question to choice</div><div class="line">--</div><div class="line">ALTER TABLE &quot;polls_choice&quot; ADD COLUMN &quot;question_id&quot; integer NOT NULL;</div><div class="line">ALTER TABLE &quot;polls_choice&quot; ALTER COLUMN &quot;question_id&quot; DROP DEFAULT;</div><div class="line">CREATE INDEX &quot;polls_choice_7aa0f6ee&quot; ON &quot;polls_choice&quot; (&quot;question_id&quot;);</div><div class="line">ALTER TABLE &quot;polls_choice&quot;</div><div class="line">  ADD CONSTRAINT &quot;polls_choice_question_id_246c99a640fbbd72_fk_polls_question_id&quot;</div><div class="line">    FOREIGN KEY (&quot;question_id&quot;)</div><div class="line">    REFERENCES &quot;polls_question&quot; (&quot;id&quot;)</div><div class="line">    DEFERRABLE INITIALLY DEFERRED;</div><div class="line">COMMIT;</div></pre></td></tr></table></figure></p>
+<p>注意：<br>1、这个sql是依赖于所用的数据库<br>2、表名被自动生成（查看是怎么样的）</p>
+<h4 id="2-4-生成"><a href="#2-4-生成" class="headerlink" title="2.4 生成"></a>2.4 生成</h4><p>再次使用<code>migrate</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py migrate</div></pre></td></tr></table></figure></p>
+<h3 id="三、Shell"><a href="#三、Shell" class="headerlink" title="三、Shell"></a>三、Shell</h3><p>进入shell中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py shell</div></pre></td></tr></table></figure></p>
+<p>开始调试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">from polls.models import Question, Choice   # Import the model classes we just wrote.</div><div class="line">Question.objects.all()</div><div class="line">from django.utils import timezone</div><div class="line">q = Question(question_text=&quot;What&apos;s new?&quot;, pub_date=timezone.now())</div><div class="line">q.save()</div><div class="line">q.id</div><div class="line">q.question_text</div><div class="line">q.pub_date</div><div class="line">q.question_text = &quot;What&apos;s up?&quot;</div><div class="line">q.save()</div><div class="line">Question.objects.all()</div></pre></td></tr></table></figure></p>
+<p>在使用<code>Question.objects.all()</code>得到的<code>&lt;QuerySet [&lt;Question: Question object&gt;]&gt;</code>结果是没有什么直接用处的。我们可以修改app下的model.py文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">import datetime</div><div class="line">from django.db import models</div><div class="line">from django.utils.encoding import python_2_unicode_compatible</div><div class="line">from django.utils import timezone</div><div class="line"></div><div class="line">@python_2_unicode_compatible</div><div class="line">class Question(models.Model):</div><div class="line">    question_text = models.CharField(max_length=200)</div><div class="line">    pub_date = models.DateTimeField(&apos;date published&apos;)</div><div class="line">    def __str__(self):</div><div class="line">        return self.question_text</div><div class="line">    def was_published_recently(self):</div><div class="line">        return self.pub_date &gt;= timezone.now() - datetime.timedelta(days=1)</div><div class="line"></div><div class="line">@python_2_unicode_compatible</div><div class="line">class Choice(models.Model):</div><div class="line">    question = models.ForeignKey(Question, on_delete=models.CASCADE)</div><div class="line">    choice_text = models.CharField(max_length=200)</div><div class="line">    votes = models.IntegerField(default=0)</div><div class="line">    def __str__(self):</div><div class="line">        return self.choice_text</div></pre></td></tr></table></figure></p>
+<p>在原有代码的情况下，添加<code>__str__</code>的方法。<br>上面还添加了一个<code>was_published_recently</code>的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Question.objects.filter(id=1)</div><div class="line">Question.objects.filter(question_text__startswith=&apos;What&apos;)</div><div class="line">from django.utils import timezone</div><div class="line">current_year = timezone.now().year</div><div class="line">Question.objects.get(pub_date__year=current_year)</div><div class="line">Question.objects.get(pk=1)</div><div class="line">q = Question.objects.get(pk=1)</div><div class="line">q.was_published_recently()</div><div class="line">q.choice_set.create(choice_text=&apos;Not much&apos;, votes=0)</div><div class="line">q.choice_set.create(choice_text=&apos;The sky&apos;, votes=0)</div><div class="line">c = q.choice_set.create(choice_text=&apos;Just hacking again&apos;, votes=0)</div><div class="line">q.choice_set.count()</div><div class="line">Choice.objects.filter(question__pub_date__year=current_year)</div><div class="line">c = q.choice_set.filter(choice_text__startswith=&apos;Just hacking&apos;)</div><div class="line">c.delete()</div></pre></td></tr></table></figure></p>
+<h3 id="四、Admin"><a href="#四、Admin" class="headerlink" title="四、Admin"></a>四、Admin</h3><p>创建superuser<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py createsuperuser</div></pre></td></tr></table></figure></p>
+<p>在 <a href="http://127.0.0.1:8000/admin/" target="_blank" rel="external">http://127.0.0.1:8000/admin/</a> 中可以登录。<br>我们需要告诉admin有polls中的models的接口，在app的admin.py文件下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from django.contrib import admin</div><div class="line">from .models import Question, Choice</div><div class="line"></div><div class="line">admin.site.register(Question)</div><div class="line">admin.site.register(Choice)</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、数据库&quot;&gt;&lt;a href=&quot;#一、数据库&quot; class=&quot;headerlink&quot; title=&quot;一、数据库&quot;&gt;&lt;/a&gt;一、数据库&lt;/h3&gt;&lt;p&gt;Django默认使用的是SQLite，如果想使用别的，可以在项目的&lt;code&gt;settings&lt;/code&gt;下修改：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ENGINE : ‘django.db.backends.sqlite3’, ‘django.db.backends.postgresql’, ‘django.db.backends.mysql’, or ‘django.db.backends.oracle’等等。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果不使用SQLite的话， USER, PASSWORD和 HOST的信息必须被添加。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Tutorial_1 Request and Response</title>
     <link href="http://yoursite.com/2017/04/23/python_django_tutorial_01/"/>
     <id>http://yoursite.com/2017/04/23/python_django_tutorial_01/</id>
     <published>2017-04-23T05:42:54.000Z</published>
-    <updated>2017-04-23T05:43:37.672Z</updated>
+    <updated>2017-04-23T08:08:01.347Z</updated>
     
-    <content type="html"><![CDATA[<p>[toc]</p>
-<h3 id="一、创建一个Project"><a href="#一、创建一个Project" class="headerlink" title="一、创建一个Project"></a>一、创建一个Project</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django-admin startproject longgb246</div></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<h3 id="一、创建一个Project"><a href="#一、创建一个Project" class="headerlink" title="一、创建一个Project"></a>一、创建一个Project</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django-admin startproject longgb246</div></pre></td></tr></table></figure>
 <p>产生目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">longgb246/</div><div class="line">    manage.py</div><div class="line">    mysite/</div><div class="line">        __init__.py</div><div class="line">        settings.py</div><div class="line">        urls.py</div><div class="line">        wsgi.py</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <h3 id="二、开启服务"><a href="#二、开启服务" class="headerlink" title="二、开启服务"></a>二、开启服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py runserver</div></pre></td></tr></table></figure>
@@ -39,8 +248,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h3 id=&quot;一、创建一个Project&quot;&gt;&lt;a href=&quot;#一、创建一个Project&quot; class=&quot;headerlink&quot; title=&quot;一、创建一个Project&quot;&gt;&lt;/a&gt;一、创建一个Project&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;django-admin startproject longgb246&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+      &lt;h3 id=&quot;一、创建一个Project&quot;&gt;&lt;a href=&quot;#一、创建一个Project&quot; class=&quot;headerlink&quot; title=&quot;一、创建一个Project&quot;&gt;&lt;/a&gt;一、创建一个Project&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;django-admin startproject longgb246&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;产生目录&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;longgb246/&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    manage.py&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    mysite/&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        __init__.py&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        settings.py&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        urls.py&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        wsgi.py&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
@@ -613,375 +821,6 @@
       <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
     
       <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Seaborn-03-数据分布图</title>
-    <link href="http://yoursite.com/2017/02/15/python_seaborn_03/"/>
-    <id>http://yoursite.com/2017/02/15/python_seaborn_03/</id>
-    <published>2017-02-15T14:14:31.000Z</published>
-    <updated>2017-02-15T14:14:50.510Z</updated>
-    
-    <content type="html"><![CDATA[<p>基本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">from __future__ import division</div><div class="line">import numpy as np</div><div class="line">import pandas as pd</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">from scipy import stats, integrate</div><div class="line">import seaborn as sns</div></pre></td></tr></table></figure></p>
-<h3 id="1、快速查看分布"><a href="#1、快速查看分布" class="headerlink" title="1、快速查看分布"></a>1、快速查看分布</h3><h4 id="distplot"><a href="#distplot" class="headerlink" title="distplot"></a>distplot</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">x = np.random.randint(0,10,100)</div><div class="line">sns.distplot(x, color=&quot;b&quot;, bins=10, rug=True)</div><div class="line">sns.distplot(x, hist=False)</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-b89b83c8e075b293.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_01.png"></p>
-<h3 id="2、画单变量图"><a href="#2、画单变量图" class="headerlink" title="2、画单变量图"></a>2、画单变量图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">x = np.random.normal(0, 1, size=30)</div><div class="line">bandwidth = 1.06 * x.std() * x.size ** (-1 / 5.)  # 带宽计算公式</div><div class="line">support = np.linspace(-4, 4, 200)</div><div class="line">kernels = []</div><div class="line">for x_i in x:</div><div class="line">    kernel = stats.norm(x_i, bandwidth).pdf(support)</div><div class="line">    kernels.append(kernel)</div><div class="line">    plt.plot(support, kernel, color=&quot;#C55458&quot;)</div><div class="line">sns.rugplot(x, color=&quot;.2&quot;, linewidth=3)</div><div class="line"></div><div class="line">density = np.sum(kernels, axis=0)</div><div class="line">density /= integrate.trapz(density, support)</div><div class="line">plt.plot(support, density)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-e9abe996d9b5a196.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_02.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sns.kdeplot(x, shade=True)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-462f6ba92f868c6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_03.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sns.kdeplot(x)</div><div class="line">sns.kdeplot(x, bw=.2, label=&quot;bw: 0.2&quot;)</div><div class="line">sns.kdeplot(x, bw=2, label=&quot;bw: 2&quot;)</div><div class="line">plt.legend()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-29d0b51e8a3e97f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_04.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">x = np.random.gamma(6, size=200)</div><div class="line">sns.distplot(x)</div><div class="line">sns.distplot(x, label=&apos;kde&apos;, hist=False)</div><div class="line">sns.distplot(x, kde=False, fit=stats.gamma, label=&apos;fit-gamma&apos;, hist=False)</div><div class="line">plt.legend()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-d50c8a44adebce08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_05.png"></p>
-<h3 id="3、画二元变量分布图"><a href="#3、画二元变量分布图" class="headerlink" title="3、画二元变量分布图"></a>3、画二元变量分布图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mean, cov = [0, 1], [[1, .5], [.5, 1]]</div><div class="line">data = np.random.multivariate_normal(mean, cov, 200)</div><div class="line">df = pd.DataFrame(data, columns=[&quot;x&quot;, &quot;y&quot;])</div></pre></td></tr></table></figure>
-<h4 id="（1）散点图"><a href="#（1）散点图" class="headerlink" title="（1）散点图"></a>（1）散点图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sns.jointplot(x=&quot;x&quot;, y=&quot;y&quot;, data=df, stat_func=stats.pearsonr)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ddb078aa4e32167d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_06.png"></p>
-<h4 id="（2）六边图"><a href="#（2）六边图" class="headerlink" title="（2）六边图"></a>（2）六边图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data2 = np.random.multivariate_normal(mean, cov, 1000)</div><div class="line">df2 = pd.DataFrame(data2, columns=[&quot;x&quot;, &quot;y&quot;])</div><div class="line">with sns.axes_style(&quot;white&quot;):</div><div class="line">    sns.jointplot(x=df2[&quot;x&quot;], y=df2[&quot;y&quot;], kind=&quot;hex&quot;, color=&quot;k&quot;)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-f5c96ece9537f5e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_061.png"></p>
-<h4 id="（3）相交的-KDE-图"><a href="#（3）相交的-KDE-图" class="headerlink" title="（3）相交的 KDE 图"></a>（3）相交的 KDE 图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sns.jointplot(x=&quot;x&quot;, y=&quot;y&quot;, data=df2, kind=&quot;kde&quot;)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-67048aed50daf655.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_07.png"></p>
-<h4 id="（4）地毯图的-KDE-图"><a href="#（4）地毯图的-KDE-图" class="headerlink" title="（4）地毯图的 KDE 图"></a>（4）地毯图的 KDE 图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">f, ax = plt.subplots(figsize=(6, 6))</div><div class="line">sns.kdeplot(df2.x, df2.y, ax=ax)</div><div class="line">sns.rugplot(df2.x, color=&quot;#55A868&quot;, ax=ax)</div><div class="line">sns.rugplot(df2.y, vertical=True, ax=ax, color=&quot;#4C72B0&quot;)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-abe465425c2dea29.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_08.png"></p>
-<h4 id="（5）星云图"><a href="#（5）星云图" class="headerlink" title="（5）星云图"></a>（5）星云图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f2, ax = plt.subplots(figsize=(6, 6))</div><div class="line">cmap = sns.cubehelix_palette(as_cmap=True, dark=0, light=1, reverse=True)</div><div class="line">sns.kdeplot(df2.x, df2.y, cmap=cmap, n_levels=60, shade=True)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-f75cef380d74a948.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_09.png"></p>
-<h4 id="（6）加入-图"><a href="#（6）加入-图" class="headerlink" title="（6）加入+图"></a>（6）加入+图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">g = sns.jointplot(x=&quot;x&quot;, y=&quot;y&quot;, data=df, kind=&quot;kde&quot;, color=&quot;#988CBE&quot;)</div><div class="line">g.plot_joint(plt.scatter, c=&quot;w&quot;, s=30, linewidth=1, marker=&quot;+&quot;)</div><div class="line">g.ax_joint.collections[0].set_alpha(0)</div><div class="line">g.set_axis_labels(&quot;$X$&quot;, &quot;$Y$&quot;)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-9465a07b8bd675b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_10.png"></p>
-<h4 id="（7）画出两两变量散点图"><a href="#（7）画出两两变量散点图" class="headerlink" title="（7）画出两两变量散点图"></a>（7）画出两两变量散点图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iris = sns.load_dataset(&quot;iris&quot;)</div><div class="line">sns.pairplot(iris)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-8cd800f2b92253f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_11.png"></p>
-<h4 id="（8）画联合核函数"><a href="#（8）画联合核函数" class="headerlink" title="（8）画联合核函数"></a>（8）画联合核函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">g = sns.PairGrid(iris)</div><div class="line">g.map_diag(sns.kdeplot)</div><div class="line">g.map_offdiag(sns.kdeplot, cmap=&quot;Blues_d&quot;, n_levels=6)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-4134093336d7cd38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="03_12.png"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;基本&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#-*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from __future__ import division&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import pandas as pd&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from scipy import stats, integrate&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import seaborn as sns&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;1、快速查看分布&quot;&gt;&lt;a href=&quot;#1、快速查看分布&quot; class=&quot;headerlink&quot; title=&quot;1、快速查看分布&quot;&gt;&lt;/a&gt;1、快速查看分布&lt;/h3&gt;&lt;h4 id=&quot;distplot&quot;&gt;&lt;a href=&quot;#distplot&quot; class=&quot;headerlink&quot; title=&quot;distplot&quot;&gt;&lt;/a&gt;distplot&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;x = np.random.randint(0,10,100)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sns.distplot(x, color=&amp;quot;b&amp;quot;, bins=10, rug=True)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sns.distplot(x, hist=False)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Seaborn-02-颜色板控制</title>
-    <link href="http://yoursite.com/2017/02/15/python_seaborn_02/"/>
-    <id>http://yoursite.com/2017/02/15/python_seaborn_02/</id>
-    <published>2017-02-15T14:13:47.000Z</published>
-    <updated>2017-02-15T14:14:08.514Z</updated>
-    
-    <content type="html"><![CDATA[<p>基本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">from __future__ import division</div><div class="line">import numpy as np</div><div class="line">import pandas as pd</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">import seaborn as sns</div></pre></td></tr></table></figure></p>
-<h3 id="1、定性调色板-Qualitative"><a href="#1、定性调色板-Qualitative" class="headerlink" title="1、定性调色板 Qualitative"></a>1、定性调色板 Qualitative</h3><p>默认的定性调色板：deep, muted, pastel, bright, dark, colorblind.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">current_palette = sns.color_palette()</div><div class="line">sns.palplot(current_palette)</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-1edf678b94171821.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_01.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">current_palette = sns.color_palette(&quot;pastel&quot;)</div><div class="line">sns.palplot(current_palette)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-c6d1c2e81741aeca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_02.png"></p>
-<h3 id="2、使用环形调色板"><a href="#2、使用环形调色板" class="headerlink" title="2、使用环形调色板"></a>2、使用环形调色板</h3><p>画出均匀色带的颜色（改变颜色，但是保持色彩的亮度和饱和度）<br>hls_palette : h(hue)l(lightness)s(saturation)，均在0-1之间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.hls_palette(8, l=.3, s=.8))</div><div class="line">sns.palplot(sns.husl_palette(8, l=.3, s=.8))</div></pre></td></tr></table></figure></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-3233dfe757526f97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_03.png"></p>
-<h3 id="3、自定义一个RGB颜色带"><a href="#3、自定义一个RGB颜色带" class="headerlink" title="3、自定义一个RGB颜色带"></a>3、自定义一个RGB颜色带</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">flatui = [&quot;#9b59b6&quot;, &quot;#3498db&quot;, &quot;#95a5a6&quot;, &quot;#e74c3c&quot;, &quot;#34495e&quot;, &quot;#2ecc71&quot;]</div><div class="line">sns.palplot(sns.color_palette(flatui))</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-a6c6ff1fb4458537.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_041.png"></p>
-<h3 id="4、序列颜色-Sequential"><a href="#4、序列颜色-Sequential" class="headerlink" title="4、序列颜色 Sequential"></a>4、序列颜色 Sequential</h3><p>cubehelix_palette<br>最好：start0~3,rot-1~1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.cubehelix_palette(8, start=.5, rot=-.75))</div><div class="line">sns.palplot(sns.cubehelix_palette(8, start=1.2, rot=.01))</div></pre></td></tr></table></figure></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-d9bc2fe3a7776ef3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_04.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.cubehelix_palette(8, start=2, rot=0, dark=0, light=.95, reverse=True))</div><div class="line">sns.palplot(sns.cubehelix_palette(8, start=2, rot=0.05, reverse=True))</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-95bc29fc86a5c993.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_05.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">x, y = np.random.multivariate_normal([0, 0], [[1, -.5], [-.5, 1]], size=300).T</div><div class="line">cmap = sns.cubehelix_palette(light=1, as_cmap=True)</div><div class="line">sns.kdeplot(x, y, cmap=cmap, shade=True)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-56ec80c2777281fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_06.png"></p>
-<p>light_palette、dark_palette 两种颜色调，渐亮、渐暗<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.light_palette(&quot;green&quot;))</div><div class="line">sns.palplot(sns.light_palette(&quot;#000000&quot;))</div></pre></td></tr></table></figure></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-dc3f7802e7c0bfd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_07.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.dark_palette(&quot;purple&quot;))</div><div class="line">sns.palplot(sns.dark_palette(&quot;#a27712&quot;))</div><div class="line"></div><div class="line">pal = sns.dark_palette(&quot;palegreen&quot;, as_cmap=True)</div><div class="line">sns.kdeplot(x, y, cmap=pal)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ed0c05e2b01bdb7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_08.png"></p>
-<h3 id="5、对称色调-diverging-palette"><a href="#5、对称色调-diverging-palette" class="headerlink" title="5、对称色调 diverging_palette"></a>5、对称色调 diverging_palette</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.diverging_palette(145, 280, s=85, l=25, n=7))</div><div class="line">sns.palplot(sns.diverging_palette(10, 220, sep=80, n=7))</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-20531fab569a2f65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_09.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sns.palplot(sns.diverging_palette(255, 133, l=60, n=7, center=&quot;dark&quot;))</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-af32f32b4e135c16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_10.png"></p>
-<h3 id="6、色调画图"><a href="#6、色调画图" class="headerlink" title="6、色调画图"></a>6、色调画图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">def sinplot(flip=1):</div><div class="line">    x = np.linspace(0, 14, 100)</div><div class="line">    for i in range(1, 7):</div><div class="line">        plt.plot(x, np.sin(x + i * .5) * (7 - i) * flip)</div><div class="line"></div><div class="line">sns.set_palette(&quot;husl&quot;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-4beb9956c1b753ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_11.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with sns.color_palette(&quot;PuBuGn_d&quot;):</div><div class="line">    sinplot()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-71a718863be531c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_12.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with sns.cubehelix_palette(8, start=1.2, rot=.01):</div><div class="line">    sinplot()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-126a28f82cd56368.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="02_13.png"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;基本&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#-*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;from __future__ import division&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import pandas as pd&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import seaborn as sns&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;1、定性调色板-Qualitative&quot;&gt;&lt;a href=&quot;#1、定性调色板-Qualitative&quot; class=&quot;headerlink&quot; title=&quot;1、定性调色板 Qualitative&quot;&gt;&lt;/a&gt;1、定性调色板 Qualitative&lt;/h3&gt;&lt;p&gt;默认的定性调色板：deep, muted, pastel, bright, dark, colorblind.&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;current_palette = sns.color_palette()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sns.palplot(current_palette)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Seaborn-01-图控制</title>
-    <link href="http://yoursite.com/2017/02/15/python_seaborn_01/"/>
-    <id>http://yoursite.com/2017/02/15/python_seaborn_01/</id>
-    <published>2017-02-15T14:12:53.000Z</published>
-    <updated>2017-02-15T14:13:35.629Z</updated>
-    
-    <content type="html"><![CDATA[<p>基本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">import numpy as np</div><div class="line">import matplotlib as mpl</div><div class="line">import matplotlib.pyplot as plt</div></pre></td></tr></table></figure></p>
-<h3 id="1、引入-seaborn-风格"><a href="#1、引入-seaborn-风格" class="headerlink" title="1、引入 seaborn 风格"></a>1、引入 seaborn 风格</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def sinplot(flip=1):</div><div class="line">    x = np.linspace(0, 14, 100)</div><div class="line">    for i in range(1, 7):</div><div class="line">        plt.plot(x, np.sin(x + i * .5) * (7 - i) * flip)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-3ceec96eb96978e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_01.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import seaborn as sns</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-9ff0fa621bafa8ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_02.png"></p>
-<h3 id="2、预设主题：axes-style-和-set-style"><a href="#2、预设主题：axes-style-和-set-style" class="headerlink" title="2、预设主题：axes_style() 和 set_style()"></a>2、预设主题：axes_style() 和 set_style()</h3><p>darkgrid, whitegrid, dark, white, ticks，默认的是 darkgrid<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sns.set_style(&quot;whitegrid&quot;)</div><div class="line">data = np.random.normal(size=(20, 6)) + np.arange(6) / 2</div><div class="line">sns.boxplot(data=data)  # 箱型线</div></pre></td></tr></table></figure></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-2532954fecba9ad0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_03.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.set_style(&quot;dark&quot;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-a5b49e81299d5fae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_04.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.set_style(&quot;white&quot;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-1ddf660d1d4c8a75.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_05.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sns.set_style(&quot;ticks&quot;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-2e3d411bd8416e4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_06.png"></p>
-<h3 id="3、移除上框-despine"><a href="#3、移除上框-despine" class="headerlink" title="3、移除上框 despine()"></a>3、移除上框 despine()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sinplot()</div><div class="line">sns.despine()  # 默认移除上边框和右边框， despine(top=True, right=True, left=False, bottom = False)</div><div class="line">f, ax = plt.subplots()</div><div class="line">sns.violinplot(data=data)</div><div class="line">sns.despine(offset=10, trim=True)  # 坐标轴分离</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-71966ca31881bd6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_08.png"></p>
-<h3 id="4、暂时风格-axes-style-with"><a href="#4、暂时风格-axes-style-with" class="headerlink" title="4、暂时风格 axes_style() + with"></a>4、暂时风格 axes_style() + with</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">with sns.axes_style(&quot;darkgrid&quot;):</div><div class="line">    plt.subplot(211)</div><div class="line">    sinplot()</div><div class="line">plt.subplot(212)</div><div class="line">sinplot(-1)</div></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-ff01e178c0a8f5e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="01_07.png"></p>
-<h3 id="5、自定义风格"><a href="#5、自定义风格" class="headerlink" title="5、自定义风格"></a>5、自定义风格</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sns.axes_style()  # 查看现有风格</div><div class="line">sns.set_style(&quot;darkgrid&quot;, &#123;&quot;axes.facecolor&quot;: &quot;.9&quot;&#125;)</div><div class="line">sinplot()</div><div class="line">sns.set_context(&quot;notebook&quot;, font_scale=1.5, rc=&#123;&quot;lines.linewidth&quot;: 2.5&#125;)</div><div class="line">sinplot()</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;基本&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#-*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib as mpl&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;1、引入-seaborn-风格&quot;&gt;&lt;a href=&quot;#1、引入-seaborn-风格&quot; class=&quot;headerlink&quot; title=&quot;1、引入 seaborn 风格&quot;&gt;&lt;/a&gt;1、引入 seaborn 风格&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;def sinplot(flip=1):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    x = np.linspace(0, 14, 100)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    for i in range(1, 7):&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        plt.plot(x, np.sin(x + i * .5) * (7 - i) * flip)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;sinplot()&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="seaborn" scheme="http://yoursite.com/tags/seaborn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Pandas-office-10分钟开始</title>
-    <link href="http://yoursite.com/2017/02/15/python_pandas_01/"/>
-    <id>http://yoursite.com/2017/02/15/python_pandas_01/</id>
-    <published>2017-02-15T14:12:37.000Z</published>
-    <updated>2017-02-15T14:12:38.865Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># -*- coding:utf-8 -*-</div><div class="line">import numpy as np</div><div class="line">import pandas as pd</div><div class="line">import matplotlib.pyplot as plt</div></pre></td></tr></table></figure>
-<h3 id="1、创建数据框"><a href="#1、创建数据框" class="headerlink" title="1、创建数据框"></a>1、创建数据框</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dates = pd.date_range(&apos;20130101&apos;, periods=6)</div><div class="line">df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list(&apos;ABCD&apos;))</div><div class="line">left = pd.DataFrame(&#123;&apos;key&apos;: [&apos;foo&apos;, &apos;foo&apos;], &apos;lval&apos;: [1, 2]&#125;)</div><div class="line">right = pd.DataFrame(&#123;&apos;key&apos;: [&apos;foo&apos;, &apos;foo&apos;], &apos;rval&apos;: [4, 5]&#125;)</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="2、查看数据"><a href="#2、查看数据" class="headerlink" title="2、查看数据"></a>2、查看数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">df.head()</div><div class="line">df.tail(3)</div><div class="line">df.describe()</div><div class="line">df.T</div><div class="line">df.sort_index(axis=1, ascending=False)  # 按照行名、列名排列</div><div class="line">df.sort_values(by=&apos;B&apos;)</div></pre></td></tr></table></figure>
-<h3 id="3、选择"><a href="#3、选择" class="headerlink" title="3、选择"></a>3、选择</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># .loc()</div><div class="line"># .iloc()</div></pre></td></tr></table></figure>
-<h3 id="4、缺失值"><a href="#4、缺失值" class="headerlink" title="4、缺失值"></a>4、缺失值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">df[&apos;E&apos;] = [1, 2, np.nan, 1, 2, np.nan]</div><div class="line">df.dropna(how=&apos;any&apos;)</div><div class="line">df.fillna(value=5)</div><div class="line">pd.isnull(df)</div></pre></td></tr></table></figure>
-<h3 id="5、运用"><a href="#5、运用" class="headerlink" title="5、运用"></a>5、运用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">df.apply(np.cumsum)</div></pre></td></tr></table></figure>
-<h3 id="6、交并"><a href="#6、交并" class="headerlink" title="6、交并"></a>6、交并</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(np.random.randn(10, 4))</div><div class="line">pieces = [df[:3], df[3:7], df[7:]]</div><div class="line">pd.concat(pieces, axis=0)</div><div class="line">pd.concat([df, df], axis=1)</div><div class="line">pd.merge(left, right, on=&apos;key&apos;)</div><div class="line">left.merge(right, on=&apos;key&apos;)</div></pre></td></tr></table></figure>
-<h3 id="7、groupby"><a href="#7、groupby" class="headerlink" title="7、groupby"></a>7、groupby</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(&#123;&apos;A&apos;: [&apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;bar&apos;, &apos;foo&apos;, &apos;foo&apos;],</div><div class="line">                   &apos;B&apos;: [&apos;one&apos;, &apos;one&apos;, &apos;two&apos;, &apos;three&apos;, &apos;two&apos;, &apos;two&apos;, &apos;one&apos;, &apos;three&apos;],</div><div class="line">                   &apos;C&apos;: np.random.randn(8),</div><div class="line">                   &apos;D&apos;: np.random.randn(8)&#125;)</div><div class="line">df.groupby(&apos;A&apos;).sum()</div><div class="line">df.groupby([&apos;A&apos;, &apos;B&apos;]).sum()</div></pre></td></tr></table></figure>
-<h3 id="8、重组数据框"><a href="#8、重组数据框" class="headerlink" title="8、重组数据框"></a>8、重组数据框</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tuples = list(zip(*[[&apos;bar&apos;, &apos;bar&apos;, &apos;baz&apos;, &apos;baz&apos;, &apos;foo&apos;, &apos;foo&apos;, &apos;qux&apos;, &apos;qux&apos;],</div><div class="line">                    [&apos;one&apos;, &apos;two&apos;, &apos;one&apos;, &apos;two&apos;, &apos;one&apos;, &apos;two&apos;, &apos;one&apos;, &apos;two&apos;]]))</div><div class="line">index = pd.MultiIndex.from_tuples(tuples, names=[&apos;first&apos;, &apos;second&apos;])</div><div class="line">df = pd.DataFrame(np.random.randn(8, 2), index=index, columns=[&apos;A&apos;, &apos;B&apos;])</div><div class="line">df2 = df[:4]</div><div class="line">stacked = df2.stack()</div><div class="line">stacked.unstack()</div><div class="line">stacked.unstack(1)</div><div class="line">stacked.unstack(0)</div></pre></td></tr></table></figure>
-<h3 id="Pivot-Tables"><a href="#Pivot-Tables" class="headerlink" title="Pivot Tables"></a>Pivot Tables</h3><h3 id="9、时间序列"><a href="#9、时间序列" class="headerlink" title="9、时间序列"></a>9、时间序列</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">rng = pd.date_range(&apos;1/1/2012&apos;, periods=100, freq=&apos;S&apos;)  # 按秒进行</div><div class="line">rng2 = pd.date_range(&apos;3/6/2012 00:00&apos;, periods=5, freq=&apos;D&apos;)  # 按天进行</div><div class="line">rng3 = pd.date_range(&apos;1/1/2012&apos;, periods=5, freq=&apos;M&apos;)  # 按月进行，保留天数</div><div class="line">ts = pd.Series(np.random.randn(len(rng3)), index=rng3)</div><div class="line">ps = ts.to_period()  # 天变为月，仅保留月数</div><div class="line">ps.to_timestamp()  # 月变为天</div><div class="line">prng = pd.period_range(&apos;1990Q1&apos;, &apos;2000Q4&apos;, freq=&apos;Q-NOV&apos;)  # 按季度进行</div><div class="line">ts = pd.Series(np.random.randn(len(prng)), prng)</div><div class="line">ts.index = (prng.asfreq(&apos;M&apos;, &apos;e&apos;) + 1).asfreq(&apos;H&apos;, &apos;s&apos;) + 9  # 季度转化为日期，指定时间</div></pre></td></tr></table></figure>
-<h3 id="10、Categoricals-分类的使用"><a href="#10、Categoricals-分类的使用" class="headerlink" title="10、Categoricals 分类的使用"></a>10、Categoricals 分类的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">df = pd.DataFrame(&#123;&quot;id&quot;: [1, 2, 3, 4, 5, 6], &quot;raw_grade&quot;: [&apos;a&apos;, &apos;b&apos;, &apos;b&apos;, &apos;a&apos;, &apos;a&apos;, &apos;e&apos;]&#125;)</div><div class="line">df[&quot;grade&quot;] = df[&quot;raw_grade&quot;].astype(&quot;category&quot;)</div><div class="line">df[&quot;grade&quot;].cat.categories = [&quot;very good&quot;, &quot;good&quot;, &quot;very bad&quot;]</div><div class="line">df[&quot;grade&quot;] = df[&quot;grade&quot;].cat.set_categories([&quot;very bad&quot;, &quot;bad&quot;, &quot;medium&quot;, &quot;good&quot;, &quot;very good&quot;])</div><div class="line">df.sort_values(by=&quot;grade&quot;)df.groupby(&quot;grade&quot;).size()</div></pre></td></tr></table></figure>
-<h3 id="11、画图"><a href="#11、画图" class="headerlink" title="11、画图"></a>11、画图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ts = pd.Series(np.random.randn(1000), index=pd.date_range(&apos;1/1/2000&apos;, periods=1000))</div><div class="line">ts = ts.cumsum()</div><div class="line">ts.plot()</div><div class="line">df = pd.DataFrame(np.random.randn(1000, 4), index=ts.index, columns=[&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;])</div><div class="line">df = df.cumsum()df.plot(); plt.legend(loc=&apos;best&apos;)</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;基本&quot;&gt;&lt;a href=&quot;#基本&quot; class=&quot;headerlink&quot; title=&quot;基本&quot;&gt;&lt;/a&gt;基本&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;# -*- coding:utf-8 -*-&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import numpy as np&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import pandas as pd&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;import matplotlib.pyplot as plt&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;1、创建数据框&quot;&gt;&lt;a href=&quot;#1、创建数据框&quot; class=&quot;headerlink&quot; title=&quot;1、创建数据框&quot;&gt;&lt;/a&gt;1、创建数据框&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;dates = pd.date_range(&amp;apos;20130101&amp;apos;, periods=6)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list(&amp;apos;ABCD&amp;apos;))&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;left = pd.DataFrame(&amp;#123;&amp;apos;key&amp;apos;: [&amp;apos;foo&amp;apos;, &amp;apos;foo&amp;apos;], &amp;apos;lval&amp;apos;: [1, 2]&amp;#125;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;right = pd.DataFrame(&amp;#123;&amp;apos;key&amp;apos;: [&amp;apos;foo&amp;apos;, &amp;apos;foo&amp;apos;], &amp;apos;rval&amp;apos;: [4, 5]&amp;#125;)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="pandas" scheme="http://yoursite.com/tags/pandas/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聚类分析（2）：其他问题与算法</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_cluster_02/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_cluster_02/</id>
-    <published>2017-02-15T13:57:34.000Z</published>
-    <updated>2017-02-15T13:59:27.084Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、数据、簇、聚类算法"><a href="#一、数据、簇、聚类算法" class="headerlink" title="一、数据、簇、聚类算法"></a>一、数据、簇、聚类算法</h3><h4 id="（1）数据特性"><a href="#（1）数据特性" class="headerlink" title="（1）数据特性"></a>（1）数据特性</h4><p>可能影响聚类分析的因素：<br>高维性、规模、稀疏性、噪声和离群点、尺度</p>
-<h3 id="二、基于原型的聚类"><a href="#二、基于原型的聚类" class="headerlink" title="二、基于原型的聚类"></a>二、基于原型的聚类</h3><h4 id="（1）模糊聚类"><a href="#（1）模糊聚类" class="headerlink" title="（1）模糊聚类"></a>（1）模糊聚类</h4><h5 id="1、模糊集合"><a href="#1、模糊集合" class="headerlink" title="1、模糊集合"></a>1、模糊集合</h5><p>模糊集合论允许对象以 0 和 1 之间的某个隶属度隶属于一个集合。<br><a id="more"></a></p>
-<h5 id="2、模糊簇"><a href="#2、模糊簇" class="headerlink" title="2、模糊簇"></a>2、模糊簇</h5><p>xi 为数据点集合，Ci 为模糊子集簇。</p>
-<h6 id="xi-的权值"><a href="#xi-的权值" class="headerlink" title="xi 的权值"></a>xi 的权值</h6><p>给定xi的所有权值之和为 1：<br>$$ \sum_{j=1}^{k}w_{ij}=1$$</p>
-<h6 id="Ci-的限制"><a href="#Ci-的限制" class="headerlink" title="Ci 的限制"></a>Ci 的限制</h6><p>每个 Ci 以非零权值至少包含一个点，但不以权值1包含所有点：<br>$$ 0&lt; \sum_{i=1}^{m}w_{ij} &lt; m$$</p>
-<h5 id="3、模糊-c-均值"><a href="#3、模糊-c-均值" class="headerlink" title="3、模糊 c 均值"></a>3、模糊 c 均值</h5><p>模糊 c 均值算法（FCM算法）</p>
-<h6 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-2aba2e55df9606a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_19.png"></p>
-<h6 id="目标函数："><a href="#目标函数：" class="headerlink" title="目标函数："></a>目标函数：</h6><p>计算SSE（误差平方和）：<br>$$ SSE(C_{1},C_{2},…,C_{k})=\sum_{j=1}^{k}\sum_{i=1}^{m}w_{ij}^{p}dist(x_{i},c_{j})^{2}$$</p>
-<p>cj 是第 j 个簇的质心。</p>
-<h6 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h6><p>随机初始化，但是限定求和为1.</p>
-<h6 id="计算质心："><a href="#计算质心：" class="headerlink" title="计算质心："></a>计算质心：</h6><p>$$ c_{j}=\frac{\sum_{i=1}^{m}w_{ij}^{p}x_{i}}{\sum_{i=1}^{m}w_{ij}^{p}}$$</p>
-<p>p为模糊权重，p=1时候，很想传统k均值，p越大，划分越模糊。一般选取p=2。</p>
-<h6 id="更新模糊伪划分"><a href="#更新模糊伪划分" class="headerlink" title="更新模糊伪划分"></a>更新模糊伪划分</h6><p>当使用p时候，最小化SSE，可以推导出：<br>$$ w_{ij}=\frac{(\frac{1}{dist(x_{i},c_{j})^{2}})^{\frac{1}{p-1}}}{\sum_{q=1}^{k}(\frac{1}{dist(x_{i},c_{q})^{2}})^{\frac{1}{p-1}}}$$</p>
-<p>当使用p=2的时候，公式得到简化：<br>$$ w_{ij}=\frac{\frac{1}{dist(x_{i},c_{j})^{2}}}{\sum_{q=1}^{k}\frac{1}{dist(x_{i},c_{q})^{2}}}$$</p>
-<p>下面显示了一个模糊聚类的例子：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-5d5ed64fb7507a87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_20.png"></p>
-<h6 id="4、优点与缺点"><a href="#4、优点与缺点" class="headerlink" title="4、优点与缺点"></a>4、优点与缺点</h6><p>与K均值相同的有点和缺点。</p>
-<h4 id="（2）使用混合模型聚类"><a href="#（2）使用混合模型聚类" class="headerlink" title="（2）使用混合模型聚类"></a>（2）使用混合模型聚类</h4><h5 id="1、混合模型"><a href="#1、混合模型" class="headerlink" title="1、混合模型"></a>1、混合模型</h5><blockquote>
-<p>混合模型将数据看作从不同的概率分布得到的观测值集合。其数据产生过程为，给定几个分布（通常类型相同，参数不同）随机的选择一个分布并由它产生一个对象，重复该过程m次。</p>
-</blockquote>
-<p>假定有 K 个分布和 m 个对象{x1,x2，…,xm}，\Theta 是参数的集合，则：<br>$$ prob(x_{i}|\theta _{j})$$<br>是第 i 个对象来自第 j 个分布的概率。<br>由于权值受限，其和为 1 。对于对象 x 的概率由公式给出：<br>$$ prob(x|\Theta)=\sum_{j=1}^{K}w_{j}p_{j}(x|\theta_{j})$$</p>
-<p>如果对象以独立的方式产生，则对象集的概率是每个对象 xi 的概率的乘积。<br>$$ prob(\chi |\Theta)=\prod_{i=1}^{m}prob(x_{i}|\Theta)=\prod_{i=1}^{m}\sum_{j=1}^{K}w_{j}p_{j}(x_{i}|\theta_{j})$$</p>
-<h6 id="混合高斯分布"><a href="#混合高斯分布" class="headerlink" title="混合高斯分布"></a>混合高斯分布</h6><p>假定有两个高斯分布，有相同的标准差 2，均值分别为 -4 和 4 。还假定每个分布以等概率选取，即为 w1=w2=0.5。公式为：<br>$$ prob(x|\Theta)=\frac{1}{2\sqrt{2\pi}}e^{-\frac{(x+4)^{2}}{8}}+\frac{1}{2\sqrt{2\pi}}e^{-\frac{(x-4)^{2}}{8}}$$</p>
-<p>则该模型产生的 20000 个点的直方图：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-99cb7d254f7a3627.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_21.png"></p>
-<h5 id="2、使用最大似然估计（MLE）"><a href="#2、使用最大似然估计（MLE）" class="headerlink" title="2、使用最大似然估计（MLE）"></a>2、使用最大似然估计（MLE）</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-f16962be7b86ed20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_22.png"></p>
-<h5 id="3、使用-EM-算法"><a href="#3、使用-EM-算法" class="headerlink" title="3、使用 EM 算法"></a>3、使用 EM 算法</h5><h6 id="EM-算法步骤："><a href="#EM-算法步骤：" class="headerlink" title="EM 算法步骤："></a>EM 算法步骤：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-9b2869bfd5df7b2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_23.png"></p>
-<h6 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-78765db5e05add63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_24.png"></p>
-<h6 id="样本集上的EM："><a href="#样本集上的EM：" class="headerlink" title="样本集上的EM："></a>样本集上的EM：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-ed7f6abae0bc075b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_25.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-fa31354f6b1f2fb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_26.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-7d4182e4def81562.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_27.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-5181ec33aad7fc4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_28.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-536b5c7737f6a838.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_29.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-97ca406ad031203d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_30.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-c463110733506aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_31.png"></p>
-<h6 id="4、EM算法在混合模型的优缺点"><a href="#4、EM算法在混合模型的优缺点" class="headerlink" title="4、EM算法在混合模型的优缺点"></a>4、EM算法在混合模型的优缺点</h6><p>缺点：</p>
-<blockquote>
-<p>1、EM算法可能很慢。<br>2、数据近似斜线性时候，不能很好处理。<br>3、混合模型在有噪声和离群点时，可能有问题。</p>
-</blockquote>
-<p>优点：</p>
-<blockquote>
-<p>1、混合模型比K均值或模糊c均值更一般。<br>2、可以发现不同大小和椭球状的簇。</p>
-</blockquote>
-<h4 id="（3）自组织映射"><a href="#（3）自组织映射" class="headerlink" title="（3）自组织映射"></a>（3）自组织映射</h4><p>自组织映射（SOFM或SOM）是一种基于神经网络观点的聚类和数据可视化技术。</p>
-<p>[369-396=27]</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、数据、簇、聚类算法&quot;&gt;&lt;a href=&quot;#一、数据、簇、聚类算法&quot; class=&quot;headerlink&quot; title=&quot;一、数据、簇、聚类算法&quot;&gt;&lt;/a&gt;一、数据、簇、聚类算法&lt;/h3&gt;&lt;h4 id=&quot;（1）数据特性&quot;&gt;&lt;a href=&quot;#（1）数据特性&quot; class=&quot;headerlink&quot; title=&quot;（1）数据特性&quot;&gt;&lt;/a&gt;（1）数据特性&lt;/h4&gt;&lt;p&gt;可能影响聚类分析的因素：&lt;br&gt;高维性、规模、稀疏性、噪声和离群点、尺度&lt;/p&gt;
-&lt;h3 id=&quot;二、基于原型的聚类&quot;&gt;&lt;a href=&quot;#二、基于原型的聚类&quot; class=&quot;headerlink&quot; title=&quot;二、基于原型的聚类&quot;&gt;&lt;/a&gt;二、基于原型的聚类&lt;/h3&gt;&lt;h4 id=&quot;（1）模糊聚类&quot;&gt;&lt;a href=&quot;#（1）模糊聚类&quot; class=&quot;headerlink&quot; title=&quot;（1）模糊聚类&quot;&gt;&lt;/a&gt;（1）模糊聚类&lt;/h4&gt;&lt;h5 id=&quot;1、模糊集合&quot;&gt;&lt;a href=&quot;#1、模糊集合&quot; class=&quot;headerlink&quot; title=&quot;1、模糊集合&quot;&gt;&lt;/a&gt;1、模糊集合&lt;/h5&gt;&lt;p&gt;模糊集合论允许对象以 0 和 1 之间的某个隶属度隶属于一个集合。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
-    
-      <category term="聚类算法" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>聚类分析（1）：基本概念和算法</title>
-    <link href="http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/"/>
-    <id>http://yoursite.com/2017/02/15/ML_ITDM_cluster_01/</id>
-    <published>2017-02-15T13:57:00.000Z</published>
-    <updated>2017-02-15T13:58:13.382Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><h4 id="（1）聚类分析"><a href="#（1）聚类分析" class="headerlink" title="（1）聚类分析"></a>（1）聚类分析</h4><blockquote>
-<p>目标是，分组数据使得，组内的对象是相似的（相关的），不同组是不同的（不相关的）。</p>
-</blockquote>
-<h4 id="（2）聚类类型"><a href="#（2）聚类类型" class="headerlink" title="（2）聚类类型"></a>（2）聚类类型</h4><h5 id="1、层次、划分"><a href="#1、层次、划分" class="headerlink" title="1、层次、划分"></a>1、层次、划分</h5><p>层次聚类（嵌套聚类，hierarchial clustering）：聚类簇组织成一棵树，每一个结点是其子女的并。<br>划分聚类（非嵌套聚类，partional clustering）：简单的将数据对象划分为不重叠的子集。</p>
-<a id="more"></a>
-<h5 id="2、互斥、重叠、模糊"><a href="#2、互斥、重叠、模糊" class="headerlink" title="2、互斥、重叠、模糊"></a>2、互斥、重叠、模糊</h5><p>互斥聚类（exclusive）：每个对象被指派到单独的单个簇。<br>重叠聚类（overlapping）：一个对象可以同时属于多个簇。<br>模糊聚类（fuzzy clustering）：概率聚类，每个对象以0-1之间的的权值隶属于一个类，但是每个对象的权值之和为1。</p>
-<h5 id="3、完全、部分"><a href="#3、完全、部分" class="headerlink" title="3、完全、部分"></a>3、完全、部分</h5><p>完全聚类（complete clustering）：每个对象指派到一个类。<br>部分聚类（partial clustering）：某些对象可以不属于明确定义的类。</p>
-<h4 id="（3）簇类型"><a href="#（3）簇类型" class="headerlink" title="（3）簇类型"></a>（3）簇类型</h4><p>下面显示一些簇类型：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-362b6fe658b6e41b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_01.png"></p>
-<p>类型：明显分离、基于原型（中心簇）、基于图（连通）、基于密度、共同性质的（概念簇）。</p>
-<h3 id="二、K-均值"><a href="#二、K-均值" class="headerlink" title="二、K-均值"></a>二、K-均值</h3><h4 id="（1）基本K-均值算法"><a href="#（1）基本K-均值算法" class="headerlink" title="（1）基本K-均值算法"></a>（1）基本K-均值算法</h4><h6 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-b5af82ded562398f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_02.png"></p>
-<h6 id="目标函数："><a href="#目标函数：" class="headerlink" title="目标函数："></a>目标函数：</h6><p>$$ SSE=\sum_{i=1}^{K}\sum_{x\in C_{i}}dist(c_{i},x)^{2}, c_{i}=\frac{1}{m_{i}}\sum_{x\in C_{i}}x$$</p>
-<p>上面的第3、4步骤试图最小化目标函数（SSE或者其他的），直到收敛。</p>
-<h6 id="常见的邻近度和目标函数组合："><a href="#常见的邻近度和目标函数组合：" class="headerlink" title="常见的邻近度和目标函数组合："></a>常见的邻近度和目标函数组合：</h6><p><img src="http://upload-images.jianshu.io/upload_images/3341358-adfdc1d85292066b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_03.png"></p>
-<h6 id="初始质心："><a href="#初始质心：" class="headerlink" title="初始质心："></a>初始质心：</h6><p>不同的初始质心会收敛到不同的结果。</p>
-<blockquote>
-<p>随机初始质心：问题是，即使运行多次也不一定能得到好的分类。因为，一旦一个簇内有多个质心，该簇很可能被分裂。<br>其他方法：先使用层次聚类，从中提取K个类，使用这K个类的质心作为初始质心。仅对：样本较小，K较小有效。</p>
-</blockquote>
-<h4 id="（2）K均值：附加问题"><a href="#（2）K均值：附加问题" class="headerlink" title="（2）K均值：附加问题"></a>（2）K均值：附加问题</h4><h6 id="处理空簇"><a href="#处理空簇" class="headerlink" title="处理空簇"></a>处理空簇</h6><p>所有的点没有一个分配到一个质心。选择替补质心。</p>
-<h6 id="离群点"><a href="#离群点" class="headerlink" title="离群点"></a>离群点</h6><p>离群点对于k-均值聚类有较大影响，应该删除。</p>
-<h6 id="后处理SSE"><a href="#后处理SSE" class="headerlink" title="后处理SSE"></a>后处理SSE</h6><p>增加簇：</p>
-<blockquote>
-<p>分裂一个簇：选择SSE最大的分裂。<br>引进一个新的质心：选择离所有质心最远的点。</p>
-</blockquote>
-<p>减少簇：</p>
-<blockquote>
-<p>拆散一个簇：删除簇的对应质心。簇中的点重新分配。<br>合并两个簇：选择两个质心最接近的两个簇合并。</p>
-</blockquote>
-<h6 id="增量的更新质心"><a href="#增量的更新质心" class="headerlink" title="增量的更新质心"></a>增量的更新质心</h6><p>给定一个目标函数，每步要零次或两次更新质心。<br>可能产生次序依赖性问题，开销也稍微大一些。</p>
-<h4 id="（3）二分K均值"><a href="#（3）二分K均值" class="headerlink" title="（3）二分K均值"></a>（3）二分K均值</h4><p>思路：</p>
-<blockquote>
-<p>为了得到 K 个簇，将所有点分裂成两个簇，从这些簇中，选取一个继续分裂，直到产生 K 个簇。</p>
-</blockquote>
-<p>算法：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-2394e71761569cad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_04.png"></p>
-<p>带分裂的簇选择方法有很多：最大的簇，最大SSE的簇等。</p>
-<h4 id="（4）优点与缺点"><a href="#（4）优点与缺点" class="headerlink" title="（4）优点与缺点"></a>（4）优点与缺点</h4><p>优点：二分K均值，不太受初始值的影响。<br>缺点：不能处理非球形簇、不同尺寸、不同密度的簇。</p>
-<h3 id="三、凝聚层次聚类"><a href="#三、凝聚层次聚类" class="headerlink" title="三、凝聚层次聚类"></a>三、凝聚层次聚类</h3><h4 id="（1）基本算法"><a href="#（1）基本算法" class="headerlink" title="（1）基本算法"></a>（1）基本算法</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-8799159151edff4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_05.png"></p>
-<h4 id="（2）距离的度量："><a href="#（2）距离的度量：" class="headerlink" title="（2）距离的度量："></a>（2）距离的度量：</h4><p>最短距离（min）、最长距离（max）、平均距离、ward和质心距离<br><img src="http://upload-images.jianshu.io/upload_images/3341358-03ba4bb8e8df0a7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_06.png"></p>
-<h4 id="（3）簇邻近度的Lance-Williams公式"><a href="#（3）簇邻近度的Lance-Williams公式" class="headerlink" title="（3）簇邻近度的Lance-Williams公式"></a>（3）簇邻近度的Lance-Williams公式</h4><p>Lance-Williams公式：<br>$$p(R,Q)=\alpha_{A}p(A,Q)+ \alpha_{B}p(B,Q)+\beta p(A,B)+\gamma |p(A,Q)-p(B,Q)|$$</p>
-<p>A、B、Q合并得到R。p(. , .)是邻近度函数，以上表示它们为线性函数。<br>下面是Lance-Williams公式鱼邻近度函数的对应：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-ae89f01f8ec66f28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_07.png"></p>
-<h4 id="（4）层次聚类的问题"><a href="#（4）层次聚类的问题" class="headerlink" title="（4）层次聚类的问题"></a>（4）层次聚类的问题</h4><blockquote>
-<p>1、缺乏全局目标函数：避开了解决困难的组合优化问题，很难选择初始点的问题。<br>2、合并是最终的：一旦合并就不能撤销。</p>
-</blockquote>
-<h3 id="四、DBSCAN"><a href="#四、DBSCAN" class="headerlink" title="四、DBSCAN"></a>四、DBSCAN</h3><p>基于密度聚类算法，寻找被低密度区域分离的高密度区域。</p>
-<h4 id="（1）传统密度：基于中心的方法"><a href="#（1）传统密度：基于中心的方法" class="headerlink" title="（1）传统密度：基于中心的方法"></a>（1）传统密度：基于中心的方法</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-56563eca57abd2c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_08.png"></p>
-<blockquote>
-<p>核心点（core point）：该点给定邻域的点个数超过用户给定阈值 MinPts（Eps为用户定义的距离）。A点。<br>边界点（border point）：不是核心点，它落在某个核心点邻域。B点。<br>噪声点（noise point）：即非核心点也非边界点。C点。</p>
-</blockquote>
-<h4 id="（2）DBSCAN算法"><a href="#（2）DBSCAN算法" class="headerlink" title="（2）DBSCAN算法"></a>（2）DBSCAN算法</h4><h5 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h5><blockquote>
-<p>任意两个足够近（Eps之内）的核心点将方到一个簇中。<br>任何与核心点足够近的边界点放到相同簇中（如果边界点靠近不同簇的核心点，要解决平均问题）。<br>噪声点丢弃。</p>
-</blockquote>
-<h5 id="算法步骤：-1"><a href="#算法步骤：-1" class="headerlink" title="算法步骤："></a>算法步骤：</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-d3eef169fea3e7a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_09.png"></p>
-<h5 id="选择-Eps-和-MinPts"><a href="#选择-Eps-和-MinPts" class="headerlink" title="选择 Eps 和 MinPts"></a>选择 Eps 和 MinPts</h5><h6 id="使用-k-距离"><a href="#使用-k-距离" class="headerlink" title="使用 k-距离"></a>使用 k-距离</h6><p>k-最近邻的距离，对于某个k，计算所有点的k-距离，以递增排序，则k-距离会在某个部分急剧变化（噪声点的k-距离很大）。选取k为MinPts，合适的距离为Eps。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-5c7112fc9348f356.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_10.png"></p>
-<p>下面为，使用Eps=10，MinPts=4的结果：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-877f018f6cc497ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_11.png"></p>
-<h4 id="（3）优点与缺点"><a href="#（3）优点与缺点" class="headerlink" title="（3）优点与缺点"></a>（3）优点与缺点</h4><blockquote>
-<p>优点：对抗噪音的能力很强，能够处理任意形状和大小的簇。<br>缺点：DBSCAN当计算近邻的时候，开销很大。</p>
-</blockquote>
-<h3 id="五、簇评估"><a href="#五、簇评估" class="headerlink" title="五、簇评估"></a>五、簇评估</h3><h4 id="（1）非监督簇评估：凝聚度、分离度"><a href="#（1）非监督簇评估：凝聚度、分离度" class="headerlink" title="（1）非监督簇评估：凝聚度、分离度"></a>（1）非监督簇评估：凝聚度、分离度</h4><p>$$ overallValidity=\sum_{i=1}^{K}w_{i}validity(C_{i})$$<br>K个簇的有效性，为个体簇的有效性加权和，下面给出度量表：<br><img src="http://upload-images.jianshu.io/upload_images/3341358-4f58d89f7cc1b7ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_12.png"></p>
-<h5 id="1、基于图：凝聚度、分离度"><a href="#1、基于图：凝聚度、分离度" class="headerlink" title="1、基于图：凝聚度、分离度"></a>1、基于图：凝聚度、分离度</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-f1c03fc8f85479df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_13.png"></p>
-<p>proximity函数可以是相似度、相异度，或者是这些量的简单函数：<br>$$ cohesion(C_{i})=\sum_{x\in C_{i},y\in C_{i}}proximity(x,y)$$<br>$$ separation(C_{i},C_{j})=\sum_{x\in C_{i},y\in C_{j}}proximity(x,y)$$</p>
-<h5 id="2、基于原型：凝聚度、分离度"><a href="#2、基于原型：凝聚度、分离度" class="headerlink" title="2、基于原型：凝聚度、分离度"></a>2、基于原型：凝聚度、分离度</h5><p><img src="http://upload-images.jianshu.io/upload_images/3341358-90f783db930011ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_14.png"></p>
-<p>ci是Ci的原型（质心），c是总体原型（质心）：<br>$$ cohesion(C_{i})=\sum_{x\in C_{i}}proximity(x,c_{i})$$<br>$$ separation(C_{i},C_{j})=proximity(c_{i},c_{j})$$<br>$$ separation(C_{i})=proximity(c_{i},c)$$</p>
-<h5 id="3、轮廓系数"><a href="#3、轮廓系数" class="headerlink" title="3、轮廓系数"></a>3、轮廓系数</h5><p>轮廓系数（silhouette coefficient）：</p>
-<blockquote>
-<p>1、对于第 i 个对象，计算它到所在簇所有点的平均距离：ai<br>2、对于第 i 个对象，计算它到不含它的其他簇所有对象的平均距离，找出最小的：bi<br>3、对于第 i 个对象，轮廓系数为：<br>$$s_{i}=\frac{(b_{i}-a_{i})}{max(a_{i},b_{i})}$$</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-a14462398698aadd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_15.png"></p>
-<h4 id="（3）非监督簇评估：近邻矩阵"><a href="#（3）非监督簇评估：近邻矩阵" class="headerlink" title="（3）非监督簇评估：近邻矩阵"></a>（3）非监督簇评估：近邻矩阵</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-44f038f80f34a68d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_16.png"></p>
-<p>可以使用某个距离度量法来度量相似度，得到每个点的距离，汇总得到近邻矩阵。但是仅使用于小数据、抽样。</p>
-<h4 id="（4）簇个数"><a href="#（4）簇个数" class="headerlink" title="（4）簇个数"></a>（4）簇个数</h4><p><img src="http://upload-images.jianshu.io/upload_images/3341358-2f29fe272a86189f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_17.png"></p>
-<p>使用 SSE 和轮廓系数来判断，统计上的 SSE 的说明性更强，统计上不止这一个系数可以分类。</p>
-<h4 id="（5）聚类趋势"><a href="#（5）聚类趋势" class="headerlink" title="（5）聚类趋势"></a>（5）聚类趋势</h4><p>度量空间中的点是否为随机分布的，使用Hopkins统计量：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3341358-fc559a752d89a1cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="8_18.png"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、概述&quot;&gt;&lt;a href=&quot;#一、概述&quot; class=&quot;headerlink&quot; title=&quot;一、概述&quot;&gt;&lt;/a&gt;一、概述&lt;/h3&gt;&lt;h4 id=&quot;（1）聚类分析&quot;&gt;&lt;a href=&quot;#（1）聚类分析&quot; class=&quot;headerlink&quot; title=&quot;（1）聚类分析&quot;&gt;&lt;/a&gt;（1）聚类分析&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;目标是，分组数据使得，组内的对象是相似的（相关的），不同组是不同的（不相关的）。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;（2）聚类类型&quot;&gt;&lt;a href=&quot;#（2）聚类类型&quot; class=&quot;headerlink&quot; title=&quot;（2）聚类类型&quot;&gt;&lt;/a&gt;（2）聚类类型&lt;/h4&gt;&lt;h5 id=&quot;1、层次、划分&quot;&gt;&lt;a href=&quot;#1、层次、划分&quot; class=&quot;headerlink&quot; title=&quot;1、层次、划分&quot;&gt;&lt;/a&gt;1、层次、划分&lt;/h5&gt;&lt;p&gt;层次聚类（嵌套聚类，hierarchial clustering）：聚类簇组织成一棵树，每一个结点是其子女的并。&lt;br&gt;划分聚类（非嵌套聚类，partional clustering）：简单的将数据对象划分为不重叠的子集。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据挖掘" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据挖掘导论" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AF%BC%E8%AE%BA/"/>
-    
-      <category term="聚类算法" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   

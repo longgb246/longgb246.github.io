@@ -296,7 +296,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/25/python_matplotlib_style/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/hive_hadoop_example/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -321,8 +321,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/25/python_matplotlib_style/" itemprop="url">
-                  matplotlib 画图风格
+                <a class="post-title-link" href="/2017/01/22/hive_hadoop_example/" itemprop="url">
+                  例子
                 </a>
               
             
@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-25T20:37:00+08:00">
-                2016-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T20:35:00+08:00">
+                2017-01-22
               </time>
             
 
@@ -361,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Hive-Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive&Hadoop</span>
                   </a>
                 </span>
 
@@ -379,8 +379,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/12/25/python_matplotlib_style/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/25/python_matplotlib_style/" itemprop="commentCount"></span>
+                <a href="/2017/01/22/hive_hadoop_example/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/22/hive_hadoop_example/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,10 +407,10 @@
 
       
         
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import matplotlib.style as mstyle</div><div class="line">print mstyle.available</div><div class="line">plt.style.use(&apos;seaborn-darkgrid&apos;)</div></pre></td></tr></table></figure>
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE dev.tmp_check_sku_20161202</div><div class="line">AS</div><div class="line">SELECT</div><div class="line">    a.item_sku_id,</div><div class="line">    b.sku_id</div><div class="line">FROM</div><div class="line">    (SELECT item_sku_id,dt</div><div class="line">    FROM </div><div class="line">    gdm.gdm_m03_item_sku_da</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    AND sku_valid_flag=1) A</div><div class="line">    FULL OUTER JOIN</div><div class="line">    (SELECT sku_id,dt</div><div class="line">    FROM gdm.gdm_m08_item_stock_day_sum</div><div class="line">    WHERE dt= &apos;2016-10-08&apos;</div><div class="line">    ) B</div><div class="line">    ON  a.item_sku_id=b.sku_id</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/12/25/python_matplotlib_style/#more" rel="contents">
+            <a class="btn" href="/2017/01/22/hive_hadoop_example/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -451,7 +451,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/25/python_matplotlib_Chinese/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/22/hive_hadoop_base/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -476,8 +476,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/25/python_matplotlib_Chinese/" itemprop="url">
-                  matplotlib 使用中文
+                <a class="post-title-link" href="/2017/01/22/hive_hadoop_base/" itemprop="url">
+                  基本命令
                 </a>
               
             
@@ -493,8 +493,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-25T20:36:00+08:00">
-                2016-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T20:34:00+08:00">
+                2017-01-22
               </time>
             
 
@@ -516,8 +516,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/Hive-Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive&Hadoop</span>
                   </a>
                 </span>
 
@@ -534,8 +534,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/12/25/python_matplotlib_Chinese/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/25/python_matplotlib_Chinese/" itemprop="commentCount"></span>
+                <a href="/2017/01/22/hive_hadoop_base/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/22/hive_hadoop_base/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -562,11 +562,11 @@
 
       
         
-          <h3 id="一、颜色调整"><a href="#一、颜色调整" class="headerlink" title="一、颜色调整"></a>一、颜色调整</h3><p>绿色：#6AB27B<br>土色：#a27712<br>浅紫色：#8172B2<br>蓝色：#4C72B0<br>红色：#C44E52</p>
-<h3 id="二、使用中文"><a href="#二、使用中文" class="headerlink" title="二、使用中文"></a>二、使用中文</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from pylab import mpl</div><div class="line">mpl.rcParams[&apos;font.sans-serif&apos;] = [&apos;SimHei&apos;]        # 使用中文</div><div class="line">mpl.rcParams[&apos;axes.unicode_minus&apos;] = False    # 解决负号问题</div></pre></td></tr></table></figure>
+          <h3 id="1、设置动态分区"><a href="#1、设置动态分区" class="headerlink" title="1、设置动态分区"></a>1、设置动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.dynamic.partition=true;</div><div class="line">set hive.exec.dynamic.partition.mode=nonstrict;</div></pre></td></tr></table></figure>
+<h3 id="2、设置最大动态分区"><a href="#2、设置最大动态分区" class="headerlink" title="2、设置最大动态分区"></a>2、设置最大动态分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set hive.exec.max.dynamic.partitions=2000;</div><div class="line">set hive.exec.max.dynamic.partitions.pernode=2000;</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/12/25/python_matplotlib_Chinese/#more" rel="contents">
+            <a class="btn" href="/2017/01/22/hive_hadoop_base/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -607,7 +607,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/25/python_chardet/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/14/python_virtualenv/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -632,8 +632,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/25/python_chardet/" itemprop="url">
-                  chardet 模块 编码检测
+                <a class="post-title-link" href="/2017/01/14/python_virtualenv/" itemprop="url">
+                  virtualenv 模块 虚拟环境
                 </a>
               
             
@@ -649,8 +649,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-25T20:35:00+08:00">
-                2016-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-14T20:34:00+08:00">
+                2017-01-14
               </time>
             
 
@@ -690,8 +690,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/12/25/python_chardet/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/25/python_chardet/" itemprop="commentCount"></span>
+                <a href="/2017/01/14/python_virtualenv/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/14/python_virtualenv/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -718,10 +718,11 @@
 
       
         
-          <h3 id="一、基本用法"><a href="#一、基本用法" class="headerlink" title="一、基本用法"></a>一、基本用法</h3><h4 id="使用detect函数"><a href="#使用detect函数" class="headerlink" title="使用detect函数"></a>使用<code>detect</code>函数</h4><p>输入字符串，输出检测的编码和置信度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import urllib</div><div class="line">rawdata = urllib.urlopen(&apos;http://yahoo.co.jp/&apos;).read()</div><div class="line">import chardet</div><div class="line">chardet.detect(rawdata)</div><div class="line"></div><div class="line">[out] &#123;&apos;encoding&apos;: &apos;EUC-JP&apos;, &apos;confidence&apos;: 0.99&#125;</div></pre></td></tr></table></figure></p>
+          <h3 id="1、安装virtualenv"><a href="#1、安装virtualenv" class="headerlink" title="1、安装virtualenv"></a>1、安装virtualenv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div></pre></td></tr></table></figure>
+<h3 id="2、进入到某个文件夹"><a href="#2、进入到某个文件夹" class="headerlink" title="2、进入到某个文件夹"></a>2、进入到某个文件夹</h3><h6 id="创建纯净python2环境"><a href="#创建纯净python2环境" class="headerlink" title="创建纯净python2环境"></a>创建纯净python2环境</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir workspace</div><div class="line">cd workspace</div><div class="line">virtualenv python2</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/12/25/python_chardet/#more" rel="contents">
+            <a class="btn" href="/2017/01/14/python_virtualenv/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -762,7 +763,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/25/python_ANSII/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/12/python_python-dcox/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -787,8 +788,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/12/25/python_ANSII/" itemprop="url">
-                  ANSII码和进制转换
+                <a class="post-title-link" href="/2017/01/12/python_python-dcox/" itemprop="url">
+                  python-dcox 模块 生成Word、docx文件
                 </a>
               
             
@@ -804,8 +805,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-25T20:34:00+08:00">
-                2016-12-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T20:36:00+08:00">
+                2017-01-12
               </time>
             
 
@@ -845,8 +846,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/12/25/python_ANSII/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/25/python_ANSII/" itemprop="commentCount"></span>
+                <a href="/2017/01/12/python_python-dcox/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/12/python_python-dcox/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -873,11 +874,11 @@
 
       
         
-          <h3 id="一、进制转换"><a href="#一、进制转换" class="headerlink" title="一、进制转换"></a>一、进制转换</h3><p>bin()：其他进制数值 —&gt; 二进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[10=&gt;2]: bin(10)  </div><div class="line">[8 =&gt;2]: bin(012)   </div><div class="line">[16=&gt;2]: bin(0xa)</div></pre></td></tr></table></figure></p>
-<p>oct()：其他进制数值 —&gt; 八进制字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[10=&gt;8]: oct(10) </div><div class="line">[2 =&gt;8]: oct(0b1010)  </div><div class="line">[16=&gt;8]: oct(0xa)</div></pre></td></tr></table></figure></p>
+          <p><a href="http://python-docx.readthedocs.io/en/latest/index.html">http://python-docx.readthedocs.io/en/latest/index.html</a><br>生成word的利器！</p>
+<h2 id="一、快速开始"><a href="#一、快速开始" class="headerlink" title="一、快速开始"></a>一、快速开始</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from docx import Document</div><div class="line">document = Document()</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/12/25/python_ANSII/#more" rel="contents">
+            <a class="btn" href="/2017/01/12/python_python-dcox/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -918,7 +919,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/19/advanced_statistics/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/12/python_pickle/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="longgb246">
@@ -943,8 +944,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/19/advanced_statistics/" itemprop="url">
-                  Advanced Statistics
+                <a class="post-title-link" href="/2017/01/12/python_pickle/" itemprop="url">
+                  pickle 模块 序列化
                 </a>
               
             
@@ -960,8 +961,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-19T20:35:00+08:00">
-                2016-11-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T20:35:00+08:00">
+                2017-01-12
               </time>
             
 
@@ -983,8 +984,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/统计理论/" itemprop="url" rel="index">
-                    <span itemprop="name">统计理论</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -1001,8 +1002,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/11/19/advanced_statistics/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/19/advanced_statistics/" itemprop="commentCount"></span>
+                <a href="/2017/01/12/python_pickle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/12/python_pickle/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1029,10 +1030,10 @@
 
       
         
-          <h1 id="Advanced-Statistics"><a href="#Advanced-Statistics" class="headerlink" title="Advanced Statistics"></a>Advanced Statistics</h1><h3 id="Transformations-of-Random-Variables"><a href="#Transformations-of-Random-Variables" class="headerlink" title="Transformations of Random Variables"></a>Transformations of Random Variables</h3><p>Let me set the example;<br>You have two independant random variables $X$ with pdf $f_{X}(x)$ and $Y$ with pdf $f_{Y}(y)$.<br>You will have a new random variable $Z$, where $Z=X-Y$, and say we want to calculate the marginal pdf of $Z$.<br>
+          <p>使用pickle模块将数据对象保存到文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import pickle</div><div class="line"> </div><div class="line">data1 = &#123;&apos;a&apos;: [1, 2.0, 3, 4+6j],</div><div class="line">         &apos;b&apos;: (&apos;string&apos;, u&apos;Unicode string&apos;),</div><div class="line">         &apos;c&apos;: None&#125;</div><div class="line"> </div><div class="line">selfref_list = [1, 2, 3]</div><div class="line">selfref_list.append(selfref_list)</div><div class="line"> </div><div class="line">output = open(&apos;data.pkl&apos;, &apos;wb&apos;)</div><div class="line"> </div><div class="line"># Pickle dictionary using protocol 0.</div><div class="line">pickle.dump(data1, output)</div><div class="line"> </div><div class="line"># Pickle the list using the highest protocol available.</div><div class="line">pickle.dump(selfref_list, output, -1)</div><div class="line"> </div><div class="line">output.close()</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2016/11/19/advanced_statistics/#more" rel="contents">
+            <a class="btn" href="/2017/01/12/python_pickle/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1068,7 +1069,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1111,7 +1112,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
